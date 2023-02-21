@@ -333,6 +333,8 @@ namespace ET
                 {
                     this.IsCreated = true;
                     EventSystem.Instance.Deserialize(this);
+                    // gaiguo
+                    EventSystem.Instance.EnableSystem(this);
                 }
             }
         }

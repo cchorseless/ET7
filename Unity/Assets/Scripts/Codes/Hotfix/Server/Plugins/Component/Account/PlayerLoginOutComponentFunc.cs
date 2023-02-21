@@ -101,7 +101,6 @@ namespace ET.Server
             {
                 await character.Save();
                 player.Dispose();
-                Log.Debug("player log out => " + player.Account);
                 Log.Console("player log out => " + player.Account);
             }
         }
