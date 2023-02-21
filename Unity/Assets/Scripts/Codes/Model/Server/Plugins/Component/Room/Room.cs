@@ -2,7 +2,7 @@
 
 namespace ET
 {
-    public class Room : Entity, IAwake, IDestroy
+    public class Room: Entity, IAwake, IDestroy
     {
         // 处在这个Room的单位
         public Dictionary<long, RoomEntity> AOIUnits { get; set; } = new Dictionary<long, RoomEntity>();

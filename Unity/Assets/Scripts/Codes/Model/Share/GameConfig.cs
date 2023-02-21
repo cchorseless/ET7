@@ -102,7 +102,6 @@ namespace ET
         public const string Authorization = "Authorization";
         public const string AuthSecret = "wIkOFc3QwBmwwefDKPgxeIele7JuQygD";
         public const string CustomAuthorization = "CustomAuthorization";
-        public const string DotaDedicatedServerKeyV2 = "wIkOFc3QwBmwwefDKPgxeIele7JuQygD";
 
     }
 }

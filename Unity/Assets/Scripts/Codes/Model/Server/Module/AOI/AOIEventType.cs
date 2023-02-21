@@ -2,16 +2,16 @@
 {
 	namespace EventType
 	{
-		public struct UnitEnterRoom
+		public struct UnitEnterSightRange
 		{
-			public RoomEntity A;
-			public RoomEntity B;
+			public AOIEntity A;
+			public AOIEntity B;
 		}
 
-		public struct UnitLeaveRoom
+		public struct UnitLeaveSightRange
 		{
-			public RoomEntity A;
-			public RoomEntity B;
+			public AOIEntity A;
+			public AOIEntity B;
 		}
 	}
 }

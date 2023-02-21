@@ -104,7 +104,6 @@ namespace ET.Server
                 Log.Debug("player log out => " + player.Account);
                 Log.Console("player log out => " + player.Account);
             }
-            await ETTask.CompletedTask;
         }
 
     }

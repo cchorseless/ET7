@@ -44,7 +44,7 @@ namespace ET.Server
                 bool isAutoRegiste = GameConfig.AutoRegisteAccount;
                 if (isAutoRegiste)
                 {
-                    string Salt = MD5Helper.GetMD5(key + HttpConfig.DotaDedicatedServerKeyV2);
+                    string Salt = MD5Helper.GetMD5(key + ConstValue.DotaDedicatedServerKeyV2);
                     if (!request.Password.Contains(Salt))
                     {
                         response.Error = ErrorCode.ERR_LoginError;
@@ -73,7 +73,7 @@ namespace ET.Server
             }
             else
             {
-                if (MD5Helper.GetMD5(key + HttpConfig.DotaDedicatedServerKeyV2 + newAccount.Password) != request.Password ||
+                if (MD5Helper.GetMD5(key + ConstValue.DotaDedicatedServerKeyV2 + newAccount.Password) != request.Password ||
                     newAccount.GmLevel > (int)EGmPlayerRole.GmRole_PlayerGm)
                 {
                     response.Error = ErrorCode.ERR_LoginError;

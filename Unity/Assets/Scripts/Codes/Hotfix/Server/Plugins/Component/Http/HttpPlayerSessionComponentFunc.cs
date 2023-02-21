@@ -13,9 +13,7 @@ namespace ET.Server
             long instanceId = self.InstanceId;
             while (self.InstanceId == instanceId)
             {
-                Log.Console("CheckHttpLogOut 11111111");
                 await TimerComponent.Instance.WaitAsync(GameConfig.HttpPlayerOnlineCheckInterval);
-                Log.Console("CheckHttpLogOut 22222222 ");
                 if (self.IsDisposed)
                 {
                     return;
@@ -33,10 +31,7 @@ namespace ET.Server
                 }
                 else
                 {
-                    Log.Console("KnockOutGate 11111111");
-                    player.IsOnline = false;
-                    await player.GetComponent<PlayerLoginOutComponent>().LogOutCharacter();
-                    Log.Console("KnockOutGate 22222222");
+                    await player.GetComponent<PlayerLoginOutComponent>().KnockOutGate();
                     return;
                 }
             }
