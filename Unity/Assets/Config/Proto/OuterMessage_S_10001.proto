@@ -1,0 +1,173 @@
+syntax = "proto3";
+package ET;
+
+message HttpGetRouterResponse
+{
+	repeated string Realms = 1;
+	repeated string Routers = 2;
+}
+
+message RouterSync
+{
+	uint32 ConnectId = 1;
+	string Address = 2;
+}
+
+//ResponseType Actor_TransferResponse
+message Actor_TransferRequest // IActorLocationRequest
+{
+	int32 RpcId = 90;
+	int32 MapIndex = 1;
+}
+
+message Actor_TransferResponse // IActorLocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+message Actor_SyncEntity // IActorMessage
+{
+	bytes Entity = 2;
+}
+
+message Actor_RemoveEntity // IActorMessage
+{
+	repeated	string EntityId = 1;
+	repeated	string EntityType = 2;
+}
+
+message Actor_SyncEntityProps // IActorMessage
+{
+	bytes EntityProps = 3;
+}
+
+//ResponseType G2C_Ping
+message C2G_Ping // IRequest
+{
+	int32 RpcId = 90;
+}
+
+message G2C_Ping // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	int64 Time = 1;
+}
+
+//ResponseType G2C_Benchmark
+message C2G_Benchmark // IRequest
+{
+	int32 RpcId = 1;
+}
+
+message G2C_Benchmark // IResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+}
+
+message MoveInfo
+{
+	repeated Unity.Mathematics.float3 Points = 1;
+	Unity.Mathematics.quaternion Rotation = 2;
+	int32 TurnSpeed = 3;
+}
+
+message UnitInfo
+{
+	int64 UnitId = 1;
+	int32 ConfigId = 2;
+	int32 Type = 3;
+	Unity.Mathematics.float3 Position = 4;
+	Unity.Mathematics.float3 Forward = 5;
+	map<int32, int64> KV = 6;
+	MoveInfo MoveInfo = 7;
+}
+
+message M2C_CreateUnits // IActorMessage
+{
+	repeated UnitInfo Units = 2;
+}
+
+message M2C_CreateMyUnit // IActorMessage
+{
+	UnitInfo Unit = 1;
+}
+
+
+message M2C_RemoveUnits // IActorMessage
+{
+	repeated int64 Units = 2;
+}
+
+message M2C_StartSceneChange // IActorMessage
+{
+	int64 SceneInstanceId = 1;
+	string SceneName = 2;
+}
+
+//ResponseType M2C_TransferMap
+message C2M_TransferMap // IActorLocationRequest
+{
+	int32 RpcId = 1;
+}
+
+message M2C_TransferMap // IActorLocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+message C2M_Stop // IActorLocationMessage
+{
+	int32 RpcId = 90;
+}
+
+message M2C_Stop // IActorMessage
+{
+	int32 Error = 1;
+	int64 Id = 2;
+	Unity.Mathematics.float3 Position = 3;
+	Unity.Mathematics.quaternion Rotation = 4;
+}
+
+message C2M_PathfindingResult // IActorLocationMessage
+{
+	int32 RpcId = 1;
+	Unity.Mathematics.float3 Position = 2;
+}
+
+message M2C_PathfindingResult // IActorMessage
+{
+	int64 Id = 1;
+	Unity.Mathematics.float3 Position = 2;
+	repeated Unity.Mathematics.float3 Points = 3;
+}
+
+//ResponseType G2C_CreatePayOrder
+message C2G_CreatePayOrder // IRequest
+{
+	int32 RpcId = 90;
+	int32 PayType = 91;
+	int32 Money = 92;
+	string Title = 93;
+	string Label = 94;
+}
+
+message G2C_CreatePayOrder // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+
+
+
+

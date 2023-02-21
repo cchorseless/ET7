@@ -1,0 +1,4 @@
+{"list":[
+{"_t":"CommonConfig","_id":1001,"Name":"米克尔","Desc":"1"},
+{"_t":"CommonConfig","_id":1002,"Name":"","Desc":"1"},
+]}

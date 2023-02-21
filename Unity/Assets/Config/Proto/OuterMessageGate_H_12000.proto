@@ -1,0 +1,178 @@
+syntax = "proto3";
+package ET;
+
+message G2C_Test // IMessage
+{
+}
+
+message G2C_TestHotfixMessage // IMessage
+{
+	string Info = 1;
+}
+
+//ResponseType G2C_LoginGate
+message C2G_LoginGate // IRequest
+{
+	int32 RpcId = 90;
+	int64 Key = 1;  // 帐号
+	int64 GateId = 2;
+	int64 UserId = 3;
+	int32 ServerId = 4; // 服务器ID
+}
+
+message G2C_LoginGate // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	int64  PlayerId = 1;
+}
+
+//ResponseType G2C_GetCharacter
+message C2G_GetCharacter // IRequest
+{
+	int32 RpcId = 90;
+}
+
+message G2C_GetCharacter // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	repeated NCharacterInfo Characters = 1;
+	int32 Index = 2;
+}
+
+message NCharacterInfo // IMessage
+{
+	string Name = 1;
+	int32 Gender = 2;
+	int32 CharacterClass = 3;
+	int64 Gold = 4;
+	int32 Gem = 5;
+	int32 Level = 6;
+}
+
+
+//ResponseType G2C_CharacterCreate
+message C2G_CharacterCreate // IRequest
+{
+	int32 RpcId = 90;
+	int32 Index = 1;
+	string CharacterName = 2;
+	int32 CharacterClass = 3;
+	int32 Gender = 4;
+}
+
+message G2C_CharacterCreate // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	int32 Index = 1;
+	NCharacterInfo Characters = 2;
+}
+
+
+//ResponseType G2C_EnterMap
+message C2G_EnterMap // IRequest
+{
+	int32 RpcId = 90;
+	int32 Index = 1;
+}
+
+message G2C_EnterMap // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 3;
+	// 自己unitId
+	int64 MyId = 4;
+}
+
+//ResponseType G2C_EnterGame
+message C2G_EnterGame // IRequest
+{
+	int32 RpcId = 90;
+	int32 Index = 1;
+}
+
+message G2C_EnterGame // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 3;
+	// 自己unitId
+	int64 MyId = 4;
+}
+
+
+//ResponseType G2C_CreateRoom
+message C2G_CreateRoom // IRequest
+{
+	int32 RpcId = 90;
+	int32 RoomType = 1;
+}
+
+message G2C_CreateRoom // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	int64 RoomId = 1;
+}
+
+
+//ResponseType G2C_EnterRoom
+message C2G_EnterRoom // IRequest
+{
+	int32 RpcId = 90;
+	int64 RoomId = 1;
+}
+
+message G2C_EnterRoom // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	int64 RoomId = 1;
+}
+
+//ResponseType G2C_LeaveRoom
+message C2G_LeaveRoom // IRequest
+{
+	int32 RpcId = 90;
+	int64 RoomId = 1;
+}
+
+message G2C_LeaveRoom // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+message G2C_KnockOutClient // IMessage
+{
+	string Info = 1;
+}
+
+//ResponseType G2C_ReLoginGate
+message C2G_ReLoginGate // IRequest
+{
+	int32 RpcId = 90;
+	int64 Key = 1;  // 帐号
+	int64 GateId = 2;
+	int64 UserId = 3;
+	int32 ServerId = 4; // 服务器ID
+	string  Account = 5;  // 帐号
+	string  Password = 6;  // 密码
+}
+
+message G2C_ReLoginGate // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	int64  PlayerId = 1;
+}

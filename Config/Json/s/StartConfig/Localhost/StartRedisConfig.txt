@@ -1,0 +1,4 @@
+{"list":[
+{"_t":"StartRedisConfig","_id":1,"DBConnection":"127.0.0.1:6379","DBName":"Redis1"},
+{"_t":"StartRedisConfig","_id":2,"DBConnection":"127.0.0.1:6379","DBName":"Redis2"},
+]}

@@ -1,0 +1,23 @@
+syntax = "proto3";
+package ET;
+
+
+//ResponseType M2G_AgainLogin
+message G2M_AgainLogin // IActorLocationRequest
+{
+    int32 RpcId = 90;
+    bool IsKnockOut = 91;
+    int64 ActorId = 93;
+}
+
+message M2G_AgainLogin // IActorLocationResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+}
+
+message G2M_SessionDisconnect // IActorLocationMessage
+{
+	int32 RpcId = 90;
+}

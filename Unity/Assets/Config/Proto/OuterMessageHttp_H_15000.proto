@@ -1,0 +1,358 @@
+syntax = "proto3";
+package ET;
+
+message H2C_CommonResponse // IResponse
+{
+  int32 RpcId = 90;
+  int32 Error = 91;
+  string Message = 92;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_GetServerZoneInfo // IRequest
+{
+  int32  RpcId = 90;
+  int32  ServerId = 2;
+}
+
+
+message ServerInfo // IMessage
+{
+	string ServerName = 1;
+	int32 ServerID = 2;
+	int32 ZoneID = 3;
+	repeated int32 State = 4;
+}
+
+message H2C_GetServerList // IResponse
+{
+  int32 RpcId = 90;
+  int32 Error = 91;
+  string Message = 92;
+  repeated ServerInfo ServerList = 93;
+}
+
+message H2C_GetServerNotice // IResponse
+{
+  int32 RpcId = 90;
+  int32 Error = 91;
+  string Message = 92;
+}
+
+//ResponseType H2C_GetServerUrl
+message C2H_GetServerUrl // IRequest
+{
+  int32  RpcId = 90;
+  int32  ZoneId = 1;
+  int32  ServerId = 2;
+}
+
+message H2C_GetServerUrl // IResponse
+{
+  int32 RpcId = 90;
+  int32 Error = 91;
+  string Message = 92;
+  string Ip = 93;
+  int32 Port = 94;
+}
+
+//ResponseType H2C_GetAccountLoginKey
+message C2H_GetAccountLoginKey // IRequest
+{
+  int32  RpcId = 90;
+  string  Account = 1;
+}
+
+message H2C_GetAccountLoginKey // IResponse
+{
+  int32 RpcId = 90;
+  int32 Error = 91;
+  string Message = 92;
+  string Key = 93;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_SetServerKey // IRequest
+{
+  int32  RpcId = 90;
+  string  ServerKey = 1;
+  string  Name = 2;
+  string  Label = 3;
+}
+//ResponseType H2C_CommonResponse
+message C2H_CreateGameRecord // IRequest
+{
+  int32  RpcId = 90;
+  repeated string  Players = 1;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_UploadGameRecord // IRequest
+{
+  int32  RpcId = 90;
+  repeated string  Keys = 1;
+  repeated string  Values = 2;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_UploadCharacterGameRecord // IRequest
+{
+  int32  RpcId = 90;
+  repeated string  Keys = 1;
+  repeated string  Values = 2;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_GetPrize_ActivitySevenDayLogin // IRequest
+{
+  int32  RpcId = 90;
+  int32  Day = 1;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_GetPrize_ActivityMonthLogin // IRequest
+{
+  int32  RpcId = 90;
+  int32  Day = 1;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_GetPrize_ActivityMonthTotalLogin // IRequest
+{
+  int32  RpcId = 90;
+  int32  Day = 1;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_GetPrize_ActivityBattlePass // IRequest
+{
+  int32  RpcId = 90;
+  int32  Level = 1;
+  bool  IsVip = 2;
+  bool  IsOneKeyGetPrize = 3;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_GetPrize_ActivityDailyOnlinePrize // IRequest
+{
+  int32  RpcId = 90;
+  int32  PrizeIndex = 1;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_GetPrize_ActivityTotalGainMetaStone // IRequest
+{
+  int32  RpcId = 90;
+  int32  PrizeIndex = 1;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_GetPrize_ActivityTotalOnlineTime // IRequest
+{
+  int32  RpcId = 90;
+  int32  PrizeIndex = 1;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_GetPrize_ActivityTotalSpendMetaStone // IRequest
+{
+  int32  RpcId = 90;
+  int32  PrizeIndex = 1;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_GetPrize_ActivityInvestMetaStone // IRequest
+{
+  int32  RpcId = 90;
+  int32  MetaStone = 1;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_GetPrize_ActivityGiftCommond // IRequest
+{
+  int32  RpcId = 90;
+  int32  GiftConfigId = 1;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_Buy_ActivityBattlePass // IRequest
+{
+  int32  RpcId = 90;
+  int32  PayType = 2;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_Buy_ActivityMemberShip // IRequest
+{
+  int32  RpcId = 90;
+  int32  BuyType = 1;
+  int32  PayType = 2;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_Recharge_MetaStone // IRequest
+{
+  int32  RpcId = 90;
+  int32  BuyType = 1;
+  int32  PayType = 2;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_Handle_CharacterMail // IRequest
+{
+  int32  RpcId = 90;
+  int32  HandleType = 1;
+  bool  IsOneKey = 2;
+  string MailId = 3;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_DrawTreasure // IRequest
+{
+  int32  RpcId = 90;
+  int32  TreasureConfigId = 1;
+  int32  TreasureCount = 2;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_CurRankDataInfo // IRequest
+{
+  int32  RpcId = 90;
+  int32  RankType = 1;
+  int32  HeroConfigId = 2;
+  int32  Page = 3;
+  int32  PerPageCount = 4;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_CharacterRankDataInfo // IRequest
+{
+  int32  RpcId = 90;
+  int32  RankType = 1;
+  int32  HeroConfigId = 2;
+  string  CharacterId = 4;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_Buy_ShopItem // IRequest
+{
+  int32  RpcId = 90;
+  int32  ShopConfigId = 1;
+  int32  SellConfigId = 2;
+  int32  PriceType = 3;
+  int32  ItemCount = 4;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_Use_BagItem // IRequest
+{
+  int32  RpcId = 90;
+  string  ItemId = 2;
+  int32  ItemCount = 4;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_MergeBagEquip // IRequest
+{
+  int32  RpcId = 90;
+  repeated  string  ItemId = 2;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_ReplaceEquipProps // IRequest
+{
+  int32  RpcId = 90;
+  string  ItemId = 1;
+  string  ItemPropId = 2;
+  string  CostItemId = 3;
+  string  CostItemPropId = 4;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_Use_AddHeroLevelByComHeroExp // IRequest
+{
+  int32  RpcId = 90;
+  int32  HeroId = 4;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_Save_AddHeroBanDesign // IRequest
+{
+  int32  RpcId = 90;
+  int32  Slot = 4;
+	repeated int32 BanHeroList = 1;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_ChangeHeroDressEquipState // IRequest
+{
+  int32  RpcId = 90;
+  int32  Slot = 1;
+	string EquipId = 2;
+  bool IsDressUp = 3;
+  int32  HeroId = 4;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_ChangeHeroTalentState // IRequest
+{
+  int32  RpcId = 90;
+  int32  TalentLevel = 1;
+	int32  TalentIndex = 2;
+  bool   IsLearn = 3;
+  int32  HeroId = 4;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_ChangeCharacterTitleState // IRequest
+{
+  int32  RpcId = 90;
+  int32  TitleConfigId = 1;
+  bool   IsDress = 3;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_GetPrize_AchieveMentPrize // IRequest
+{
+  int32  RpcId = 90;
+  int32  AchieveMentConfigId = 1;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_ChangeDailyTaskState // IRequest
+{
+  int32  RpcId = 90;
+  string  TaskId = 1;
+  bool  isDropTask = 2;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_GetPrize_TaskPrize // IRequest
+{
+  int32  RpcId = 90;
+  string  TaskId = 1;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_Mentorship_ApplyForMaster // IRequest
+{
+  int32  RpcId = 90;
+  string  MasterX64str = 1;
+  string  ApplyMessage = 2;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_Mentorship_DropTree // IRequest
+{
+  int32  RpcId = 90;
+  string  EntityId = 1;
+  bool  IsMaster = 2;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_Mentorship_ChangeApplyState // IRequest
+{
+  int32  RpcId = 90;
+  string  EntityId = 1;
+  bool  IsAgree = 2;
+}

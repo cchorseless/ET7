@@ -1,0 +1,41 @@
+syntax = "proto3";
+package ET;
+
+
+//ResponseType M2C_TestResponse
+message C2M_TestRequest // IActorLocationRequest
+{
+	int32 RpcId = 90;
+	string request = 1;
+}
+
+message M2C_TestResponse // IActorLocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	string response = 1;
+}
+
+//ResponseType M2C_TestRobotCase
+message C2M_TestRobotCase // IActorLocationRequest
+{
+	int32 RpcId = 90;
+	int32 N = 1;
+}
+
+message M2C_TestRobotCase // IActorLocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	int32 N = 1;
+}
+
+message M2C_AgainLogin // IActorLocationMessage
+{
+    int32 RpcId = 90;
+    int64 ActorId = 93;
+}
+
+

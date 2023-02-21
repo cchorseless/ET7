@@ -1,0 +1,292 @@
+syntax = "proto3";
+package ET;
+
+//ResponseType G2C_GMRegiste
+message C2G_GMRegiste // IRequest
+{
+  int32 RpcId = 90;
+  string  Account = 1;  // 帐号
+  string  Password = 2;  // 密码
+  int32   GmLevel = 3;
+  string  Des = 4;
+  repeated string Routes = 5;
+}
+
+message G2C_GMRegiste // IResponse
+{
+  int32 RpcId = 90;
+  int32 Error = 91;
+  string Message = 92;
+}
+
+//ResponseType R2C_GMLogin
+message C2R_GMLogin // IRequest
+{
+	int32 RpcId = 90;
+	string  Account = 1;  // 帐号
+	string  Password = 2;  // 密码
+}
+
+message R2C_GMLogin // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	string Address = 1;
+	int64 Key = 2;
+	int64 GateId = 3;
+	int64 UserId = 4;
+}
+
+//ResponseType G2C_GMLoginGate
+message C2G_GMLoginGate // IRequest
+{
+	int32 RpcId = 90;
+	int64 Key = 1;  // 帐号
+	int64 GateId = 2;
+	int64 UserId = 3;
+}
+
+message G2C_GMLoginGate // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	int64  PlayerId = 1;
+}
+
+//ResponseType G2C_GMEnterGame
+message C2G_GMEnterGame // IRequest
+{
+	int32 RpcId = 90;
+	int32 Index = 1;
+}
+
+message G2C_GMEnterGame // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 3;
+	// 自己unitId
+	int64 MyId = 4;
+}
+
+//ResponseType G2C_GMProcessEdit
+message C2G_GMProcessEdit // IRequest
+{
+	int32 RpcId = 90;
+	int32 ProcessId = 91;
+	// 0 reload 1 ReStart 2 Start 3 ShutDown
+	int32 OperateType = 1;
+}
+
+message G2C_GMProcessEdit // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+
+//ResponseType G2C_GMGetProcessState
+message C2G_GMGetProcessState // IRequest
+{
+	int32 RpcId = 90;
+}
+
+message G2C_GMGetProcessState // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//ResponseType G2C_GMGetLogDBInfo
+message C2G_GMGetLogDBInfo // IRequest
+{
+	int32 RpcId = 90;
+}
+
+message G2C_GMGetLogDBInfo // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	string Ip = 1;
+	string Port = 2;
+	string DbName = 3;
+}
+
+//ResponseType G2C_GMSearchLog
+message C2G_GMSearchLog // IRequest
+{
+	int32 RpcId = 90;
+	int32 StartTime = 1;
+	int32 EndTime = 2;
+	string Title = 3;
+	int32 LogLevel = 4;
+	string Label = 5;
+	string ProcessId = 6;
+	int32 PageCount = 7;
+	int32 PageIndex = 8;
+}
+
+message G2C_GMSearchLog // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	repeated string SearchResult = 1;
+	int32 SearchCount = 2;
+
+}
+
+//ResponseType G2C_GMIgnoreErrorLog
+message C2G_GMIgnoreErrorLog // IRequest
+{
+	int32 RpcId = 90;
+	string LogId = 91;
+	int32 LogTime = 92;
+	string LogProcess = 93;
+}
+
+message G2C_GMIgnoreErrorLog // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//ResponseType G2C_GMChangePassword
+message C2G_GMChangePassword // IRequest
+{
+	int32 RpcId = 90;
+	string OldPassWord = 1;
+	string NewPassWord = 2;
+
+}
+
+message G2C_GMChangePassword // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//ResponseType G2C_GMGetAccountRoleInfo
+message C2G_GMGetAccountRoleInfo // IRequest
+{
+	int32 RpcId = 90;
+}
+
+message G2C_GMGetAccountRoleInfo // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//ResponseType G2C_GMEditAccount
+message C2G_GMEditAccount // IRequest
+{
+  int32 RpcId = 90;
+  string  Account = 1;  // 帐号
+  int32   Operate = 2;  // 0update 1resertpassword 2delete
+  int32   GmLevel = 3;
+  string  Des = 4;
+  repeated string Routes = 5;
+}
+
+message G2C_GMEditAccount // IResponse
+{
+  int32 RpcId = 90;
+  int32 Error = 91;
+  string Message = 92;
+}
+
+//ResponseType G2C_GMAddNewServerNotice
+message C2G_GMAddNewServerNotice // IRequest
+{
+	int32 RpcId = 90;
+  	string NOTICE = 92;
+  	int32 OperateTime = 94;
+}
+
+message G2C_GMAddNewServerNotice  // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//ResponseType G2C_GMGetServerZoneInfo
+message C2G_GMGetServerZoneInfo // IRequest
+{
+	int32 RpcId = 90;
+}
+
+message G2C_GMGetServerZoneInfo  // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//ResponseType G2C_GMSearchServerZone
+message C2G_GMSearchServerZone // IRequest
+{
+	int32 RpcId = 90;
+	int32 ZoneId = 91;
+  	int32 ServerLabel = 92;
+  	int32 State = 93;
+	int32 PageCount = 7;
+	int32 PageIndex = 8;
+}
+
+message G2C_GMSearchServerZone  // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	repeated string SearchResult = 1;
+	int32 SearchCount = 2;
+}
+
+
+//ResponseType G2C_GMAddNewServerZone
+message C2G_GMAddNewServerZone // IRequest
+{
+	int32 RpcId = 90;
+	int32 ZoneId = 91;
+  	string ServerName = 92;
+  	int32 ServerLabel = 93;
+  	int32 OperateTime = 94;
+
+}
+
+message G2C_GMAddNewServerZone  // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//ResponseType G2C_GMEditServerZone
+message C2G_GMEditServerZone // IRequest
+{
+	int32 RpcId = 90;
+	int32 State = 91;
+  	int64 ServerId = 92;
+  	int32 OperateType = 93; // 0update 1start 2stop
+  	int32 OperateTime = 94;
+  	int32 ServerLabel = 95;
+  	string ServerName = 96;
+}
+
+message G2C_GMEditServerZone  // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+

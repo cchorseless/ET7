@@ -1,0 +1,41 @@
+syntax = "proto3";
+package ET;
+
+
+//ResponseType R2C_Registe
+message C2R_Registe // IRequest
+{
+  int32 RpcId = 90;
+  string  Account = 1;  // 帐号
+  string  Password = 2;  // 密码
+}
+
+message R2C_Registe // IResponse
+{
+  int32 RpcId = 90;
+  int32 Error = 91;
+  string Message = 92;
+}
+
+//ResponseType R2C_Login
+message C2R_Login // IRequest
+{
+	int32 RpcId = 90;
+	string  Account = 1;  // 帐号
+	string  Password = 2;  // 密码
+	int32  ServerId = 3; // 服务器ID
+	int32  GateId = 4; // 服务器ID
+
+}
+
+message R2C_Login // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	string Address = 1;
+	int64 Key = 2;
+	int64 GateId = 3;
+	int64 UserId = 4;
+}
+

@@ -1,0 +1,7 @@
+{"list":[
+{"_t":"StartProcessConfig","_id":99,"MachineId":1,"InnerPort":20099,"AppName":"Server","ProcessDes":"GmWeb"},
+{"_t":"StartProcessConfig","_id":1,"MachineId":1,"InnerPort":20001,"AppName":"Server","ProcessDes":"Game1"},
+{"_t":"StartProcessConfig","_id":2,"MachineId":1,"InnerPort":20002,"AppName":"Server","ProcessDes":"Game2"},
+{"_t":"StartProcessConfig","_id":3,"MachineId":1,"InnerPort":20003,"AppName":"Server","ProcessDes":"Game3"},
+{"_t":"StartProcessConfig","_id":4,"MachineId":1,"InnerPort":20004,"AppName":"Server","ProcessDes":"Game4"},
+]}
