@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-
-namespace ET.Server
+﻿namespace ET.Server
 {
     [HttpHandler(SceneType.Gate, "/LoginOut")]
     public class Http_GetLoginOutHandler : HttpGetHandler<H2C_CommonResponse>

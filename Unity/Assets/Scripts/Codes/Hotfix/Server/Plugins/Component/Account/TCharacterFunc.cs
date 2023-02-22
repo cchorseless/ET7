@@ -5,7 +5,7 @@ using System.Linq;
 namespace ET.Server
 {
     [ObjectSystem]
-    public class TCharacterDestroySystem : DestroySystem<TCharacter>
+    public class TCharacterDestroySystem: DestroySystem<TCharacter>
     {
         protected override void Destroy(TCharacter self)
         {
@@ -29,9 +29,9 @@ namespace ET.Server
             {
                 self.AddComponent(comp);
             }
+
             return comp;
         }
-
 
         public static async ETTask LoadAllComponent(this TCharacter self)
         {
@@ -71,32 +71,11 @@ namespace ET.Server
             DBComponent db = DBManagerComponent.Instance.GetZoneDB(self.DomainZone());
             if (self.GmLevel <= (int)EGmPlayerRole.GmRole_PlayerGm)
             {
-                await db.Save(self.Id, new List<Entity>() {
-                        self.BagComp,
-                        self.DataComp,
-                        self.SteamComp,
-                        self.ShopComp,
-                        self.TaskComp,
-                        self.MailComp,
-                        self.ActivityComp,
-                        self.HeroManageComp,
-                        self.DrawTreasureComp,
-                        self.RechargeComp,
-                        self.BuffComp,
-                        self.TitleComp,
-                        self.AchievementComp,
-                        self.GameRecordComp,
-                    });
-            }
-            await db.Save(self);
-            Console.WriteLine("save TCharacter :" + self.Name);
-        }
-
-        public static void SyncClientCharacterData(this TCharacter self)
-        {
-            self.SyncHttpEntity(new Entity[] {
+                await db.Save(self.Id, new List<Entity>()
+                {
                     self.BagComp,
-                   self.DataComp,
+                    self.DataComp,
+                    self.SteamComp,
                     self.ShopComp,
                     self.TaskComp,
                     self.MailComp,
@@ -109,6 +88,19 @@ namespace ET.Server
                     self.AchievementComp,
                     self.GameRecordComp,
                 });
+            }
+
+            await db.Save(self);
+            // Log.Console("save TCharacter :" + self.Name);
+        }
+
+        public static void SyncClientCharacterData(this TCharacter self)
+        {
+            self.SyncHttpEntity(new Entity[]
+            {
+                self.BagComp, self.DataComp, self.ShopComp, self.TaskComp, self.MailComp, self.ActivityComp, self.HeroManageComp,
+                self.DrawTreasureComp, self.RechargeComp, self.BuffComp, self.TitleComp, self.AchievementComp, self.GameRecordComp,
+            });
         }
 
         public static void SyncClientServerZoneData(this TCharacter self)
@@ -118,17 +110,13 @@ namespace ET.Server
             if (serverZone != null)
             {
                 self.SyncHttpEntity(serverZone);
-                self.SyncHttpEntity(new Entity[] {
-                   serverZone.SeasonComp,
-                    serverZone.ShopComp,
-                   serverZone.ActivityComp,
-                    serverZone.RankComp,
-                    serverZone.BuffComp,
+                self.SyncHttpEntity(new Entity[]
+                {
+                    serverZone.SeasonComp, serverZone.ShopComp, serverZone.ActivityComp, serverZone.RankComp, serverZone.BuffComp,
                     serverZone.GameRecordComp,
                 });
             }
         }
-
 
         public static long TodayTotalOnlineTime(this TCharacter self)
         {
@@ -154,10 +142,7 @@ namespace ET.Server
         {
             var str = MongoHelper.ToClientJson(entity);
             var bytes = ZipHelper.Compress(str.ToByteArray());
-            self.SendToClient(new Actor_SyncEntity()
-            {
-                Entity = bytes,
-            });
+            self.SendToClient(new Actor_SyncEntity() { Entity = bytes, });
         }
 
         public static void SyncClientEntity(this TCharacter self, Entity[] entitys)
@@ -171,14 +156,11 @@ namespace ET.Server
                     str += ",";
                 }
             }
+
             str += "]";
             var bytes = ZipHelper.Compress(str.ToByteArray());
-            self.SendToClient(new Actor_SyncEntity()
-            {
-                Entity = bytes,
-            });
+            self.SendToClient(new Actor_SyncEntity() { Entity = bytes, });
         }
-
 
         public static void RemoveClientEntity<T>(this TCharacter self, T[] entitys) where T : Entity
         {
@@ -188,6 +170,7 @@ namespace ET.Server
                 msg.EntityId.Add(entity.Id.ToString());
                 msg.EntityType.Add(entity.GetType().Name);
             }
+
             self.SendToClient(msg);
         }
 
@@ -205,12 +188,10 @@ namespace ET.Server
                         litjson.Remove(propName);
                     }
                 }
+
                 if (litjson.Count > 0)
                 {
-                    self.SendToClient(new Actor_SyncEntityProps()
-                    {
-                        EntityProps = ZipHelper.Compress(JsonHelper.ToLitJson(litjson).ToByteArray())
-                    });
+                    self.SendToClient(new Actor_SyncEntityProps() { EntityProps = ZipHelper.Compress(JsonHelper.ToLitJson(litjson).ToByteArray()) });
                 }
             }
         }
@@ -229,6 +210,7 @@ namespace ET.Server
                 Log.Error("entity is null");
                 return;
             }
+
             var str = MongoHelper.ToClientJson(entity);
             var player = self.GetMyPlayer();
             var HttpPlayerSession = player.GetComponent<HttpPlayerSessionComponent>();
@@ -246,11 +228,14 @@ namespace ET.Server
                     Log.Error($"entity is null, index : {i}");
                     continue;
                 }
+
                 var str = MongoHelper.ToClientJson(entitys[i]);
                 HttpPlayerSession.SyncString.Add(GameConfig.DealSyncClientString(str));
             }
+
             HttpPlayerSession.SendToClient();
         }
+
         public static void SyncHttpEntityChilds<T>(this TCharacter self, T entity, long[] childIds) where T : Entity
         {
             if (entity == null)
@@ -258,6 +243,7 @@ namespace ET.Server
                 Log.Error("entity is null");
                 return;
             }
+
             var childs = new List<Entity>();
             foreach (var childId in childIds)
             {
@@ -267,7 +253,12 @@ namespace ET.Server
                     childs.Add(_child);
                 }
             }
-            if (childs.Count == 0) { return; }
+
+            if (childs.Count == 0)
+            {
+                return;
+            }
+
             var litjson = JsonHelper.GetLitObject();
             litjson["_t"] = entity.GetType().Name;
             litjson["_id"] = entity.Id.ToString();
@@ -276,13 +267,13 @@ namespace ET.Server
             {
                 litArray.Add(MongoHelper.ToClientJson(_child));
             }
+
             litjson["Children"] = litArray;
             var player = self.GetMyPlayer();
             var HttpPlayerSession = player.GetComponent<HttpPlayerSessionComponent>();
             var str = JsonHelper.ToLitJson(litjson);
             HttpPlayerSession.SendToClient(GameConfig.DealSyncClientString(str));
         }
-
 
         public static void SyncHttpEntityProps<T>(this TCharacter self, T entity, string[] propsName) where T : Entity
         {
@@ -291,6 +282,7 @@ namespace ET.Server
                 Log.Error("entity is null");
                 return;
             }
+
             var jsonstr = MongoHelper.ToClientJson(entity);
             var litjson = JsonHelper.FromLitJson(jsonstr).AsObject();
             var keys = JsonHelper.Keys(litjson);
@@ -301,6 +293,7 @@ namespace ET.Server
                     litjson.Remove(propName);
                 }
             }
+
             if (litjson.Count > 0)
             {
                 var player = self.GetMyPlayer();
@@ -312,7 +305,7 @@ namespace ET.Server
     }
 
     [ObjectSystem]
-    public class TCharacterAwakeSystem : AwakeSystem<TCharacter, long>
+    public class TCharacterAwakeSystem: AwakeSystem<TCharacter, long>
     {
         protected override void Awake(TCharacter self, long playerId)
         {

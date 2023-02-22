@@ -16,13 +16,16 @@
             if (HttpPlayerSession.SyncString.Count > 0)
             {
                 HttpPlayerSession.SendToClient();
+                return;
+            }
+             if (HttpPlayerSession.IsWaiting())
+            {
+                HttpPlayerSession.CancelWaiting();
             }
             else
             {
                 HttpPlayerSession.CancelTimer = new ETCancellationToken();
-                Log.Console("HttpPollingCheckInterval before");
                 await TimerComponent.Instance.WaitAsync(GameConfig.HttpPollingCheckInterval, HttpPlayerSession.CancelTimer);
-                Log.Console("HttpPollingCheckInterval after");
                 HttpPlayerSession.Response = null;
                 HttpPlayerSession.CancelTimer = null;
             }

@@ -66,11 +66,20 @@ namespace ET.Server
                 message += "]";
                 self.Response.Message = message;
                 self.Response = null;
-                if (self.CancelTimer != null)
-                {
-                    self.CancelTimer.Cancel();
-                    self.CancelTimer = null;
-                }
+                self.CancelWaiting();
+            }
+        }
+
+        public static bool IsWaiting(this HttpPlayerSessionComponent self)
+        {
+            return self.CancelTimer != null;
+        }
+        public static void CancelWaiting(this HttpPlayerSessionComponent self)
+        {
+            if (self.CancelTimer != null)
+            {
+                self.CancelTimer.Cancel();
+                self.CancelTimer = null;
             }
         }
     }

@@ -42,19 +42,24 @@ namespace ET.Server
                     case (int)ELogOutHandlerType.LogOutCharacter:
                         self.LogOutHandler = self.LogOutCharacter();
                         break;
-
                 }
+
                 if (self.LogOutHandler != null)
                 {
                     await self.LogOutHandler;
                 }
             }
+
             self.LogOutHandler = null;
         }
 
         public static async ETTask KnockOutGate(this PlayerLoginOutComponent self)
         {
-            if (self.IsHadKnockOut) { return; }
+            if (self.IsHadKnockOut)
+            {
+                return;
+            }
+
             Player player = self.GetParent<Player>();
             player.IsOnline = false;
             self.IsHadKnockOut = true;
@@ -63,6 +68,7 @@ namespace ET.Server
                 self.CancelTimer.Cancel();
                 self.CancelTimer = null;
             }
+
             if (self.LogOutHandler != null)
             {
                 await self.LogOutHandler;
@@ -87,9 +93,13 @@ namespace ET.Server
             Player player = self.GetParent<Player>();
             if (player.IsOnline == false)
             {
+                var PlayerComp = player.Domain.GetComponent<PlayerComponent>();
+                var GateID = player.Domain.Id;
                 player.Dispose();
-                Log.Debug("player log out => " + player.Account);
+                var playerCount = PlayerComp.idPlayers.Count;
+                Log.Console($"player log out, Gate:{GateID} =>  {player.Account} ,left player count :{playerCount}");
             }
+
             await ETTask.CompletedTask;
         }
 
@@ -99,11 +109,13 @@ namespace ET.Server
             TCharacter character = player.GetMyCharacter();
             if (player.IsOnline == false)
             {
+                var PlayerComp = player.Domain.GetComponent<PlayerComponent>();
+                var GateID = player.Domain.Id;
                 await character.Save();
                 player.Dispose();
-                Log.Console("player log out => " + player.Account);
+                var playerCount = PlayerComp.idPlayers.Count;
+                Log.Console($"player log out, Gate:{GateID} => {player.Account} ,left player count :{playerCount}");
             }
         }
-
     }
 }

@@ -30,24 +30,27 @@ namespace ET.Server
                             {
                                 continue;
                             }
+
                             thisProcessRobotScenes.Add(robotSceneConfig);
                         }
-                        
+
                         // 创建机器人
-                        for (int i = 0; i < options.Num; ++i)
+                        for (int i = 0; i < options.Num; i++)
                         {
                             int index = i % thisProcessRobotScenes.Count;
                             StartSceneConfig robotSceneConfig = thisProcessRobotScenes[index];
                             Scene robotScene = ServerSceneManagerComponent.Instance.Get(robotSceneConfig.Id);
                             RobotManagerComponent robotManagerComponent = robotScene.GetComponent<RobotManagerComponent>();
-                            Scene robot = await robotManagerComponent.NewRobot(Options.Instance.Process * 10000 + i);
-                            robot.AddComponent<AIComponent, int>(1);
+                            Scene robot = await robotManagerComponent.NewHttpRobot(Options.Instance.Process * 10000 + i);
+                            // robot.AddComponent<AIComponent, int>(1);
                             Log.Console($"create robot {robot.Zone}");
-                            await TimerComponent.Instance.WaitAsync(2000);
+                            await TimerComponent.Instance.WaitAsync(200);
                         }
                     }
+
                     break;
             }
+
             contex.Parent.RemoveComponent<ModeContex>();
             await ETTask.CompletedTask;
         }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-
-namespace ET.Server
+﻿namespace ET.Server
 {
     [HttpHandler(SceneType.Gate, "/RefreshToken")]
     public class Http_GetRefreshTokenHandler : HttpGetHandler<G2C_LoginGate>

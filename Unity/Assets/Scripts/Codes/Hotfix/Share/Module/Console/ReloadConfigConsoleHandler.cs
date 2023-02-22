@@ -11,7 +11,9 @@ namespace ET
             {
                 case ConsoleMode.ReloadConfig:
                     contex.Parent.RemoveComponent<ModeContex>();
-                    Log.Console("C must have config name, like: C UnitConfig");
+                    // gaiguo
+                    // Log.Console("C must have config name, like: C UnitConfig");
+                    await LuBanConfigComponent.Instance.Reload();
                     break;
                 default:
                     string[] ss = content.Split(" ");
@@ -23,11 +25,12 @@ namespace ET
                         Log.Console($"reload config but not find {category}");
                         return;
                     }
+
                     ConfigComponent.Instance.LoadOneConfig(type);
                     Log.Console($"reload config {configName} finish!");
                     break;
             }
-            
+
             await ETTask.CompletedTask;
         }
     }

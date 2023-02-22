@@ -22,4 +22,13 @@
 {"_t":"StartSceneConfig","_id":101,"Process":99,"Zone":1,"SceneType":"Realm","Name":"Realm_GM","OuterPort":11102,"ServerMin":1,"ServerMax":1},
 {"_t":"StartSceneConfig","_id":102,"Process":99,"Zone":1,"SceneType":"Gate","Name":"Gate_GM","OuterPort":11103,"ServerMin":1,"ServerMax":1},
 {"_t":"StartSceneConfig","_id":103,"Process":99,"Zone":1,"SceneType":"Http","Name":"Http_GM","OuterPort":11199,"ServerMin":0,"ServerMax":0},
+{"_t":"StartSceneConfig","_id":201,"Process":5,"Zone":1,"SceneType":"Robot","Name":"Robot1","OuterPort":12001,"ServerMin":0,"ServerMax":0},
+{"_t":"StartSceneConfig","_id":202,"Process":6,"Zone":1,"SceneType":"Robot","Name":"Robot2","OuterPort":12002,"ServerMin":0,"ServerMax":0},
+{"_t":"StartSceneConfig","_id":203,"Process":7,"Zone":1,"SceneType":"Robot","Name":"Robot3","OuterPort":12003,"ServerMin":0,"ServerMax":0},
+{"_t":"StartSceneConfig","_id":204,"Process":8,"Zone":1,"SceneType":"Robot","Name":"Robot4","OuterPort":12004,"ServerMin":0,"ServerMax":0},
+{"_t":"StartSceneConfig","_id":205,"Process":9,"Zone":1,"SceneType":"Robot","Name":"Robot5","OuterPort":12005,"ServerMin":0,"ServerMax":0},
+{"_t":"StartSceneConfig","_id":206,"Process":10,"Zone":1,"SceneType":"Robot","Name":"Robot6","OuterPort":12006,"ServerMin":0,"ServerMax":0},
+{"_t":"StartSceneConfig","_id":207,"Process":11,"Zone":1,"SceneType":"Robot","Name":"Robot7","OuterPort":12007,"ServerMin":0,"ServerMax":0},
+{"_t":"StartSceneConfig","_id":208,"Process":12,"Zone":1,"SceneType":"Robot","Name":"Robot8","OuterPort":12008,"ServerMin":0,"ServerMax":0},
+{"_t":"StartSceneConfig","_id":209,"Process":13,"Zone":1,"SceneType":"Robot","Name":"Robot9","OuterPort":12009,"ServerMin":0,"ServerMax":0},
 ]}

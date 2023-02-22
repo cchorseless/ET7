@@ -24,6 +24,9 @@ namespace ET
         {
             protected override void Load(MessageDispatcherComponent self)
             {
+                // gaiguo
+                NetServices.Instance.RefreshTypeOpcode();
+                OpcodeTypeComponent.Instance.RefreshMessageType();
                 self.Load();
             }
         }
@@ -41,7 +44,6 @@ namespace ET
         private static void Load(this MessageDispatcherComponent self)
         {
             self.Handlers.Clear();
-
             HashSet<Type> types = EventSystem.Instance.GetTypes(typeof (MessageHandlerAttribute));
 
             foreach (Type type in types)

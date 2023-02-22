@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace ET.Server
 {
     [HttpHandler(SceneType.Realm, "/AccountLoginKey", false)]
-    public class Http_PostAccountLoginKeyHandler : HttpPostHandler<C2H_GetAccountLoginKey, H2C_GetAccountLoginKey>
+    public class Http_PostAccountLoginKeyHandler: HttpPostHandler<C2H_GetAccountLoginKey, H2C_GetAccountLoginKey>
     {
         protected override async ETTask Run(Entity domain, C2H_GetAccountLoginKey request, H2C_GetAccountLoginKey response, long playerid)
         {
@@ -19,6 +19,7 @@ namespace ET.Server
                 response.Message = "Account error";
                 return;
             }
+
             var accountDB = DBManagerComponent.Instance.GetAccountDB();
             TAccountInfo newAccount = await accountDB.QueryOne<TAccountInfo>(account => account.Account == request.Account);
             if (newAccount == null)
@@ -26,6 +27,7 @@ namespace ET.Server
                 response.Error = ErrorCode.ERR_AccountNotExist;
                 response.Message = "Account CANT FIND";
             }
+
             response.Key = RandomGenerator.RandInt64().ToString();
             domain.GetComponent<HttpSessionKeyComponent>().Add(request.Account, response.Key);
         }

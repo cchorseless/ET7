@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ET.Server
 {
-    public static class RobotCaseSystem
+    public static  class RobotCaseSystem
     {
         // 创建机器人，生命周期是RobotCase
         public static async ETTask NewRobot(this RobotCase self, int count, List<Scene> scenes)

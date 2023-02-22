@@ -4,4 +4,13 @@
 {"_t":"StartProcessConfig","_id":2,"MachineId":1,"InnerPort":20002,"AppName":"Server","ProcessDes":"Game2"},
 {"_t":"StartProcessConfig","_id":3,"MachineId":1,"InnerPort":20003,"AppName":"Server","ProcessDes":"Game3"},
 {"_t":"StartProcessConfig","_id":4,"MachineId":1,"InnerPort":20004,"AppName":"Server","ProcessDes":"Game4"},
+{"_t":"StartProcessConfig","_id":5,"MachineId":1,"InnerPort":20005,"AppName":"Server","ProcessDes":"Robot1"},
+{"_t":"StartProcessConfig","_id":6,"MachineId":1,"InnerPort":20006,"AppName":"Server","ProcessDes":"Robot2"},
+{"_t":"StartProcessConfig","_id":7,"MachineId":1,"InnerPort":20007,"AppName":"Server","ProcessDes":"Robot3"},
+{"_t":"StartProcessConfig","_id":8,"MachineId":1,"InnerPort":20008,"AppName":"Server","ProcessDes":"Robot4"},
+{"_t":"StartProcessConfig","_id":9,"MachineId":1,"InnerPort":20009,"AppName":"Server","ProcessDes":"Robot5"},
+{"_t":"StartProcessConfig","_id":10,"MachineId":1,"InnerPort":20010,"AppName":"Server","ProcessDes":"Robot6"},
+{"_t":"StartProcessConfig","_id":11,"MachineId":1,"InnerPort":20011,"AppName":"Server","ProcessDes":"Robot7"},
+{"_t":"StartProcessConfig","_id":12,"MachineId":1,"InnerPort":20012,"AppName":"Server","ProcessDes":"Robot8"},
+{"_t":"StartProcessConfig","_id":13,"MachineId":1,"InnerPort":20013,"AppName":"Server","ProcessDes":"Robot9"},
 ]}

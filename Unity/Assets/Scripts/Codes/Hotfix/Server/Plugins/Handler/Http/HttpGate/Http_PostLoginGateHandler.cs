@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace ET.Server
 {
@@ -49,7 +45,7 @@ namespace ET.Server
                 player.AddComponent<HttpPlayerSessionComponent>();
                 playerComponent.Add(player);
             }
-
+            Log.Console($"{player.Account} login in Gate {scene.Id} ,Current Player Count : { playerComponent.idPlayers.Count }");
             player.IsOnline = true;
             player.GateSessionActorId = request.Key;
             player.GmLevel = accountInfo.GmLevel;

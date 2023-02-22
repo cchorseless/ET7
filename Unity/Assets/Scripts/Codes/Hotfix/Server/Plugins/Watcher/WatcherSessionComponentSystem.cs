@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace ET.Server
 {
+    [ObjectSystem]
     public class WatcherSessionComponentSystemAwakeSystem : AwakeSystem<WatcherSessionComponent>
     {
         protected override void Awake(WatcherSessionComponent self)
@@ -14,7 +15,7 @@ namespace ET.Server
             WatcherSessionComponent.Instance = self;
         }
     }
-
+    [ObjectSystem]
     public class WatcherSessionComponentSystemDestroySystem : DestroySystem<WatcherSessionComponent>
     {
         protected override void Destroy(WatcherSessionComponent self)

@@ -105,16 +105,7 @@ namespace ET.Server
                 try
                 {
                     HttpListenerContext context = await self.Listener.GetContextAsync();
-                    if (!context.AllowOrigin())
-                    {
-                        self.Handle(context).Coroutine();
-                    }
-                    else
-                    {
-                        context.Response.StatusCode = (int)HttpStatusCode.OK;
-                        context.Request.InputStream.Dispose();
-                        context.Response.OutputStream.Dispose();
-                    }
+                    self.Handle(context).Coroutine();
                 }
                 catch (ObjectDisposedException)
                 {
@@ -128,24 +119,32 @@ namespace ET.Server
 
         public static async ETTask Handle(this HttpComponent self, HttpListenerContext context)
         {
+            // 跨域設置
+            if (context.AllowOrigin())
+            {
+                context.Response.StatusCode = (int)HttpStatusCode.OK;
+                context.FinishHander();
+                return;
+            }
+
+            if (!self.VerifyAuth(context))
+            {
+                context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                context.FinishHander();
+                return;
+            }
+
+            IHttpHandler handler;
+            if (!self.dispatcher.TryGetValue(context.Request.Url.AbsolutePath, out handler))
+            {
+                context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                context.FinishHander();
+                return;
+            }
+
             try
             {
-                if (self.VerifyAuth(context))
-                {
-                    IHttpHandler handler;
-                    if (self.dispatcher.TryGetValue(context.Request.Url.AbsolutePath, out handler))
-                    {
-                        await handler.Handle(self.Domain, context);
-                    }
-                    else
-                    {
-                        context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
-                    }
-                }
-                else
-                {
-                    context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-                }
+                await handler.Handle(self.Domain, context);
             }
             catch (HttpListenerException e)
             {
@@ -159,11 +158,7 @@ namespace ET.Server
             {
                 Log.Error(e);
             }
-            finally
-            {
-                context.Request.InputStream.Dispose();
-                context.Response.OutputStream.Dispose();
-            }
+            context.FinishHander();
         }
     }
 }

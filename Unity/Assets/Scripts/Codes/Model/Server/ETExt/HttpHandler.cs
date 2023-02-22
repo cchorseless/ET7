@@ -12,13 +12,16 @@ namespace ET.Server
     {
         public static void Reply<Response>(this HttpListenerContext context, Response msg) where Response : class, IResponse
         {
-            if (context.Response.OutputStream.CanWrite)
-            {
-                var bytes = MongoHelper.ToClientJson(msg).ToByteArray();
-                context.Response.ContentEncoding = Encoding.UTF8;
-                context.Response.ContentLength64 = bytes.Length;
-                context.Response.OutputStream.Write(bytes, 0, bytes.Length);
-            }
+            var bytes = MongoHelper.ToClientJson(msg).ToByteArray();
+            context.Response.ContentEncoding = Encoding.UTF8;
+            context.Response.ContentLength64 = bytes.Length;
+            context.Response.OutputStream.Write(bytes, 0, bytes.Length);
+        }
+
+        public static void FinishHander(this HttpListenerContext context)
+        {
+            context.Request.InputStream.Dispose();
+            context.Response.OutputStream.Dispose();
         }
 
         public static long ParsePlayerId(this HttpListenerContext context)
@@ -62,6 +65,7 @@ namespace ET.Server
                 context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return;
             }
+
             context.Response.StatusCode = (int)HttpStatusCode.OK;
             Response responseData = Activator.CreateInstance<Response>();
             await Run(domain, responseData, context.ParsePlayerId());
@@ -83,7 +87,6 @@ namespace ET.Server
             }
 
             string requestmsg = await context.Request.ReadStringAsync();
-
             Request requestData = JsonHelper.FromJson<Request>(requestmsg);
             if (requestData == null)
             {
@@ -116,7 +119,6 @@ namespace ET.Server
             {
                 throw new Exception($"消息类型转换错误:  {typeof (Request).Name}");
             }
-
             Response responseData = Activator.CreateInstance<Response>();
             await Run(domain, requestData, responseData, context);
             context.Reply(responseData);

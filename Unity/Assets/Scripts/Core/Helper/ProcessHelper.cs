@@ -6,7 +6,7 @@ using Path = System.IO.Path;
 
 namespace ET
 {
-    public static class ProcessHelper
+    public static partial class ProcessHelper
     {
         public static Process Run(string exe, string arguments, string workingDirectory = ".", bool waitExit = false)
         {

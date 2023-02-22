@@ -44,5 +44,10 @@
         <ProjectReference Include="..\Loader\DotNet.Loader.csproj" />
         <ProjectReference Include="..\Model\DotNet.Model.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <Folder Include="..\..\Unity\Assets\Scripts\Codes\Hotfix\Client\ETExt">
+        <Link>Client\ETExt</Link>
+      </Folder>
+    </ItemGroup>
 
 </Project>

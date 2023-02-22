@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace ET
 {
     [FriendOf(typeof(OpcodeTypeComponent))]
-    public static class OpcodeTypeComponentSystem
+    public static partial class OpcodeTypeComponentSystem
     {
         [ObjectSystem]
         public class OpcodeTypeComponentAwakeSystem: AwakeSystem<OpcodeTypeComponent>

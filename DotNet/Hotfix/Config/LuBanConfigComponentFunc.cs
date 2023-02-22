@@ -50,7 +50,7 @@ namespace ET
         public static async ETTask Reload(this LuBanConfigComponent self)
         {
             await self.LoadAsync();
-            Log.Debug("reload LuBanConfig finish!");
+            Log.Console("reload LuBanConfig finish!");
         }
 
         /// <summary>

@@ -115,7 +115,7 @@ namespace ET.Server
             response.Key = g2RGetLoginKey.Key;
             response.GateId = g2RGetLoginKey.GateId;
             response.UserId = newAccount.Id;
-            Log.Info($"{request.Account} login in Gate : {response.GateId} ");
+            Log.Console($"{request.Account} login in Ream , Go to Gate {response.GateId} ");
             newAccount.Dispose();
         }
 
