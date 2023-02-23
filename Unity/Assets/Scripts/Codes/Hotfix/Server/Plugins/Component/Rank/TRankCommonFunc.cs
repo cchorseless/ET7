@@ -8,10 +8,7 @@ namespace ET.Server
 {
     public static class TRankCommonFunc
     {
-        public static void LoadAllChild(this TRankCommon self)
-        {
-            self.RankSort();
-        }
+
 
         public static void RankSort(this TRankCommon self)
         {

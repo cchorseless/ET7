@@ -19,6 +19,8 @@ namespace ET.Server
             {
                 (response.Error, response.Message) = character.ShopComp.BuyShopUnit(request);
             }
+            Log.Console( $"Http_Post_Buy_ShopItemHandler: {request.ShopConfigId} {request.SellConfigId} {request.PriceType} {request.ItemCount} {response.Error} {response.Message}");
+            Log.Console(response.ToString());
             await ETTask.CompletedTask;
         }
     }

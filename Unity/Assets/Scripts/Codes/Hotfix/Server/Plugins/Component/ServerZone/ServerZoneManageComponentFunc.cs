@@ -77,7 +77,7 @@ namespace ET.Server
             }
             else
             {
-                /// 延时等创建完成
+                // 延时等创建完成
                 await TimerComponent.Instance.WaitAsync(200);
                 var serverZoneList = await accountDB.Query<TServerZone>(a => true);
                 var config = StartSceneConfigCategory.Instance.GetByProcess(Options.Instance.Process);

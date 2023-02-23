@@ -26,7 +26,7 @@ namespace ET.Server
                     return;
                 }
                 //player.LastPlay = request.Index;
-                TCharacter newCharacter = Entity.CreateOne<TCharacter, long>(scene, player.Id);
+                TCharacter newCharacter =  player.AddChild<TCharacter, long>(player.Id);
                 newCharacter.Gender = request.Gender;
 
                 ////TODO为新建角色增加各种物品

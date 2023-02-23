@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-
 namespace ET.Server
 
 {
     [MessageHandler(SceneType.Gate)]
-    public class C2G_GMEnterGameHandler : AMRpcHandler<C2G_GMEnterGame, G2C_GMEnterGame>
+    public class C2G_GMEnterGameHandler: AMRpcHandler<C2G_GMEnterGame, G2C_GMEnterGame>
     {
         protected override async ETTask Run(Session session, C2G_GMEnterGame request, G2C_GMEnterGame response)
         {
@@ -17,13 +16,14 @@ namespace ET.Server
             List<TCharacter> characters = await db.Query<TCharacter>(x => x.Int64PlayerId == player.Id);
             if (characters.Count == 0)
             {
-                TCharacter newCharacter = Entity.CreateOne<TCharacter, long>(scene, player.Id);
+                TCharacter newCharacter = player.AddChild<TCharacter, long>(player.Id);
                 newCharacter.ZoneID = 1;
                 newCharacter.ServerID = 1;
                 var gmDataComp = newCharacter.AddComponent<GmCharacterDataComponent>();
                 await db.Save(newCharacter);
                 characters.Add(newCharacter);
             }
+
             TCharacter character = characters[0];
             player.SelectCharacter(character);
             character.SyncClientEntity(character);
@@ -32,6 +32,5 @@ namespace ET.Server
             player.GetComponent<PlayerLoginOutComponent>().LogOutType = (int)ELogOutHandlerType.LogOutCharacter;
             response.MyId = character.Id;
         }
-      
     }
 }

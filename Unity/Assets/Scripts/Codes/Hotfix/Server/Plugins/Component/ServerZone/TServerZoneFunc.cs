@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ET.Server
 {
     [StatefulTimer]
-    public class TServerZoneTimer : AStatefulTimer<TServerZone>
+    public class TServerZoneTimer: AStatefulTimer<TServerZone>
     {
         public override async ETTask Run(TServerZone self)
         {
@@ -18,6 +18,7 @@ namespace ET.Server
                 {
                     self.State.Remove((int)EServerZoneState.Closing);
                 }
+
                 self.State.Add((int)EServerZoneState.Working);
             }
             else if (self.State.Contains((int)EServerZoneState.WaitForClosing))
@@ -27,8 +28,10 @@ namespace ET.Server
                 {
                     self.State.Remove((int)EServerZoneState.Working);
                 }
+
                 self.State.Add((int)EServerZoneState.Closing);
             }
+
             await self.Save();
         }
     }
@@ -37,8 +40,14 @@ namespace ET.Server
     {
         public static async ETTask<T> LoadOrAddComponent<T>(this TServerZone self) where T : Entity, IAwake, new()
         {
+            var comp = self.GetComponent<T>();
+            if (comp != null)
+            {
+                return comp;
+            }
+
             DBComponent db = DBManagerComponent.Instance.GetAccountDB();
-            T comp = await db.Query<T>(self.Id);
+            comp = await db.Query<T>(self.Id);
             if (comp == null)
             {
                 comp = self.AddComponent<T>();
@@ -48,8 +57,10 @@ namespace ET.Server
             {
                 self.AddComponent(comp);
             }
+
             return comp;
         }
+
         public static async ETTask LoadAllComponent(this TServerZone self)
         {
             self.AddComponent<ServerZoneCharacterComponent>();
@@ -80,9 +91,7 @@ namespace ET.Server
             await self.LoadOrAddComponent<ServerZoneGameRecordComponent>();
             self.GameRecordComp.LoadAllChild();
             await self.Save();
-            
         }
-
 
         public static async ETTask Save(this TServerZone self)
         {
@@ -101,13 +110,10 @@ namespace ET.Server
             await accountDB.Save(self.GameRecordComp);
             await accountDB.Save(self);
         }
-
-
     }
 
-
     [ObjectSystem]
-    public class TServerZoneAwakeSystem : AwakeSystem<TServerZone, int, int, string>
+    public class TServerZoneAwakeSystem: AwakeSystem<TServerZone, int, int, string>
     {
         protected override void Awake(TServerZone self, int zoneid, int severid, string serverName)
         {

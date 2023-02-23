@@ -88,10 +88,10 @@ namespace ET
             sb.AppendLine("Entity Count: ");
             foreach (var kv in orderByDescending)
             {
-                if (kv.Value == 1)
-                {
-                    continue;
-                }
+                // if (kv.Value == 1)
+                // {
+                //     continue;
+                // }
 
                 sb.AppendLine($"\t{kv.Key.Name}: {kv.Value}");
             }

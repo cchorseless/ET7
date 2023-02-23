@@ -18,8 +18,14 @@ namespace ET.Server
     {
         public static async ETTask<T> LoadOrAddComponent<T>(this TCharacter self) where T : Entity, IAwake, new()
         {
+            var comp = self.GetComponent<T>();
+            if (comp != null)
+            {
+                return comp;
+            }
+
             DBComponent db = DBManagerComponent.Instance.GetZoneDB(self.DomainZone());
-            T comp = await db.Query<T>(self.Id);
+            comp = await db.Query<T>(self.Id);
             if (comp == null)
             {
                 comp = self.AddComponent<T>();

@@ -11,22 +11,29 @@ namespace ET.Server
         public static async ETTask CheckHttpLogOut(this HttpPlayerSessionComponent self)
         {
             long instanceId = self.InstanceId;
+            int autoSaveTime = 0;
             while (self.InstanceId == instanceId)
             {
                 await TimerComponent.Instance.WaitAsync(GameConfig.HttpPlayerOnlineCheckInterval);
+                autoSaveTime += GameConfig.HttpPlayerOnlineCheckInterval;
                 if (self.IsDisposed)
                 {
                     return;
                 }
+
                 Player player = self.GetParent<Player>();
                 long timeNow = TimeHelper.ServerNow();
                 if (timeNow - self.LastRecvTime < GameConfig.HttpPlayerOnlineCheckInterval)
                 {
                     // 定期保存数据
-                    TCharacter character = player.GetMyCharacter();
-                    if (character != null)
+                    if (autoSaveTime >= GameConfig.AutoSaveCharacterInterval)
                     {
-                        await character.Save();
+                        autoSaveTime = 0;
+                        TCharacter character = player.GetMyCharacter();
+                        if (character != null)
+                        {
+                            await character.Save();
+                        }
                     }
                 }
                 else
@@ -74,6 +81,7 @@ namespace ET.Server
         {
             return self.CancelTimer != null;
         }
+
         public static void CancelWaiting(this HttpPlayerSessionComponent self)
         {
             if (self.CancelTimer != null)

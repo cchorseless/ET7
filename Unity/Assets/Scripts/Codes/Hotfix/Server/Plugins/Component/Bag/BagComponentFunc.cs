@@ -10,6 +10,18 @@ namespace ET.Server
     {
         public static void LoadAllChild(this BagComponent self)
         {
+            // 删除无用物品
+
+            for (int i = 0, len = self.Items.Count; i < len; i++)
+            {
+                var item = self.GetChild<TItem>(self.Items[i]);
+                if (item == null || !self.IsValidItem(item.ConfigId))
+                {
+                    self.Items.RemoveAt(i);
+                    i--;
+                    len--;
+                }
+            }
         }
 
         public static bool CanOverLayMany(this BagComponent self, int configid)
@@ -19,6 +31,7 @@ namespace ET.Server
             {
                 return item.BagSlotType != cfg.EEnum.EBagSlotType.ForbidMany;
             }
+
             return true;
         }
 
@@ -29,6 +42,7 @@ namespace ET.Server
             {
                 return item.BagSlotType != cfg.EEnum.EBagSlotType.NoSlot;
             }
+
             return true;
         }
 
@@ -39,6 +53,7 @@ namespace ET.Server
             {
                 return item.ItemType;
             }
+
             return cfg.EEnum.EItemType.None;
         }
 
@@ -49,6 +64,7 @@ namespace ET.Server
             {
                 return item.AutoUse;
             }
+
             return false;
         }
 
@@ -64,6 +80,7 @@ namespace ET.Server
             {
                 return item.IsVaild;
             }
+
             return false;
         }
 
@@ -87,13 +104,13 @@ namespace ET.Server
             return self.MaxSize - self.Items.Count <= countSlot;
         }
 
-
         public static bool IsFullForItems(this BagComponent self, int configid, int count = 1)
         {
             if (configid < EMoneyType.MoneyMax || !self.IsSitBagSlot(configid))
             {
                 return true;
             }
+
             int countSlot = 0;
             if (!self.CanOverLayMany(configid))
             {
@@ -103,6 +120,7 @@ namespace ET.Server
             {
                 countSlot = 1;
             }
+
             return self.MaxSize - self.Items.Count <= countSlot;
         }
 
@@ -121,11 +139,13 @@ namespace ET.Server
                     return item;
                 }
             }
+
             self.AddChild(entity);
             if (!self.Items.Contains(entity.Id))
             {
                 self.Items.Add(entity.Id);
             }
+
             return entity;
         }
 
@@ -154,18 +174,14 @@ namespace ET.Server
             {
                 return (ErrorCode.ERR_Error, "Bag IsFull");
             }
+
             var r = new List<FItemPrizeResult>();
             itemsInfo.ForEach(item =>
             {
                 var result = self.AddTItemOrMoney(item.Item1, item.Item2);
                 if (result.Item1)
                 {
-                    r.Add(new FItemPrizeResult()
-                    {
-                        ItemId = result.Item2.ToString(),
-                        ItemConfigId = item.Item1,
-                        ItemCount = item.Item2,
-                    });
+                    r.Add(new FItemPrizeResult() { ItemId = result.Item2.ToString(), ItemConfigId = item.Item1, ItemCount = item.Item2, });
                 }
             });
             return (ErrorCode.ERR_Success, JsonHelper.ToLitJson(r));
@@ -185,14 +201,12 @@ namespace ET.Server
                 {
                     self.Character.SyncHttpEntity(item);
                     return (true, item.Id);
-
                 }
                 else
                 {
                     return (false, 0);
                 }
             }
-
         }
 
         public static TItem AddTItem(this BagComponent self, int configid, int count = 1)
@@ -201,10 +215,12 @@ namespace ET.Server
             {
                 return null;
             }
+
             if (self.IsFullForItems(configid, count))
             {
                 return null;
             }
+
             var itemtype = self.GetItemType(configid);
             switch (itemtype)
             {
@@ -217,13 +233,13 @@ namespace ET.Server
             }
         }
 
-
         public static T AddTItem<T>(this BagComponent self, int configid, int count = 1) where T : TItem
         {
             if (self.IsFullForItems(configid, count))
             {
                 return null;
             }
+
             var canMany = self.CanOverLayMany(configid);
             var createtime = TimeHelper.ServerNow();
             T item = null;
@@ -250,7 +266,6 @@ namespace ET.Server
                             item.ApplyUse(count);
                         }
                     }
-
                 }
             }
             else
@@ -273,14 +288,17 @@ namespace ET.Server
                     }
                 }
             }
+
             return item;
         }
+
         public static bool RemoveTItem<T>(this BagComponent self, int configid, int count = 1) where T : TItem
         {
             if (count <= 0)
             {
                 return false;
             }
+
             if (self.CanOverLayMany(configid))
             {
                 var item = self.GetOneTItem<T>(configid);
@@ -302,6 +320,7 @@ namespace ET.Server
                 {
                     allCount += item.ItemCount;
                 }
+
                 if (allCount >= count)
                 {
                     while (count > 0)
@@ -313,9 +332,11 @@ namespace ET.Server
                         {
                             cost = item.ItemCount;
                         }
+
                         count -= cost;
                         item.ChangeItemCount(-cost);
                     }
+
                     return true;
                 }
                 else
@@ -342,7 +363,6 @@ namespace ET.Server
             }
         }
 
-
         public static int GetTItemCount<T>(this BagComponent self, int configid) where T : TItem
         {
             if (self.CanOverLayMany(configid))
@@ -361,8 +381,10 @@ namespace ET.Server
                 {
                     allCount += item.ItemCount;
                 }
+
                 return allCount;
             }
+
             return 0;
         }
 
@@ -371,11 +393,12 @@ namespace ET.Server
             foreach (var entityid in self.Items)
             {
                 var item = self.GetChild<T>(entityid);
-                if (item.ConfigId == configid)
+                if (item != null && item.ConfigId == configid)
                 {
                     return item;
                 }
             }
+
             return null;
         }
 
@@ -385,26 +408,30 @@ namespace ET.Server
             foreach (var entityid in self.Items)
             {
                 var item = self.GetChild<T>(entityid);
-                if (item.ConfigId == configid)
+                if (item != null && item.ConfigId == configid)
                 {
                     list.Add(item);
                 }
             }
+
             return list;
         }
     }
-
-
 
     public static class BagComponent_Equip_Func
     {
         public static TEquipItem AddOneEquip(this BagComponent self, int configid, int quality)
         {
-            if (!self.IsValidQuality(quality)) { return null; }
+            if (!self.IsValidQuality(quality))
+            {
+                return null;
+            }
+
             if (self.IsFullForItems(configid, 1))
             {
                 return null;
             }
+
             var item = self.AddChild<TEquipItem>();
             item.ConfigId = configid;
             item.ItemQuality = quality;
@@ -418,9 +445,9 @@ namespace ET.Server
                     item.ApplyUse(1);
                 }
             }
+
             return item;
         }
-
 
         public static (int, string) MergeEquip(this BagComponent self, List<long> equips)
         {
@@ -432,25 +459,30 @@ namespace ET.Server
                 {
                     return (ErrorCode.ERR_Error, "miss equip");
                 }
+
                 if (itemQuality == 0)
                 {
                     itemQuality = equip.ItemQuality;
                 }
+
                 if (itemQuality != equip.ItemQuality)
                 {
                     return (ErrorCode.ERR_Error, "equip quality not same");
                 }
             }
+
             var MergeHeroId = self.GetChild<TEquipItem>(RandomGenerator.RandomArray(equips)).EquipConfig().BindHeroId;
             if (MergeHeroId == 0)
             {
                 return (ErrorCode.ERR_Error, "MergeHeroId not valid");
             }
+
             foreach (var equipId in equips)
             {
                 var equip = self.GetChild<TEquipItem>(equipId);
                 self.RemoveTItem(equip);
             }
+
             bool IsMergeFail = (RandomGenerator.RandomNumber(1, 6) > equips.Count);
             string result = "";
             if (!IsMergeFail)
@@ -459,8 +491,8 @@ namespace ET.Server
                 var entity = self.AddOneEquip(equipConfigId, itemQuality + 1);
                 result = entity.Id.ToString();
             }
-            return (ErrorCode.ERR_Success, result);
 
+            return (ErrorCode.ERR_Success, result);
         }
 
         public static (int, string) ReplaceEquipProps(this BagComponent self, long ItemId, long ItemPropId, long CostItemId, long CostItemPropId)
@@ -470,21 +502,17 @@ namespace ET.Server
             {
                 return (ErrorCode.ERR_Error, "miss equip");
             }
+
             return equip.ReplaceEquipProps(ItemPropId, CostItemId, CostItemPropId);
         }
-
     }
 
-
-
-
     [ObjectSystem]
-    public class BagComponentAwakeSystem : AwakeSystem<BagComponent>
+    public class BagComponentAwakeSystem: AwakeSystem<BagComponent>
     {
         protected override void Awake(BagComponent self)
         {
             self.MaxSize = TItemConfig.BagMaxSize;
-
         }
     }
 }

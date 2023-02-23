@@ -24,7 +24,7 @@ namespace ET.Server
             List<TCharacter> characters = await db.Query<TCharacter>(x => x.Int64PlayerId == player.Id);
             if (characters.Count == 0 && GameConfig.AutoCreateDefaultCharacter)
             {
-                TCharacter newCharacter = Entity.CreateOne<TCharacter, long>(scene, player.Id);
+                TCharacter newCharacter =  player.AddChild<TCharacter, long>(player.Id);
                 newCharacter.ZoneID = session.DomainZone();
                 await db.Save(newCharacter);
                 characters.Add(newCharacter);

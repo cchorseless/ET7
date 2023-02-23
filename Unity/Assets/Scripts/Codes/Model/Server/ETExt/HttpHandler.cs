@@ -21,7 +21,18 @@ namespace ET.Server
         public static void FinishHander(this HttpListenerContext context)
         {
             context.Request.InputStream.Dispose();
-            context.Response.OutputStream.Dispose();
+            try
+            {
+                context.Response.OutputStream.Dispose();
+            }
+            catch (HttpListenerException e)
+            {
+                //System.Net.HttpListenerException(1229): 企图在不存在的网络连接上进行操作。
+                if (e.ErrorCode != 1229)
+                {
+                    Log.Error(e);
+                }
+            }
         }
 
         public static long ParsePlayerId(this HttpListenerContext context)
@@ -119,6 +130,7 @@ namespace ET.Server
             {
                 throw new Exception($"消息类型转换错误:  {typeof (Request).Name}");
             }
+
             Response responseData = Activator.CreateInstance<Response>();
             await Run(domain, requestData, responseData, context);
             context.Reply(responseData);

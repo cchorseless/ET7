@@ -45,7 +45,8 @@ namespace ET.Server
                 player.AddComponent<HttpPlayerSessionComponent>();
                 playerComponent.Add(player);
             }
-            Log.Console($"{player.Account} login in Gate {scene.Id} ,Current Player Count : { playerComponent.idPlayers.Count }");
+
+            Log.Console($"{player.Account} login in Gate {scene.Id} ,Current Player Count : {playerComponent.idPlayers.Count}");
             player.IsOnline = true;
             player.GateSessionActorId = request.Key;
             player.GmLevel = accountInfo.GmLevel;
@@ -57,16 +58,24 @@ namespace ET.Server
             {
                 DBComponent db = DBManagerComponent.Instance.GetZoneDB(scene.Zone);
                 List<TCharacter> characters = await db.Query<TCharacter>(x => x.Int64PlayerId == player.Id);
-                if (characters.Count == 0 && GameConfig.AutoCreateDefaultCharacter)
+                if (characters.Count > 0)
                 {
-                    TCharacter newCharacter = Entity.CreateOne<TCharacter, long>(scene, player.Id);
-                    newCharacter.ZoneID = scene.DomainZone();
-                    newCharacter.ServerID = 1;
-                    await db.Save(newCharacter);
-                    characters.Add(newCharacter);
+                    character = characters[0];
+                }
+                else if(characters.Count == 0 && GameConfig.AutoCreateDefaultCharacter)
+                {
+                    character = player.AddChild<TCharacter, long>(player.Id);
+                    character.ZoneID = scene.DomainZone();
+                    character.ServerID = 1;
+                    await db.Save(character);
                 }
 
-                character = characters[0];
+                if (character == null)
+                {
+                    response.Error = ErrorCode.ERR_LoginError;
+                    response.Message = "CAN NOT FIND CHARACTER";
+                    return;
+                }
                 player.SelectCharacter(character);
                 player.GetComponent<PlayerLoginOutComponent>().LogOutType = (int)ELogOutHandlerType.LogOutCharacter;
                 character.SyncHttpEntity(character);
