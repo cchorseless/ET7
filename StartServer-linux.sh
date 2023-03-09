@@ -1,2 +1,2 @@
 #! /bin/bash
-cd publish || exit;nohup dotnet Server.dll --Process=9999  --Develop=0 --LogLevel=2  --AppType=Watcher &
+cd Bin || exit;nohup dotnet App.dll --Process=9999 --StartConfig=StartConfig/Localhost --Develop=0 --LogLevel=2 --AppType=Watcher &
