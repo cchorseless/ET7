@@ -29,6 +29,8 @@ namespace ET.Server
             Root.Instance.Scene.AddComponent<RedisManagerComponent>();
             // 监视进程通讯
             Root.Instance.Scene.AddComponent<WatcherSessionComponent>();
+            // 监视文件改变
+            Root.Instance.Scene.AddComponent<WatcherFileComponent,string>("../Watcher/");
             // 有状态计时器
             Root.Instance.Scene.AddComponent<StatefulTimerComponent>();
             switch (Options.Instance.AppType)

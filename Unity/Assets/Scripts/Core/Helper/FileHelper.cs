@@ -4,7 +4,7 @@ using System.IO;
 
 namespace ET
 {
-	public static class FileHelper
+	public static  class FileHelper
 	{
 		public static List<string> GetAllFiles(string dir, string searchPattern = "*")
 		{

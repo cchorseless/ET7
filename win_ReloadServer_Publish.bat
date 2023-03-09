@@ -5,3 +5,5 @@ xcopy /s /y /i /e /q .\Bin\win-x64\publish\Hotfix.deps.json %OUTPUT_ROOT%\Bin\
 xcopy /s /y /i /e /q .\Bin\win-x64\publish\Hotfix.dll %OUTPUT_ROOT%\Bin\
 xcopy /s /y /i /e /q .\Bin\win-x64\publish\Hotfix.pdb %OUTPUT_ROOT%\Bin\
 xcopy /s /y /i /e /q .\Config\* %OUTPUT_ROOT%\Config\*
+
+echo %date:~0,4%-%date:~5,2%-%date:~8,2% %time% CMD=Reload >> %OUTPUT_ROOT%\Watcher\WatcherLog.txt
