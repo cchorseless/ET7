@@ -25,6 +25,7 @@ public sealed partial class ItemConfigRecord :  Bright.Config.BeanBase
         BagSlotType = (EEnum.EBagSlotType)_buf.ReadInt();
         AutoUse = _buf.ReadBool();
         BatchUseable = _buf.ReadBool();
+        BindHeroName = _buf.ReadString();
         UseScript = (EEnum.EItemUseScript)_buf.ReadInt();
         {int n0 = System.Math.Min(_buf.ReadSize(), _buf.Size);UseArgs = new System.Collections.Generic.List<int>(n0);for(var i0 = 0 ; i0 < n0 ; i0++) { int _e0;  _e0 = _buf.ReadInt(); UseArgs.Add(_e0);}}
         {int n0 = System.Math.Min(_buf.ReadSize(), _buf.Size);AwakeScript = new System.Collections.Generic.List<Item.ItemAwakeScriptBean>(n0);for(var i0 = 0 ; i0 < n0 ; i0++) { Item.ItemAwakeScriptBean _e0;  _e0 = Item.ItemAwakeScriptBean.DeserializeItemAwakeScriptBean(_buf); AwakeScript.Add(_e0);}}
@@ -77,6 +78,10 @@ public sealed partial class ItemConfigRecord :  Bright.Config.BeanBase
     /// </summary>
     public bool BatchUseable { get; private set; }
     /// <summary>
+    /// 绑定英雄
+    /// </summary>
+    public string BindHeroName { get; private set; }
+    /// <summary>
     /// 使用脚本
     /// </summary>
     public EEnum.EItemUseScript UseScript { get; private set; }
@@ -113,6 +118,7 @@ public sealed partial class ItemConfigRecord :  Bright.Config.BeanBase
         + "BagSlotType:" + BagSlotType + ","
         + "AutoUse:" + AutoUse + ","
         + "BatchUseable:" + BatchUseable + ","
+        + "BindHeroName:" + BindHeroName + ","
         + "UseScript:" + UseScript + ","
         + "UseArgs:" + Bright.Common.StringUtil.CollectionToString(UseArgs) + ","
         + "AwakeScript:" + Bright.Common.StringUtil.CollectionToString(AwakeScript) + ","

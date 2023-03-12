@@ -13,12 +13,15 @@ namespace ET.Server
             self.HeroTalentComp.LoadAllChild();
             self.RefreshBattleScore();
             self.RefreshHeroBattleScoreRank();
-
-
         }
-        public static cfg.Hero.HeroConfigRecord HeroConfig(this THeroUnit self)
+        public static string BindHeroName(this THeroUnit self)
         {
-            return LuBanConfigComponent.Instance.Config().HeroConfig.GetOrDefault(self.ConfigId);
+            return  LuBanConfigComponent.Instance.Config().BuildingLevelUpConfig.GetHeroName(self.ConfigId);
+        }
+        
+        public static cfg.Dota.BuildingLevelUpConfigRecord HeroConfig(this THeroUnit self)
+        {
+            return LuBanConfigComponent.Instance.Config().BuildingLevelUpConfig.GetOrDefault(self.BindHeroName());
         }
 
         public static bool IsCanLevelUp(this THeroUnit self)

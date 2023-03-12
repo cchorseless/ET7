@@ -25,7 +25,7 @@ namespace ET.Server
                 }
                 else
                 {
-                    (response.Error, response.Message) = hero.HeroTalentComp.ChangeTalentState(request.TalentLevel, request.TalentIndex, request.IsLearn);
+                    (response.Error, response.Message) = hero.HeroTalentComp.ChangeTalentState(request.TalentLevel, request.TalentIndex);
                 }
             }
             await ETTask.CompletedTask;

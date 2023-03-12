@@ -10,7 +10,6 @@ namespace ET.Server
     {
         public static void LoadAllChild(this HeroEquipComponent self)
         {
-
         }
 
         public static (int, string) DressEquip(this HeroEquipComponent self, long entityid, int slot)
@@ -19,11 +18,13 @@ namespace ET.Server
             {
                 return (ErrorCode.ERR_Error, "slot is not valid");
             }
+
             var equip = self.HeroUnit.Character.BagComp.GetChild<TEquipItem>(entityid);
             if (equip == null)
             {
                 return (ErrorCode.ERR_Error, "equip not in bag");
             }
+
             if (self.Equips[slot] != 0)
             {
                 self.UnDressEquip(slot);
@@ -50,6 +51,7 @@ namespace ET.Server
                     }
                 }
             }
+
             return (ErrorCode.ERR_Success, "");
         }
 
@@ -59,6 +61,7 @@ namespace ET.Server
             {
                 return (ErrorCode.ERR_Error, "slot is not valid");
             }
+
             var equip = self.GetSlotEquip(slot);
             if (equip == null)
             {
@@ -78,18 +81,28 @@ namespace ET.Server
                         suit.SuitBuffs.ForEach(b => self.HeroUnit.Character.BuffComp.RemoveBuff(b));
                     }
                 }
+
                 return (ErrorCode.ERR_Success, "");
             }
         }
+
         public static bool IsValidSlot(this HeroEquipComponent self, int slot)
         {
-            return slot >= (int)EEquipSolt.Weapon && slot <= (int)EEquipSolt.SlotMax;
+            return slot > (int)cfg.EEnum.EEquipSolt.None && slot < (int)cfg.EEnum.EEquipSolt.SlotMax;
         }
 
         public static TEquipItem GetSlotEquip(this HeroEquipComponent self, int slot)
         {
-            if (!self.IsValidSlot(slot)) { return null; }
-            if (self.Equips[slot] == 0) { return null; }
+            if (!self.IsValidSlot(slot))
+            {
+                return null;
+            }
+
+            if (self.Equips[slot] == 0)
+            {
+                return null;
+            }
+
             return self.GetChild<TEquipItem>(self.Equips[slot]);
         }
 
@@ -107,10 +120,8 @@ namespace ET.Server
                     }
                 }
             }
+
             return count;
         }
-
-
-
     }
 }

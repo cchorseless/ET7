@@ -471,10 +471,11 @@ namespace ET.Server
                 }
             }
 
-            var MergeHeroId = self.GetChild<TEquipItem>(RandomGenerator.RandomArray(equips)).EquipConfig().BindHeroId;
-            if (MergeHeroId == 0)
+            var MergeHeroName = self.GetChild<TEquipItem>(RandomGenerator.RandomArray(equips)).Config().BindHeroName;
+            if (string.IsNullOrEmpty(MergeHeroName) ||
+                LuBanConfigComponent.Instance.Config().BuildingLevelUpConfig.GetOrDefault(MergeHeroName) == null)
             {
-                return (ErrorCode.ERR_Error, "MergeHeroId not valid");
+                return (ErrorCode.ERR_Error, "MergeHeroName not valid");
             }
 
             foreach (var equipId in equips)
@@ -487,7 +488,7 @@ namespace ET.Server
             string result = "";
             if (!IsMergeFail)
             {
-                var equipConfigId = LuBanConfigComponent.Instance.Config().ItemEquipConfig.RandomEquipByHero(MergeHeroId);
+                var equipConfigId = LuBanConfigComponent.Instance.Config().ItemEquipConfig.RandomEquipByHero(MergeHeroName);
                 var entity = self.AddOneEquip(equipConfigId, itemQuality + 1);
                 result = entity.Id.ToString();
             }

@@ -12,11 +12,7 @@ namespace ET
         public int TalentPoint;
         public int TotalTalentPoint;
 
-        [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
-        public Dictionary<int, long> Talents = new Dictionary<int, long>();
-
-        [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
-        public Dictionary<int, int[]> TalentLearn = new Dictionary<int, int[]>();
+        public List<int> TalentLearn = new List<int>();
 
         [BsonIgnore]
         public THeroUnit HeroUnit { get => this.GetParent<THeroUnit>(); }

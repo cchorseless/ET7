@@ -99,6 +99,8 @@ namespace ET
     public static class TItemConfig
     {
         public const int BagMaxSize = 50;
+        
+        public const int HeroEquipSlotMax = 12;
     }
 
     public static class HttpConfig

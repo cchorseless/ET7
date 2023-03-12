@@ -34,8 +34,6 @@ public partial class Tables
     public Activity.TActivityGiftCommond TActivityGiftCommond {get; }
     public Activity.TActivityMentorshipTree TActivityMentorshipTree {get; }
     public Hero.HeroLevelUpConfig HeroLevelUpConfig {get; }
-    public Hero.HeroConfig HeroConfig {get; }
-    public Hero.HeroTalentConfig HeroTalentConfig {get; }
     public Season.SeasonConfig SeasonConfig {get; }
     public Rank.RankPrizeConfig RankPrizeConfig {get; }
     public Draw.DrawTreasureConfig DrawTreasureConfig {get; }
@@ -43,6 +41,7 @@ public partial class Tables
     public Achievement.AchievementConfig AchievementConfig {get; }
     public Title.TitleConfig TitleConfig {get; }
     public Glob.GlobalSetting GlobalSetting {get; }
+    public Dota.BuildingLevelUpConfig BuildingLevelUpConfig {get; }
 
     public Tables(System.Func<string, ByteBuf> loader)
     {
@@ -89,10 +88,6 @@ public partial class Tables
         tables.Add("Activity.TActivityMentorshipTree", TActivityMentorshipTree);
         HeroLevelUpConfig = new Hero.HeroLevelUpConfig(loader("hero_herolevelupconfig")); 
         tables.Add("Hero.HeroLevelUpConfig", HeroLevelUpConfig);
-        HeroConfig = new Hero.HeroConfig(loader("hero_heroconfig")); 
-        tables.Add("Hero.HeroConfig", HeroConfig);
-        HeroTalentConfig = new Hero.HeroTalentConfig(loader("hero_herotalentconfig")); 
-        tables.Add("Hero.HeroTalentConfig", HeroTalentConfig);
         SeasonConfig = new Season.SeasonConfig(loader("season_seasonconfig")); 
         tables.Add("Season.SeasonConfig", SeasonConfig);
         RankPrizeConfig = new Rank.RankPrizeConfig(loader("rank_rankprizeconfig")); 
@@ -107,6 +102,8 @@ public partial class Tables
         tables.Add("Title.TitleConfig", TitleConfig);
         GlobalSetting = new Glob.GlobalSetting(loader("glob_globalsetting")); 
         tables.Add("Glob.GlobalSetting", GlobalSetting);
+        BuildingLevelUpConfig = new Dota.BuildingLevelUpConfig(loader("dota_buildinglevelupconfig")); 
+        tables.Add("Dota.BuildingLevelUpConfig", BuildingLevelUpConfig);
 
         PostInit();
         ItemConfig.Resolve(tables); 
@@ -130,8 +127,6 @@ public partial class Tables
         TActivityGiftCommond.Resolve(tables); 
         TActivityMentorshipTree.Resolve(tables); 
         HeroLevelUpConfig.Resolve(tables); 
-        HeroConfig.Resolve(tables); 
-        HeroTalentConfig.Resolve(tables); 
         SeasonConfig.Resolve(tables); 
         RankPrizeConfig.Resolve(tables); 
         DrawTreasureConfig.Resolve(tables); 
@@ -139,6 +134,7 @@ public partial class Tables
         AchievementConfig.Resolve(tables); 
         TitleConfig.Resolve(tables); 
         GlobalSetting.Resolve(tables); 
+        BuildingLevelUpConfig.Resolve(tables); 
         PostResolve();
     }
 
@@ -165,8 +161,6 @@ public partial class Tables
         TActivityGiftCommond.TranslateText(translator); 
         TActivityMentorshipTree.TranslateText(translator); 
         HeroLevelUpConfig.TranslateText(translator); 
-        HeroConfig.TranslateText(translator); 
-        HeroTalentConfig.TranslateText(translator); 
         SeasonConfig.TranslateText(translator); 
         RankPrizeConfig.TranslateText(translator); 
         DrawTreasureConfig.TranslateText(translator); 
@@ -174,6 +168,7 @@ public partial class Tables
         AchievementConfig.TranslateText(translator); 
         TitleConfig.TranslateText(translator); 
         GlobalSetting.TranslateText(translator); 
+        BuildingLevelUpConfig.TranslateText(translator); 
     }
     
     partial void PostInit();

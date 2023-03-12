@@ -74,19 +74,16 @@ namespace ET.Server
 
         public static void AddHeroExp(this TItem self, List<int> argsList)
         {
-            if (argsList.Count != 2)
-            {
-                return;
-            }
-            int heroid = argsList[0];
-            int exp = argsList[1];
-            var hero = self.BagComp.Character.HeroManageComp.GetHeroUnit(heroid);
+          
+            int exp = argsList[0];
+            string heroname = self.Config().BindHeroName;
+            var hero = self.BagComp.Character.HeroManageComp.GetHeroUnit(heroname);
             if (hero == null)
             {
                 return;
             }
             int exp_sum = exp * self.ItemCount;
-            self.BagComp.Character.HeroManageComp.AddHeroExp(heroid, exp_sum);
+            self.BagComp.Character.HeroManageComp.AddHeroExp(hero.ConfigId, exp_sum);
             self.Dispose();
         }
 
@@ -168,12 +165,12 @@ namespace ET.Server
             {
                 TEquipItem item = (TEquipItem)self;
                 var heroManageComp = self.BagComp.Character.HeroManageComp;
-                var hero = heroManageComp.GetHeroUnit(item.EquipConfig().BindHeroId);
+                var hero = heroManageComp.GetHeroUnit(item.Config().BindHeroName);
                 if (hero == null || hero.HeroEquipComp == null)
                 {
                     return (ErrorCode.ERR_Error, "hero cant find");
                 }
-                return hero.HeroEquipComp.DressEquip(self.Id, item.EquipConfig().EquipSlot);
+                return hero.HeroEquipComp.DressEquip(self.Id, (int)item.EquipConfig().EquipSlot);
             }
             return (ErrorCode.ERR_Error, "item cant dress up");
         }

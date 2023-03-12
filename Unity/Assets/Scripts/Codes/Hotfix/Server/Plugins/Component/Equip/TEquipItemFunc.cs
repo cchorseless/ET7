@@ -17,7 +17,7 @@ namespace ET.Server
 
         public static void BindEquip(this TEquipItem self)
         {
-            if (self.Props.Count() > 0) { return; }
+            if (self.Props.Length > 0) { return; }
             self.AddRandomProp(self.EquipConfig().EquipRandomProp, self.ItemQuality);
         }
 

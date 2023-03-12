@@ -9,32 +9,37 @@ using Bright.Serialization;
 using System.Collections.Generic;
 
 
-namespace cfg.Hero
+namespace cfg.Dota
 {
-public sealed partial class HeroTalentInfoBean :  Bright.Config.BeanBase 
+public sealed partial class UnitTalentInfoBean :  Bright.Config.BeanBase 
 {
-    public HeroTalentInfoBean(ByteBuf _buf) 
+    public UnitTalentInfoBean(ByteBuf _buf) 
     {
         TalentLevel = _buf.ReadInt();
-        {int n0 = System.Math.Min(_buf.ReadSize(), _buf.Size);TalentGroup = new System.Collections.Generic.List<int>(n0);for(var i0 = 0 ; i0 < n0 ; i0++) { int _e0;  _e0 = _buf.ReadInt(); TalentGroup.Add(_e0);}}
+        TalentLeft = _buf.ReadString();
+        TalentRight = _buf.ReadString();
         PostInit();
     }
 
-    public static HeroTalentInfoBean DeserializeHeroTalentInfoBean(ByteBuf _buf)
+    public static UnitTalentInfoBean DeserializeUnitTalentInfoBean(ByteBuf _buf)
     {
-        return new Hero.HeroTalentInfoBean(_buf);
+        return new Dota.UnitTalentInfoBean(_buf);
     }
 
     /// <summary>
-    /// 天赋等级
+    /// 天赋组索引
     /// </summary>
     public int TalentLevel { get; private set; }
     /// <summary>
-    /// 天赋组
+    /// 左侧天赋
     /// </summary>
-    public System.Collections.Generic.List<int> TalentGroup { get; private set; }
+    public string TalentLeft { get; private set; }
+    /// <summary>
+    /// 右侧天赋
+    /// </summary>
+    public string TalentRight { get; private set; }
 
-    public const int __ID__ = 609663896;
+    public const int __ID__ = 1336631972;
     public override int GetTypeId() => __ID__;
 
     public  void Resolve(Dictionary<string, object> _tables)
@@ -50,7 +55,8 @@ public sealed partial class HeroTalentInfoBean :  Bright.Config.BeanBase
     {
         return "{ "
         + "TalentLevel:" + TalentLevel + ","
-        + "TalentGroup:" + Bright.Common.StringUtil.CollectionToString(TalentGroup) + ","
+        + "TalentLeft:" + TalentLeft + ","
+        + "TalentRight:" + TalentRight + ","
         + "}";
     }
     

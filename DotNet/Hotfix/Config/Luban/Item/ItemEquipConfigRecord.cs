@@ -16,8 +16,7 @@ public sealed partial class ItemEquipConfigRecord :  Bright.Config.BeanBase
     public ItemEquipConfigRecord(ByteBuf _buf) 
     {
         Id = _buf.ReadInt();
-        BindHeroId = _buf.ReadInt();
-        EquipSlot = _buf.ReadInt();
+        EquipSlot = (EEnum.EEquipSolt)_buf.ReadInt();
         {int n0 = System.Math.Min(_buf.ReadSize(), _buf.Size);EquipRandomProp = new System.Collections.Generic.List<int>(n0);for(var i0 = 0 ; i0 < n0 ; i0++) { int _e0;  _e0 = _buf.ReadInt(); EquipRandomProp.Add(_e0);}}
         SuitId = _buf.ReadInt();
         SuitName = _buf.ReadString();
@@ -35,13 +34,9 @@ public sealed partial class ItemEquipConfigRecord :  Bright.Config.BeanBase
     /// </summary>
     public int Id { get; private set; }
     /// <summary>
-    /// 穿戴英雄
-    /// </summary>
-    public int BindHeroId { get; private set; }
-    /// <summary>
     /// 穿戴部位
     /// </summary>
-    public int EquipSlot { get; private set; }
+    public EEnum.EEquipSolt EquipSlot { get; private set; }
     /// <summary>
     /// 装备随机属性
     /// </summary>
@@ -74,7 +69,6 @@ public sealed partial class ItemEquipConfigRecord :  Bright.Config.BeanBase
     {
         return "{ "
         + "Id:" + Id + ","
-        + "BindHeroId:" + BindHeroId + ","
         + "EquipSlot:" + EquipSlot + ","
         + "EquipRandomProp:" + Bright.Common.StringUtil.CollectionToString(EquipRandomProp) + ","
         + "SuitId:" + SuitId + ","

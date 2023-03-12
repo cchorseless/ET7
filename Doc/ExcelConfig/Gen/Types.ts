@@ -331,6 +331,23 @@ export enum EShopPriceType {
 }
 }
 
+export namespace EEnum {
+export enum EEquipSolt {
+    /**
+     * 空值
+     */
+    None = 0,
+    /**
+     * 神杖
+     */
+    Scepter = 1,
+    /**
+     * 最大值
+     */
+    SlotMax = 12,
+}
+}
+
 export namespace Item {
 export class ItemConfig{
     private _dataMap: Map<number, Item.ItemConfigRecord>
@@ -386,6 +403,8 @@ export class ItemConfigRecord {
         this.AutoUse = _json_.AutoUse
         if (_json_.BatchUseable === undefined) { throw new Error() }
         this.BatchUseable = _json_.BatchUseable
+        if (_json_.BindHeroName === undefined) { throw new Error() }
+        this.BindHeroName = _json_.BindHeroName
         if (_json_.UseScript === undefined) { throw new Error() }
         this.UseScript = _json_.UseScript
         if (_json_.UseArgs === undefined) { throw new Error() }
@@ -434,6 +453,10 @@ export class ItemConfigRecord {
      * 批量使用
      */
     readonly BatchUseable: boolean
+    /**
+     * 绑定英雄
+     */
+    readonly BindHeroName: string
     /**
      * 使用脚本
      */
@@ -515,8 +538,6 @@ export class ItemEquipConfigRecord {
     constructor(_json_: any) {
         if (_json_.id === undefined) { throw new Error() }
         this.id = _json_.id
-        if (_json_.BindHeroId === undefined) { throw new Error() }
-        this.BindHeroId = _json_.BindHeroId
         if (_json_.EquipSlot === undefined) { throw new Error() }
         this.EquipSlot = _json_.EquipSlot
         if (_json_.EquipRandomProp === undefined) { throw new Error() }
@@ -534,13 +555,9 @@ export class ItemEquipConfigRecord {
      */
     readonly id: number
     /**
-     * 穿戴英雄
-     */
-    readonly BindHeroId: number
-    /**
      * 穿戴部位
      */
-    readonly EquipSlot: number
+    readonly EquipSlot: EEnum.EEquipSolt
     /**
      * 装备随机属性
      */
@@ -2271,167 +2288,6 @@ export class HeroLevelUpConfigRecord {
 
 }
 
-export namespace Hero {
-export class HeroConfig{
-    private _dataMap: Map<number, Hero.HeroConfigRecord>
-    private _dataList: Hero.HeroConfigRecord[]
-    constructor(_json_: any) {
-        this._dataMap = new Map<number, Hero.HeroConfigRecord>()
-        this._dataList = []
-        for(var _json2_ of _json_) {
-            let _v: Hero.HeroConfigRecord
-            _v = new Hero.HeroConfigRecord(_json2_)
-            this._dataList.push(_v)
-            this._dataMap.set(_v.id, _v)
-        }
-    }
-
-    getDataMap(): Map<number, Hero.HeroConfigRecord> { return this._dataMap; }
-    getDataList(): Hero.HeroConfigRecord[] { return this._dataList; }
-
-    get(key: number): Hero.HeroConfigRecord | undefined { return this._dataMap.get(key); }
-
-    resolve(_tables: Map<string, any>) {
-        for(var v of this._dataList) {
-            v.resolve(_tables)
-        }
-    }
-
-}
-}
-
-
-
-export namespace Hero {
-export class HeroConfigRecord {
-
-    constructor(_json_: any) {
-        if (_json_.id === undefined) { throw new Error() }
-        this.id = _json_.id
-        if (_json_.IsValid === undefined) { throw new Error() }
-        this.IsValid = _json_.IsValid
-        if (_json_.HeroName === undefined) { throw new Error() }
-        this.HeroName = _json_.HeroName
-        if (_json_.TalentInfo === undefined) { throw new Error() }
-        { this.TalentInfo = []; for(let _ele of _json_.TalentInfo) { let _e : Hero.HeroTalentInfoBean; _e = new Hero.HeroTalentInfoBean(_ele); this.TalentInfo.push(_e);}}
-    }
-
-    /**
-     * 英雄Id
-     */
-    readonly id: number
-    /**
-     * 是否启用
-     */
-    readonly IsValid: boolean
-    /**
-     * 英雄名字
-     */
-    readonly HeroName: string
-    readonly TalentInfo: Hero.HeroTalentInfoBean[]
-
-    resolve(_tables: Map<string, any>) {
-        for(let _e of this.TalentInfo) { if (_e != null ) {_e.resolve(_tables);} }
-    }
-}
-
-}
-
-
-
-export namespace Hero {
-export class HeroTalentInfoBean {
-
-    constructor(_json_: any) {
-        if (_json_.TalentLevel === undefined) { throw new Error() }
-        this.TalentLevel = _json_.TalentLevel
-        if (_json_.TalentGroup === undefined) { throw new Error() }
-        this.TalentGroup = _json_.TalentGroup
-    }
-
-    /**
-     * 天赋等级
-     */
-    readonly TalentLevel: number
-    /**
-     * 天赋组
-     */
-    readonly TalentGroup: number[]
-
-    resolve(_tables: Map<string, any>) {
-    }
-}
-
-}
-
-export namespace Hero {
-export class HeroTalentConfig{
-    private _dataMap: Map<number, Hero.HeroTalentConfigRecord>
-    private _dataList: Hero.HeroTalentConfigRecord[]
-    constructor(_json_: any) {
-        this._dataMap = new Map<number, Hero.HeroTalentConfigRecord>()
-        this._dataList = []
-        for(var _json2_ of _json_) {
-            let _v: Hero.HeroTalentConfigRecord
-            _v = new Hero.HeroTalentConfigRecord(_json2_)
-            this._dataList.push(_v)
-            this._dataMap.set(_v.id, _v)
-        }
-    }
-
-    getDataMap(): Map<number, Hero.HeroTalentConfigRecord> { return this._dataMap; }
-    getDataList(): Hero.HeroTalentConfigRecord[] { return this._dataList; }
-
-    get(key: number): Hero.HeroTalentConfigRecord | undefined { return this._dataMap.get(key); }
-
-    resolve(_tables: Map<string, any>) {
-        for(var v of this._dataList) {
-            v.resolve(_tables)
-        }
-    }
-
-}
-}
-
-
-
-export namespace Hero {
-export class HeroTalentConfigRecord {
-
-    constructor(_json_: any) {
-        if (_json_.id === undefined) { throw new Error() }
-        this.id = _json_.id
-        if (_json_.TalentName === undefined) { throw new Error() }
-        this.TalentName = _json_.TalentName
-        if (_json_.NeedTalentPoint === undefined) { throw new Error() }
-        this.NeedTalentPoint = _json_.NeedTalentPoint
-        if (_json_.TalentBuffs === undefined) { throw new Error() }
-        this.TalentBuffs = _json_.TalentBuffs
-    }
-
-    /**
-     * 天赋Id
-     */
-    readonly id: number
-    /**
-     * 天赋名称
-     */
-    readonly TalentName: string
-    /**
-     * 消耗天赋点
-     */
-    readonly NeedTalentPoint: number
-    /**
-     * 天赋Buff
-     */
-    readonly TalentBuffs: number[]
-
-    resolve(_tables: Map<string, any>) {
-    }
-}
-
-}
-
 export namespace Season {
 export class SeasonConfig{
     private _dataMap: Map<number, Season.SeasonConfigRecord>
@@ -2997,6 +2853,154 @@ export class GlobalSettingRecord {
 }
 
 export namespace Dota {
+export class BuildingLevelUpConfig{
+    private _dataMap: Map<string, Dota.BuildingLevelUpConfigRecord>
+    private _dataList: Dota.BuildingLevelUpConfigRecord[]
+    constructor(_json_: any) {
+        this._dataMap = new Map<string, Dota.BuildingLevelUpConfigRecord>()
+        this._dataList = []
+        for(var _json2_ of _json_) {
+            let _v: Dota.BuildingLevelUpConfigRecord
+            _v = new Dota.BuildingLevelUpConfigRecord(_json2_)
+            this._dataList.push(_v)
+            this._dataMap.set(_v.Id, _v)
+        }
+    }
+
+    getDataMap(): Map<string, Dota.BuildingLevelUpConfigRecord> { return this._dataMap; }
+    getDataList(): Dota.BuildingLevelUpConfigRecord[] { return this._dataList; }
+
+    get(key: string): Dota.BuildingLevelUpConfigRecord | undefined { return this._dataMap.get(key); }
+
+    resolve(_tables: Map<string, any>) {
+        for(var v of this._dataList) {
+            v.resolve(_tables)
+        }
+    }
+
+}
+}
+
+
+
+export namespace Dota {
+export class BuildingLevelUpConfigRecord {
+
+    constructor(_json_: any) {
+        if (_json_.Id === undefined) { throw new Error() }
+        this.Id = _json_.Id
+        if (_json_.BindHeroId === undefined) { throw new Error() }
+        this.BindHeroId = _json_.BindHeroId
+        if (_json_.IsValid === undefined) { throw new Error() }
+        this.IsValid = _json_.IsValid
+        if (_json_.StarUpInfo === undefined) { throw new Error() }
+        { this.StarUpInfo = []; for(let _ele of _json_.StarUpInfo) { let _e : Dota.UnitStarUpConfigBean; _e = new Dota.UnitStarUpConfigBean(_ele); this.StarUpInfo.push(_e);}}
+        if (_json_.TalentInfo === undefined) { throw new Error() }
+        { this.TalentInfo = []; for(let _ele of _json_.TalentInfo) { let _e : Dota.UnitTalentInfoBean; _e = new Dota.UnitTalentInfoBean(_ele); this.TalentInfo.push(_e);}}
+    }
+
+    /**
+     * 主键
+     */
+    readonly Id: string
+    /**
+     * 绑定单位ID
+     */
+    readonly BindHeroId: number
+    /**
+     * 是否启用
+     */
+    readonly IsValid: boolean
+    readonly StarUpInfo: Dota.UnitStarUpConfigBean[]
+    readonly TalentInfo: Dota.UnitTalentInfoBean[]
+
+    resolve(_tables: Map<string, any>) {
+        for(let _e of this.StarUpInfo) { if (_e != null ) {_e.resolve(_tables);} }
+        for(let _e of this.TalentInfo) { if (_e != null ) {_e.resolve(_tables);} }
+    }
+}
+
+}
+
+
+
+export namespace Dota {
+export class UnitStarUpConfigBean {
+
+    constructor(_json_: any) {
+        if (_json_.Star === undefined) { throw new Error() }
+        this.Star = _json_.Star
+        if (_json_.AttributeBaseStrength === undefined) { throw new Error() }
+        this.AttributeBaseStrength = _json_.AttributeBaseStrength
+        if (_json_.AttributeBaseAgility === undefined) { throw new Error() }
+        this.AttributeBaseAgility = _json_.AttributeBaseAgility
+        if (_json_.AttributeBaseIntelligence === undefined) { throw new Error() }
+        this.AttributeBaseIntelligence = _json_.AttributeBaseIntelligence
+        if (_json_.AttachWearables === undefined) { throw new Error() }
+        this.AttachWearables = _json_.AttachWearables
+    }
+
+    /**
+     * 星级
+     */
+    readonly Star: number
+    /**
+     * 基础力量
+     */
+    readonly AttributeBaseStrength: number
+    /**
+     * 基础敏捷
+     */
+    readonly AttributeBaseAgility: number
+    /**
+     * 基础智力
+     */
+    readonly AttributeBaseIntelligence: number
+    /**
+     * 饰品
+     */
+    readonly AttachWearables: string[]
+
+    resolve(_tables: Map<string, any>) {
+    }
+}
+
+}
+
+
+
+export namespace Dota {
+export class UnitTalentInfoBean {
+
+    constructor(_json_: any) {
+        if (_json_.TalentLevel === undefined) { throw new Error() }
+        this.TalentLevel = _json_.TalentLevel
+        if (_json_.TalentLeft === undefined) { throw new Error() }
+        this.TalentLeft = _json_.TalentLeft
+        if (_json_.TalentRight === undefined) { throw new Error() }
+        this.TalentRight = _json_.TalentRight
+    }
+
+    /**
+     * 天赋组索引
+     */
+    readonly TalentLevel: number
+    /**
+     * 左侧天赋
+     */
+    readonly TalentLeft: string
+    /**
+     * 右侧天赋
+     */
+    readonly TalentRight: string
+
+    resolve(_tables: Map<string, any>) {
+    }
+}
+
+}
+
+export namespace Dota {
 export class BuffEffectConfig{
     private _dataMap: Map<string, Dota.BuffEffectConfigRecord>
     private _dataList: Dota.BuffEffectConfigRecord[]
@@ -3245,6 +3249,8 @@ export class CombinationConfigRecord {
         this.heroid = _json_.heroid
         if (_json_.Abilityid === undefined) { throw new Error() }
         this.Abilityid = _json_.Abilityid
+        if (_json_.ActiveCondition === undefined) { throw new Error() }
+        this.ActiveCondition = _json_.ActiveCondition
     }
 
     /**
@@ -3291,6 +3297,10 @@ export class CombinationConfigRecord {
      * 羁绊对应技能道具ID
      */
     readonly Abilityid: string
+    /**
+     * 激活条件
+     */
+    readonly ActiveCondition: string
 
     resolve(_tables: Map<string, any>) {
     }
@@ -3623,117 +3633,6 @@ export class WearableConfigRecord {
      * 样式
      */
     readonly styles: string
-
-    resolve(_tables: Map<string, any>) {
-    }
-}
-
-}
-
-export namespace Dota {
-export class BuildingLevelUpConfig{
-    private _dataMap: Map<string, Dota.BuildingLevelUpConfigRecord>
-    private _dataList: Dota.BuildingLevelUpConfigRecord[]
-    constructor(_json_: any) {
-        this._dataMap = new Map<string, Dota.BuildingLevelUpConfigRecord>()
-        this._dataList = []
-        for(var _json2_ of _json_) {
-            let _v: Dota.BuildingLevelUpConfigRecord
-            _v = new Dota.BuildingLevelUpConfigRecord(_json2_)
-            this._dataList.push(_v)
-            this._dataMap.set(_v.id, _v)
-        }
-    }
-
-    getDataMap(): Map<string, Dota.BuildingLevelUpConfigRecord> { return this._dataMap; }
-    getDataList(): Dota.BuildingLevelUpConfigRecord[] { return this._dataList; }
-
-    get(key: string): Dota.BuildingLevelUpConfigRecord | undefined { return this._dataMap.get(key); }
-
-    resolve(_tables: Map<string, any>) {
-        for(var v of this._dataList) {
-            v.resolve(_tables)
-        }
-    }
-
-}
-}
-
-
-
-export namespace Dota {
-export class BuildingLevelUpConfigRecord {
-
-    constructor(_json_: any) {
-        if (_json_.id === undefined) { throw new Error() }
-        this.id = _json_.id
-        if (_json_.name === undefined) { throw new Error() }
-        this.name = _json_.name
-        if (_json_.prefab === undefined) { throw new Error() }
-        this.prefab = _json_.prefab
-        if (_json_.LevelUpInfo === undefined) { throw new Error() }
-        { this.LevelUpInfo = []; for(let _ele of _json_.LevelUpInfo) { let _e : Dota.UnitLevelUpConfigBean; _e = new Dota.UnitLevelUpConfigBean(_ele); this.LevelUpInfo.push(_e);}}
-    }
-
-    /**
-     * 主键
-     */
-    readonly id: string
-    /**
-     * 名称
-     */
-    readonly name: string
-    /**
-     * 类型
-     */
-    readonly prefab: string
-    readonly LevelUpInfo: Dota.UnitLevelUpConfigBean[]
-
-    resolve(_tables: Map<string, any>) {
-        for(let _e of this.LevelUpInfo) { if (_e != null ) {_e.resolve(_tables);} }
-    }
-}
-
-}
-
-
-
-export namespace Dota {
-export class UnitLevelUpConfigBean {
-
-    constructor(_json_: any) {
-        if (_json_.Level === undefined) { throw new Error() }
-        this.Level = _json_.Level
-        if (_json_.AttributeBaseStrength === undefined) { throw new Error() }
-        this.AttributeBaseStrength = _json_.AttributeBaseStrength
-        if (_json_.AttributeBaseAgility === undefined) { throw new Error() }
-        this.AttributeBaseAgility = _json_.AttributeBaseAgility
-        if (_json_.AttributeBaseIntelligence === undefined) { throw new Error() }
-        this.AttributeBaseIntelligence = _json_.AttributeBaseIntelligence
-        if (_json_.AttachWearables === undefined) { throw new Error() }
-        this.AttachWearables = _json_.AttachWearables
-    }
-
-    /**
-     * 等级
-     */
-    readonly Level: number
-    /**
-     * 基础力量
-     */
-    readonly AttributeBaseStrength: number
-    /**
-     * 基础敏捷
-     */
-    readonly AttributeBaseAgility: number
-    /**
-     * 基础智力
-     */
-    readonly AttributeBaseIntelligence: number
-    /**
-     * 饰品
-     */
-    readonly AttachWearables: string[]
 
     resolve(_tables: Map<string, any>) {
     }
@@ -4297,10 +4196,6 @@ export class Tables {
     get TActivityMentorshipTree(): Activity.TActivityMentorshipTree  { return this._TActivityMentorshipTree;}
     private _HeroLevelUpConfig: Hero.HeroLevelUpConfig
     get HeroLevelUpConfig(): Hero.HeroLevelUpConfig  { return this._HeroLevelUpConfig;}
-    private _HeroConfig: Hero.HeroConfig
-    get HeroConfig(): Hero.HeroConfig  { return this._HeroConfig;}
-    private _HeroTalentConfig: Hero.HeroTalentConfig
-    get HeroTalentConfig(): Hero.HeroTalentConfig  { return this._HeroTalentConfig;}
     private _SeasonConfig: Season.SeasonConfig
     get SeasonConfig(): Season.SeasonConfig  { return this._SeasonConfig;}
     private _RankPrizeConfig: Rank.RankPrizeConfig
@@ -4315,6 +4210,8 @@ export class Tables {
     get TitleConfig(): Title.TitleConfig  { return this._TitleConfig;}
     private _GlobalSetting: Glob.GlobalSetting
     get GlobalSetting(): Glob.GlobalSetting  { return this._GlobalSetting;}
+    private _BuildingLevelUpConfig: Dota.BuildingLevelUpConfig
+    get BuildingLevelUpConfig(): Dota.BuildingLevelUpConfig  { return this._BuildingLevelUpConfig;}
     private _BuffEffectConfig: Dota.BuffEffectConfig
     get BuffEffectConfig(): Dota.BuffEffectConfig  { return this._BuffEffectConfig;}
     private _PopulationConfig: Dota.PopulationConfig
@@ -4329,8 +4226,6 @@ export class Tables {
     get PoolGroupConfig(): Dota.PoolGroupConfig  { return this._PoolGroupConfig;}
     private _WearableConfig: Dota.WearableConfig
     get WearableConfig(): Dota.WearableConfig  { return this._WearableConfig;}
-    private _BuildingLevelUpConfig: Dota.BuildingLevelUpConfig
-    get BuildingLevelUpConfig(): Dota.BuildingLevelUpConfig  { return this._BuildingLevelUpConfig;}
     private _RoundBoardConfig: Dota.RoundBoardConfig
     get RoundBoardConfig(): Dota.RoundBoardConfig  { return this._RoundBoardConfig;}
     private _RoundBoardChallengeConfig: Dota.RoundBoardChallengeConfig
@@ -4380,10 +4275,6 @@ export class Tables {
         tables.set('Activity.TActivityMentorshipTree', this._TActivityMentorshipTree)
         this._HeroLevelUpConfig = new Hero.HeroLevelUpConfig(loader('hero_herolevelupconfig'))
         tables.set('Hero.HeroLevelUpConfig', this._HeroLevelUpConfig)
-        this._HeroConfig = new Hero.HeroConfig(loader('hero_heroconfig'))
-        tables.set('Hero.HeroConfig', this._HeroConfig)
-        this._HeroTalentConfig = new Hero.HeroTalentConfig(loader('hero_herotalentconfig'))
-        tables.set('Hero.HeroTalentConfig', this._HeroTalentConfig)
         this._SeasonConfig = new Season.SeasonConfig(loader('season_seasonconfig'))
         tables.set('Season.SeasonConfig', this._SeasonConfig)
         this._RankPrizeConfig = new Rank.RankPrizeConfig(loader('rank_rankprizeconfig'))
@@ -4398,6 +4289,8 @@ export class Tables {
         tables.set('Title.TitleConfig', this._TitleConfig)
         this._GlobalSetting = new Glob.GlobalSetting(loader('glob_globalsetting'))
         tables.set('Glob.GlobalSetting', this._GlobalSetting)
+        this._BuildingLevelUpConfig = new Dota.BuildingLevelUpConfig(loader('dota_buildinglevelupconfig'))
+        tables.set('Dota.BuildingLevelUpConfig', this._BuildingLevelUpConfig)
         this._BuffEffectConfig = new Dota.BuffEffectConfig(loader('dota_buffeffectconfig'))
         tables.set('Dota.BuffEffectConfig', this._BuffEffectConfig)
         this._PopulationConfig = new Dota.PopulationConfig(loader('dota_populationconfig'))
@@ -4412,8 +4305,6 @@ export class Tables {
         tables.set('Dota.PoolGroupConfig', this._PoolGroupConfig)
         this._WearableConfig = new Dota.WearableConfig(loader('dota_wearableconfig'))
         tables.set('Dota.WearableConfig', this._WearableConfig)
-        this._BuildingLevelUpConfig = new Dota.BuildingLevelUpConfig(loader('dota_buildinglevelupconfig'))
-        tables.set('Dota.BuildingLevelUpConfig', this._BuildingLevelUpConfig)
         this._RoundBoardConfig = new Dota.RoundBoardConfig(loader('dota_roundboardconfig'))
         tables.set('Dota.RoundBoardConfig', this._RoundBoardConfig)
         this._RoundBoardChallengeConfig = new Dota.RoundBoardChallengeConfig(loader('dota_roundboardchallengeconfig'))
@@ -4440,8 +4331,6 @@ export class Tables {
         this._TActivityGiftCommond.resolve(tables)
         this._TActivityMentorshipTree.resolve(tables)
         this._HeroLevelUpConfig.resolve(tables)
-        this._HeroConfig.resolve(tables)
-        this._HeroTalentConfig.resolve(tables)
         this._SeasonConfig.resolve(tables)
         this._RankPrizeConfig.resolve(tables)
         this._DrawTreasureConfig.resolve(tables)
@@ -4449,6 +4338,7 @@ export class Tables {
         this._AchievementConfig.resolve(tables)
         this._TitleConfig.resolve(tables)
         this._GlobalSetting.resolve(tables)
+        this._BuildingLevelUpConfig.resolve(tables)
         this._BuffEffectConfig.resolve(tables)
         this._PopulationConfig.resolve(tables)
         this._TechConfig.resolve(tables)
@@ -4456,7 +4346,6 @@ export class Tables {
         this._PoolConfig.resolve(tables)
         this._PoolGroupConfig.resolve(tables)
         this._WearableConfig.resolve(tables)
-        this._BuildingLevelUpConfig.resolve(tables)
         this._RoundBoardConfig.resolve(tables)
         this._RoundBoardChallengeConfig.resolve(tables)
     }

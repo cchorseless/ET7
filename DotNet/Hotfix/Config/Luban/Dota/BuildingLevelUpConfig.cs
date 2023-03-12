@@ -9,35 +9,35 @@ using Bright.Serialization;
 using System.Collections.Generic;
 
 
-namespace cfg.Hero
+namespace cfg.Dota
 {
    
-public partial class HeroConfig
+public partial class BuildingLevelUpConfig
 {
-    private readonly Dictionary<int, Hero.HeroConfigRecord> _dataMap;
-    private readonly List<Hero.HeroConfigRecord> _dataList;
+    private readonly Dictionary<string, Dota.BuildingLevelUpConfigRecord> _dataMap;
+    private readonly List<Dota.BuildingLevelUpConfigRecord> _dataList;
     
-    public HeroConfig(ByteBuf _buf)
+    public BuildingLevelUpConfig(ByteBuf _buf)
     {
-        _dataMap = new Dictionary<int, Hero.HeroConfigRecord>();
-        _dataList = new List<Hero.HeroConfigRecord>();
+        _dataMap = new Dictionary<string, Dota.BuildingLevelUpConfigRecord>();
+        _dataList = new List<Dota.BuildingLevelUpConfigRecord>();
         
         for(int n = _buf.ReadSize() ; n > 0 ; --n)
         {
-            Hero.HeroConfigRecord _v;
-            _v = Hero.HeroConfigRecord.DeserializeHeroConfigRecord(_buf);
+            Dota.BuildingLevelUpConfigRecord _v;
+            _v = Dota.BuildingLevelUpConfigRecord.DeserializeBuildingLevelUpConfigRecord(_buf);
             _dataList.Add(_v);
             _dataMap.Add(_v.Id, _v);
         }
         PostInit();
     }
 
-    public Dictionary<int, Hero.HeroConfigRecord> DataMap => _dataMap;
-    public List<Hero.HeroConfigRecord> DataList => _dataList;
+    public Dictionary<string, Dota.BuildingLevelUpConfigRecord> DataMap => _dataMap;
+    public List<Dota.BuildingLevelUpConfigRecord> DataList => _dataList;
 
-    public Hero.HeroConfigRecord GetOrDefault(int key) => _dataMap.TryGetValue(key, out var v) ? v : null;
-    public Hero.HeroConfigRecord Get(int key) => _dataMap[key];
-    public Hero.HeroConfigRecord this[int key] => _dataMap[key];
+    public Dota.BuildingLevelUpConfigRecord GetOrDefault(string key) => _dataMap.TryGetValue(key, out var v) ? v : null;
+    public Dota.BuildingLevelUpConfigRecord Get(string key) => _dataMap[key];
+    public Dota.BuildingLevelUpConfigRecord this[string key] => _dataMap[key];
 
     public void Resolve(Dictionary<string, object> _tables)
     {
