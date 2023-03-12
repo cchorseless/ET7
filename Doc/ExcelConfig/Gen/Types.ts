@@ -3741,6 +3741,516 @@ export class UnitLevelUpConfigBean {
 
 }
 
+export namespace Dota {
+export class RoundBoardConfig{
+    private _dataMap: Map<string, Dota.RoundBoardConfigRecord>
+    private _dataList: Dota.RoundBoardConfigRecord[]
+    constructor(_json_: any) {
+        this._dataMap = new Map<string, Dota.RoundBoardConfigRecord>()
+        this._dataList = []
+        for(var _json2_ of _json_) {
+            let _v: Dota.RoundBoardConfigRecord
+            _v = new Dota.RoundBoardConfigRecord(_json2_)
+            this._dataList.push(_v)
+            this._dataMap.set(_v.id, _v)
+        }
+    }
+
+    getDataMap(): Map<string, Dota.RoundBoardConfigRecord> { return this._dataMap; }
+    getDataList(): Dota.RoundBoardConfigRecord[] { return this._dataList; }
+
+    get(key: string): Dota.RoundBoardConfigRecord | undefined { return this._dataMap.get(key); }
+
+    resolve(_tables: Map<string, any>) {
+        for(var v of this._dataList) {
+            v.resolve(_tables)
+        }
+    }
+
+}
+}
+
+
+
+export namespace Dota {
+export class RoundBoardConfigRecord {
+
+    constructor(_json_: any) {
+        if (_json_.id === undefined) { throw new Error() }
+        this.id = _json_.id
+        if (_json_.round_show === undefined) { throw new Error() }
+        this.roundShow = _json_.round_show
+        if (_json_.round_nextid === undefined) { throw new Error() }
+        this.roundNextid = _json_.round_nextid
+        if (_json_.round_type === undefined) { throw new Error() }
+        this.roundType = _json_.round_type
+        if (_json_.round_label === undefined) { throw new Error() }
+        this.roundLabel = _json_.round_label
+        if (_json_.roundprize_gold === undefined) { throw new Error() }
+        this.roundprizeGold = _json_.roundprize_gold
+        if (_json_.roundprize_wood === undefined) { throw new Error() }
+        this.roundprizeWood = _json_.roundprize_wood
+        if (_json_.round_readytime === undefined) { throw new Error() }
+        this.roundReadytime = _json_.round_readytime
+        if (_json_.round_time === undefined) { throw new Error() }
+        this.roundTime = _json_.round_time
+        if (_json_.enemyinfo === undefined) { throw new Error() }
+        { this.enemyinfo = []; for(let _ele of _json_.enemyinfo) { let _e : Dota.RoundEnemyConfigBean; _e = new Dota.RoundEnemyConfigBean(_ele); this.enemyinfo.push(_e);}}
+    }
+
+    /**
+     * 回合编号
+     */
+    readonly id: string
+    /**
+     * 回合显示数
+     */
+    readonly roundShow: string
+    /**
+     * 下一回合编号
+     */
+    readonly roundNextid: string
+    /**
+     * 回合类型
+     */
+    readonly roundType: string
+    /**
+     * 回合标签
+     */
+    readonly roundLabel: string
+    /**
+     * 奖励金币
+     */
+    readonly roundprizeGold: number
+    /**
+     * 奖励木材
+     */
+    readonly roundprizeWood: number
+    /**
+     * 回合准备时间
+     */
+    readonly roundReadytime: number
+    /**
+     * 回合持续时间
+     */
+    readonly roundTime: number
+    readonly enemyinfo: Dota.RoundEnemyConfigBean[]
+
+    resolve(_tables: Map<string, any>) {
+        for(let _e of this.enemyinfo) { if (_e != null ) {_e.resolve(_tables);} }
+    }
+}
+
+}
+
+
+
+export namespace Dota {
+export class RoundEnemyConfigBean {
+
+    constructor(_json_: any) {
+        if (_json_.id === undefined) { throw new Error() }
+        this.id = _json_.id
+        if (_json_.unitname === undefined) { throw new Error() }
+        this.unitname = _json_.unitname
+        if (_json_.position_x === undefined) { throw new Error() }
+        this.positionX = _json_.position_x
+        if (_json_.position_y === undefined) { throw new Error() }
+        this.positionY = _json_.position_y
+        if (_json_.angles_x === undefined) { throw new Error() }
+        this.anglesX = _json_.angles_x
+        if (_json_.angles_y === undefined) { throw new Error() }
+        this.anglesY = _json_.angles_y
+        if (_json_.angles_z === undefined) { throw new Error() }
+        this.anglesZ = _json_.angles_z
+        if (_json_.israndompos === undefined) { throw new Error() }
+        this.israndompos = _json_.israndompos
+        if (_json_.isground === undefined) { throw new Error() }
+        this.isground = _json_.isground
+        if (_json_.atk === undefined) { throw new Error() }
+        this.atk = _json_.atk
+        if (_json_.hp === undefined) { throw new Error() }
+        this.hp = _json_.hp
+        if (_json_.mp === undefined) { throw new Error() }
+        this.mp = _json_.mp
+        if (_json_.armorp === undefined) { throw new Error() }
+        this.armorp = _json_.armorp
+        if (_json_.armorm === undefined) { throw new Error() }
+        this.armorm = _json_.armorm
+        if (_json_.gold_min === undefined) { throw new Error() }
+        this.goldMin = _json_.gold_min
+        if (_json_.gold_max === undefined) { throw new Error() }
+        this.goldMax = _json_.gold_max
+        if (_json_.failure_count === undefined) { throw new Error() }
+        this.failureCount = _json_.failure_count
+        if (_json_.elite_drop_index === undefined) { throw new Error() }
+        this.eliteDropIndex = _json_.elite_drop_index
+        if (_json_.spawn_buff === undefined) { throw new Error() }
+        this.spawnBuff = _json_.spawn_buff
+        if (_json_.gold_wave_duration === undefined) { throw new Error() }
+        this.goldWaveDuration = _json_.gold_wave_duration
+        if (_json_.damage_per === undefined) { throw new Error() }
+        this.damagePer = _json_.damage_per
+        if (_json_.gold_per === undefined) { throw new Error() }
+        this.goldPer = _json_.gold_per
+        if (_json_.gold_total_x === undefined) { throw new Error() }
+        this.goldTotalX = _json_.gold_total_x
+        if (_json_.gold_total_y === undefined) { throw new Error() }
+        this.goldTotalY = _json_.gold_total_y
+        if (_json_.gold_total_z === undefined) { throw new Error() }
+        this.goldTotalZ = _json_.gold_total_z
+    }
+
+    /**
+     * 索引
+     */
+    readonly id: string
+    /**
+     * 回合单位名
+     */
+    readonly unitname: string
+    /**
+     * 位置x[0-7]
+     */
+    readonly positionX: number
+    /**
+     * 位置y[1-9]
+     */
+    readonly positionY: number
+    /**
+     * 朝向x
+     */
+    readonly anglesX: number
+    /**
+     * 朝向y
+     */
+    readonly anglesY: number
+    /**
+     * 朝向z
+     */
+    readonly anglesZ: number
+    /**
+     * 是否随机坐标
+     */
+    readonly israndompos: number
+    /**
+     * 是否在地面上
+     */
+    readonly isground: number
+    /**
+     * 回合攻击系数
+     */
+    readonly atk: number
+    /**
+     * 回合血量系数
+     */
+    readonly hp: number
+    /**
+     * 回合蓝量系数
+     */
+    readonly mp: number
+    /**
+     * 物理护甲系数
+     */
+    readonly armorp: number
+    /**
+     * 魔法护甲系数
+     */
+    readonly armorm: number
+    /**
+     * 单个怪物击杀金币min
+     */
+    readonly goldMin: number
+    /**
+     * 单个怪物击杀金币max
+     */
+    readonly goldMax: number
+    /**
+     * 失败统计基数
+     */
+    readonly failureCount: number
+    /**
+     * 精英怪掉落池编号
+     */
+    readonly eliteDropIndex: string
+    /**
+     * 单位自带buff
+     */
+    readonly spawnBuff: string
+    /**
+     * 打金箱子存活多久
+     */
+    readonly goldWaveDuration: number
+    /**
+     * 打金-每多少伤害给金币
+     */
+    readonly damagePer: number
+    /**
+     * 打金-每次给金币
+     */
+    readonly goldPer: number
+    /**
+     * 打金系数x
+     */
+    readonly goldTotalX: number
+    /**
+     * 打金系数y
+     */
+    readonly goldTotalY: number
+    /**
+     * 打金系数z
+     */
+    readonly goldTotalZ: number
+
+    resolve(_tables: Map<string, any>) {
+    }
+}
+
+}
+
+export namespace Dota {
+export class RoundBoardChallengeConfig{
+    private _dataMap: Map<string, Dota.RoundBoardChallengeConfigRecord>
+    private _dataList: Dota.RoundBoardChallengeConfigRecord[]
+    constructor(_json_: any) {
+        this._dataMap = new Map<string, Dota.RoundBoardChallengeConfigRecord>()
+        this._dataList = []
+        for(var _json2_ of _json_) {
+            let _v: Dota.RoundBoardChallengeConfigRecord
+            _v = new Dota.RoundBoardChallengeConfigRecord(_json2_)
+            this._dataList.push(_v)
+            this._dataMap.set(_v.id, _v)
+        }
+    }
+
+    getDataMap(): Map<string, Dota.RoundBoardChallengeConfigRecord> { return this._dataMap; }
+    getDataList(): Dota.RoundBoardChallengeConfigRecord[] { return this._dataList; }
+
+    get(key: string): Dota.RoundBoardChallengeConfigRecord | undefined { return this._dataMap.get(key); }
+
+    resolve(_tables: Map<string, any>) {
+        for(var v of this._dataList) {
+            v.resolve(_tables)
+        }
+    }
+
+}
+}
+
+
+
+export namespace Dota {
+export class RoundBoardChallengeConfigRecord {
+
+    constructor(_json_: any) {
+        if (_json_.id === undefined) { throw new Error() }
+        this.id = _json_.id
+        if (_json_.round_type === undefined) { throw new Error() }
+        this.roundType = _json_.round_type
+        if (_json_.round_label === undefined) { throw new Error() }
+        this.roundLabel = _json_.round_label
+        if (_json_.round_unitcount === undefined) { throw new Error() }
+        this.roundUnitcount = _json_.round_unitcount
+        if (_json_.enemyinfo === undefined) { throw new Error() }
+        { this.enemyinfo = []; for(let _ele of _json_.enemyinfo) { let _e : Dota.RoundChallengeEnemyConfigBean; _e = new Dota.RoundChallengeEnemyConfigBean(_ele); this.enemyinfo.push(_e);}}
+    }
+
+    /**
+     * 回合编号
+     */
+    readonly id: string
+    /**
+     * 回合类型
+     */
+    readonly roundType: string
+    /**
+     * 回合标签
+     */
+    readonly roundLabel: string
+    /**
+     * 怪物数量
+     */
+    readonly roundUnitcount: number
+    readonly enemyinfo: Dota.RoundChallengeEnemyConfigBean[]
+
+    resolve(_tables: Map<string, any>) {
+        for(let _e of this.enemyinfo) { if (_e != null ) {_e.resolve(_tables);} }
+    }
+}
+
+}
+
+
+
+export namespace Dota {
+export class RoundChallengeEnemyConfigBean {
+
+    constructor(_json_: any) {
+        if (_json_.id === undefined) { throw new Error() }
+        this.id = _json_.id
+        if (_json_.unitname === undefined) { throw new Error() }
+        this.unitname = _json_.unitname
+        if (_json_.unit_weight === undefined) { throw new Error() }
+        this.unitWeight = _json_.unit_weight
+        if (_json_.position_x === undefined) { throw new Error() }
+        this.positionX = _json_.position_x
+        if (_json_.position_y === undefined) { throw new Error() }
+        this.positionY = _json_.position_y
+        if (_json_.angles_x === undefined) { throw new Error() }
+        this.anglesX = _json_.angles_x
+        if (_json_.angles_y === undefined) { throw new Error() }
+        this.anglesY = _json_.angles_y
+        if (_json_.angles_z === undefined) { throw new Error() }
+        this.anglesZ = _json_.angles_z
+        if (_json_.israndompos === undefined) { throw new Error() }
+        this.israndompos = _json_.israndompos
+        if (_json_.isground === undefined) { throw new Error() }
+        this.isground = _json_.isground
+        if (_json_.atk === undefined) { throw new Error() }
+        this.atk = _json_.atk
+        if (_json_.hp === undefined) { throw new Error() }
+        this.hp = _json_.hp
+        if (_json_.mp === undefined) { throw new Error() }
+        this.mp = _json_.mp
+        if (_json_.armorp === undefined) { throw new Error() }
+        this.armorp = _json_.armorp
+        if (_json_.armorm === undefined) { throw new Error() }
+        this.armorm = _json_.armorm
+        if (_json_.gold_min === undefined) { throw new Error() }
+        this.goldMin = _json_.gold_min
+        if (_json_.gold_max === undefined) { throw new Error() }
+        this.goldMax = _json_.gold_max
+        if (_json_.failure_count === undefined) { throw new Error() }
+        this.failureCount = _json_.failure_count
+        if (_json_.elite_drop_index === undefined) { throw new Error() }
+        this.eliteDropIndex = _json_.elite_drop_index
+        if (_json_.spawn_buff === undefined) { throw new Error() }
+        this.spawnBuff = _json_.spawn_buff
+        if (_json_.gold_wave_duration === undefined) { throw new Error() }
+        this.goldWaveDuration = _json_.gold_wave_duration
+        if (_json_.damage_per === undefined) { throw new Error() }
+        this.damagePer = _json_.damage_per
+        if (_json_.gold_per === undefined) { throw new Error() }
+        this.goldPer = _json_.gold_per
+        if (_json_.gold_total_x === undefined) { throw new Error() }
+        this.goldTotalX = _json_.gold_total_x
+        if (_json_.gold_total_y === undefined) { throw new Error() }
+        this.goldTotalY = _json_.gold_total_y
+        if (_json_.gold_total_z === undefined) { throw new Error() }
+        this.goldTotalZ = _json_.gold_total_z
+    }
+
+    /**
+     * 种怪索引
+     */
+    readonly id: string
+    /**
+     * 回合单位名
+     */
+    readonly unitname: string
+    /**
+     * 随机权重
+     */
+    readonly unitWeight: number
+    /**
+     * 位置x[0-7]
+     */
+    readonly positionX: number
+    /**
+     * 位置y[1-9]
+     */
+    readonly positionY: number
+    /**
+     * 朝向x
+     */
+    readonly anglesX: number
+    /**
+     * 朝向y
+     */
+    readonly anglesY: number
+    /**
+     * 朝向z
+     */
+    readonly anglesZ: number
+    /**
+     * 是否随机坐标
+     */
+    readonly israndompos: boolean
+    /**
+     * 是否在地面上
+     */
+    readonly isground: boolean
+    /**
+     * 回合攻击系数
+     */
+    readonly atk: number
+    /**
+     * 回合血量系数
+     */
+    readonly hp: number
+    /**
+     * 回合蓝量系数
+     */
+    readonly mp: number
+    /**
+     * 物理护甲系数
+     */
+    readonly armorp: number
+    /**
+     * 魔法护甲系数
+     */
+    readonly armorm: number
+    /**
+     * 单个怪物击杀金币min
+     */
+    readonly goldMin: number
+    /**
+     * 单个怪物击杀金币max
+     */
+    readonly goldMax: number
+    /**
+     * 失败统计基数
+     */
+    readonly failureCount: number
+    /**
+     * 精英怪掉落池编号
+     */
+    readonly eliteDropIndex: string
+    /**
+     * 单位自带buff
+     */
+    readonly spawnBuff: string
+    /**
+     * 打金箱子存活多久
+     */
+    readonly goldWaveDuration: number
+    /**
+     * 打金-每多少伤害给金币
+     */
+    readonly damagePer: number
+    /**
+     * 打金-每次给金币
+     */
+    readonly goldPer: number
+    /**
+     * 打金系数x
+     */
+    readonly goldTotalX: number
+    /**
+     * 打金系数y
+     */
+    readonly goldTotalY: number
+    /**
+     * 打金系数z
+     */
+    readonly goldTotalZ: number
+
+    resolve(_tables: Map<string, any>) {
+    }
+}
+
+}
+
 
 type JsonLoader = (file: string) => any
 
@@ -3821,6 +4331,10 @@ export class Tables {
     get WearableConfig(): Dota.WearableConfig  { return this._WearableConfig;}
     private _BuildingLevelUpConfig: Dota.BuildingLevelUpConfig
     get BuildingLevelUpConfig(): Dota.BuildingLevelUpConfig  { return this._BuildingLevelUpConfig;}
+    private _RoundBoardConfig: Dota.RoundBoardConfig
+    get RoundBoardConfig(): Dota.RoundBoardConfig  { return this._RoundBoardConfig;}
+    private _RoundBoardChallengeConfig: Dota.RoundBoardChallengeConfig
+    get RoundBoardChallengeConfig(): Dota.RoundBoardChallengeConfig  { return this._RoundBoardChallengeConfig;}
 
     constructor(loader: JsonLoader) {
         let tables = new Map<string, any>()
@@ -3900,6 +4414,10 @@ export class Tables {
         tables.set('Dota.WearableConfig', this._WearableConfig)
         this._BuildingLevelUpConfig = new Dota.BuildingLevelUpConfig(loader('dota_buildinglevelupconfig'))
         tables.set('Dota.BuildingLevelUpConfig', this._BuildingLevelUpConfig)
+        this._RoundBoardConfig = new Dota.RoundBoardConfig(loader('dota_roundboardconfig'))
+        tables.set('Dota.RoundBoardConfig', this._RoundBoardConfig)
+        this._RoundBoardChallengeConfig = new Dota.RoundBoardChallengeConfig(loader('dota_roundboardchallengeconfig'))
+        tables.set('Dota.RoundBoardChallengeConfig', this._RoundBoardChallengeConfig)
 
         this._ItemConfig.resolve(tables)
         this._ItemEquipConfig.resolve(tables)
@@ -3939,5 +4457,7 @@ export class Tables {
         this._PoolGroupConfig.resolve(tables)
         this._WearableConfig.resolve(tables)
         this._BuildingLevelUpConfig.resolve(tables)
+        this._RoundBoardConfig.resolve(tables)
+        this._RoundBoardChallengeConfig.resolve(tables)
     }
 }
