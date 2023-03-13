@@ -2271,6 +2271,8 @@ export class HeroLevelUpConfigRecord {
         this.id = _json_.id
         if (_json_.Exp === undefined) { throw new Error() }
         this.Exp = _json_.Exp
+        if (_json_.TotalTalentPoint === undefined) { throw new Error() }
+        this.TotalTalentPoint = _json_.TotalTalentPoint
     }
 
     /**
@@ -2281,6 +2283,10 @@ export class HeroLevelUpConfigRecord {
      * 所需经验
      */
     readonly Exp: number
+    /**
+     * 天赋总点数
+     */
+    readonly TotalTalentPoint: number
 
     resolve(_tables: Map<string, any>) {
     }

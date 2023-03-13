@@ -209,7 +209,7 @@ namespace ET.Server
             HttpPlayerSession.SendToClient(base64str);
         }
 
-        public static void SyncHttpEntity<T>(this TCharacter self, T entity) where T : Entity
+        public static void SyncHttpEntity<T>(this TCharacter self, T entity, bool includeChild = true) where T : Entity
         {
             if (entity == null)
             {
@@ -220,6 +220,14 @@ namespace ET.Server
             var str = MongoHelper.ToClientJson(entity);
             var player = self.GetMyPlayer();
             var HttpPlayerSession = player.GetComponent<HttpPlayerSessionComponent>();
+            if (includeChild == false)
+            {
+                var litjson = JsonHelper.FromLitJson(str).AsObject();
+                litjson.Remove("Children");
+                litjson.Remove("C");
+                str = JsonHelper.ToLitJson(litjson);
+            }
+
             HttpPlayerSession.SendToClient(GameConfig.DealSyncClientString(str));
         }
 
@@ -242,7 +250,11 @@ namespace ET.Server
             HttpPlayerSession.SendToClient();
         }
 
-        public static void SyncHttpEntityChilds<T>(this TCharacter self, T entity, long[] childIds) where T : Entity
+        public static void SyncHttpEntityAndChild<T>(this TCharacter self, T entity, long childId) where T : Entity
+        {
+            self.SyncHttpEntityAndChilds(entity, new long[] { childId });
+        }
+        public static void SyncHttpEntityAndChilds<T>(this TCharacter self, T entity, long[] childIds) where T : Entity
         {
             if (entity == null)
             {
@@ -250,34 +262,24 @@ namespace ET.Server
                 return;
             }
 
-            var childs = new List<Entity>();
-            foreach (var childId in childIds)
-            {
-                var _child = entity.GetChild<Entity>(childId);
-                if (_child != null)
-                {
-                    childs.Add(_child);
-                }
-            }
-
-            if (childs.Count == 0)
-            {
-                return;
-            }
-
-            var litjson = JsonHelper.GetLitObject();
-            litjson["_t"] = entity.GetType().Name;
-            litjson["_id"] = entity.Id.ToString();
-            var litArray = JsonHelper.GetLitArray();
-            foreach (var _child in childs)
-            {
-                litArray.Add(MongoHelper.ToClientJson(_child));
-            }
-
-            litjson["Children"] = litArray;
+            var str = MongoHelper.ToClientJson(entity);
+            var litjson = JsonHelper.FromLitJson(str).AsObject();
             var player = self.GetMyPlayer();
             var HttpPlayerSession = player.GetComponent<HttpPlayerSessionComponent>();
-            var str = JsonHelper.ToLitJson(litjson);
+            if (litjson.ContainsKey("Children"))
+            {
+                var childs = litjson["Children"].AsArray();
+                var _childs= childs.ToArray();
+                foreach (var child in _childs)
+                {
+                    var childId = long.TryParse(child["_id"].ToString(), out var id)? id : 0;
+                    if (!childIds.Contains(childId))
+                    {
+                        childs.Remove(child);
+                    }
+                }
+            }
+            str = JsonHelper.ToLitJson(litjson);
             HttpPlayerSession.SendToClient(GameConfig.DealSyncClientString(str));
         }
 

@@ -14,11 +14,12 @@ namespace ET.Server
             self.RefreshBattleScore();
             self.RefreshHeroBattleScoreRank();
         }
+
         public static string BindHeroName(this THeroUnit self)
         {
-            return  LuBanConfigComponent.Instance.Config().BuildingLevelUpConfig.GetHeroName(self.ConfigId);
+            return LuBanConfigComponent.Instance.Config().BuildingLevelUpConfig.GetHeroName(self.ConfigId);
         }
-        
+
         public static cfg.Dota.BuildingLevelUpConfigRecord HeroConfig(this THeroUnit self)
         {
             return LuBanConfigComponent.Instance.Config().BuildingLevelUpConfig.GetOrDefault(self.BindHeroName());
@@ -38,19 +39,22 @@ namespace ET.Server
                 self.Exp -= self.GetLevelUpExp();
                 self.Level += 1;
                 self.Character.ActivityComp.GetActivityData<TActivityHeroRecordLevelData>(EActivityType.TActivityHeroRecordLevel)?.AddHeroSumLevel();
+                self.HeroTalentComp.OnHeroLevelUp();
             }
+
+            self.HeroManageComp.Character.SyncHttpEntity(self);
         }
 
         public static int GetLevelUpExp(this THeroUnit self)
         {
-            var needExp = LuBanConfigComponent.Instance.Config().HeroLevelUpConfig.GetOrDefault(self.Level + 1);
+            var needExp = LuBanConfigComponent.Instance.Config().HeroLevelUpConfig.GetOrDefault(self.Level);
             if (needExp != null)
             {
                 return needExp.Exp;
             }
+
             return 0;
         }
-
 
         public static void RefreshBattleScore(this THeroUnit self)
         {
@@ -66,11 +70,12 @@ namespace ET.Server
     }
 
     [ObjectSystem]
-    public class THeroUnitAwakeSystem : AwakeSystem<THeroUnit, int>
+    public class THeroUnitAwakeSystem: AwakeSystem<THeroUnit, int>
     {
         protected override void Awake(THeroUnit self, int configid)
         {
             self.ConfigId = configid;
+            self.Level = 1;
             self.AddComponent<HeroEquipComponent>();
             self.AddComponent<HeroTalentComponent>();
         }

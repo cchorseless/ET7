@@ -199,7 +199,12 @@ namespace ET.Server
                 var item = self.AddTItem(configid, count);
                 if (item != null)
                 {
-                    self.Character.SyncHttpEntity(item);
+                    // 有些物品添加就使用并销毁了
+                    if (!item.IsDisposed)
+                    {
+                        self.Character.SyncHttpEntity(item);
+                    }
+
                     return (true, item.Id);
                 }
                 else

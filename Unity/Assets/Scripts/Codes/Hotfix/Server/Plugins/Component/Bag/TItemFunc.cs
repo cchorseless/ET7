@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace ET.Server
 {
-
     public enum EItemPrizeState
     {
         CanGet = 1,
@@ -14,7 +13,6 @@ namespace ET.Server
         HadGet = 4,
         OutOfDate = 8,
     }
-
 
     public static class TItemFunc
     {
@@ -34,6 +32,7 @@ namespace ET.Server
                 }
             }
         }
+
         public static bool IsInBag(this TItem self)
         {
             return self.BagComp == null && self.BagComp.Items.Contains(self.Id);
@@ -45,6 +44,7 @@ namespace ET.Server
             {
                 self.ItemQuality = 1;
             }
+
             foreach (var awakescript in self.Config().AwakeScript)
             {
                 switch (awakescript.ScriptName)
@@ -58,28 +58,24 @@ namespace ET.Server
                     case cfg.EEnum.EItemAwakeScript.AddHeroExp:
                         self.AddHeroExp(awakescript.ScriptValue);
                         break;
-
                 }
             }
         }
 
         public static void AddTitle(this TItem self, List<int> titleGroup)
         {
-            titleGroup.ForEach(titleConfigId =>
-            {
-                self.BagComp.Character.TitleComp.AddTitle(titleConfigId);
-            });
+            titleGroup.ForEach(titleConfigId => { self.BagComp.Character.TitleComp.AddTitle(titleConfigId); });
             self.Dispose();
         }
 
         public static void AddHeroExp(this TItem self, List<int> argsList)
         {
-          
             int exp = argsList[0];
             string heroname = self.Config().BindHeroName;
             var hero = self.BagComp.Character.HeroManageComp.GetHeroUnit(heroname);
             if (hero == null)
             {
+                Log.Warning($"AddHeroExp,hero is null,configid:{self.ConfigId} {heroname}");
                 return;
             }
             int exp_sum = exp * self.ItemCount;
@@ -87,25 +83,28 @@ namespace ET.Server
             self.Dispose();
         }
 
-
         public static (int, string) ApplyUse(this TItem self, int count)
         {
             if (self.IsDisposed)
             {
                 return (ErrorCode.ERR_Error, "item is destroy");
             }
+
             if (count <= 0)
             {
                 return (ErrorCode.ERR_Error, "count is 0");
             }
+
             if (!self.IsInBag())
             {
                 return (ErrorCode.ERR_Error, "not in bag");
             }
+
             if (self.ItemCount < count || self.Config().UseScript == cfg.EEnum.EItemUseScript.None)
             {
                 return (ErrorCode.ERR_Error, "count is not enough");
             }
+
             (int, string) r = (ErrorCode.ERR_Error, "cant use item");
             bool needCostItem = false;
             switch (self.Config().UseScript)
@@ -122,10 +121,12 @@ namespace ET.Server
                     r = self.DressUp();
                     break;
             }
+
             if (needCostItem)
             {
                 self.ChangeItemCount(-count);
             }
+
             return r;
         }
 
@@ -135,10 +136,12 @@ namespace ET.Server
             {
                 return (ErrorCode.ERR_Error, "prizeidList IsEmpty");
             }
+
             if (!self.IsInBag())
             {
                 return (ErrorCode.ERR_Error, "not in bag");
             }
+
             var prizeItems = new List<ValueTupleStruct<int, int>>();
             foreach (var prizeid in prizeidList)
             {
@@ -154,10 +157,9 @@ namespace ET.Server
                     });
                 }
             }
+
             return self.BagComp.AddTItemOrMoney(prizeItems);
         }
-
-
 
         public static (int, string) DressUp(this TItem self)
         {
@@ -170,16 +172,20 @@ namespace ET.Server
                 {
                     return (ErrorCode.ERR_Error, "hero cant find");
                 }
+
                 return hero.HeroEquipComp.DressEquip(self.Id, (int)item.EquipConfig().EquipSlot);
             }
+
             return (ErrorCode.ERR_Error, "item cant dress up");
         }
+
         public static (int, string) AddBuff(this TItem self, List<int> argsList, int count)
         {
             if (argsList.Count == 0 || count <= 0)
             {
                 return (ErrorCode.ERR_Error, "argsList error");
             }
+
             for (int i = 0; i < argsList.Count; i++)
             {
                 var buffConfigId = argsList[i];
@@ -188,6 +194,7 @@ namespace ET.Server
                     self.BagComp.Character.BuffComp.AddBuff(buffConfigId);
                 }
             }
+
             return (ErrorCode.ERR_Success, JsonHelper.ToLitJson(argsList));
         }
     }

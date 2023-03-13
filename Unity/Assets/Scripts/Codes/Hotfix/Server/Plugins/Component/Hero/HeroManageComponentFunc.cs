@@ -51,9 +51,10 @@ namespace ET.Server
             {
                 return null;
             }
+
             return self.GetHeroUnit(config.BindHeroId);
         }
-      
+
         public static THeroUnit GetHeroUnit(this HeroManageComponent self, int configid)
         {
             if (self.HeroUnits.TryGetValue(configid, out var entityid))
@@ -62,11 +63,13 @@ namespace ET.Server
             }
 
             var heroConfig = LuBanConfigComponent.Instance.Config().BuildingLevelUpConfig.GetHeroName(configid);
-            if (string.IsNullOrEmpty(heroConfig))
+            if (!string.IsNullOrEmpty(heroConfig))
             {
-                return self.AddChild<THeroUnit, int>(configid);
+                var herounit = self.AddChild<THeroUnit, int>(configid);
+                self.HeroUnits.Add(configid, herounit.Id);
+                self.Character.SyncHttpEntityAndChild(self, herounit.Id);
+                return herounit;
             }
-
             return null;
         }
 

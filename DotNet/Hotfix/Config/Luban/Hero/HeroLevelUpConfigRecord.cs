@@ -17,6 +17,7 @@ public sealed partial class HeroLevelUpConfigRecord :  Bright.Config.BeanBase
     {
         Id = _buf.ReadInt();
         Exp = _buf.ReadInt();
+        TotalTalentPoint = _buf.ReadInt();
         PostInit();
     }
 
@@ -33,6 +34,10 @@ public sealed partial class HeroLevelUpConfigRecord :  Bright.Config.BeanBase
     /// 所需经验
     /// </summary>
     public int Exp { get; private set; }
+    /// <summary>
+    /// 天赋总点数
+    /// </summary>
+    public int TotalTalentPoint { get; private set; }
 
     public const int __ID__ = -596922172;
     public override int GetTypeId() => __ID__;
@@ -51,6 +56,7 @@ public sealed partial class HeroLevelUpConfigRecord :  Bright.Config.BeanBase
         return "{ "
         + "Id:" + Id + ","
         + "Exp:" + Exp + ","
+        + "TotalTalentPoint:" + TotalTalentPoint + ","
         + "}";
     }
     
