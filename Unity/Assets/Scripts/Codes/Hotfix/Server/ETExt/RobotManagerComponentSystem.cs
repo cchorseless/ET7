@@ -11,7 +11,7 @@ namespace ET.Server
         {
             protected override void Awake(RobotManagerComponent self)
             {
-                self.AutoCreateRobot(500).Coroutine();
+                // self.AutoCreateRobot(500).Coroutine();
             }
         }
 

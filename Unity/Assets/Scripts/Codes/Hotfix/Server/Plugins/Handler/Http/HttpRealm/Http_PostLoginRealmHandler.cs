@@ -12,7 +12,6 @@ namespace ET.Server
     {
         protected override async ETTask Run(Entity domain, C2R_Login request, R2C_Login response, long playerid)
         {
-            await ETTask.CompletedTask;
             if (AccountHelper.IsGoodAccountKey(request.Account).Item1 != ErrorCode.ERR_Success)
             {
                 response.Error = ErrorCode.ERR_LoginError;

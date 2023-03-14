@@ -12,14 +12,13 @@ namespace ET.Server
     {
         protected override async ETTask Run(Entity domain, C2H_GetAccountLoginKey request, H2C_GetAccountLoginKey response, long playerid)
         {
-            await ETTask.CompletedTask;
             if (AccountHelper.IsGoodAccountKey(request.Account).Item1 != ErrorCode.ERR_Success)
             {
                 response.Error = ErrorCode.ERR_LoginError;
                 response.Message = "Account error";
                 return;
             }
-
+            Log.Console($"Http_PostAccountLoginKeyHandler { request.Account}");
             var accountDB = DBManagerComponent.Instance.GetAccountDB();
             TAccountInfo newAccount = await accountDB.QueryOne<TAccountInfo>(account => account.Account == request.Account);
             if (newAccount == null)

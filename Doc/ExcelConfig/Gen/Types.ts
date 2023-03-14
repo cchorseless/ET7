@@ -3235,16 +3235,16 @@ export class CombinationConfigRecord {
     constructor(_json_: any) {
         if (_json_.id === undefined) { throw new Error() }
         this.id = _json_.id
-        if (_json_.relation === undefined) { throw new Error() }
-        this.relation = _json_.relation
-        if (_json_.relationicon === undefined) { throw new Error() }
-        this.relationicon = _json_.relationicon
-        if (_json_.relationid === undefined) { throw new Error() }
-        this.relationid = _json_.relationid
+        if (_json_.SectName === undefined) { throw new Error() }
+        this.SectName = _json_.SectName
+        if (_json_.SectIcon === undefined) { throw new Error() }
+        this.SectIcon = _json_.SectIcon
+        if (_json_.SectId === undefined) { throw new Error() }
+        this.SectId = _json_.SectId
         if (_json_.index === undefined) { throw new Error() }
         this.index = _json_.index
-        if (_json_.relation_level === undefined) { throw new Error() }
-        this.relationLevel = _json_.relation_level
+        if (_json_.SectLevel === undefined) { throw new Error() }
+        this.SectLevel = _json_.SectLevel
         if (_json_.active_count === undefined) { throw new Error() }
         this.activeCount = _json_.active_count
         if (_json_.acitve_common_effect === undefined) { throw new Error() }
@@ -3266,15 +3266,15 @@ export class CombinationConfigRecord {
     /**
      * 羁绊名称
      */
-    readonly relation: string
+    readonly SectName: string
     /**
      * 羁绊icon
      */
-    readonly relationicon: string
+    readonly SectIcon: string
     /**
      * 羁绊id
      */
-    readonly relationid: string
+    readonly SectId: string
     /**
      * 羁绊索引
      */
@@ -3282,7 +3282,7 @@ export class CombinationConfigRecord {
     /**
      * 羁绊等级
      */
-    readonly relationLevel: string
+    readonly SectLevel: string
     /**
      * 羁绊激活数量
      */

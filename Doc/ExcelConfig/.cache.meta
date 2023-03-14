@@ -246,8 +246,8 @@ E:/project/et_project/ET7/Config/Luban/activity_tactivitytotalonlinetime.bytes,5
 E:/project/et_project/ET7/Config/Luban/activity_tactivitytotalonlinetime.json,3FB4B020C8F4757A1627C7BD1DBB729,1085,1678614924434
 E:/project/et_project/ET7/Config/Luban/activity_tactivitytotalspendmetastone.bytes,5F919D9AFF16381539A5565F875125,99,1676880432577
 E:/project/et_project/ET7/Config/Luban/activity_tactivitytotalspendmetastone.json,3FB4B020C8F4757A1627C7BD1DBB729,1085,1678614924420
-E:/project/et_project/ET7/Config/Luban/dota_buildinglevelupconfig.bytes,5638986DDE3CC0278A78925486BCA4,45891,1678613952009
-E:/project/et_project/ET7/Config/Luban/dota_buildinglevelupconfig.json,52479EF8DE192E9A35435D6577753AB,129216,1678614924428
+E:/project/et_project/ET7/Config/Luban/dota_buildinglevelupconfig.bytes,98CC9D38873B581C64692D49A8D2FB7E,48273,1678806401734
+E:/project/et_project/ET7/Config/Luban/dota_buildinglevelupconfig.json,F81651EEA3A56DFDC3E82C1641CDA8F0,131598,1678806401723
 E:/project/et_project/ET7/Config/Luban/draw_drawtreasureconfig.bytes,5DC7697AD215876602A4186DA107CB1,37,1676880432581
 E:/project/et_project/ET7/Config/Luban/draw_drawtreasureconfig.json,5264D341AB83687DB1644A1EF294A26,493,1678614924428
 E:/project/et_project/ET7/Config/Luban/glob_globalsetting.bytes,EBC675486CCE5F22592E604DC1C4DFD6,11,1676880432555
@@ -256,8 +256,8 @@ E:/project/et_project/ET7/Config/Luban/hero_herolevelupconfig.bytes,6813D88E5DD9
 E:/project/et_project/ET7/Config/Luban/hero_herolevelupconfig.json,D890392A15AAB73768B1355EFC783D,1030,1678708343639
 E:/project/et_project/ET7/Config/Luban/item_itembuffconfig.bytes,D31630A87AE52632129865F9986B3EE7,221,1676880432578
 E:/project/et_project/ET7/Config/Luban/item_itembuffconfig.json,E85A8B121F88815979D0A6A86EA562C7,1990,1678614924422
-E:/project/et_project/ET7/Config/Luban/item_itemconfig.bytes,47532B5423A5EE8ED18D07D597B40,19084,1678688796980
-E:/project/et_project/ET7/Config/Luban/item_itemconfig.json,9B4474914F97EFC44A2E68499C82A972,79296,1678688796980
+E:/project/et_project/ET7/Config/Luban/item_itemconfig.bytes,7C3CD4CEBDFEB0A3D7FAF66D5A0F2F5,19085,1678784218387
+E:/project/et_project/ET7/Config/Luban/item_itemconfig.json,7315373BFB15FA5884637E048CA311A,79297,1678784218387
 E:/project/et_project/ET7/Config/Luban/item_itemequipconfig.bytes,704437ADDCD08E9CC9A4E0DE7BC9E126,990,1678613216383
 E:/project/et_project/ET7/Config/Luban/item_itemequipconfig.json,5264A9D895D9A84989AE9A3FC85DEB8,10712,1678614924421
 E:/project/et_project/ET7/Config/Luban/item_itemprizepoolconfig.bytes,1EFC1685AF4B1719F1174AA1A92999,478,1676880432580
@@ -286,7 +286,7 @@ E:/project/et_project/ET7/Doc/ExcelConfig/Datas/成就/AchievementConfig.xlsx,7E
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/抽奖/DrawTreasureConfig.xlsx,CF8323C4AA76D06F7947CBB713831E75,9965,1674881631627
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/单位/HeroLevelUpConfig.xlsx,9711EA7CC873B0A8D6444235D91EF3AA,9885,1678708321856
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/道具/ItemBuffConfig.xlsx,57D23496FD13CF3D33BC9E1E7224D8C,9880,1674881631635
-E:/project/et_project/ET7/Doc/ExcelConfig/Datas/道具/ItemConfig.xlsx,C3CE566E0527B21D853CFC6F2B11494,33492,1678717503672
+E:/project/et_project/ET7/Doc/ExcelConfig/Datas/道具/ItemConfig.xlsx,52691BBE3ACD358EAE2378C92E150E2,33523,1678784132379
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/道具/ItemEquipConfig.xlsx,4331714A1705495DD30E5E6427358F,16114,1678610793889
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/道具/ItemPrizePoolConfig.xlsx,A59772A61631465068AB7C346B2B26C,10936,1676445876421
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/道具/ItemPrizePoolGroupConfig.xlsx,6F13F2A536CC936A5A1BD35CEA937AEB,10409,1676446429779
@@ -310,8 +310,8 @@ E:/project/et_project/ET7/Doc/ExcelConfig/Datas/商店/ShopConfig.xlsx,FEA2466AA
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/属性/PropConfig.xlsx,CF70BB3FD254686B538E81554FC9A,13538,1675661381606
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/属性/RandomPropConfig.xlsx,7A643FFE64D32429CD4EEBFA8CA436E0,10708,1674881631625
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/dota/BuffEffectConfig.xlsx,1573161B11B2F4A5F76236E3EEB93,67116,1678717312704
-E:/project/et_project/ET7/Doc/ExcelConfig/Datas/dota/BuildingLevelUpConfig.xlsx,E7F645D1F49055C34C2DB328B79FBD9B,61310,1678615158596
-E:/project/et_project/ET7/Doc/ExcelConfig/Datas/dota/CombinationConfig.xlsx,84CE82F5F5D87E238352810297484,333411,1678717494508
+E:/project/et_project/ET7/Doc/ExcelConfig/Datas/dota/BuildingLevelUpConfig.xlsx,7DCADA9C580DBB72AD3C7568836D2E,61251,1678806378738
+E:/project/et_project/ET7/Doc/ExcelConfig/Datas/dota/CombinationConfig.xlsx,73ECA344B6AA0274A1402DD85AA486,333414,1678805929748
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/dota/PoolConfig.xlsx,1E4271EE96ECF4044EE5BACD36C97E4,25507,1676447218541
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/dota/PoolGroupConfig.xlsx,42D43381CB6C399A93B71DAA76BCD3,9694,1676449438660
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/dota/PopulationConfig.xlsx,E5A0DA86B915D14FACC8BC87B4AB5298,10437,1675506358512
@@ -333,8 +333,8 @@ E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/activity_tactivitytotalgainme
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/activity_tactivitytotalonlinetime.json,AAF6FBC447B6E367FF9ACDAFF40E9E3,2575,1669810242498
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/activity_tactivitytotalspendmetastone.json,AAF6FBC447B6E367FF9ACDAFF40E9E3,2575,1669810242498
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/dota_buffeffectconfig.json,91D48EE4BB66A8EC1EE014F88CF11EF4,118528,1678717519027
-E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/dota_buildinglevelupconfig.json,D2178FAC81D16421F677EC4A6DD1D990,204437,1678614920696
-E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/dota_combinationconfig.json,B228E7A2DAEBBF6939D3A5F1A1CAEF,646849,1678717519027
+E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/dota_buildinglevelupconfig.json,DF63DAD5E6CCEE42B0C83C236CA6879,206819,1678806398570
+E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/dota_combinationconfig.json,8F2F9F67EC2C68D9D74A7D8E57E59387,628681,1678790664467
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/dota_poolconfig.json,F76130B2EFE9DDB0FD50778EC1FC489,67611,1676447603365
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/dota_poolgroupconfig.json,13F525D411CAB426B6858E8C6DBC1F,922,1676616433811
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/dota_populationconfig.json,A14F2DDD951992BBB4FDBF62A346561,5277,1675507269967
@@ -346,7 +346,7 @@ E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/draw_drawtreasureconfig.json,
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/glob_globalsetting.json,C3EFA26BC65540D3A7EB3DF34F24B35D,152,1671795328259
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/hero_herolevelupconfig.json,8E70973E01AFC6BF689DEFE184B48B,1757,1678708346727
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/item_itembuffconfig.json,12309622D090887674CD571A5B77C039,2860,1669810242500
-E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/item_itemconfig.json,94105D2EFC7AD1F4C74AFFAB23404DA0,121126,1678688799619
+E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/item_itemconfig.json,BEF2B68CF9FC5C7C644E73834165B5,121127,1678784221089
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/item_itemequipconfig.json,B41FE1C3453EA07ED48E238B74BE50B5,16886,1678613211677
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/item_itemprizepoolconfig.json,3B9E3C8A91496AFA482F2AB33533781A,8225,1676447603365
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/item_itemprizepoolgroupconfig.json,2EF71C151FC1E1EFDF209134E044E6C1,4865,1669810242501
@@ -357,7 +357,7 @@ E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/season_seasonconfig.json,7013
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/shop_shopconfig.json,A753D2E777EFF4AD9F465724CB9B85,88532,1678688799619
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/task_taskconfig.json,E25B6A3520C9CCC8E4A24699B78E7772,1537,1669810242503
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/title_titleconfig.json,1F643F8E46AEF4DD1638DC973193FC0,3110,1669810242504
-E:/project/et_project/ET7/Doc/ExcelConfig/Gen/Types.ts,836FB3F0D2DBB89D1CAE3ADF18E2AB66,128299,1678717519027
+E:/project/et_project/ET7/Doc/ExcelConfig/Gen/Types.ts,F44E39C08833B8D4E84A8A8C51346E39,128249,1678790664477
 E:/project/et_project/ET7/DotNet/Hotfix/Config/Luban/Achievement/AchievementConfig.cs,C1F4AF83C6654DC2261D6D925F7DA,2055,1676880432510
 E:/project/et_project/ET7/DotNet/Hotfix/Config/Luban/Achievement/AchievementConfigRecord.cs,62E2B086889BB5E4D75D9E43AAE14BD5,3917,1676880432514
 E:/project/et_project/ET7/DotNet/Hotfix/Config/Luban/Activity/ActivityConfig.cs,BD957639D8316782B68CD47B3EF820D5,1977,1676880432528
