@@ -54,16 +54,44 @@ namespace ET.Server
         {
             protected override void Destroy(HttpComponent self)
             {
-                Log.Console("HttpComponent Destroy 111111111111");
                 self.Listener.Stop();
                 self.Listener.Close();
+                self.httpContextQueue.Clear();
+                self.handleContext = null;
+            }
+        }
+
+        [ObjectSystem]
+        public class HttpComponentUpdateSystem: UpdateSystem<HttpComponent>
+        {
+            protected override void Update(HttpComponent self)
+            {
+                while (true)
+                {
+                    if (!self.httpContextQueue.TryDequeue(out self.handleContext))
+                    {
+                        return;
+                    }
+
+                    try
+                    {
+                        self.Handle(self.handleContext).Coroutine();
+                    }
+                    catch (ObjectDisposedException)
+                    {
+                    }
+                    catch (Exception e)
+                    {
+                        Log.Error(e);
+                    }
+                }
             }
         }
 
         public static void Load(this HttpComponent self)
         {
-            self.dispatcher = new Dictionary<string, IHttpHandler>();
-            self.handlerAttr = new Dictionary<string, HttpHandlerAttribute>();
+            self.dispatcher.Clear();
+            self.handlerAttr.Clear();
 
             HashSet<Type> types = EventSystem.Instance.GetTypes(typeof (HttpHandlerAttribute));
 
@@ -78,7 +106,7 @@ namespace ET.Server
                 }
 
                 HttpHandlerAttribute httpHandlerAttribute = (HttpHandlerAttribute)attrs[0];
-                // 该过
+                // 改过
                 self.handlerAttr.Add(httpHandlerAttribute.Path, httpHandlerAttribute);
                 if (httpHandlerAttribute.SceneType != sceneType)
                 {
@@ -105,10 +133,7 @@ namespace ET.Server
                 try
                 {
                     HttpListenerContext context = await self.Listener.GetContextAsync();
-                    self.Handle(context).Coroutine();
-                }
-                catch (ObjectDisposedException)
-                {
+                    self.httpContextQueue.Enqueue(context);
                 }
                 catch (Exception e)
                 {
@@ -158,6 +183,7 @@ namespace ET.Server
             {
                 Log.Error(e);
             }
+
             context.FinishHander();
         }
     }

@@ -43,9 +43,7 @@ namespace ET.Server
             return false;
         }
 
-
-
-        public static bool VerifyAuth(this HttpComponent self, HttpListenerContext context)
+        private static bool VerifyAuth(this HttpComponent self, HttpListenerContext context)
         {
             if (self.handlerAttr.TryGetValue(context.Request.Url.AbsolutePath, out var attrInfo) && !attrInfo.NeedAuth)
             {
