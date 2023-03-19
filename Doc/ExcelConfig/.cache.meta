@@ -246,8 +246,8 @@ E:/project/et_project/ET7/Config/Luban/activity_tactivitytotalonlinetime.bytes,5
 E:/project/et_project/ET7/Config/Luban/activity_tactivitytotalonlinetime.json,3FB4B020C8F4757A1627C7BD1DBB729,1085,1678614924434
 E:/project/et_project/ET7/Config/Luban/activity_tactivitytotalspendmetastone.bytes,5F919D9AFF16381539A5565F875125,99,1676880432577
 E:/project/et_project/ET7/Config/Luban/activity_tactivitytotalspendmetastone.json,3FB4B020C8F4757A1627C7BD1DBB729,1085,1678614924420
-E:/project/et_project/ET7/Config/Luban/dota_buildinglevelupconfig.bytes,98CC9D38873B581C64692D49A8D2FB7E,48273,1678806401734
-E:/project/et_project/ET7/Config/Luban/dota_buildinglevelupconfig.json,F81651EEA3A56DFDC3E82C1641CDA8F0,131598,1678806401723
+E:/project/et_project/ET7/Config/Luban/dota_buildinglevelupconfig.bytes,58820AED8466BDA9A3BB5E63D546133,49940,1679229672673
+E:/project/et_project/ET7/Config/Luban/dota_buildinglevelupconfig.json,6F24E4723CC8D6178E5A2692567F455,133265,1679229672674
 E:/project/et_project/ET7/Config/Luban/draw_drawtreasureconfig.bytes,5DC7697AD215876602A4186DA107CB1,37,1676880432581
 E:/project/et_project/ET7/Config/Luban/draw_drawtreasureconfig.json,5264D341AB83687DB1644A1EF294A26,493,1678614924428
 E:/project/et_project/ET7/Config/Luban/glob_globalsetting.bytes,EBC675486CCE5F22592E604DC1C4DFD6,11,1676880432555
@@ -312,7 +312,7 @@ E:/project/et_project/ET7/Doc/ExcelConfig/Datas/属性/RandomPropConfig.xlsx,7A6
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/dota/BuffEffectConfig.xlsx,1573161B11B2F4A5F76236E3EEB93,67116,1678717312704
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/dota/BuildingLevelUpConfig.xlsx,C34BC6BF85F7F8DAF789DBC905B7E8,62099,1679024887702
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/dota/CombinationConfig.xlsx,66358B926FD54579487CFC0B3DB9949,333492,1679024654364
-E:/project/et_project/ET7/Doc/ExcelConfig/Datas/dota/PoolConfig.xlsx,1E4271EE96ECF4044EE5BACD36C97E4,25507,1676447218541
+E:/project/et_project/ET7/Doc/ExcelConfig/Datas/dota/PoolConfig.xlsx,D6701F43D07A24ED3B1C8D43DC85ABC7,25478,1679229663890
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/dota/PoolGroupConfig.xlsx,42D43381CB6C399A93B71DAA76BCD3,9694,1676449438660
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/dota/PopulationConfig.xlsx,E5A0DA86B915D14FACC8BC87B4AB5298,10437,1675506358512
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/dota/RoundBoardChallengeConfig.xlsx,425FD92AC0D9B5A398CAA6D19698F09B,20240,1678598454986
@@ -335,7 +335,7 @@ E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/activity_tactivitytotalspendm
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/dota_buffeffectconfig.json,91D48EE4BB66A8EC1EE014F88CF11EF4,118528,1678717519027
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/dota_buildinglevelupconfig.json,E12EBAA5ADABEF850DE214A56611E83,208486,1679067791992
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/dota_combinationconfig.json,39AFE6AE617FEE3B20DF404F906E5B62,628669,1678977107702
-E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/dota_poolconfig.json,F76130B2EFE9DDB0FD50778EC1FC489,67611,1676447603365
+E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/dota_poolconfig.json,246BD0E99614F914AD2D8D2B22E4943,67611,1679229675346
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/dota_poolgroupconfig.json,13F525D411CAB426B6858E8C6DBC1F,922,1676616433811
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/dota_populationconfig.json,A14F2DDD951992BBB4FDBF62A346561,5277,1675507269967
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/dota_roundboardchallengeconfig.json,5DEDCC126C8DA51F1083AAE82F7CCA1,41387,1678596513399
