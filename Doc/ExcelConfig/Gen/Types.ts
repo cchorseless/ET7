@@ -3683,8 +3683,8 @@ export class RoundBoardConfigRecord {
     constructor(_json_: any) {
         if (_json_.id === undefined) { throw new Error() }
         this.id = _json_.id
-        if (_json_.round_show === undefined) { throw new Error() }
-        this.roundShow = _json_.round_show
+        if (_json_.round_index === undefined) { throw new Error() }
+        this.roundIndex = _json_.round_index
         if (_json_.round_nextid === undefined) { throw new Error() }
         this.roundNextid = _json_.round_nextid
         if (_json_.round_type === undefined) { throw new Error() }
@@ -3710,7 +3710,7 @@ export class RoundBoardConfigRecord {
     /**
      * 回合显示数
      */
-    readonly roundShow: string
+    readonly roundIndex: number
     /**
      * 下一回合编号
      */
@@ -3758,6 +3758,8 @@ export class RoundEnemyConfigBean {
         this.id = _json_.id
         if (_json_.unitname === undefined) { throw new Error() }
         this.unitname = _json_.unitname
+        if (_json_.star === undefined) { throw new Error() }
+        this.star = _json_.star
         if (_json_.position_x === undefined) { throw new Error() }
         this.positionX = _json_.position_x
         if (_json_.position_y === undefined) { throw new Error() }
@@ -3776,34 +3778,18 @@ export class RoundEnemyConfigBean {
         this.atk = _json_.atk
         if (_json_.hp === undefined) { throw new Error() }
         this.hp = _json_.hp
-        if (_json_.mp === undefined) { throw new Error() }
-        this.mp = _json_.mp
-        if (_json_.armorp === undefined) { throw new Error() }
-        this.armorp = _json_.armorp
-        if (_json_.armorm === undefined) { throw new Error() }
-        this.armorm = _json_.armorm
+        if (_json_.phyarm === undefined) { throw new Error() }
+        this.phyarm = _json_.phyarm
+        if (_json_.magicarm === undefined) { throw new Error() }
+        this.magicarm = _json_.magicarm
         if (_json_.gold_min === undefined) { throw new Error() }
         this.goldMin = _json_.gold_min
         if (_json_.gold_max === undefined) { throw new Error() }
         this.goldMax = _json_.gold_max
-        if (_json_.failure_count === undefined) { throw new Error() }
-        this.failureCount = _json_.failure_count
         if (_json_.elite_drop_index === undefined) { throw new Error() }
         this.eliteDropIndex = _json_.elite_drop_index
         if (_json_.spawn_buff === undefined) { throw new Error() }
         this.spawnBuff = _json_.spawn_buff
-        if (_json_.gold_wave_duration === undefined) { throw new Error() }
-        this.goldWaveDuration = _json_.gold_wave_duration
-        if (_json_.damage_per === undefined) { throw new Error() }
-        this.damagePer = _json_.damage_per
-        if (_json_.gold_per === undefined) { throw new Error() }
-        this.goldPer = _json_.gold_per
-        if (_json_.gold_total_x === undefined) { throw new Error() }
-        this.goldTotalX = _json_.gold_total_x
-        if (_json_.gold_total_y === undefined) { throw new Error() }
-        this.goldTotalY = _json_.gold_total_y
-        if (_json_.gold_total_z === undefined) { throw new Error() }
-        this.goldTotalZ = _json_.gold_total_z
     }
 
     /**
@@ -3814,6 +3800,10 @@ export class RoundEnemyConfigBean {
      * 回合单位名
      */
     readonly unitname: string
+    /**
+     * 星级
+     */
+    readonly star: number
     /**
      * 位置x[0-7]
      */
@@ -3853,15 +3843,11 @@ export class RoundEnemyConfigBean {
     /**
      * 回合蓝量系数
      */
-    readonly mp: number
+    readonly phyarm: number
     /**
      * 物理护甲系数
      */
-    readonly armorp: number
-    /**
-     * 魔法护甲系数
-     */
-    readonly armorm: number
+    readonly magicarm: number
     /**
      * 单个怪物击杀金币min
      */
@@ -3871,10 +3857,6 @@ export class RoundEnemyConfigBean {
      */
     readonly goldMax: number
     /**
-     * 失败统计基数
-     */
-    readonly failureCount: number
-    /**
      * 精英怪掉落池编号
      */
     readonly eliteDropIndex: string
@@ -3882,30 +3864,6 @@ export class RoundEnemyConfigBean {
      * 单位自带buff
      */
     readonly spawnBuff: string
-    /**
-     * 打金箱子存活多久
-     */
-    readonly goldWaveDuration: number
-    /**
-     * 打金-每多少伤害给金币
-     */
-    readonly damagePer: number
-    /**
-     * 打金-每次给金币
-     */
-    readonly goldPer: number
-    /**
-     * 打金系数x
-     */
-    readonly goldTotalX: number
-    /**
-     * 打金系数y
-     */
-    readonly goldTotalY: number
-    /**
-     * 打金系数z
-     */
-    readonly goldTotalZ: number
 
     resolve(_tables: Map<string, any>) {
     }
@@ -3995,6 +3953,8 @@ export class RoundChallengeEnemyConfigBean {
         this.id = _json_.id
         if (_json_.unitname === undefined) { throw new Error() }
         this.unitname = _json_.unitname
+        if (_json_.star === undefined) { throw new Error() }
+        this.star = _json_.star
         if (_json_.unit_weight === undefined) { throw new Error() }
         this.unitWeight = _json_.unit_weight
         if (_json_.position_x === undefined) { throw new Error() }
@@ -4015,34 +3975,18 @@ export class RoundChallengeEnemyConfigBean {
         this.atk = _json_.atk
         if (_json_.hp === undefined) { throw new Error() }
         this.hp = _json_.hp
-        if (_json_.mp === undefined) { throw new Error() }
-        this.mp = _json_.mp
-        if (_json_.armorp === undefined) { throw new Error() }
-        this.armorp = _json_.armorp
-        if (_json_.armorm === undefined) { throw new Error() }
-        this.armorm = _json_.armorm
+        if (_json_.phyarm === undefined) { throw new Error() }
+        this.phyarm = _json_.phyarm
+        if (_json_.magicarm === undefined) { throw new Error() }
+        this.magicarm = _json_.magicarm
         if (_json_.gold_min === undefined) { throw new Error() }
         this.goldMin = _json_.gold_min
         if (_json_.gold_max === undefined) { throw new Error() }
         this.goldMax = _json_.gold_max
-        if (_json_.failure_count === undefined) { throw new Error() }
-        this.failureCount = _json_.failure_count
         if (_json_.elite_drop_index === undefined) { throw new Error() }
         this.eliteDropIndex = _json_.elite_drop_index
         if (_json_.spawn_buff === undefined) { throw new Error() }
         this.spawnBuff = _json_.spawn_buff
-        if (_json_.gold_wave_duration === undefined) { throw new Error() }
-        this.goldWaveDuration = _json_.gold_wave_duration
-        if (_json_.damage_per === undefined) { throw new Error() }
-        this.damagePer = _json_.damage_per
-        if (_json_.gold_per === undefined) { throw new Error() }
-        this.goldPer = _json_.gold_per
-        if (_json_.gold_total_x === undefined) { throw new Error() }
-        this.goldTotalX = _json_.gold_total_x
-        if (_json_.gold_total_y === undefined) { throw new Error() }
-        this.goldTotalY = _json_.gold_total_y
-        if (_json_.gold_total_z === undefined) { throw new Error() }
-        this.goldTotalZ = _json_.gold_total_z
     }
 
     /**
@@ -4053,6 +3997,10 @@ export class RoundChallengeEnemyConfigBean {
      * 回合单位名
      */
     readonly unitname: string
+    /**
+     * 星级
+     */
+    readonly star: number
     /**
      * 随机权重
      */
@@ -4096,15 +4044,11 @@ export class RoundChallengeEnemyConfigBean {
     /**
      * 回合蓝量系数
      */
-    readonly mp: number
+    readonly phyarm: number
     /**
      * 物理护甲系数
      */
-    readonly armorp: number
-    /**
-     * 魔法护甲系数
-     */
-    readonly armorm: number
+    readonly magicarm: number
     /**
      * 单个怪物击杀金币min
      */
@@ -4114,10 +4058,6 @@ export class RoundChallengeEnemyConfigBean {
      */
     readonly goldMax: number
     /**
-     * 失败统计基数
-     */
-    readonly failureCount: number
-    /**
      * 精英怪掉落池编号
      */
     readonly eliteDropIndex: string
@@ -4125,30 +4065,6 @@ export class RoundChallengeEnemyConfigBean {
      * 单位自带buff
      */
     readonly spawnBuff: string
-    /**
-     * 打金箱子存活多久
-     */
-    readonly goldWaveDuration: number
-    /**
-     * 打金-每多少伤害给金币
-     */
-    readonly damagePer: number
-    /**
-     * 打金-每次给金币
-     */
-    readonly goldPer: number
-    /**
-     * 打金系数x
-     */
-    readonly goldTotalX: number
-    /**
-     * 打金系数y
-     */
-    readonly goldTotalY: number
-    /**
-     * 打金系数z
-     */
-    readonly goldTotalZ: number
 
     resolve(_tables: Map<string, any>) {
     }
