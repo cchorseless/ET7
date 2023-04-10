@@ -278,9 +278,9 @@ E:/project/et_project/ET7/Config/Luban/task_taskconfig.bytes,98A6769E38283677873
 E:/project/et_project/ET7/Config/Luban/task_taskconfig.json,1FD0674CD59A89C862DC28E907A74E5,1079,1678614924422
 E:/project/et_project/ET7/Config/Luban/title_titleconfig.bytes,94E4353F76A1ADF1C1E276FEB22FF55,317,1676880432560
 E:/project/et_project/ET7/Config/Luban/title_titleconfig.json,61F6C2CB9B534BFC7842501DAEC5F2E9,2033,1678614924431
-E:/project/et_project/ET7/Doc/ExcelConfig/Datas/__beans__.xlsx,438F3D8D2B77BB22983B6AD364785B4D,13760,1680791568826
+E:/project/et_project/ET7/Doc/ExcelConfig/Datas/__beans__.xlsx,A0C420143BEA6DEFF78D09F48E8C83,13969,1680932940078
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/__enums__.xlsx,B2EF60EDBA8BDB9089B9BD326DC4AD6,11726,1678606611418
-E:/project/et_project/ET7/Doc/ExcelConfig/Datas/__tables__.xlsx,E48E70DE5C4DBD5DEBD51FAFB193510,12123,1680877126054
+E:/project/et_project/ET7/Doc/ExcelConfig/Datas/__tables__.xlsx,5344AB58B1E5CFF6E47D56C95811,12182,1680931623345
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/称号/TitleConfig.xlsx,225B654A53F7F1FC497B0537CB1963,10043,1674881631633
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/成就/AchievementConfig.xlsx,7E45A4BD75187223FF2D74D1B26DDDA,11094,1674881631626
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/抽奖/DrawTreasureConfig.xlsx,CF8323C4AA76D06F7947CBB713831E75,9965,1674881631627
@@ -306,7 +306,7 @@ E:/project/et_project/ET7/Doc/ExcelConfig/Datas/排行/RankPrizeConfig.xlsx,C2C9
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/全局/GlobalSetting.xlsx,1EF2D1D56A5449B28984327A9311BE4B,8990,1671795328257
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/任务/TaskConfig.xlsx,0DA7E026633C17D97E385BAFAD59,11070,1674881631620
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/赛季/SeasonConfig.xlsx,9E92F718C4CFC07595164EE07CF6FAF2,9701,1674881631634
-E:/project/et_project/ET7/Doc/ExcelConfig/Datas/商店/ShopConfig.xlsx,FEA2466AAF5FA6E3686F357A8E051,25810,1678688781449
+E:/project/et_project/ET7/Doc/ExcelConfig/Datas/商店/ShopConfig.xlsx,7E8DB07ED681EE1844F2C5ACEFE4C75,25821,1680931532551
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/属性/PropConfig.xlsx,CF70BB3FD254686B538E81554FC9A,13538,1675661381606
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/属性/RandomPropConfig.xlsx,7A643FFE64D32429CD4EEBFA8CA436E0,10708,1674881631625
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/dota/BuffEffectConfig.xlsx,5867957E3324297DF9E4612DA5842192,82548,1680773523653
@@ -315,6 +315,7 @@ E:/project/et_project/ET7/Doc/ExcelConfig/Datas/dota/CombinationConfig.xlsx,6576
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/dota/CourierAbilityLevelUpConfig.xlsx,3E26BD85368A9124F27A0D3E1F68560,11628,1680877375841
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/dota/PoolConfig.xlsx,D6701F43D07A24ED3B1C8D43DC85ABC7,25478,1679229663890
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/dota/PoolGroupConfig.xlsx,42D43381CB6C399A93B71DAA76BCD3,9694,1676449438660
+E:/project/et_project/ET7/Doc/ExcelConfig/Datas/dota/PublicShopConfig.xlsx,7488A04A13D853D3285A2075A9BE6C3D,10555,1680959414081
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/dota/RoundBoardChallengeConfig.xlsx,50C77F46498F16551CDF165CBB7AD66,18697,1680791752803
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/dota/RoundBoardConfig.xlsx,89C8765383BE56B292EA73055E785B9,38572,1680791835536
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/dota/WearableConfig.xlsx,66C08B38C8B3B1143B326146C49959,216601,1678548262686
@@ -337,6 +338,7 @@ E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/dota_combinationconfig.json,4
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/dota_courierabilitylevelupconfig.json,7DD0C333C3347066E172E3D5CF741D1B,16568,1680877504223
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/dota_poolconfig.json,246BD0E99614F914AD2D8D2B22E4943,67611,1679229675346
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/dota_poolgroupconfig.json,13F525D411CAB426B6858E8C6DBC1F,922,1676616433811
+E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/dota_publicshopconfig.json,A627E6AF409B9F8A82EDFB986F85061,5145,1680959423203
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/dota_roundboardchallengeconfig.json,7162147F32C04A87A3C72AE2B1B665C1,30614,1680791843394
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/dota_roundboardconfig.json,827E5E467DB1D72135D85BBB1C0F488,115358,1680791843405
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/dota_wearableconfig.json,61853872CF951AD4ECE7E1FDA8869DCE,1186763,1678548284865
@@ -355,7 +357,7 @@ E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/season_seasonconfig.json,7013
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/shop_shopconfig.json,A753D2E777EFF4AD9F465724CB9B85,88532,1678688799619
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/task_taskconfig.json,E25B6A3520C9CCC8E4A24699B78E7772,1537,1669810242503
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/title_titleconfig.json,1F643F8E46AEF4DD1638DC973193FC0,3110,1669810242504
-E:/project/et_project/ET7/Doc/ExcelConfig/Gen/Types.ts,231C3E3E40A1A18111DB9F1D8AD99760,125645,1680877136431
+E:/project/et_project/ET7/Doc/ExcelConfig/Gen/Types.ts,75B31F6E7395DA273A977A79DBDB53E3,128657,1680932944363
 E:/project/et_project/ET7/DotNet/Hotfix/Config/Luban/Achievement/AchievementConfig.cs,C1F4AF83C6654DC2261D6D925F7DA,2055,1676880432510
 E:/project/et_project/ET7/DotNet/Hotfix/Config/Luban/Achievement/AchievementConfigRecord.cs,62E2B086889BB5E4D75D9E43AAE14BD5,3917,1676880432514
 E:/project/et_project/ET7/DotNet/Hotfix/Config/Luban/Activity/ActivityConfig.cs,BD957639D8316782B68CD47B3EF820D5,1977,1676880432528
