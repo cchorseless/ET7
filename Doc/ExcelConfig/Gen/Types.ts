@@ -3111,20 +3111,22 @@ export class CourierAbilityLevelUpConfigRecord {
         this.PopuGoldCost = _json_.PopuGoldCost
         if (_json_.PopuWoodCost === undefined) { throw new Error() }
         this.PopuWoodCost = _json_.PopuWoodCost
-        if (_json_.TechExtraWood === undefined) { throw new Error() }
-        this.TechExtraWood = _json_.TechExtraWood
         if (_json_.TechExtraGood === undefined) { throw new Error() }
         this.TechExtraGood = _json_.TechExtraGood
+        if (_json_.TechExtraWood === undefined) { throw new Error() }
+        this.TechExtraWood = _json_.TechExtraWood
+        if (_json_.TechExtraSoulCrystal === undefined) { throw new Error() }
+        this.TechExtraSoulCrystal = _json_.TechExtraSoulCrystal
         if (_json_.TechGoldcost === undefined) { throw new Error() }
         this.TechGoldcost = _json_.TechGoldcost
-        if (_json_.ChallengeGoldGoldcost === undefined) { throw new Error() }
-        this.ChallengeGoldGoldcost = _json_.ChallengeGoldGoldcost
-        if (_json_.ChallengeWoodGoldcost === undefined) { throw new Error() }
-        this.ChallengeWoodGoldcost = _json_.ChallengeWoodGoldcost
-        if (_json_.ChallengeEquipWoodcost === undefined) { throw new Error() }
-        this.ChallengeEquipWoodcost = _json_.ChallengeEquipWoodcost
-        if (_json_.ChallengeArtifactWoodcost === undefined) { throw new Error() }
-        this.ChallengeArtifactWoodcost = _json_.ChallengeArtifactWoodcost
+        if (_json_.ChallengeGoldCost === undefined) { throw new Error() }
+        this.ChallengeGoldCost = _json_.ChallengeGoldCost
+        if (_json_.ChallengeWoodCost === undefined) { throw new Error() }
+        this.ChallengeWoodCost = _json_.ChallengeWoodCost
+        if (_json_.ChallengeEquipCost === undefined) { throw new Error() }
+        this.ChallengeEquipCost = _json_.ChallengeEquipCost
+        if (_json_.ChallengeArtifactCost === undefined) { throw new Error() }
+        this.ChallengeArtifactCost = _json_.ChallengeArtifactCost
     }
 
     /**
@@ -3146,31 +3148,35 @@ export class CourierAbilityLevelUpConfigRecord {
     /**
      * 科技升级额外木材每阶段
      */
-    readonly TechExtraWood: number
+    readonly TechExtraGood: number
     /**
      * 科技升级额外木材每阶段
      */
-    readonly TechExtraGood: number
+    readonly TechExtraWood: number
+    /**
+     * 科技升级额外魂晶每阶段
+     */
+    readonly TechExtraSoulCrystal: number
     /**
      * 科技升级升级金币消耗
      */
     readonly TechGoldcost: number
     /**
-     * 金币挑战升级金币消耗
+     * 金币挑战升级消耗
      */
-    readonly ChallengeGoldGoldcost: number
+    readonly ChallengeGoldCost: number
     /**
-     * 木材挑战升级金币消耗
+     * 木材挑战升级消耗
      */
-    readonly ChallengeWoodGoldcost: number
+    readonly ChallengeWoodCost: number
     /**
-     * 装备挑战升级木材消耗
+     * 装备挑战升级消耗
      */
-    readonly ChallengeEquipWoodcost: number
+    readonly ChallengeEquipCost: number
     /**
-     * 神器挑战升级木材消耗
+     * 神器挑战升级消耗
      */
-    readonly ChallengeArtifactWoodcost: number
+    readonly ChallengeArtifactCost: number
 
     resolve(_tables: Map<string, any>) {
     }
@@ -3356,8 +3362,6 @@ export class PoolInfoBean {
     constructor(_json_: any) {
         if (_json_.ItemConfigId === undefined) { throw new Error() }
         this.ItemConfigId = _json_.ItemConfigId
-        if (_json_.ItemName === undefined) { throw new Error() }
-        this.ItemName = _json_.ItemName
         if (_json_.ItemCount === undefined) { throw new Error() }
         this.ItemCount = _json_.ItemCount
         if (_json_.ItemWeight === undefined) { throw new Error() }
@@ -3370,10 +3374,6 @@ export class PoolInfoBean {
      * 道具索引
      */
     readonly ItemConfigId: string
-    /**
-     * 道具名称
-     */
-    readonly ItemName: string
     /**
      * 道具数量
      */
@@ -3853,14 +3853,14 @@ export class RoundEnemyConfigBean {
         this.israndompos = _json_.israndompos
         if (_json_.isground === undefined) { throw new Error() }
         this.isground = _json_.isground
-        if (_json_.atk === undefined) { throw new Error() }
-        this.atk = _json_.atk
-        if (_json_.hp === undefined) { throw new Error() }
-        this.hp = _json_.hp
-        if (_json_.phyarm === undefined) { throw new Error() }
-        this.phyarm = _json_.phyarm
-        if (_json_.magicarm === undefined) { throw new Error() }
-        this.magicarm = _json_.magicarm
+        if (_json_.atkpect === undefined) { throw new Error() }
+        this.atkpect = _json_.atkpect
+        if (_json_.hppect === undefined) { throw new Error() }
+        this.hppect = _json_.hppect
+        if (_json_.phyarmpect === undefined) { throw new Error() }
+        this.phyarmpect = _json_.phyarmpect
+        if (_json_.magicarmpect === undefined) { throw new Error() }
+        this.magicarmpect = _json_.magicarmpect
         if (_json_.gold_min === undefined) { throw new Error() }
         this.goldMin = _json_.gold_min
         if (_json_.gold_max === undefined) { throw new Error() }
@@ -3914,19 +3914,19 @@ export class RoundEnemyConfigBean {
     /**
      * 回合攻击系数
      */
-    readonly atk: number
+    readonly atkpect: number
     /**
      * 回合血量系数
      */
-    readonly hp: number
+    readonly hppect: number
     /**
      * 回合蓝量系数
      */
-    readonly phyarm: number
+    readonly phyarmpect: number
     /**
      * 物理护甲系数
      */
-    readonly magicarm: number
+    readonly magicarmpect: number
     /**
      * 单个怪物击杀金币min
      */
@@ -4050,14 +4050,14 @@ export class RoundChallengeEnemyConfigBean {
         this.israndompos = _json_.israndompos
         if (_json_.isground === undefined) { throw new Error() }
         this.isground = _json_.isground
-        if (_json_.atk === undefined) { throw new Error() }
-        this.atk = _json_.atk
-        if (_json_.hp === undefined) { throw new Error() }
-        this.hp = _json_.hp
-        if (_json_.phyarm === undefined) { throw new Error() }
-        this.phyarm = _json_.phyarm
-        if (_json_.magicarm === undefined) { throw new Error() }
-        this.magicarm = _json_.magicarm
+        if (_json_.atkpect === undefined) { throw new Error() }
+        this.atkpect = _json_.atkpect
+        if (_json_.hppect === undefined) { throw new Error() }
+        this.hppect = _json_.hppect
+        if (_json_.phyarmpect === undefined) { throw new Error() }
+        this.phyarmpect = _json_.phyarmpect
+        if (_json_.magicarmpect === undefined) { throw new Error() }
+        this.magicarmpect = _json_.magicarmpect
         if (_json_.gold_min === undefined) { throw new Error() }
         this.goldMin = _json_.gold_min
         if (_json_.gold_max === undefined) { throw new Error() }
@@ -4115,19 +4115,19 @@ export class RoundChallengeEnemyConfigBean {
     /**
      * 回合攻击系数
      */
-    readonly atk: number
+    readonly atkpect: number
     /**
      * 回合血量系数
      */
-    readonly hp: number
+    readonly hppect: number
     /**
      * 回合蓝量系数
      */
-    readonly phyarm: number
+    readonly phyarmpect: number
     /**
      * 物理护甲系数
      */
-    readonly magicarm: number
+    readonly magicarmpect: number
     /**
      * 单个怪物击杀金币min
      */
