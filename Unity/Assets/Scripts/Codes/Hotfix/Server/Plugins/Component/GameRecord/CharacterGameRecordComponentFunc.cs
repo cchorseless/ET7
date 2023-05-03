@@ -37,8 +37,6 @@ namespace ET.Server
             if (self.Records.Count >= EGameRecordConfig.CharacterMaxGameRecordCount)
             {
                 self.Records.RemoveAt(0);
-
-
             }
             self.Records.Add(recordid);
             self.Character.SyncHttpEntity(self);

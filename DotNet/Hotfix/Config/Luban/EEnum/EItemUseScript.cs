@@ -27,6 +27,10 @@ namespace cfg.EEnum
         /// 祝福Buff
         /// </summary>
         AddBuff = 3,
+        /// <summary>
+        /// 消耗数量
+        /// </summary>
+        CostCount = 4,
     }
 
 } 

@@ -22,7 +22,12 @@ namespace ET.Server
             {
                 return (ErrorCode.ERR_Error, "cant find item");
             }
-            return item.ApplyUse(count);
+            var r= item.ApplyUse(count);
+            if (r.Item1 == ErrorCode.ERR_Success)
+            {
+                character.SyncHttpEntity(item);
+            }
+            return r;
         }
     }
 }

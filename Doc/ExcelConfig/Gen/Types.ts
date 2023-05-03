@@ -294,6 +294,10 @@ export enum EItemUseScript {
      * 祝福Buff
      */
     AddBuff = 3,
+    /**
+     * 消耗数量
+     */
+    CostCount = 4,
 }
 }
 
@@ -401,6 +405,8 @@ export class ItemConfigRecord {
         this.BagSlotType = _json_.BagSlotType
         if (_json_.AutoUse === undefined) { throw new Error() }
         this.AutoUse = _json_.AutoUse
+        if (_json_.OneGameUseLimit === undefined) { throw new Error() }
+        this.OneGameUseLimit = _json_.OneGameUseLimit
         if (_json_.BatchUseable === undefined) { throw new Error() }
         this.BatchUseable = _json_.BatchUseable
         if (_json_.BindHeroName === undefined) { throw new Error() }
@@ -449,6 +455,10 @@ export class ItemConfigRecord {
      * 获得自动使用
      */
     readonly AutoUse: boolean
+    /**
+     * 单局使用次数限制
+     */
+    readonly OneGameUseLimit: number
     /**
      * 批量使用
      */
@@ -3337,6 +3347,8 @@ export class PoolConfigRecord {
     constructor(_json_: any) {
         if (_json_.poolid === undefined) { throw new Error() }
         this.poolid = _json_.poolid
+        if (_json_.poolItemCount === undefined) { throw new Error() }
+        this.poolItemCount = _json_.poolItemCount
         if (_json_.PoolInfo === undefined) { throw new Error() }
         { this.PoolInfo = []; for(let _ele of _json_.PoolInfo) { let _e : Dota.PoolInfoBean; _e = new Dota.PoolInfoBean(_ele); this.PoolInfo.push(_e);}}
     }
@@ -3345,6 +3357,10 @@ export class PoolConfigRecord {
      * 池子id
      */
     readonly poolid: string
+    /**
+     * 随机数量
+     */
+    readonly poolItemCount: number
     readonly PoolInfo: Dota.PoolInfoBean[]
 
     resolve(_tables: Map<string, any>) {
@@ -3997,8 +4013,8 @@ export class RoundBoardChallengeConfigRecord {
         this.roundType = _json_.round_type
         if (_json_.round_label === undefined) { throw new Error() }
         this.roundLabel = _json_.round_label
-        if (_json_.round_unitcount === undefined) { throw new Error() }
-        this.roundUnitcount = _json_.round_unitcount
+        if (_json_.enemy_count === undefined) { throw new Error() }
+        this.enemyCount = _json_.enemy_count
         if (_json_.enemyinfo === undefined) { throw new Error() }
         { this.enemyinfo = []; for(let _ele of _json_.enemyinfo) { let _e : Dota.RoundChallengeEnemyConfigBean; _e = new Dota.RoundChallengeEnemyConfigBean(_ele); this.enemyinfo.push(_e);}}
     }
@@ -4016,9 +4032,9 @@ export class RoundBoardChallengeConfigRecord {
      */
     readonly roundLabel: string
     /**
-     * 怪物数量
+     * 创建的非召唤类怪物数量
      */
-    readonly roundUnitcount: number
+    readonly enemyCount: number
     readonly enemyinfo: Dota.RoundChallengeEnemyConfigBean[]
 
     resolve(_tables: Map<string, any>) {
@@ -4036,6 +4052,8 @@ export class RoundChallengeEnemyConfigBean {
     constructor(_json_: any) {
         if (_json_.id === undefined) { throw new Error() }
         this.id = _json_.id
+        if (_json_.challengelevel === undefined) { throw new Error() }
+        this.challengelevel = _json_.challengelevel
         if (_json_.unitname === undefined) { throw new Error() }
         this.unitname = _json_.unitname
         if (_json_.star === undefined) { throw new Error() }
@@ -4068,6 +4086,14 @@ export class RoundChallengeEnemyConfigBean {
         this.goldMin = _json_.gold_min
         if (_json_.gold_max === undefined) { throw new Error() }
         this.goldMax = _json_.gold_max
+        if (_json_.wood_min === undefined) { throw new Error() }
+        this.woodMin = _json_.wood_min
+        if (_json_.wood_max === undefined) { throw new Error() }
+        this.woodMax = _json_.wood_max
+        if (_json_.soulcrystal_min === undefined) { throw new Error() }
+        this.soulcrystalMin = _json_.soulcrystal_min
+        if (_json_.soulcrystal_max === undefined) { throw new Error() }
+        this.soulcrystalMax = _json_.soulcrystal_max
         if (_json_.elite_drop_index === undefined) { throw new Error() }
         this.eliteDropIndex = _json_.elite_drop_index
         if (_json_.spawn_buff === undefined) { throw new Error() }
@@ -4078,6 +4104,10 @@ export class RoundChallengeEnemyConfigBean {
      * 种怪索引
      */
     readonly id: string
+    /**
+     * 挑战等级
+     */
+    readonly challengelevel: number
     /**
      * 回合单位名
      */
@@ -4142,6 +4172,22 @@ export class RoundChallengeEnemyConfigBean {
      * 单个怪物击杀金币max
      */
     readonly goldMax: number
+    /**
+     * 单个怪物击杀木材min
+     */
+    readonly woodMin: number
+    /**
+     * 单个怪物击杀木材max
+     */
+    readonly woodMax: number
+    /**
+     * 单个怪物击杀魂晶min
+     */
+    readonly soulcrystalMin: number
+    /**
+     * 单个怪物击杀魂晶max
+     */
+    readonly soulcrystalMax: number
     /**
      * 精英怪掉落池编号
      */

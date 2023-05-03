@@ -35,7 +35,7 @@ namespace ET.Server
 
         public static bool IsInBag(this TItem self)
         {
-            return self.BagComp == null && self.BagComp.Items.Contains(self.Id);
+            return self.BagComp != null && self.BagComp.Items.Contains(self.Id);
         }
 
         public static void ActiveItem(this TItem self)
@@ -120,13 +120,16 @@ namespace ET.Server
                 case cfg.EEnum.EItemUseScript.DressUp:
                     r = self.DressUp();
                     break;
+                case cfg.EEnum.EItemUseScript.CostCount:
+                    needCostItem = true;
+                    r = (ErrorCode.ERR_Success, "use success");
+                    break;
             }
 
             if (needCostItem)
             {
                 self.ChangeItemCount(-count);
             }
-
             return r;
         }
 
