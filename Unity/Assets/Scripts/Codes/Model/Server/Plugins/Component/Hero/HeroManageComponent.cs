@@ -13,7 +13,9 @@ namespace ET
         public Dictionary<int, long> HeroUnits = new Dictionary<int, long>();
 
         public List<long> HeroBanDesign = new List<long>();
-
+        
+        public int SumHeroLevel;
+            
         [BsonIgnore]
         public TCharacter Character { get => this.GetParent<TCharacter>(); }
     }

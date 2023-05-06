@@ -40,6 +40,7 @@ namespace ET.Server
                 self.Level += 1;
                 self.Character.ActivityComp.GetActivityData<TActivityHeroRecordLevelData>(EActivityType.TActivityHeroRecordLevel)?.AddHeroSumLevel();
                 self.HeroTalentComp.OnHeroLevelUp();
+                self.HeroManageComp.SumHeroLevel += 1;
             }
 
             self.HeroManageComp.Character.SyncHttpEntity(self);
