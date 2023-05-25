@@ -340,6 +340,23 @@ export enum EShopPriceType {
 }
 
 export namespace EEnum {
+export enum EEnemyCreateType {
+    /**
+     * 默认创建
+     */
+    None = 0,
+    /**
+     * 召唤的战斗怪
+     */
+    SummedBattle = 1,
+    /**
+     * 召唤的偷蛋怪
+     */
+    SummedEgg = 2,
+}
+}
+
+export namespace EEnum {
 export enum EEquipSolt {
     /**
      * 空值
@@ -3199,6 +3216,10 @@ export class CourierAbilityLevelUpConfigRecord {
         this.TechExtraSoulCrystal = _json_.TechExtraSoulCrystal
         if (_json_.TechGoldcost === undefined) { throw new Error() }
         this.TechGoldcost = _json_.TechGoldcost
+        if (_json_.AutoGoldGetGold === undefined) { throw new Error() }
+        this.AutoGoldGetGold = _json_.AutoGoldGetGold
+        if (_json_.AutoGoldGetWood === undefined) { throw new Error() }
+        this.AutoGoldGetWood = _json_.AutoGoldGetWood
         if (_json_.ChallengeGoldCost === undefined) { throw new Error() }
         this.ChallengeGoldCost = _json_.ChallengeGoldCost
         if (_json_.ChallengeWoodCost === undefined) { throw new Error() }
@@ -3226,7 +3247,7 @@ export class CourierAbilityLevelUpConfigRecord {
      */
     readonly PopuWoodCost: number
     /**
-     * 科技升级额外木材每阶段
+     * 科技升级额外金币每阶段
      */
     readonly TechExtraGood: number
     /**
@@ -3241,6 +3262,14 @@ export class CourierAbilityLevelUpConfigRecord {
      * 科技升级升级金币消耗
      */
     readonly TechGoldcost: number
+    /**
+     * 发现宝藏金币
+     */
+    readonly AutoGoldGetGold: number
+    /**
+     * 发现宝藏木材
+     */
+    readonly AutoGoldGetWood: number
     /**
      * 金币挑战升级消耗
      */
@@ -3928,6 +3957,8 @@ export class RoundEnemyConfigBean {
         this.unitname = _json_.unitname
         if (_json_.star === undefined) { throw new Error() }
         this.star = _json_.star
+        if (_json_.level === undefined) { throw new Error() }
+        this.level = _json_.level
         if (_json_.unit_weight === undefined) { throw new Error() }
         this.unitWeight = _json_.unit_weight
         if (_json_.position_x === undefined) { throw new Error() }
@@ -3940,8 +3971,8 @@ export class RoundEnemyConfigBean {
         this.anglesY = _json_.angles_y
         if (_json_.angles_z === undefined) { throw new Error() }
         this.anglesZ = _json_.angles_z
-        if (_json_.issummoned === undefined) { throw new Error() }
-        this.issummoned = _json_.issummoned
+        if (_json_.enemycreatetype === undefined) { throw new Error() }
+        this.enemycreatetype = _json_.enemycreatetype
         if (_json_.isground === undefined) { throw new Error() }
         this.isground = _json_.isground
         if (_json_.atkpect === undefined) { throw new Error() }
@@ -3956,6 +3987,14 @@ export class RoundEnemyConfigBean {
         this.goldMin = _json_.gold_min
         if (_json_.gold_max === undefined) { throw new Error() }
         this.goldMax = _json_.gold_max
+        if (_json_.wood_min === undefined) { throw new Error() }
+        this.woodMin = _json_.wood_min
+        if (_json_.wood_max === undefined) { throw new Error() }
+        this.woodMax = _json_.wood_max
+        if (_json_.soulcrystal_min === undefined) { throw new Error() }
+        this.soulcrystalMin = _json_.soulcrystal_min
+        if (_json_.soulcrystal_max === undefined) { throw new Error() }
+        this.soulcrystalMax = _json_.soulcrystal_max
         if (_json_.elite_drop_index === undefined) { throw new Error() }
         this.eliteDropIndex = _json_.elite_drop_index
         if (_json_.spawn_buff === undefined) { throw new Error() }
@@ -3974,6 +4013,10 @@ export class RoundEnemyConfigBean {
      * 星级
      */
     readonly star: number
+    /**
+     * 等级
+     */
+    readonly level: number
     /**
      * 随机权重
      */
@@ -3999,9 +4042,9 @@ export class RoundEnemyConfigBean {
      */
     readonly anglesZ: number
     /**
-     * 是否是召唤怪
+     * 怪物创建类型
      */
-    readonly issummoned: boolean
+    readonly enemycreatetype: EEnum.EEnemyCreateType
     /**
      * 是否在地面上
      */
@@ -4030,6 +4073,22 @@ export class RoundEnemyConfigBean {
      * 单个怪物击杀金币max
      */
     readonly goldMax: number
+    /**
+     * 单个怪物击杀木材min
+     */
+    readonly woodMin: number
+    /**
+     * 单个怪物击杀木材max
+     */
+    readonly woodMax: number
+    /**
+     * 单个怪物击杀魂晶min
+     */
+    readonly soulcrystalMin: number
+    /**
+     * 单个怪物击杀魂晶max
+     */
+    readonly soulcrystalMax: number
     /**
      * 精英怪掉落池编号
      */
@@ -4131,6 +4190,8 @@ export class RoundChallengeEnemyConfigBean {
         this.unitname = _json_.unitname
         if (_json_.star === undefined) { throw new Error() }
         this.star = _json_.star
+        if (_json_.level === undefined) { throw new Error() }
+        this.level = _json_.level
         if (_json_.unit_weight === undefined) { throw new Error() }
         this.unitWeight = _json_.unit_weight
         if (_json_.position_x === undefined) { throw new Error() }
@@ -4143,8 +4204,8 @@ export class RoundChallengeEnemyConfigBean {
         this.anglesY = _json_.angles_y
         if (_json_.angles_z === undefined) { throw new Error() }
         this.anglesZ = _json_.angles_z
-        if (_json_.issummoned === undefined) { throw new Error() }
-        this.issummoned = _json_.issummoned
+        if (_json_.enemycreatetype === undefined) { throw new Error() }
+        this.enemycreatetype = _json_.enemycreatetype
         if (_json_.isground === undefined) { throw new Error() }
         this.isground = _json_.isground
         if (_json_.atkpect === undefined) { throw new Error() }
@@ -4190,6 +4251,10 @@ export class RoundChallengeEnemyConfigBean {
      */
     readonly star: number
     /**
+     * 等级
+     */
+    readonly level: number
+    /**
      * 随机权重
      */
     readonly unitWeight: number
@@ -4214,9 +4279,9 @@ export class RoundChallengeEnemyConfigBean {
      */
     readonly anglesZ: number
     /**
-     * 是否是召唤怪
+     * 怪物创建类型
      */
-    readonly issummoned: boolean
+    readonly enemycreatetype: EEnum.EEnemyCreateType
     /**
      * 是否在地面上
      */
