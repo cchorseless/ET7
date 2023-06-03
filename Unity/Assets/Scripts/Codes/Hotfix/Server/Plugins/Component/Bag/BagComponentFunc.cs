@@ -22,8 +22,17 @@ namespace ET.Server
                     len--;
                 }
             }
+         // 处理关卡难度
+         self.RefreshRankCharpter();
         }
-
+        public static void RefreshRankCharpter(this BagComponent self)
+        {
+            var serverzone = self.Character.GetMyServerZone();
+            var seasonRank = serverzone.RankComp.CurSeasonRank;
+            var seasonCharpterRank = seasonRank.GetRank<TRankSeasonSingleCharpter>((int)ERankType.SeasonSingleCharpterRank);
+            var score = self.DifficultyChapter * 1000 + self.DifficultyLevel;
+            seasonCharpterRank.UpdateRankData(self.Character.Id, self.Character.Name, score);
+        }
         public static bool CanOverLayMany(this BagComponent self, int configid)
         {
             var item = LuBanConfigComponent.Instance.Config().ItemConfig.GetOrDefault(configid);
@@ -84,18 +93,18 @@ namespace ET.Server
             return false;
         }
 
-        public static bool IsFullForItems(this BagComponent self, List<ValueTupleStruct<int, int>> itemsInfo)
+        public static bool IsFullForItems(this BagComponent self, List<FItemInfo> itemsInfo)
         {
             int countSlot = 0;
             itemsInfo.ForEach(item =>
             {
-                if (item.Item1 > EMoneyType.MoneyMax && self.IsSitBagSlot(item.Item1))
+                if (item.ItemConfigId > EMoneyType.MoneyMax && self.IsSitBagSlot(item.ItemConfigId))
                 {
-                    if (!self.CanOverLayMany(item.Item1))
+                    if (!self.CanOverLayMany(item.ItemConfigId))
                     {
-                        countSlot += item.Item2;
+                        countSlot += item.ItemCount;
                     }
-                    else if (self.GetTItemCount(item.Item2) == 0)
+                    else if (self.GetTItemCount(item.ItemCount) == 0)
                     {
                         countSlot += 1;
                     }
@@ -166,9 +175,16 @@ namespace ET.Server
             public string ItemId;
             public int ItemConfigId;
             public int ItemCount;
+
+          public  FItemPrizeResult(string itemId, int itemConfigId, int itemCount)
+            {
+                ItemId = itemId;
+                ItemConfigId = itemConfigId;
+                ItemCount = itemCount;
+            }
         }
 
-        public static (int, string) AddTItemOrMoney(this BagComponent self, List<ValueTupleStruct<int, int>> itemsInfo)
+        public static (int, string) AddTItemOrMoney(this BagComponent self, List<FItemInfo> itemsInfo)
         {
             if (self.IsFullForItems(itemsInfo))
             {
@@ -178,10 +194,10 @@ namespace ET.Server
             var r = new List<FItemPrizeResult>();
             itemsInfo.ForEach(item =>
             {
-                var result = self.AddTItemOrMoney(item.Item1, item.Item2);
+                var result = self.AddTItemOrMoney(item.ItemConfigId, item.ItemCount);
                 if (result.Item1)
                 {
-                    r.Add(new FItemPrizeResult() { ItemId = result.Item2.ToString(), ItemConfigId = item.Item1, ItemCount = item.Item2, });
+                    r.Add(new FItemPrizeResult(result.Item2.ToString(), item.ItemConfigId, item.ItemCount));
                 }
             });
             return (ErrorCode.ERR_Success, JsonHelper.ToLitJson(r));

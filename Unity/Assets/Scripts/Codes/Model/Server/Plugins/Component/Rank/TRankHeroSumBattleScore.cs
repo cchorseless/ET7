@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ET
 {
-    public class TRankHeroBattleScore : TRankCommon
+    public class TRankHeroSumBattleScore : TRankCommon
     {
         public int HeroConfigId { get; set; }
 

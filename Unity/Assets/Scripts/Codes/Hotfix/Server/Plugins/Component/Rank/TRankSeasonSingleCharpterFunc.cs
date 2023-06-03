@@ -9,6 +9,8 @@ namespace ET.Server
     {
         public static void LoadAllChild(this TRankSeasonSingleCharpter self)
         {
+            self.LoadFakerData(1000,6000);
+            self.AutoRankSort(10 * 60).Coroutine();
         }
 
     }

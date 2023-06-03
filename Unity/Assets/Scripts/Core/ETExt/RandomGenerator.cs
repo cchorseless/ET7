@@ -4,18 +4,18 @@ using Random = System.Random;
 
 namespace ET
 {
-    // Ö§³Ö¶àÏß³Ì
+    // æ”¯æŒå¤šçº¿ç¨‹
     public static partial class RandomGenerator
     {
 
 
         private static int Rand(int n)
         {
-            // ×¢Òâ£¬·µ»ØÖµÊÇ×ó±ÕÓÒ¿ª£¬ËùÒÔmaxValueÒª¼Ó1
+            // æ³¨æ„ï¼Œè¿”å›å€¼æ˜¯å·¦é—­å³å¼€ï¼Œæ‰€ä»¥maxValueè¦åŠ 1
             return RandomNumber(1, n + 1);
         }
         /// <summary>
-        /// Í¨¹ıÈ¨ÖØËæ»ú
+        /// é€šè¿‡æƒé‡éšæœº
         /// </summary>
         /// <param name="weights"></param>
         /// <returns></returns>

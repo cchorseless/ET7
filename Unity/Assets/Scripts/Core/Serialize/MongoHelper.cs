@@ -80,7 +80,12 @@ namespace ET
         [StaticField]
         private static readonly JsonWriterSettings defaultSettings = new() { OutputMode = JsonOutputMode.RelaxedExtendedJson };
 
+        
         static MongoHelper()
+        {
+        }
+
+        public static void Init()
         {
             // 自动注册IgnoreExtraElements
 
@@ -92,10 +97,6 @@ namespace ET
             RegisterStruct<float3>();
             RegisterStruct<float4>();
             RegisterStruct<quaternion>();
-            RegisterStruct<ValueTupleStruct<int, int>>();
-            RegisterStruct<ValueTupleStruct<int, long>>();
-            RegisterStruct<ValueTupleStruct<int, string, bool>>();
-            RegisterStruct<ValueTupleStruct<long, long, long, string>>();
 
             Dictionary<string, Type> types = EventSystem.Instance.GetTypes();
             foreach (Type type in types.Values)
@@ -109,13 +110,9 @@ namespace ET
                 {
                     continue;
                 }
-
+               
                 BsonClassMap.LookupClassMap(type);
             }
-        }
-
-        public static void Init()
-        {
         }
 
         public static void RegisterStruct<T>() where T : struct

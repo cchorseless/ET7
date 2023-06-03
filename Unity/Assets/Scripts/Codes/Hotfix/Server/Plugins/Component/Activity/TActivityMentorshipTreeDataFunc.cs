@@ -62,10 +62,10 @@ namespace ET.Server
                 var config = entity.MentorshipPrizeConfig();
                 if (config.PrizeConditionType == EMentorshipPrizeType.BuildRelation)
                 {
-                    List<ValueTupleStruct<int, int>> Items = new List<ValueTupleStruct<int, int>>();
+                    List<FItemInfo> Items = new List<FItemInfo>();
                     config.ItemGroup.ForEach(item =>
                     {
-                        Items.Add(new ValueTupleStruct<int, int>(item.ItemConfigId, item.ItemCount));
+                        Items.Add(new FItemInfo(item.ItemConfigId, item.ItemCount));
                     });
                     var character = self.CharacterActivity.Character;
                     var mailComp = character.GetMyServerZone().MailComp;

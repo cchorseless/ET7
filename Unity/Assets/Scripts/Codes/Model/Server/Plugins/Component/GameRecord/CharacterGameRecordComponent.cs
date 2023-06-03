@@ -13,6 +13,7 @@ namespace ET
 
         public long CurRecordID;
 
+        
         [BsonIgnore]
         public TCharacter Character { get => this.GetParent<TCharacter>(); }
     }

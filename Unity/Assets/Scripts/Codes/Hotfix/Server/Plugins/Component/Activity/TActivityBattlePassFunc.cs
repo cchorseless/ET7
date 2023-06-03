@@ -27,11 +27,11 @@ namespace ET.Server
                 {
                     if (!self.Items.ContainsKey(item.Level))
                     {
-                        self.Items.Add(item.Level, new ValueTupleStruct<int, int>(item.ItemConfigId, item.ItemCount));
+                        self.Items.Add(item.Level, new FItemInfo(item.ItemConfigId, item.ItemCount));
                     }
                     if (!self.VipItems.ContainsKey(item.Level))
                     {
-                        self.VipItems.Add(item.Level, new ValueTupleStruct<int, int>(item.VIPItemConfigId, item.VIPItemCount));
+                        self.VipItems.Add(item.Level, new FItemInfo(item.VIPItemConfigId, item.VIPItemCount));
                     }
                 });
             }
@@ -57,7 +57,7 @@ namespace ET.Server
             {
                 return (ErrorCode.ERR_Error, "Vip not valid");
             }
-            ValueTupleStruct<int, int> prizeItem;
+            FItemInfo prizeItem;
             if (isVip)
             {
                 if (!self.VipItems.TryGetValue(level, out prizeItem))
@@ -80,7 +80,7 @@ namespace ET.Server
                     return (ErrorCode.ERR_Error, "activityData had Get");
                 }
             }
-            var addResult = character.BagComp.AddTItemOrMoney(prizeItem.Item1, prizeItem.Item2);
+            var addResult = character.BagComp.AddTItemOrMoney(prizeItem.ItemConfigId, prizeItem.ItemCount);
             if (addResult.Item1)
             {
                 if (isVip)
@@ -107,7 +107,7 @@ namespace ET.Server
             {
                 return (ErrorCode.ERR_Error, "activityData not valid");
             }
-            var prizeList = new List<ValueTupleStruct<int, int>>();
+            var prizeList = new List<FItemInfo>();
             var ItemsIndex = new List<int>();
             var VipItemsIndex = new List<int>();
             for (int i = 0; i <= activityData.Level; i++)

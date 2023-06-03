@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ET
 {
-    public class TRankSumBattleSorce : TRankCommon
+    public class TRankSeasonBattleSorce : TRankCommon
     {
     }
 }

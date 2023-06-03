@@ -70,6 +70,11 @@ namespace ET.Server
             self.AchievementComp.LoadAllChild();
             await self.LoadOrAddComponent<CharacterGameRecordComponent>();
             self.GameRecordComp.LoadAllChild();
+            await self.LoadOrAddComponent<CharacterBattleTeamComponent>();
+            self.BattleTeamComp.LoadAllChild();
+            // 排行榜写在最后 因为要去拿数据更新排名
+            await self.LoadOrAddComponent<CharacterRankComponent>();
+            self.RankComp.LoadAllChild();
         }
 
         public static async ETTask Save(this TCharacter self)
@@ -93,6 +98,8 @@ namespace ET.Server
                     self.TitleComp,
                     self.AchievementComp,
                     self.GameRecordComp,
+                    self.BattleTeamComp,
+                    self.RankComp,
                 });
             }
 
@@ -106,6 +113,7 @@ namespace ET.Server
             {
                 self.BagComp, self.DataComp, self.ShopComp, self.TaskComp, self.MailComp, self.ActivityComp, self.HeroManageComp,
                 self.DrawTreasureComp, self.RechargeComp, self.BuffComp, self.TitleComp, self.AchievementComp, self.GameRecordComp,
+                self.BattleTeamComp,  self.RankComp,
             });
         }
 
@@ -118,8 +126,7 @@ namespace ET.Server
                 self.SyncHttpEntity(serverZone);
                 self.SyncHttpEntity(new Entity[]
                 {
-                    serverZone.SeasonComp, serverZone.ShopComp, serverZone.ActivityComp, serverZone.RankComp, serverZone.BuffComp,
-                    serverZone.GameRecordComp,
+                    serverZone.SeasonComp, serverZone.ShopComp, serverZone.ActivityComp, serverZone.RankComp
                 });
             }
         }
@@ -153,17 +160,7 @@ namespace ET.Server
 
         public static void SyncClientEntity(this TCharacter self, Entity[] entitys)
         {
-            string str = "[";
-            for (int i = 0; i < entitys.Length; i++)
-            {
-                str += MongoHelper.ToClientJson(entitys[i]);
-                if (i < entitys.Length - 1)
-                {
-                    str += ",";
-                }
-            }
-
-            str += "]";
+            string str = MongoHelper.ToArrayClientJson(entitys);
             var bytes = ZipHelper.Compress(str.ToByteArray());
             self.SendToClient(new Actor_SyncEntity() { Entity = bytes, });
         }

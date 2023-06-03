@@ -26,7 +26,7 @@ namespace ET
         public long Time;
         public int ValidTime;
 
-        public List<ValueTupleStruct<int, int>> Items;
+        public List<FItemInfo> Items;
 
 
     }

@@ -6,8 +6,8 @@ using System.Text;
 
 namespace ET.Server
 {
-    [HttpHandler(SceneType.Gate, "/CharacterRankDataInfo")]
-    public class Http_Post_CharacterRankDataInfoHandler : HttpPostHandler<C2H_CharacterRankDataInfo, H2C_CommonResponse>
+    [HttpHandler(SceneType.Gate, "/Rank_CharacterRankDataInfo")]
+    public class Http_Post_CharacterRankDataInfoHandler: HttpPostHandler<C2H_CharacterRankDataInfo, H2C_CommonResponse>
     {
         protected override async ETTask Run(Entity domain, C2H_CharacterRankDataInfo request, H2C_CommonResponse response, long playerid)
         {
@@ -18,15 +18,17 @@ namespace ET.Server
             var sceneZone = character.GetMyServerZone();
             if (sceneZone != null && sceneZone.RankComp != null && long.TryParse(request.CharacterId, out var characterId))
             {
-                if (request.RankType == (int)ERankType.HeroBattleSorceRankGroup)
+                var entity = sceneZone.RankComp.GetCurSeasonCharacterRankDataInfo(request.RankType, characterId);
+                if (entity == null)
                 {
-                    (response.Error, response.Message) = sceneZone.RankComp.GetCurSeasonCharacterRankDataInfo(request.RankType, request.HeroConfigId, characterId);
+                    (response.Error, response.Message) = (ErrorCode.ERR_Error, "cant find rank data");
                 }
                 else
                 {
-                    (response.Error, response.Message) = sceneZone.RankComp.GetCurSeasonCharacterRankDataInfo(request.RankType, characterId);
+                    (response.Error, response.Message) = (ErrorCode.ERR_Success, MongoHelper.ToClientJson(entity));
                 }
             }
+
             await ETTask.CompletedTask;
         }
     }

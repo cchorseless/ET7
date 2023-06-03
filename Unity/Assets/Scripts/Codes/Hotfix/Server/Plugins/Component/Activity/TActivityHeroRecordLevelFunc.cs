@@ -20,10 +20,10 @@ namespace ET.Server
                 {
                     if (!self.Items.ContainsKey(item.Id))
                     {
-                        var itemList = new List<ValueTupleStruct<int, int>>();
+                        var itemList = new List<FItemInfo>();
                         item.ItemGroup.ForEach(_info =>
                         {
-                            itemList.Add(new ValueTupleStruct<int, int>(_info.ItemConfigId, _info.ItemCount));
+                            itemList.Add(new FItemInfo (_info.ItemConfigId, _info.ItemCount));
                         });
                         self.Items.Add(item.Id, itemList);
                     }
@@ -75,7 +75,7 @@ namespace ET.Server
             {
                 return (ErrorCode.ERR_Error, "activityData not valid");
             }
-            var prizeList = new List<ValueTupleStruct<int, int>>();
+            var prizeList = new List<FItemInfo>();
             var ItemsIndex = new List<int>();
             for (int i = 0; i <= activityData.HeroSumLevel; i++)
             {

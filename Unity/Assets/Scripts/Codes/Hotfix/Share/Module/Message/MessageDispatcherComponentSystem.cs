@@ -24,10 +24,11 @@ namespace ET
         {
             protected override void Load(MessageDispatcherComponent self)
             {
-                // gaiguo
-                NetServices.Instance.RefreshTypeOpcode();
-                OpcodeTypeComponent.Instance.RefreshMessageType();
-                self.Load();
+                // 重载协议
+                // 改过
+                // NetServices.Instance.RefreshTypeOpcode();
+                // OpcodeTypeComponent.Instance.RefreshMessageType();
+                // self.Load();
             }
         }
 

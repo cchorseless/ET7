@@ -46,7 +46,7 @@ namespace ET.Server
             clone.ValidTime = self.ValidTime;
             if (self.Items != null && self.Items.Count > 0)
             {
-                clone.Items = new List<ValueTupleStruct<int, int>>();
+                clone.Items = new List<FItemInfo>();
                 self.Items.CopyTo(clone.Items.ToArray());
                 clone.State.Add((int)EMailState.UnItemGet);
             }

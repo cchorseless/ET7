@@ -16,7 +16,7 @@ namespace ET.Server
             var serverZoneList = await accountDB.Query<TServerZone>(a => true);
             foreach (var server in serverZoneList)
             {
-                var _json = new ServerInfo()
+                var _json = new FServerInfo()
                 {
                     ServerID = server.ServerID,
                     ServerName = server.ServerName,

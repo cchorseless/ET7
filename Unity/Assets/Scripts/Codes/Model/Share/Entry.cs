@@ -30,8 +30,9 @@
         private static async ETTask StartAsync()
         {
             WinPeriod.Init();
-            
-            MongoHelper.Init();
+
+            GameStruct.Init();
+
             ProtobufHelper.Init();
             
             Game.AddSingleton<NetServices>();

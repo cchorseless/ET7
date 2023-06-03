@@ -31,9 +31,9 @@ namespace ET
 
 	}
 
-	[Message(OuterMessageHttp.ServerInfo)]
+	[Message(OuterMessageHttp.FServerInfo)]
 	[ProtoContract]
-	public partial class ServerInfo: ProtoObject, IMessage
+	public partial class FServerInfo: ProtoObject, IMessage
 	{
 		[ProtoMember(1)]
 		public string ServerName { get; set; }
@@ -63,7 +63,7 @@ namespace ET
 		public string Message { get; set; }
 
 		[ProtoMember(93)]
-		public List<ServerInfo> ServerList { get; set; }
+		public List<FServerInfo> ServerList { get; set; }
 
 	}
 
@@ -723,11 +723,131 @@ namespace ET
 
 	}
 
+	[ResponseType(nameof(H2C_CommonResponse))]
+	[Message(OuterMessageHttp.C2H_DrawEnemy_GetEnemyInfo)]
+	[ProtoContract]
+	public partial class C2H_DrawEnemy_GetEnemyInfo: ProtoObject, IRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public int RoundIndex { get; set; }
+
+		[ProtoMember(2)]
+		public int RoundCharpter { get; set; }
+
+		[ProtoMember(3)]
+		public int EnemyCount { get; set; }
+
+		[ProtoMember(4)]
+		public int Score { get; set; }
+
+	}
+
+	[Message(OuterMessageHttp.FBattleUnitInfoItem)]
+	[ProtoContract]
+	public partial class FBattleUnitInfoItem: ProtoObject, IMessage
+	{
+		[ProtoMember(1)]
+		public string UnitName { get; set; }
+
+		[ProtoMember(2)]
+		public int Level { get; set; }
+
+		[ProtoMember(3)]
+		public int Star { get; set; }
+
+		[ProtoMember(4)]
+		public int PosX { get; set; }
+
+		[ProtoMember(5)]
+		public int PosY { get; set; }
+
+		[ProtoMember(6)]
+		public string WearBundleId { get; set; }
+
+		[ProtoMember(7)]
+		public List<string> EquipInfo { get; set; }
+
+		[ProtoMember(8)]
+		public List<string> Buffs { get; set; }
+
+	}
+
+	[Message(OuterMessageHttp.FBattleTeamRecord)]
+	[ProtoContract]
+	public partial class FBattleTeamRecord: ProtoObject, IMessage
+	{
+		[ProtoMember(1)]
+		public string SteamAccountId { get; set; }
+
+		[ProtoMember(2)]
+		public string SteamAccountName { get; set; }
+
+		[ProtoMember(3)]
+		public int RoundIndex { get; set; }
+
+		[ProtoMember(4)]
+		public int RoundCharpter { get; set; }
+
+		[ProtoMember(5)]
+		public int Score { get; set; }
+
+		[ProtoMember(6)]
+		public List<string> SectInfo { get; set; }
+
+		[ProtoMember(7)]
+		public List<FBattleUnitInfoItem> UnitInfo { get; set; }
+
+	}
+
+	[ResponseType(nameof(H2C_CommonResponse))]
+	[Message(OuterMessageHttp.C2H_DrawEnemy_UploadEnemyInfo)]
+	[ProtoContract]
+	public partial class C2H_DrawEnemy_UploadEnemyInfo: ProtoObject, IRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public string SteamAccountId { get; set; }
+
+		[ProtoMember(2)]
+		public string SteamAccountName { get; set; }
+
+		[ProtoMember(6)]
+		public List<FBattleTeamRecord> TeamInfo { get; set; }
+
+	}
+
+	[ResponseType(nameof(H2C_CommonResponse))]
+	[Message(OuterMessageHttp.C2H_DrawEnemy_UploadBattleResult)]
+	[ProtoContract]
+	public partial class C2H_DrawEnemy_UploadBattleResult: ProtoObject, IRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public int RoundIndex { get; set; }
+
+		[ProtoMember(2)]
+		public int RoundCharpter { get; set; }
+
+		[ProtoMember(3)]
+		public string EnemyEntityId { get; set; }
+
+		[ProtoMember(4)]
+		public int BattleScore { get; set; }
+
+	}
+
 	public static class OuterMessageHttp
 	{
 		 public const ushort H2C_CommonResponse = 15001;
 		 public const ushort C2H_GetServerZoneInfo = 15002;
-		 public const ushort ServerInfo = 15003;
+		 public const ushort FServerInfo = 15003;
 		 public const ushort H2C_GetServerList = 15004;
 		 public const ushort H2C_GetServerNotice = 15005;
 		 public const ushort C2H_GetServerUrl = 15006;
@@ -770,5 +890,10 @@ namespace ET
 		 public const ushort C2H_Mentorship_ApplyForMaster = 15043;
 		 public const ushort C2H_Mentorship_DropTree = 15044;
 		 public const ushort C2H_Mentorship_ChangeApplyState = 15045;
+		 public const ushort C2H_DrawEnemy_GetEnemyInfo = 15046;
+		 public const ushort FBattleUnitInfoItem = 15047;
+		 public const ushort FBattleTeamRecord = 15048;
+		 public const ushort C2H_DrawEnemy_UploadEnemyInfo = 15049;
+		 public const ushort C2H_DrawEnemy_UploadBattleResult = 15050;
 	}
 }

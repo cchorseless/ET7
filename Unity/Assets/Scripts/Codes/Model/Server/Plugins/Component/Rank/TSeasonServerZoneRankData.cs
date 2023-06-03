@@ -7,7 +7,10 @@ using MongoDB.Bson.Serialization.Options;
 
 namespace ET
 {
-    public class TSeasonRankData : Entity, IAwake<int>, ISerializeToEntity
+    /// <summary>
+    /// 排行榜数据包，单独保存数据
+    /// </summary>
+    public class TSeasonServerZoneRankData : Entity, IAwake<int>
     {
         public int SeasonConfigId { get; set; }
 

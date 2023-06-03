@@ -48,7 +48,7 @@ namespace ET.Server
             return count >= times;
         }
 
-        public static List<ValueTupleStruct<int, int>> DrawTreasureOnce(this CharacterDrawTreasureComponent self, int treasureId)
+        public static List<FItemInfo> DrawTreasureOnce(this CharacterDrawTreasureComponent self, int treasureId)
         {
             if (!Enum.IsDefined(typeof(EDrawTreasureType), treasureId))
             {
@@ -84,10 +84,10 @@ namespace ET.Server
                 }
             }
             var poolGroupConfig = LuBanConfigComponent.Instance.Config().ItemPrizePoolGroupConfig.GetOrDefault(poolGroupConfigId);
-            var r = new List<ValueTupleStruct<int, int>>();
+            var r = new List<FItemInfo>();
             poolGroupConfig.GetRandomItemId().ForEach(item =>
             {
-                r.Add(new ValueTupleStruct<int, int>() { Item1 = item.ItemConfigId, Item2 = item.ItemCount });
+                r.Add(new FItemInfo(item.ItemConfigId,item.ItemCount) );
             });
             self.TreasureTimes[treasureId] += 1;
             if (isFree)

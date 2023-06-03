@@ -24,7 +24,8 @@ namespace ET.Server
         {
             protected override void Load(ActorMessageDispatcherComponent self)
             {
-                self.Load();
+                // 重载协议
+                // self.Load();
             }
         }
 

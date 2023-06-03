@@ -39,7 +39,7 @@ namespace ET.Server
             {
                 return (ErrorCode.ERR_Error, "item not enough");
             }
-            var r = new List<ValueTupleStruct<int, int>>();
+            var r = new List<FItemInfo>();
             for (var i = 0; i < times; i++)
             {
                 var items = character.DrawTreasureComp.DrawTreasureOnce(treasureId);

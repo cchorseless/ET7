@@ -10,6 +10,6 @@ namespace ET
     public class TActivityInvestMetaStone : TActivity
     {
         [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
-        public Dictionary<int, ValueTupleStruct<int, int>> Items = new Dictionary<int,ValueTupleStruct<int, int>>();
+        public Dictionary<int, FItemInfo> Items = new Dictionary<int,FItemInfo>();
     }
 }

@@ -77,6 +77,9 @@ namespace ET
         public CharacterBuffComponent BuffComp { get => GetComponent<CharacterBuffComponent>(); }
 
         [BsonIgnore]
+        public CharacterRankComponent RankComp { get => GetComponent<CharacterRankComponent>(); }
+        
+        [BsonIgnore]
         public CharacterTitleComponent TitleComp { get => GetComponent<CharacterTitleComponent>(); }
 
         [BsonIgnore]
@@ -85,7 +88,8 @@ namespace ET
         [BsonIgnore]
         public CharacterGameRecordComponent GameRecordComp { get => GetComponent<CharacterGameRecordComponent>(); }
 
-
+        [BsonIgnore]
+        public CharacterBattleTeamComponent BattleTeamComp { get => GetComponent<CharacterBattleTeamComponent>(); }
 
     }
 }

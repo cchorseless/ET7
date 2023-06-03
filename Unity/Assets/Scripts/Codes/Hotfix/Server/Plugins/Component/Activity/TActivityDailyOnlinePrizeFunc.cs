@@ -17,10 +17,10 @@ namespace ET.Server
             {
                 if (!self.Items.ContainsKey(item.Id))
                 {
-                    var itemList = new List<ValueTupleStruct<int, int>>();
+                    var itemList = new List<FItemInfo>();
                     item.ItemGroup.ForEach(_info =>
                     {
-                        itemList.Add(new ValueTupleStruct<int, int>(_info.ItemConfigId, _info.ItemCount));
+                        itemList.Add(new FItemInfo(_info.ItemConfigId, _info.ItemCount));
                     });
                     self.Items.Add(item.Id, itemList);
                 }

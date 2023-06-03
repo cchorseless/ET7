@@ -8,8 +8,8 @@ namespace ET
     public class TActivityBattlePass : TActivity
     {
         [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
-        public Dictionary<int, ValueTupleStruct<int, int>> Items = new Dictionary<int, ValueTupleStruct<int, int>>();
+        public Dictionary<int, FItemInfo> Items = new Dictionary<int, FItemInfo>();
         [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
-        public Dictionary<int, ValueTupleStruct<int, int>> VipItems = new Dictionary<int, ValueTupleStruct<int, int>>();
+        public Dictionary<int, FItemInfo> VipItems = new Dictionary<int, FItemInfo>();
     }
 }

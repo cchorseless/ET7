@@ -20,7 +20,7 @@ namespace ET.Server
             string FromDes,
             string ToDes,
             int ValidTime,
-            List<ValueTupleStruct<int, int>> Items = null)
+            List<FItemInfo> Items = null)
         {
             var clone = self.AddChild<TMail>();
             clone.Title = title;
@@ -33,7 +33,7 @@ namespace ET.Server
             clone.Time = TimeHelper.ServerNow();
             if (Items != null && Items.Count > 0)
             {
-                clone.Items = new List<ValueTupleStruct<int, int>>();
+                clone.Items = new List<FItemInfo>();
                 Items.CopyTo(clone.Items.ToArray());
             }
             self.Mails.Add(clone.Id);
@@ -53,7 +53,7 @@ namespace ET.Server
               string title,
             string content,
             int ValidTime,
-            List<ValueTupleStruct<int, int>> Items)
+            List<FItemInfo> Items)
         {
             var clone = self.AddChild<TMail>();
             clone.Title = title;
@@ -66,7 +66,7 @@ namespace ET.Server
             clone.Time = TimeHelper.ServerNow();
             if (Items != null && Items.Count > 0)
             {
-                clone.Items = new List<ValueTupleStruct<int, int>>();
+                clone.Items = new List<FItemInfo>();
                 Items.CopyTo(clone.Items.ToArray());
             }
             self.Mails.Add(clone.Id);
@@ -86,7 +86,7 @@ namespace ET.Server
             string FromDes,
             string ToDes,
             int ValidTime,
-            List<ValueTupleStruct<int, int>> Items = null
+            List<FItemInfo> Items = null
             )
         {
             if (characteridList != null && characteridList.Count > 0)
@@ -102,7 +102,7 @@ namespace ET.Server
                 clone.Time = TimeHelper.ServerNow();
                 if (Items != null && Items.Count > 0)
                 {
-                    clone.Items = new List<ValueTupleStruct<int, int>>();
+                    clone.Items = new List<FItemInfo>();
                     Items.CopyTo(clone.Items.ToArray());
                 }
                 self.Mails.Add(clone.Id);

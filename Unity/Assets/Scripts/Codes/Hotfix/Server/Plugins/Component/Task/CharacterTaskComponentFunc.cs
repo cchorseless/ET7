@@ -117,10 +117,10 @@ namespace ET.Server
             {
                 prizeMultiple = 2;
             }
-            List<ValueTupleStruct<int, int>> itemsPrize = new List<ValueTupleStruct<int, int>>();
+            List<FItemInfo> itemsPrize = new List<FItemInfo>();
             entity.TaskConfig().TaskPrize.ForEach(item =>
             {
-                itemsPrize.Add(new ValueTupleStruct<int, int>(item.ItemConfigId, item.ItemCount * prizeMultiple));
+                itemsPrize.Add(new FItemInfo(item.ItemConfigId, item.ItemCount * prizeMultiple));
             });
             var r = self.Character.BagComp.AddTItemOrMoney(itemsPrize);
             if (r.Item1 == ErrorCode.ERR_Success)

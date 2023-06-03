@@ -126,7 +126,7 @@ namespace ET.Server
             }
             foreach (var iteminfo in mail.Items)
             {
-                self.Character.BagComp.AddTItemOrMoney(iteminfo.Item1, iteminfo.Item2);
+                self.Character.BagComp.AddTItemOrMoney(iteminfo.ItemConfigId, iteminfo.ItemCount);
             }
             mail.State.Remove((int)EMailState.UnItemGet);
             mail.State.Add((int)EMailState.ItemGet);

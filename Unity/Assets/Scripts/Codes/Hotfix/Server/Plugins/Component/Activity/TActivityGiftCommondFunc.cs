@@ -75,10 +75,10 @@ namespace ET.Server
             {
                 return (ErrorCode.ERR_Error, "giftConfigId had used");
             }
-            List<ValueTupleStruct<int, int>> itemsPrize = new List<ValueTupleStruct<int, int>>();
+            List<FItemInfo> itemsPrize = new List<FItemInfo>();
             config.ItemGroup.ForEach(item =>
             {
-                itemsPrize.Add(new ValueTupleStruct<int, int>(item.ItemConfigId, item.ItemCount));
+                itemsPrize.Add(new FItemInfo(item.ItemConfigId, item.ItemCount));
             });
             var addResult = character.BagComp.AddTItemOrMoney(itemsPrize);
             if (addResult.Item1 == ErrorCode.ERR_Success)

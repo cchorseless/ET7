@@ -90,6 +90,8 @@ namespace ET.Server
             self.DataReportComp.LoadAllChild();
             await self.LoadOrAddComponent<ServerZoneGameRecordComponent>();
             self.GameRecordComp.LoadAllChild();
+            await self.LoadOrAddComponent<ServerZoneBattleTeamComponent>();
+            self.BattleTeamComp.LoadAllChild();
             await self.Save();
         }
 
@@ -102,15 +104,24 @@ namespace ET.Server
             await accountDB.Save(self.MailComp);
             await accountDB.Save(self.TaskComp);
             await accountDB.Save(self.RankComp);
+            if (self.RankComp.CurSeasonRank != null)
+            {
+                await accountDB.Save(self.RankComp.CurSeasonRank);
+            }
             await accountDB.Save(self.DrawTreasureComp);
             await accountDB.Save(self.RechargeComp);
             await accountDB.Save(self.TItemManageComp);
             await accountDB.Save(self.BuffComp);
             await accountDB.Save(self.DataReportComp);
             await accountDB.Save(self.GameRecordComp);
+            await accountDB.Save(self.BattleTeamComp);
             await accountDB.Save(self);
         }
+        
+        
+     
     }
+  
 
     [ObjectSystem]
     public class TServerZoneAwakeSystem: AwakeSystem<TServerZone, int, int, string>

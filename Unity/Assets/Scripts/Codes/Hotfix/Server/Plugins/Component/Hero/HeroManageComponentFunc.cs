@@ -18,8 +18,8 @@ namespace ET.Server
         {
             var serverzone = self.Character.GetMyServerZone();
             var seasonRank = serverzone.RankComp.CurSeasonRank;
-            var SumBattleSorceRank = seasonRank.GetRank<TRankSumBattleSorce>((int)ERankType.SumBattleSorceRank);
-            SumBattleSorceRank.UpdateRankData(self.Character.Id, self.GetHeroSumBattleScore());
+            var SeasonBattleSorceRank = seasonRank.GetRank<TRankHeroSumBattleScore>((int)ERankType.HeroSumBattleSorceRank);
+            SeasonBattleSorceRank.UpdateRankData(self.Character.Id, self.Character.Name, self.GetHeroSumBattleScore());
         }
 
         public static List<THeroUnit> GetAllHeroUnit(this HeroManageComponent self)

@@ -145,7 +145,7 @@ namespace ET.Server
                 return (ErrorCode.ERR_Error, "not in bag");
             }
 
-            var prizeItems = new List<ValueTupleStruct<int, int>>();
+            var prizeItems = new List<FItemInfo>();
             foreach (var prizeid in prizeidList)
             {
                 var pool = LuBanConfigComponent.Instance.Config().ItemPrizePoolConfig.GetOrDefault(prizeid);
@@ -155,7 +155,7 @@ namespace ET.Server
                     {
                         if (iteminfo != null)
                         {
-                            prizeItems.Add(new ValueTupleStruct<int, int>(iteminfo.ItemConfigId, iteminfo.ItemCount));
+                            prizeItems.Add(new FItemInfo(iteminfo.ItemConfigId, iteminfo.ItemCount));
                         }
                     });
                 }

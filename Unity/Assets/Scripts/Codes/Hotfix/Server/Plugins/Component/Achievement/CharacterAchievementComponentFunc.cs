@@ -55,10 +55,10 @@ namespace ET.Server
             {
                 return (ErrorCode.ERR_Error, "achievement  had PrizeGet");
             }
-            List<ValueTupleStruct<int, int>> itemsPrize = new List<ValueTupleStruct<int, int>>();
+            List<FItemInfo> itemsPrize = new List<FItemInfo>();
             entity.AchieveConfig().AchievePrize.ForEach(item =>
             {
-                itemsPrize.Add(new ValueTupleStruct<int, int>(item.ItemConfigId, item.ItemCount));
+                itemsPrize.Add(new FItemInfo(item.ItemConfigId, item.ItemCount));
             });
             var r = self.Character.BagComp.AddTItemOrMoney(itemsPrize);
             if (r.Item1 == ErrorCode.ERR_Success)

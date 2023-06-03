@@ -16,7 +16,7 @@ message C2H_GetServerZoneInfo // IRequest
 }
 
 
-message ServerInfo // IMessage
+message FServerInfo // IMessage
 {
 	string ServerName = 1;
 	int32 ServerID = 2;
@@ -29,7 +29,7 @@ message H2C_GetServerList // IResponse
   int32 RpcId = 90;
   int32 Error = 91;
   string Message = 92;
-  repeated ServerInfo ServerList = 93;
+  repeated FServerInfo ServerList = 93;
 }
 
 message H2C_GetServerNotice // IResponse
@@ -355,4 +355,56 @@ message C2H_Mentorship_ChangeApplyState // IRequest
   int32  RpcId = 90;
   string  EntityId = 1;
   bool  IsAgree = 2;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_DrawEnemy_GetEnemyInfo // IRequest
+{
+  int32  RpcId = 90;
+  int32  RoundIndex = 1;
+  int32  RoundCharpter = 2;
+  int32  EnemyCount = 3;
+  int32  Score = 4;
+}
+
+message FBattleUnitInfoItem // IMessage
+{
+  string UnitName = 1;
+  int32 Level = 2;
+  int32 Star = 3;
+  int32 PosX = 4;
+  int32 PosY = 5;
+  string WearBundleId = 6;
+  repeated string EquipInfo = 7;
+  repeated string Buffs = 8;
+}
+
+message FBattleTeamRecord // IMessage
+{
+  string SteamAccountId = 1;
+  string SteamAccountName = 2;
+  int32 RoundIndex = 3;
+  int32 RoundCharpter = 4;
+  int32 Score = 5;
+  repeated string SectInfo = 6;
+  repeated FBattleUnitInfoItem UnitInfo = 7;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_DrawEnemy_UploadEnemyInfo // IRequest
+{
+  int32  RpcId = 90;
+  string SteamAccountId = 1;
+  string SteamAccountName = 2;
+  repeated FBattleTeamRecord TeamInfo = 6;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_DrawEnemy_UploadBattleResult // IRequest
+{
+  int32  RpcId = 90;
+  int32  RoundIndex = 1;
+  int32  RoundCharpter = 2;
+  string EnemyEntityId = 3;
+  int32 BattleScore = 4;
 }

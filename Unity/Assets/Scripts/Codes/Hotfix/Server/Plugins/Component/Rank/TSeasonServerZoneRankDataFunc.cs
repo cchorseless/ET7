@@ -7,38 +7,39 @@ using System.Threading.Tasks;
 namespace ET.Server
 {
     [ObjectSystem]
-    public class TSeasonRankDataAwakeSystem : AwakeSystem<TSeasonRankData, int>
+    public class TSeasonServerZoneRankDataAwakeSystem: AwakeSystem<TSeasonServerZoneRankData, int>
     {
-        protected override void Awake(TSeasonRankData self, int seasonConfigId)
+        protected override void Awake(TSeasonServerZoneRankData self, int seasonConfigId)
         {
             self.SeasonConfigId = seasonConfigId;
         }
     }
-    public static class TSeasonRankDataFunc
+
+    public static class TSeasonServerZoneRankDataFunc
     {
-        public static void LoadAllChild(this TSeasonRankData self)
+        public static void LoadAllChild(this TSeasonServerZoneRankData self)
         {
-            self.UpdateRank((int)ERankType.SumBattleSorceRank);
-            self.UpdateRank((int)ERankType.HeroBattleSorceRankGroup);
+            self.UpdateRank((int)ERankType.SeasonBattleSorceRank);
+            self.UpdateRank((int)ERankType.HeroSumBattleSorceRank);
             self.UpdateRank((int)ERankType.SeasonSingleCharpterRank);
-            self.UpdateRank((int)ERankType.SeasonTeamCharpterRank);
+            // self.UpdateRank((int)ERankType.SeasonTeamCharpterRank);
         }
 
-        public static T AddRank<T>(this TSeasonRankData self, int rankconfigid) where T : Entity, new()
+        public static T AddRank<T>(this TSeasonServerZoneRankData self, int rankconfigid) where T : Entity, new()
         {
             if (!self.Ranks.ContainsKey(rankconfigid))
             {
                 switch (rankconfigid)
                 {
-                    case (int)ERankType.SumBattleSorceRank:
-                        var sumBattleSorce = self.AddChild<TRankSumBattleSorce>();
-                        self.Ranks.Add(rankconfigid, sumBattleSorce.Id);
-                        sumBattleSorce.ConfigId = rankconfigid;
-                        sumBattleSorce.SeasonConfigId = self.SeasonConfigId;
-                        sumBattleSorce.LoadAllChild();
-                        return sumBattleSorce as T;
-                    case (int)ERankType.HeroBattleSorceRankGroup:
-                        var heroBattleScore = self.AddChild<TRankHeroBattleScoreGroup>();
+                    case (int)ERankType.SeasonBattleSorceRank:
+                        var SeasonBattleSorce = self.AddChild<TRankSeasonBattleSorce>();
+                        self.Ranks.Add(rankconfigid, SeasonBattleSorce.Id);
+                        SeasonBattleSorce.ConfigId = rankconfigid;
+                        SeasonBattleSorce.SeasonConfigId = self.SeasonConfigId;
+                        SeasonBattleSorce.LoadAllChild();
+                        return SeasonBattleSorce as T;
+                    case (int)ERankType.HeroSumBattleSorceRank:
+                        var heroBattleScore = self.AddChild<TRankHeroSumBattleScore>();
                         self.Ranks.Add(rankconfigid, heroBattleScore.Id);
                         heroBattleScore.ConfigId = rankconfigid;
                         heroBattleScore.SeasonConfigId = self.SeasonConfigId;
@@ -60,37 +61,46 @@ namespace ET.Server
                         return seasonTeamCharpter as T;
                 }
             }
+
             return null;
         }
-        public static T GetRank<T>(this TSeasonRankData self, int rankconfigid) where T : Entity, new()
+
+        public static T GetRank<T>(this TSeasonServerZoneRankData self, int rankconfigid) where T : Entity, new()
         {
             if (self.Ranks.TryGetValue(rankconfigid, out var entityid))
             {
                 switch (rankconfigid)
                 {
-                    case (int)ERankType.SumBattleSorceRank:
-                        return self.GetChild<TRankSumBattleSorce>(entityid) as T;
-                    case (int)ERankType.HeroBattleSorceRankGroup:
-                        return self.GetChild<TRankHeroBattleScoreGroup>(entityid) as T;
+                    case (int)ERankType.SeasonBattleSorceRank:
+                        return self.GetChild<TRankSeasonBattleSorce>(entityid) as T;
+                    case (int)ERankType.HeroSumBattleSorceRank:
+                        return self.GetChild<TRankHeroSumBattleScore>(entityid) as T;
                     case (int)ERankType.SeasonSingleCharpterRank:
                         return self.GetChild<TRankSeasonSingleCharpter>(entityid) as T;
                     case (int)ERankType.SeasonTeamCharpterRank:
                         return self.GetChild<TRankSeasonTeamCharpter>(entityid) as T;
                 }
             }
+
             return null;
         }
-        public static void UpdateRank(this TSeasonRankData self, int rankconfigid)
+
+        public static void UpdateRank(this TSeasonServerZoneRankData self, int rankconfigid)
         {
+            if (!self.ServerZoneRankComp.SeasonRankType.Contains(rankconfigid))
+            {
+                self.ServerZoneRankComp.SeasonRankType.Add(rankconfigid);
+            }
+
             if (self.Ranks.ContainsKey(rankconfigid))
             {
                 switch (rankconfigid)
                 {
-                    case (int)ERankType.SumBattleSorceRank:
-                        self.GetRank<TRankSumBattleSorce>(rankconfigid)?.LoadAllChild();
+                    case (int)ERankType.SeasonBattleSorceRank:
+                        self.GetRank<TRankSeasonBattleSorce>(rankconfigid)?.LoadAllChild();
                         break;
-                    case (int)ERankType.HeroBattleSorceRankGroup:
-                        self.GetRank<TRankHeroBattleScoreGroup>(rankconfigid)?.LoadAllChild();
+                    case (int)ERankType.HeroSumBattleSorceRank:
+                        self.GetRank<TRankHeroSumBattleScore>(rankconfigid)?.LoadAllChild();
                         break;
                     case (int)ERankType.SeasonSingleCharpterRank:
                         self.GetRank<TRankSeasonSingleCharpter>(rankconfigid)?.LoadAllChild();
@@ -104,11 +114,11 @@ namespace ET.Server
             {
                 switch (rankconfigid)
                 {
-                    case (int)ERankType.SumBattleSorceRank:
-                        self.AddRank<TRankSumBattleSorce>(rankconfigid);
+                    case (int)ERankType.SeasonBattleSorceRank:
+                        self.AddRank<TRankSeasonBattleSorce>(rankconfigid);
                         break;
-                    case (int)ERankType.HeroBattleSorceRankGroup:
-                        self.AddRank<TRankHeroBattleScoreGroup>(rankconfigid);
+                    case (int)ERankType.HeroSumBattleSorceRank:
+                        self.AddRank<TRankHeroSumBattleScore>(rankconfigid);
                         break;
                     case (int)ERankType.SeasonSingleCharpterRank:
                         self.AddRank<TRankSeasonSingleCharpter>(rankconfigid);

@@ -27,7 +27,7 @@ namespace ET.Server
                 {
                     if (!self.Items.ContainsKey(item.Need))
                     {
-                        self.Items.Add(item.Need, new ValueTupleStruct<int, int>(item.GainMin, item.GainMax));
+                        self.Items.Add(item.Need, new FItemInfo(item.GainMin, item.GainMax));
                     }
                 });
             }
@@ -64,7 +64,7 @@ namespace ET.Server
                     return (ErrorCode.ERR_Error, "last activityData not Get");
                 }
             }
-            int metaGet = RandomGenerator.RandomNumber(info.Item1, info.Item2);
+            int metaGet = RandomGenerator.RandomNumber(info.ItemConfigId, info.ItemCount);
             activityData.ItemState.Add(metaStoneCount, metaGet);
             character.BagComp.AddTItemOrMoney((int)EMoneyType.MetaStone, metaGet);
             return (ErrorCode.ERR_Success, "" + metaGet);

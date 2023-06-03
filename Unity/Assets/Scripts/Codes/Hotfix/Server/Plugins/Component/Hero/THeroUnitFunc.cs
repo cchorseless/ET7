@@ -11,8 +11,6 @@ namespace ET.Server
         {
             self.HeroEquipComp.LoadAllChild();
             self.HeroTalentComp.LoadAllChild();
-            self.RefreshBattleScore();
-            self.RefreshHeroBattleScoreRank();
         }
 
         public static string BindHeroName(this THeroUnit self)
@@ -57,17 +55,8 @@ namespace ET.Server
             return 0;
         }
 
-        public static void RefreshBattleScore(this THeroUnit self)
-        {
-        }
 
-        public static void RefreshHeroBattleScoreRank(this THeroUnit self)
-        {
-            var serverzone = self.Character.GetMyServerZone();
-            var seasonRank = serverzone.RankComp.CurSeasonRank;
-            var HeroBattleSorceRankGroup = seasonRank.GetRank<TRankHeroBattleScoreGroup>((int)ERankType.HeroBattleSorceRankGroup);
-            HeroBattleSorceRankGroup.UpdateHeroRankData(self.ConfigId, self.Character.Id, self.BattleScore);
-        }
+
     }
 
     [ObjectSystem]
