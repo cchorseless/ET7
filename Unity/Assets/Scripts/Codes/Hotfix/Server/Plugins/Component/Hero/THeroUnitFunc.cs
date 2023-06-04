@@ -10,24 +10,25 @@ namespace ET.Server
         public static void LoadAllChild(this THeroUnit self)
         {
             self.HeroEquipComp.LoadAllChild();
-            self.HeroTalentComp.LoadAllChild();
+            // self.HeroTalentComp.LoadAllChild();
         }
 
-        public static string BindHeroName(this THeroUnit self)
-        {
-            return LuBanConfigComponent.Instance.Config().BuildingLevelUpConfig.GetHeroName(self.ConfigId);
-        }
 
         public static cfg.Dota.BuildingLevelUpConfigRecord HeroConfig(this THeroUnit self)
         {
-            return LuBanConfigComponent.Instance.Config().BuildingLevelUpConfig.GetOrDefault(self.BindHeroName());
+            return LuBanConfigComponent.Instance.Config().BuildingLevelUpConfig.GetOrDefault(self.ConfigId);
         }
 
         public static bool IsCanLevelUp(this THeroUnit self)
         {
             return self.Level < THeroUnitConfig.MaxLevel;
         }
+        public static void AddBattleScore(this THeroUnit self, int score)
+        {
+            self.BattleScore += score;
+            self.HeroManageComp.RefreshRankBattleScore();
 
+        }
         public static void AddExp(this THeroUnit self, int exp)
         {
             self.TotalExp += exp;
@@ -60,14 +61,14 @@ namespace ET.Server
     }
 
     [ObjectSystem]
-    public class THeroUnitAwakeSystem: AwakeSystem<THeroUnit, int>
+    public class THeroUnitAwakeSystem: AwakeSystem<THeroUnit, string>
     {
-        protected override void Awake(THeroUnit self, int configid)
+        protected override void Awake(THeroUnit self, string configid)
         {
             self.ConfigId = configid;
-            self.Level = 1;
+            self.BattleScore = self.HeroConfig().BattleScore;
             self.AddComponent<HeroEquipComponent>();
-            self.AddComponent<HeroTalentComponent>();
+            // self.AddComponent<HeroTalentComponent>();
         }
     }
 }

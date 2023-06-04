@@ -219,7 +219,6 @@ message C2H_CurRankDataInfo // IRequest
 {
   int32  RpcId = 90;
   int32  RankType = 1;
-  int32  HeroConfigId = 2;
   int32  Page = 3;
   int32  PerPageCount = 4;
 }
@@ -229,7 +228,6 @@ message C2H_CharacterRankDataInfo // IRequest
 {
   int32  RpcId = 90;
   int32  RankType = 1;
-  int32  HeroConfigId = 2;
   string  CharacterId = 4;
 }
 
@@ -272,7 +270,7 @@ message C2H_ReplaceEquipProps // IRequest
 message C2H_Use_AddHeroLevelByComHeroExp // IRequest
 {
   int32  RpcId = 90;
-  int32  HeroId = 4;
+  string  HeroId = 4;
 }
 
 //ResponseType H2C_CommonResponse
@@ -280,7 +278,7 @@ message C2H_Save_AddHeroBanDesign // IRequest
 {
   int32  RpcId = 90;
   int32  Slot = 4;
-	repeated int32 BanHeroList = 1;
+	repeated string BanHeroList = 1;
 }
 
 //ResponseType H2C_CommonResponse
@@ -290,7 +288,7 @@ message C2H_ChangeHeroDressEquipState // IRequest
   int32  Slot = 1;
 	string EquipId = 2;
   bool IsDressUp = 3;
-  int32  HeroId = 4;
+  string  HeroId = 4;
 }
 
 //ResponseType H2C_CommonResponse
@@ -300,7 +298,7 @@ message C2H_ChangeHeroTalentState // IRequest
   int32  TalentLevel = 1;
 	int32  TalentIndex = 2;
   bool   IsLearn = 3;
-  int32  HeroId = 4;
+  string  HeroId = 4;
 }
 
 //ResponseType H2C_CommonResponse

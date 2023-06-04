@@ -2990,10 +2990,10 @@ export class BuildingLevelUpConfigRecord {
     constructor(_json_: any) {
         if (_json_.Id === undefined) { throw new Error() }
         this.Id = _json_.Id
-        if (_json_.BindHeroId === undefined) { throw new Error() }
-        this.BindHeroId = _json_.BindHeroId
         if (_json_.IsValid === undefined) { throw new Error() }
         this.IsValid = _json_.IsValid
+        if (_json_.BattleScore === undefined) { throw new Error() }
+        this.BattleScore = _json_.BattleScore
         if (_json_.Bundles === undefined) { throw new Error() }
         this.Bundles = _json_.Bundles
         if (_json_.StarUpInfo === undefined) { throw new Error() }
@@ -3007,13 +3007,13 @@ export class BuildingLevelUpConfigRecord {
      */
     readonly Id: string
     /**
-     * 绑定单位ID
-     */
-    readonly BindHeroId: number
-    /**
      * 是否启用
      */
     readonly IsValid: boolean
+    /**
+     * 初始战力
+     */
+    readonly BattleScore: number
     /**
      * 套装
      */

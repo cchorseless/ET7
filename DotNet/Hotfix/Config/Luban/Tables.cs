@@ -42,6 +42,7 @@ public partial class Tables
     public Title.TitleConfig TitleConfig {get; }
     public Glob.GlobalSetting GlobalSetting {get; }
     public Dota.BuildingLevelUpConfig BuildingLevelUpConfig {get; }
+    public Dota.RoundEnemyPoolConfig RoundEnemyPoolConfig {get; }
 
     public Tables(System.Func<string, ByteBuf> loader)
     {
@@ -104,6 +105,8 @@ public partial class Tables
         tables.Add("Glob.GlobalSetting", GlobalSetting);
         BuildingLevelUpConfig = new Dota.BuildingLevelUpConfig(loader("dota_buildinglevelupconfig")); 
         tables.Add("Dota.BuildingLevelUpConfig", BuildingLevelUpConfig);
+        RoundEnemyPoolConfig = new Dota.RoundEnemyPoolConfig(loader("dota_roundenemypoolconfig")); 
+        tables.Add("Dota.RoundEnemyPoolConfig", RoundEnemyPoolConfig);
 
         PostInit();
         ItemConfig.Resolve(tables); 
@@ -135,6 +138,7 @@ public partial class Tables
         TitleConfig.Resolve(tables); 
         GlobalSetting.Resolve(tables); 
         BuildingLevelUpConfig.Resolve(tables); 
+        RoundEnemyPoolConfig.Resolve(tables); 
         PostResolve();
     }
 
@@ -169,6 +173,7 @@ public partial class Tables
         TitleConfig.TranslateText(translator); 
         GlobalSetting.TranslateText(translator); 
         BuildingLevelUpConfig.TranslateText(translator); 
+        RoundEnemyPoolConfig.TranslateText(translator); 
     }
     
     partial void PostInit();

@@ -13,12 +13,19 @@ namespace ET
         ItemGet = 4,
         UnItemGet = 8,
     }
-    public class TMail : Entity, IAwake, ISerializeToEntity
+
+    public enum EMailType
+    {
+        SystemMail = 1,
+        PersonMail = 2,
+    }
+
+    public class TMail: Entity, IAwake, ISerializeToEntity
     {
         public string Title;
         public string Content;
         public HashSet<int> State;
-
+        public bool IsDelete = false;
         public long From;
         public string FromDes;
         public List<long> To;
@@ -27,7 +34,5 @@ namespace ET
         public int ValidTime;
 
         public List<FItemInfo> Items;
-
-
     }
 }

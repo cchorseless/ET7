@@ -16,8 +16,9 @@ public sealed partial class BuildingLevelUpConfigRecord :  Bright.Config.BeanBas
     public BuildingLevelUpConfigRecord(ByteBuf _buf) 
     {
         Id = _buf.ReadString();
-        BindHeroId = _buf.ReadInt();
         IsValid = _buf.ReadBool();
+        BattleScore = _buf.ReadInt();
+        {int n0 = System.Math.Min(_buf.ReadSize(), _buf.Size);Bundles = new System.Collections.Generic.List<int>(n0);for(var i0 = 0 ; i0 < n0 ; i0++) { int _e0;  _e0 = _buf.ReadInt(); Bundles.Add(_e0);}}
         {int n0 = System.Math.Min(_buf.ReadSize(), _buf.Size);StarUpInfo = new System.Collections.Generic.List<Dota.UnitStarUpConfigBean>(n0);for(var i0 = 0 ; i0 < n0 ; i0++) { Dota.UnitStarUpConfigBean _e0;  _e0 = Dota.UnitStarUpConfigBean.DeserializeUnitStarUpConfigBean(_buf); StarUpInfo.Add(_e0);}}
         {int n0 = System.Math.Min(_buf.ReadSize(), _buf.Size);TalentInfo = new System.Collections.Generic.List<Dota.UnitTalentInfoBean>(n0);for(var i0 = 0 ; i0 < n0 ; i0++) { Dota.UnitTalentInfoBean _e0;  _e0 = Dota.UnitTalentInfoBean.DeserializeUnitTalentInfoBean(_buf); TalentInfo.Add(_e0);}}
         PostInit();
@@ -33,13 +34,17 @@ public sealed partial class BuildingLevelUpConfigRecord :  Bright.Config.BeanBas
     /// </summary>
     public string Id { get; private set; }
     /// <summary>
-    /// 绑定单位ID
-    /// </summary>
-    public int BindHeroId { get; private set; }
-    /// <summary>
     /// 是否启用
     /// </summary>
     public bool IsValid { get; private set; }
+    /// <summary>
+    /// 初始战力
+    /// </summary>
+    public int BattleScore { get; private set; }
+    /// <summary>
+    /// 套装
+    /// </summary>
+    public System.Collections.Generic.List<int> Bundles { get; private set; }
     public System.Collections.Generic.List<Dota.UnitStarUpConfigBean> StarUpInfo { get; private set; }
     public System.Collections.Generic.List<Dota.UnitTalentInfoBean> TalentInfo { get; private set; }
 
@@ -63,8 +68,9 @@ public sealed partial class BuildingLevelUpConfigRecord :  Bright.Config.BeanBas
     {
         return "{ "
         + "Id:" + Id + ","
-        + "BindHeroId:" + BindHeroId + ","
         + "IsValid:" + IsValid + ","
+        + "BattleScore:" + BattleScore + ","
+        + "Bundles:" + Bright.Common.StringUtil.CollectionToString(Bundles) + ","
         + "StarUpInfo:" + Bright.Common.StringUtil.CollectionToString(StarUpInfo) + ","
         + "TalentInfo:" + Bright.Common.StringUtil.CollectionToString(TalentInfo) + ","
         + "}";

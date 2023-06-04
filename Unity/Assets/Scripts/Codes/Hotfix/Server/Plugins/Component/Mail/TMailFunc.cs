@@ -15,10 +15,10 @@ namespace ET.Server
             {
                 return false;
             }
-            if (self.Time < character.CreateTime)
-            {
-                return false;
-            }
+            // if (self.Time < character.CreateTime)
+            // {
+            //     return false;
+            // }
             if (self.To.Contains(-1) || self.To.Contains(character.Id))
             {
                 return true;
@@ -31,6 +31,14 @@ namespace ET.Server
 
         public static bool IsValid(this TMail self)
         {
+            if (self.IsDelete)
+            {
+                return false;
+            }
+            if (self.ValidTime < 0)
+            {
+                return true;
+            }
             return self.Time + self.ValidTime > TimeHelper.ServerNow();
         }
 
@@ -47,7 +55,10 @@ namespace ET.Server
             if (self.Items != null && self.Items.Count > 0)
             {
                 clone.Items = new List<FItemInfo>();
-                self.Items.CopyTo(clone.Items.ToArray());
+                foreach (var iteminfo in self.Items)
+                {
+                    clone.Items.Add(new FItemInfo(iteminfo.ItemConfigId, iteminfo.ItemCount));
+                }
                 clone.State.Add((int)EMailState.UnItemGet);
             }
             return clone;

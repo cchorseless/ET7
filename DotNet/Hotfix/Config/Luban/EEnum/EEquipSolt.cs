@@ -20,9 +20,69 @@ namespace cfg.EEnum
         /// </summary>
         Scepter = 1,
         /// <summary>
+        /// 皮肤
+        /// </summary>
+        Skin = 2,
+        /// <summary>
+        /// A类型1槽位
+        /// </summary>
+        InscriptionA_1 = 3,
+        /// <summary>
+        /// A类型2槽位
+        /// </summary>
+        InscriptionA_2 = 4,
+        /// <summary>
+        /// A类型3槽位
+        /// </summary>
+        InscriptionA_3 = 5,
+        /// <summary>
+        /// A类型4槽位
+        /// </summary>
+        InscriptionA_4 = 6,
+        /// <summary>
+        /// B类型1槽位
+        /// </summary>
+        InscriptionB_1 = 7,
+        /// <summary>
+        /// B类型2槽位
+        /// </summary>
+        InscriptionB_2 = 8,
+        /// <summary>
+        /// B类型3槽位
+        /// </summary>
+        InscriptionB_3 = 9,
+        /// <summary>
+        /// B类型4槽位
+        /// </summary>
+        InscriptionB_4 = 10,
+        /// <summary>
+        /// C类型1槽位
+        /// </summary>
+        InscriptionC_1 = 11,
+        /// <summary>
+        /// C类型2槽位
+        /// </summary>
+        InscriptionC_2 = 12,
+        /// <summary>
+        /// C类型3槽位
+        /// </summary>
+        InscriptionC_3 = 13,
+        /// <summary>
+        /// D类型1槽位
+        /// </summary>
+        InscriptionD_1 = 14,
+        /// <summary>
+        /// D类型2槽位
+        /// </summary>
+        InscriptionD_2 = 15,
+        /// <summary>
+        /// D类型3槽位
+        /// </summary>
+        InscriptionD_3 = 16,
+        /// <summary>
         /// 最大值
         /// </summary>
-        SlotMax = 12,
+        SlotMax = 30,
     }
 
 } 

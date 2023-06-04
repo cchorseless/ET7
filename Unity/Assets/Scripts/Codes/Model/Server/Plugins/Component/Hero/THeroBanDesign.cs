@@ -10,6 +10,6 @@ namespace ET
     {
         public int Slot;
 
-        public List<int> BanConfigInfo = new List<int>();
+        public List<string> BanConfigInfo = new List<string>();
     }
 }

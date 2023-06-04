@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace ET
 {
-    public class THeroUnit : Entity, IAwake<int>, ISerializeToEntity
+    public class THeroUnit : Entity, IAwake<string>, ISerializeToEntity
     {
-        public int ConfigId;
+        public string ConfigId;
         public int Level;
         public int Exp;
         public int TotalExp;

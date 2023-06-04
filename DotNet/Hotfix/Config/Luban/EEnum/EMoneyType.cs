@@ -47,6 +47,10 @@ namespace cfg.EEnum
         /// 通用英雄经验
         /// </summary>
         ComHeroExp = 104,
+        /// <summary>
+        /// 铭文碎片
+        /// </summary>
+        InscriptionExp = 105,
     }
 
 } 

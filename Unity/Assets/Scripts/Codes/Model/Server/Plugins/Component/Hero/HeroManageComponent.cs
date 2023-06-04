@@ -10,7 +10,7 @@ namespace ET
     public class HeroManageComponent : Entity, IAwake
     {
         [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
-        public Dictionary<int, long> HeroUnits = new Dictionary<int, long>();
+        public Dictionary<string, long> HeroUnits = new Dictionary<string, long>();
 
         public List<long> HeroBanDesign = new List<long>();
         

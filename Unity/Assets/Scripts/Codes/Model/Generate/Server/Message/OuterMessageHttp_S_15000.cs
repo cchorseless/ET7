@@ -441,9 +441,6 @@ namespace ET
 		[ProtoMember(1)]
 		public int RankType { get; set; }
 
-		[ProtoMember(2)]
-		public int HeroConfigId { get; set; }
-
 		[ProtoMember(3)]
 		public int Page { get; set; }
 
@@ -462,9 +459,6 @@ namespace ET
 
 		[ProtoMember(1)]
 		public int RankType { get; set; }
-
-		[ProtoMember(2)]
-		public int HeroConfigId { get; set; }
 
 		[ProtoMember(4)]
 		public string CharacterId { get; set; }
@@ -553,7 +547,7 @@ namespace ET
 		public int RpcId { get; set; }
 
 		[ProtoMember(4)]
-		public int HeroId { get; set; }
+		public string HeroId { get; set; }
 
 	}
 
@@ -569,7 +563,7 @@ namespace ET
 		public int Slot { get; set; }
 
 		[ProtoMember(1)]
-		public List<int> BanHeroList { get; set; }
+		public List<string> BanHeroList { get; set; }
 
 	}
 
@@ -591,7 +585,7 @@ namespace ET
 		public bool IsDressUp { get; set; }
 
 		[ProtoMember(4)]
-		public int HeroId { get; set; }
+		public string HeroId { get; set; }
 
 	}
 
@@ -613,7 +607,7 @@ namespace ET
 		public bool IsLearn { get; set; }
 
 		[ProtoMember(4)]
-		public int HeroId { get; set; }
+		public string HeroId { get; set; }
 
 	}
 

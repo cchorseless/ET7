@@ -10,7 +10,22 @@ namespace ET.Server
     {
         public static void LoadAllChild(this HeroManageComponent self)
         {
-            self.GetAllHeroUnit().ForEach(heroUnit => { heroUnit.LoadAllChild(); });
+            var allhero = LuBanConfigComponent.Instance.Config().BuildingLevelUpConfig.DataList;
+            foreach (var heroconfig in allhero)
+            {
+                if (heroconfig.IsValid && self.GetHeroUnit(heroconfig.Id) == null)
+                {
+                    var entity = self.AddChild<THeroUnit, string>(heroconfig.Id);
+                    self.HeroUnits.Add(heroconfig.Id, entity.Id);
+                }
+            }
+
+            self.SumHeroLevel = 0;
+            self.GetAllHeroUnit().ForEach(heroUnit =>
+            {
+                self.SumHeroLevel += heroUnit.Level;
+                heroUnit.LoadAllChild();
+            });
             self.RefreshRankBattleScore();
         }
 
@@ -46,41 +61,28 @@ namespace ET.Server
 
         public static THeroUnit GetHeroUnit(this HeroManageComponent self, string heroname)
         {
-            var config = LuBanConfigComponent.Instance.Config().BuildingLevelUpConfig.GetOrDefault(heroname);
-            if (config == null)
+            var heroConfig = LuBanConfigComponent.Instance.Config().BuildingLevelUpConfig.GetOrDefault(heroname);
+            if (heroConfig == null || heroConfig.IsValid == false)
             {
                 return null;
             }
 
-            return self.GetHeroUnit(config.BindHeroId);
-        }
-
-        public static THeroUnit GetHeroUnit(this HeroManageComponent self, int configid)
-        {
-            if (self.HeroUnits.TryGetValue(configid, out var entityid))
+            if (self.HeroUnits.TryGetValue(heroname, out var entityid))
             {
                 return self.GetChild<THeroUnit>(entityid);
             }
 
-            var heroConfig = LuBanConfigComponent.Instance.Config().BuildingLevelUpConfig.GetHeroName(configid);
-            if (!string.IsNullOrEmpty(heroConfig))
-            {
-                var herounit = self.AddChild<THeroUnit, int>(configid);
-                self.HeroUnits.Add(configid, herounit.Id);
-                self.Character.SyncHttpEntityAndChild(self, herounit.Id);
-                return herounit;
-            }
             return null;
         }
 
         public struct FHeroExpResult
         {
-            public int HeroConfigId;
+            public string HeroConfigId;
             public int ExpCount;
             public bool IsFull;
         }
 
-        public static (int, string) AddHeroExp(this HeroManageComponent self, int configid, int exp)
+        public static (int, string) AddHeroExp(this HeroManageComponent self, string configid, int exp)
         {
             var hero = self.GetHeroUnit(configid);
             if (hero == null)
@@ -103,7 +105,7 @@ namespace ET.Server
             return (ErrorCode.ERR_Success, JsonHelper.ToLitJson(r));
         }
 
-        public static (int, string) AddHeroLevelByComHeroExp(this HeroManageComponent self, int configid)
+        public static (int, string) AddHeroLevelByComHeroExp(this HeroManageComponent self, string configid)
         {
             var hero = self.GetHeroUnit(configid);
             if (hero == null)
@@ -160,7 +162,7 @@ namespace ET.Server
             return self.GetChild<THeroBanDesign>(self.HeroBanDesign[slot]);
         }
 
-        public static (int, string) AddHeroBanDesign(this HeroManageComponent self, int slot, List<int> banConfig)
+        public static (int, string) AddHeroBanDesign(this HeroManageComponent self, int slot, List<string> banConfig)
         {
             if (slot >= 5)
             {
