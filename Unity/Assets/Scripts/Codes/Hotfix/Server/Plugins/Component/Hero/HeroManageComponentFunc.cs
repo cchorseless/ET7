@@ -132,7 +132,7 @@ namespace ET.Server
         public static (int, string) ChangeHeroDressEquipState(this HeroManageComponent self, C2H_ChangeHeroDressEquipState request)
         {
             var hero = self.Character.HeroManageComp.GetHeroUnit(request.HeroId);
-            if (hero == null || hero.HeroEquipComp == null)
+            if (hero == null )
             {
                 return (ErrorCode.ERR_Error, "hero cant find");
             }
@@ -144,11 +144,11 @@ namespace ET.Server
                     return (ErrorCode.ERR_Error, "EquipId error");
                 }
 
-                return hero.HeroEquipComp.DressEquip(EquipId, request.Slot);
+                return hero.DressEquip(EquipId, request.Slot);
             }
             else
             {
-                return hero.HeroEquipComp.UnDressEquip(request.Slot);
+                return hero.UnDressEquip(request.Slot);
             }
         }
 

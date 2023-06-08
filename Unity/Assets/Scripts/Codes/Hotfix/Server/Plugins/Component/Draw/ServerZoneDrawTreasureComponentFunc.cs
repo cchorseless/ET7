@@ -8,11 +8,10 @@ namespace ET.Server
 {
     public enum EDrawTreasureType
     {
-        BattleTreasure = 1001,
-        CourierCommonTreasure,
-        CourierRareTreasure,
-        HeroDressCommonTreasure,
-        HeroDressRareTreasure,
+        HeroExpTreasure = 10013,
+        MingWenTreasure= 10014,
+        CourierRareTreasure= 10015,
+        HeroDressRareTreasure= 10016,
     }
     public static class ServerZoneDrawTreasureComponentFunc
     {

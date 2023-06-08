@@ -6,7 +6,7 @@ namespace ET
     public class HeroEquipComponent : Entity, IAwake ,ISerializeToEntity
     {
         //当前装备
-        public long[] Equips = new long[TItemConfig.HeroEquipSlotMax];
+        public Dictionary<int,long> Equips = new Dictionary<int,long>();
         [BsonIgnore]
         public THeroUnit HeroUnit { get => this.GetParent<THeroUnit>(); }
     }

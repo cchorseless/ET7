@@ -109,7 +109,7 @@ namespace ET.Server
         public static int GetSuitEquipCount(this HeroEquipComponent self, int suitId)
         {
             int count = 0;
-            for (var i = 0; i < self.Equips.Count(); i++)
+            for (var i = 0; i < self.Equips.Count; i++)
             {
                 if (self.Equips[i] > 0)
                 {
