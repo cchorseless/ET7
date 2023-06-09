@@ -50,7 +50,7 @@ namespace cfg.EEnum
         /// <summary>
         /// 铭文碎片
         /// </summary>
-        InscriptionExp = 105,
+        MingWenExp = 105,
     }
 
 } 

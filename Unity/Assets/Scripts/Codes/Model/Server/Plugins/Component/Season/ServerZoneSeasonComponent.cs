@@ -10,7 +10,6 @@ namespace ET
     public class ServerZoneSeasonComponent : Entity, IAwake
     {
         public int CurSeasonConfigId;
-
         [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
         public Dictionary<int, long> Seasons = new Dictionary<int, long>();
 

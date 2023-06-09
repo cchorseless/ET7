@@ -670,6 +670,35 @@ namespace ET
 	}
 
 	[ResponseType(nameof(H2C_CommonResponse))]
+	[Message(OuterMessageHttp.C2H_BattlePass_GetPrize)]
+	[ProtoContract]
+	public partial class C2H_BattlePass_GetPrize: ProtoObject, IRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public int PrizeLevel { get; set; }
+
+		[ProtoMember(2)]
+		public bool IsPlusPrize { get; set; }
+
+	}
+
+	[ResponseType(nameof(H2C_CommonResponse))]
+	[Message(OuterMessageHttp.C2H_BattlePass_ChargePrize)]
+	[ProtoContract]
+	public partial class C2H_BattlePass_ChargePrize: ProtoObject, IRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public int ConfigId { get; set; }
+
+	}
+
+	[ResponseType(nameof(H2C_CommonResponse))]
 	[Message(OuterMessageHttp.C2H_Mentorship_ApplyForMaster)]
 	[ProtoContract]
 	public partial class C2H_Mentorship_ApplyForMaster: ProtoObject, IRequest
@@ -881,13 +910,15 @@ namespace ET
 		 public const ushort C2H_GetPrize_AchieveMentPrize = 15040;
 		 public const ushort C2H_ChangeDailyTaskState = 15041;
 		 public const ushort C2H_GetPrize_TaskPrize = 15042;
-		 public const ushort C2H_Mentorship_ApplyForMaster = 15043;
-		 public const ushort C2H_Mentorship_DropTree = 15044;
-		 public const ushort C2H_Mentorship_ChangeApplyState = 15045;
-		 public const ushort C2H_DrawEnemy_GetEnemyInfo = 15046;
-		 public const ushort FBattleUnitInfoItem = 15047;
-		 public const ushort FBattleTeamRecord = 15048;
-		 public const ushort C2H_DrawEnemy_UploadEnemyInfo = 15049;
-		 public const ushort C2H_DrawEnemy_UploadBattleResult = 15050;
+		 public const ushort C2H_BattlePass_GetPrize = 15043;
+		 public const ushort C2H_BattlePass_ChargePrize = 15044;
+		 public const ushort C2H_Mentorship_ApplyForMaster = 15045;
+		 public const ushort C2H_Mentorship_DropTree = 15046;
+		 public const ushort C2H_Mentorship_ChangeApplyState = 15047;
+		 public const ushort C2H_DrawEnemy_GetEnemyInfo = 15048;
+		 public const ushort FBattleUnitInfoItem = 15049;
+		 public const ushort FBattleTeamRecord = 15050;
+		 public const ushort C2H_DrawEnemy_UploadEnemyInfo = 15051;
+		 public const ushort C2H_DrawEnemy_UploadBattleResult = 15052;
 	}
 }

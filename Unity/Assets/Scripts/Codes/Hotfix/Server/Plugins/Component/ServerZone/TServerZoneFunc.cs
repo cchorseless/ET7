@@ -70,16 +70,10 @@ namespace ET.Server
             self.SeasonComp.LoadAllChild();
             await self.LoadOrAddComponent<ServerZoneActivityComponent>();
             self.ActivityComp.LoadAllChild();
-            await self.LoadOrAddComponent<ServerZoneShopComponent>();
-            self.ShopComp.LoadAllChild();
             await self.LoadOrAddComponent<ServerZoneMailComponent>();
             self.MailComp.LoadAllChild();
-            await self.LoadOrAddComponent<ServerZoneTaskComponent>();
-            self.TaskComp.LoadAllChild();
             await self.LoadOrAddComponent<ServerZoneRankComponent>();
             self.RankComp.LoadAllChild();
-            await self.LoadOrAddComponent<ServerZoneDrawTreasureComponent>();
-            self.DrawTreasureComp.LoadAllChild();
             await self.LoadOrAddComponent<ServerZoneRechargeComponent>();
             self.RechargeComp.LoadAllChild();
             await self.LoadOrAddComponent<ServerZoneTItemManageComponent>();
@@ -100,15 +94,12 @@ namespace ET.Server
             var accountDB = DBManagerComponent.Instance.GetAccountDB();
             await accountDB.Save(self.SeasonComp);
             await accountDB.Save(self.ActivityComp);
-            await accountDB.Save(self.ShopComp);
             await accountDB.Save(self.MailComp);
-            await accountDB.Save(self.TaskComp);
             await accountDB.Save(self.RankComp);
             if (self.RankComp.CurSeasonRank != null)
             {
                 await accountDB.Save(self.RankComp.CurSeasonRank);
             }
-            await accountDB.Save(self.DrawTreasureComp);
             await accountDB.Save(self.RechargeComp);
             await accountDB.Save(self.TItemManageComp);
             await accountDB.Save(self.BuffComp);

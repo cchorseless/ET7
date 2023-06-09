@@ -56,7 +56,7 @@ namespace ET
         public CharacterShopComponent ShopComp { get => GetComponent<CharacterShopComponent>(); }
 
         [BsonIgnore]
-        public CharacterTaskComponent TaskComp { get => GetComponent<CharacterTaskComponent>(); }
+        public CharacterBattlePassComponent BattlePassComp { get => GetComponent<CharacterBattlePassComponent>(); }
 
         [BsonIgnore]
         public CharacterMailComponent MailComp { get => GetComponent<CharacterMailComponent>(); }

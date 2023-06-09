@@ -35,6 +35,14 @@ namespace cfg.EEnum
         /// 祝福
         /// </summary>
         Buff = 5,
+        /// <summary>
+        /// 铭文
+        /// </summary>
+        MingWen = 6,
+        /// <summary>
+        /// 皮肤
+        /// </summary>
+        Skin = 7,
     }
 
 } 

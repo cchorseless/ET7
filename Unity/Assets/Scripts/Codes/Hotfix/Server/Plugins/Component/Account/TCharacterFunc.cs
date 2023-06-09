@@ -50,8 +50,8 @@ namespace ET.Server
             self.SteamComp.LoadAllChild();
             await self.LoadOrAddComponent<CharacterShopComponent>();
             self.ShopComp.LoadAllChild();
-            await self.LoadOrAddComponent<CharacterTaskComponent>();
-            self.TaskComp.LoadAllChild();
+            await self.LoadOrAddComponent<CharacterBattlePassComponent>();
+            self.BattlePassComp.LoadAllChild();
             await self.LoadOrAddComponent<CharacterMailComponent>();
             self.MailComp.LoadAllChild();
             await self.LoadOrAddComponent<CharacterActivityComponent>();
@@ -88,7 +88,7 @@ namespace ET.Server
                     self.DataComp,
                     self.SteamComp,
                     self.ShopComp,
-                    self.TaskComp,
+                    self.BattlePassComp,
                     self.MailComp,
                     self.ActivityComp,
                     self.HeroManageComp,
@@ -111,9 +111,9 @@ namespace ET.Server
         {
             self.SyncHttpEntity(new Entity[]
             {
-                self.BagComp, self.DataComp, self.ShopComp, self.TaskComp, self.MailComp, self.ActivityComp, self.HeroManageComp,
+                self.BagComp, self.DataComp, self.ShopComp, self.BattlePassComp, self.MailComp, self.ActivityComp, self.HeroManageComp,
                 self.DrawTreasureComp, self.RechargeComp, self.BuffComp, self.TitleComp, self.AchievementComp, self.GameRecordComp,
-                self.BattleTeamComp,  self.RankComp,
+                self.BattleTeamComp, self.RankComp,
             });
         }
 
@@ -124,10 +124,7 @@ namespace ET.Server
             if (serverZone != null)
             {
                 self.SyncHttpEntity(serverZone);
-                self.SyncHttpEntity(new Entity[]
-                {
-                    serverZone.SeasonComp, serverZone.ShopComp, serverZone.ActivityComp, serverZone.RankComp
-                });
+                self.SyncHttpEntity(new Entity[] { serverZone.SeasonComp, serverZone.ActivityComp, serverZone.RankComp });
             }
         }
 
@@ -251,6 +248,7 @@ namespace ET.Server
         {
             self.SyncHttpEntityAndChilds(entity, new long[] { childId });
         }
+
         public static void SyncHttpEntityAndChilds<T>(this TCharacter self, T entity, long[] childIds) where T : Entity
         {
             if (entity == null)
@@ -266,7 +264,7 @@ namespace ET.Server
             if (litjson.ContainsKey("Children"))
             {
                 var childs = litjson["Children"].AsArray();
-                var _childs= childs.ToArray();
+                var _childs = childs.ToArray();
                 foreach (var child in _childs)
                 {
                     var childId = long.TryParse(child["_id"].ToString(), out var id)? id : 0;
@@ -276,6 +274,7 @@ namespace ET.Server
                     }
                 }
             }
+
             str = JsonHelper.ToLitJson(litjson);
             HttpPlayerSession.SendToClient(GameConfig.DealSyncClientString(str));
         }

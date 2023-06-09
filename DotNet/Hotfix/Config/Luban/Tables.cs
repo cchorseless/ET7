@@ -37,11 +37,13 @@ public partial class Tables
     public Season.SeasonConfig SeasonConfig {get; }
     public Rank.RankPrizeConfig RankPrizeConfig {get; }
     public Draw.DrawTreasureConfig DrawTreasureConfig {get; }
-    public Task.TaskConfig TaskConfig {get; }
     public Achievement.AchievementConfig AchievementConfig {get; }
     public Title.TitleConfig TitleConfig {get; }
     public Glob.GlobalSetting GlobalSetting {get; }
     public Dota.BuildingLevelUpConfig BuildingLevelUpConfig {get; }
+    public Dota.BattlePassChargeConfig BattlePassChargeConfig {get; }
+    public Dota.BattlePassTaskConfig BattlePassTaskConfig {get; }
+    public Dota.BattlePassLevelUpConfig BattlePassLevelUpConfig {get; }
     public Dota.RoundEnemyPoolConfig RoundEnemyPoolConfig {get; }
 
     public Tables(System.Func<string, ByteBuf> loader)
@@ -95,8 +97,6 @@ public partial class Tables
         tables.Add("Rank.RankPrizeConfig", RankPrizeConfig);
         DrawTreasureConfig = new Draw.DrawTreasureConfig(loader("draw_drawtreasureconfig")); 
         tables.Add("Draw.DrawTreasureConfig", DrawTreasureConfig);
-        TaskConfig = new Task.TaskConfig(loader("task_taskconfig")); 
-        tables.Add("Task.TaskConfig", TaskConfig);
         AchievementConfig = new Achievement.AchievementConfig(loader("achievement_achievementconfig")); 
         tables.Add("Achievement.AchievementConfig", AchievementConfig);
         TitleConfig = new Title.TitleConfig(loader("title_titleconfig")); 
@@ -105,6 +105,12 @@ public partial class Tables
         tables.Add("Glob.GlobalSetting", GlobalSetting);
         BuildingLevelUpConfig = new Dota.BuildingLevelUpConfig(loader("dota_buildinglevelupconfig")); 
         tables.Add("Dota.BuildingLevelUpConfig", BuildingLevelUpConfig);
+        BattlePassChargeConfig = new Dota.BattlePassChargeConfig(loader("dota_battlepasschargeconfig")); 
+        tables.Add("Dota.BattlePassChargeConfig", BattlePassChargeConfig);
+        BattlePassTaskConfig = new Dota.BattlePassTaskConfig(loader("dota_battlepasstaskconfig")); 
+        tables.Add("Dota.BattlePassTaskConfig", BattlePassTaskConfig);
+        BattlePassLevelUpConfig = new Dota.BattlePassLevelUpConfig(loader("dota_battlepasslevelupconfig")); 
+        tables.Add("Dota.BattlePassLevelUpConfig", BattlePassLevelUpConfig);
         RoundEnemyPoolConfig = new Dota.RoundEnemyPoolConfig(loader("dota_roundenemypoolconfig")); 
         tables.Add("Dota.RoundEnemyPoolConfig", RoundEnemyPoolConfig);
 
@@ -133,11 +139,13 @@ public partial class Tables
         SeasonConfig.Resolve(tables); 
         RankPrizeConfig.Resolve(tables); 
         DrawTreasureConfig.Resolve(tables); 
-        TaskConfig.Resolve(tables); 
         AchievementConfig.Resolve(tables); 
         TitleConfig.Resolve(tables); 
         GlobalSetting.Resolve(tables); 
         BuildingLevelUpConfig.Resolve(tables); 
+        BattlePassChargeConfig.Resolve(tables); 
+        BattlePassTaskConfig.Resolve(tables); 
+        BattlePassLevelUpConfig.Resolve(tables); 
         RoundEnemyPoolConfig.Resolve(tables); 
         PostResolve();
     }
@@ -168,11 +176,13 @@ public partial class Tables
         SeasonConfig.TranslateText(translator); 
         RankPrizeConfig.TranslateText(translator); 
         DrawTreasureConfig.TranslateText(translator); 
-        TaskConfig.TranslateText(translator); 
         AchievementConfig.TranslateText(translator); 
         TitleConfig.TranslateText(translator); 
         GlobalSetting.TranslateText(translator); 
         BuildingLevelUpConfig.TranslateText(translator); 
+        BattlePassChargeConfig.TranslateText(translator); 
+        BattlePassTaskConfig.TranslateText(translator); 
+        BattlePassLevelUpConfig.TranslateText(translator); 
         RoundEnemyPoolConfig.TranslateText(translator); 
     }
     

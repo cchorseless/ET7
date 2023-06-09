@@ -136,6 +136,12 @@ namespace ET
         {
             return ItemConfigId == other.ItemConfigId && ItemCount == other.ItemCount;
         }
+
+        public override string ToString()
+        {
+            return "{" + "\"ItemConfigId\":" + ItemConfigId + ","
+                    + "\"ItemCount\":" + ItemCount + "}";
+        }
     }
 
     public static class GameStruct

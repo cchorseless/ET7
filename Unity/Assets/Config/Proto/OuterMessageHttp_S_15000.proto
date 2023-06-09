@@ -332,6 +332,21 @@ message C2H_GetPrize_TaskPrize // IRequest
 }
 
 //ResponseType H2C_CommonResponse
+message C2H_BattlePass_GetPrize // IRequest
+{
+  int32  RpcId = 90;
+  int32  PrizeLevel = 1;
+  bool  IsPlusPrize = 2;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_BattlePass_ChargePrize // IRequest
+{
+  int32  RpcId = 90;
+  int32  ConfigId = 1;
+}
+
+//ResponseType H2C_CommonResponse
 message C2H_Mentorship_ApplyForMaster // IRequest
 {
   int32  RpcId = 90;

@@ -27,6 +27,14 @@ namespace cfg.EEnum
         /// 穿戴装备
         /// </summary>
         BindEquip = 3,
+        /// <summary>
+        /// 检查唯一转化成星石
+        /// </summary>
+        OwnedToStarStone = 4,
+        /// <summary>
+        /// 激活皮肤
+        /// </summary>
+        ActiveSkin = 5,
     }
 
 } 

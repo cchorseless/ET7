@@ -26,59 +26,63 @@ namespace cfg.EEnum
         /// <summary>
         /// A类型1槽位
         /// </summary>
-        InscriptionA_1 = 3,
+        InscriptionA_1 = 10,
         /// <summary>
         /// A类型2槽位
         /// </summary>
-        InscriptionA_2 = 4,
+        InscriptionA_2 = 11,
         /// <summary>
         /// A类型3槽位
         /// </summary>
-        InscriptionA_3 = 5,
+        InscriptionA_3 = 12,
         /// <summary>
         /// A类型4槽位
         /// </summary>
-        InscriptionA_4 = 6,
+        InscriptionA_4 = 13,
+        /// <summary>
+        /// A类型5槽位
+        /// </summary>
+        InscriptionA_5 = 14,
         /// <summary>
         /// B类型1槽位
         /// </summary>
-        InscriptionB_1 = 7,
+        InscriptionB_1 = 15,
         /// <summary>
         /// B类型2槽位
         /// </summary>
-        InscriptionB_2 = 8,
+        InscriptionB_2 = 16,
         /// <summary>
         /// B类型3槽位
         /// </summary>
-        InscriptionB_3 = 9,
+        InscriptionB_3 = 17,
         /// <summary>
         /// B类型4槽位
         /// </summary>
-        InscriptionB_4 = 10,
+        InscriptionB_4 = 18,
+        /// <summary>
+        /// B类型5槽位
+        /// </summary>
+        InscriptionB_5 = 19,
         /// <summary>
         /// C类型1槽位
         /// </summary>
-        InscriptionC_1 = 11,
+        InscriptionC_1 = 20,
         /// <summary>
         /// C类型2槽位
         /// </summary>
-        InscriptionC_2 = 12,
+        InscriptionC_2 = 21,
         /// <summary>
         /// C类型3槽位
         /// </summary>
-        InscriptionC_3 = 13,
+        InscriptionC_3 = 22,
         /// <summary>
-        /// D类型1槽位
+        /// C类型4槽位
         /// </summary>
-        InscriptionD_1 = 14,
+        InscriptionC_4 = 23,
         /// <summary>
-        /// D类型2槽位
+        /// C类型5槽位
         /// </summary>
-        InscriptionD_2 = 15,
-        /// <summary>
-        /// D类型3槽位
-        /// </summary>
-        InscriptionD_3 = 16,
+        InscriptionC_5 = 24,
         /// <summary>
         /// 最大值
         /// </summary>

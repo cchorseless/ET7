@@ -7,11 +7,10 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace ET
 {
-    public class TCharacterTaskItem : Entity, IAwake<int>, ISerializeToEntity
+    public class TBattlePassTaskItem : Entity, IAwake<int>, ISerializeToEntity
     {
         public int ConfigId;
 
-        [BsonIgnoreIfDefault]
         public int Progress;
 
         public bool IsAchieve = false;
@@ -19,6 +18,6 @@ namespace ET
         public bool IsPrizeGet = false;
 
         [BsonIgnore]
-        public CharacterTaskComponent CharacterTaskComp { get => this.GetParent<CharacterTaskComponent>(); }
+        public CharacterBattlePassComponent BattlePassComp { get => this.GetParent<CharacterBattlePassComponent>(); }
     }
 }

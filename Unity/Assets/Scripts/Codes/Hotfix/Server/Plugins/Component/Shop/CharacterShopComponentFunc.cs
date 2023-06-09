@@ -14,16 +14,19 @@ namespace ET.Server
             {
                 return (ErrorCode.ERR_Error, "cant buy 0");
             }
+
             var shop = self.GetShopUnit(data.ShopConfigId);
             if (shop == null || !shop.IsValid)
             {
                 return (ErrorCode.ERR_Error, "cant find shop");
             }
+
             var item = shop.GetShopSellItem(data.SellConfigId);
             if (item == null)
             {
                 return (ErrorCode.ERR_Error, "cant find item");
             }
+
             return item.BuyItem(self.Character, data.PriceType, data.ItemCount);
         }
 
@@ -32,8 +35,12 @@ namespace ET.Server
             var entity = self.GetChild<TShopUnit>(shopid);
             if (entity == null)
             {
-                entity = self.Character.GetMyServerZone().ShopComp.GetChild<TShopUnit>(shopid);
+                if (self.Character.GetMyServerZone().ShopComp != null)
+                {
+                    entity = self.Character.GetMyServerZone().ShopComp.GetChild<TShopUnit>(shopid);
+                }
             }
+
             return entity;
         }
 
@@ -43,10 +50,13 @@ namespace ET.Server
             {
                 return self.GetShopUnit(shopid);
             }
-            if (self.Character.GetMyServerZone().ShopComp.ShopUnit.TryGetValue(shopconfigid, out shopid))
+
+            if (self.Character.GetMyServerZone().ShopComp != null &&
+                self.Character.GetMyServerZone().ShopComp.ShopUnit.TryGetValue(shopconfigid, out shopid))
             {
                 return self.GetShopUnit(shopid);
             }
+
             return null;
         }
 
@@ -55,7 +65,7 @@ namespace ET.Server
             var allShop = LuBanConfigComponent.Instance.Config().ShopConfig.DataList;
             foreach (var config in allShop)
             {
-                if (config.IsVaild  && config.ShopType > EShopType.ServerZoneShopMax)
+                if (config.IsVaild && config.ShopType > EShopType.ServerZoneShopMax)
                 {
                     var shopUnit = self.GetShopUnit(config.Id);
                     if (shopUnit == null)
@@ -68,10 +78,11 @@ namespace ET.Server
                     }
                 }
             }
+
             foreach (var k in self.ShopUnit.Keys)
             {
                 var config = LuBanConfigComponent.Instance.Config().ShopConfig.GetOrDefault(k);
-                if (config == null || !config.IsVaild  || config.ShopType <= EShopType.ServerZoneShopMax)
+                if (config == null || !config.IsVaild || config.ShopType <= EShopType.ServerZoneShopMax)
                 {
                     self.RemoveShopUnit(k);
                 }
@@ -91,9 +102,9 @@ namespace ET.Server
                 shopUnit.LoadAllChild();
                 return shopUnit;
             }
+
             return null;
         }
-
 
         public static void RemoveShopUnit(this CharacterShopComponent self, int shopconfigid)
         {

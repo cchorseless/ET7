@@ -9,35 +9,35 @@ using Bright.Serialization;
 using System.Collections.Generic;
 
 
-namespace cfg.Task
+namespace cfg.Dota
 {
    
-public partial class TaskConfig
+public partial class BattlePassLevelUpConfig
 {
-    private readonly Dictionary<int, Task.TaskConfigRecord> _dataMap;
-    private readonly List<Task.TaskConfigRecord> _dataList;
+    private readonly Dictionary<int, Dota.BattlePassLevelUpConfigRecord> _dataMap;
+    private readonly List<Dota.BattlePassLevelUpConfigRecord> _dataList;
     
-    public TaskConfig(ByteBuf _buf)
+    public BattlePassLevelUpConfig(ByteBuf _buf)
     {
-        _dataMap = new Dictionary<int, Task.TaskConfigRecord>();
-        _dataList = new List<Task.TaskConfigRecord>();
+        _dataMap = new Dictionary<int, Dota.BattlePassLevelUpConfigRecord>();
+        _dataList = new List<Dota.BattlePassLevelUpConfigRecord>();
         
         for(int n = _buf.ReadSize() ; n > 0 ; --n)
         {
-            Task.TaskConfigRecord _v;
-            _v = Task.TaskConfigRecord.DeserializeTaskConfigRecord(_buf);
+            Dota.BattlePassLevelUpConfigRecord _v;
+            _v = Dota.BattlePassLevelUpConfigRecord.DeserializeBattlePassLevelUpConfigRecord(_buf);
             _dataList.Add(_v);
             _dataMap.Add(_v.Id, _v);
         }
         PostInit();
     }
 
-    public Dictionary<int, Task.TaskConfigRecord> DataMap => _dataMap;
-    public List<Task.TaskConfigRecord> DataList => _dataList;
+    public Dictionary<int, Dota.BattlePassLevelUpConfigRecord> DataMap => _dataMap;
+    public List<Dota.BattlePassLevelUpConfigRecord> DataList => _dataList;
 
-    public Task.TaskConfigRecord GetOrDefault(int key) => _dataMap.TryGetValue(key, out var v) ? v : null;
-    public Task.TaskConfigRecord Get(int key) => _dataMap[key];
-    public Task.TaskConfigRecord this[int key] => _dataMap[key];
+    public Dota.BattlePassLevelUpConfigRecord GetOrDefault(int key) => _dataMap.TryGetValue(key, out var v) ? v : null;
+    public Dota.BattlePassLevelUpConfigRecord Get(int key) => _dataMap[key];
+    public Dota.BattlePassLevelUpConfigRecord this[int key] => _dataMap[key];
 
     public void Resolve(Dictionary<string, object> _tables)
     {

@@ -59,21 +59,9 @@ namespace ET
         }
 
         [BsonIgnore]
-        public ServerZoneTaskComponent TaskComp
-        {
-            get => GetComponent<ServerZoneTaskComponent>();
-        }
-
-        [BsonIgnore]
         public ServerZoneRankComponent RankComp
         {
             get => GetComponent<ServerZoneRankComponent>();
-        }
-
-        [BsonIgnore]
-        public ServerZoneDrawTreasureComponent DrawTreasureComp
-        {
-            get => GetComponent<ServerZoneDrawTreasureComponent>();
         }
 
         [BsonIgnore]

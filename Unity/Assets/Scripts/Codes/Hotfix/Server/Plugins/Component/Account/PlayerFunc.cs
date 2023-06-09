@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace ET.Server
 {
@@ -30,6 +31,7 @@ namespace ET.Server
                 Log.Error("character == null");
                 return;
             }
+
             if (player.GetChild<TCharacter>(player.CharacterId) == null)
             {
                 if (character.Parent != player)
@@ -48,6 +50,9 @@ namespace ET.Server
                     character.PartialOnlineTime = 0;
                     var lastWeek = TimeHelper.WeekCount(TimeInfo.Instance.ToDateTime(character.LastLoginTime));
                     character.IsFirstLoginWeek = lastWeek < TimeHelper.WeekCount(TimeHelper.DateTimeNow());
+                    // Log.Console($"  {character.ServerID} --- {character.GetMyServerZone() == null}");
+                    // Log.Console($"  {JsonHelper.ToJson(ServerZoneManageComponent.Instance.ServerZoneDict.Keys.ToList())} ");
+                    // Log.Console($"  {JsonHelper.ToJson(ServerZoneManageComponent.Instance.ServerZoneDict.Values.ToList())} ");
                     character.IsFirstLoginSeason = character.GetMyServerZone().SeasonComp.CurSeason.IsInSeasonDuration(character.LastLoginTime);
                 }
 
