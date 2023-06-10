@@ -254,6 +254,8 @@ E:/project/et_project/ET7/Config/Luban/dota_battlepasstaskconfig.bytes,EE85FB785
 E:/project/et_project/ET7/Config/Luban/dota_battlepasstaskconfig.json,651212647C599AE553A46B4FD37AE,1487,1686308359907
 E:/project/et_project/ET7/Config/Luban/dota_buildinglevelupconfig.bytes,ADCB9F5CB1B4E95C8FCD7461114F8A4,47939,1686192560177
 E:/project/et_project/ET7/Config/Luban/dota_buildinglevelupconfig.json,518E4C41B22D55B7E03C1B14ED62C7F,132740,1686192560177
+E:/project/et_project/ET7/Config/Luban/dota_infopasslevelupconfig.bytes,1A30ED2BFE20CA989F8AD7403A6D22E4,1294,1686392045712
+E:/project/et_project/ET7/Config/Luban/dota_infopasslevelupconfig.json,A73CAEC83DB9052E96F72976C0B1CB,16594,1686392045712
 E:/project/et_project/ET7/Config/Luban/dota_roundenemypoolconfig.bytes,FD96C53D12BEB76E7964D63E6D9F7295,975,1685794319741
 E:/project/et_project/ET7/Config/Luban/dota_roundenemypoolconfig.json,BD532DAC91123E155E042D99DE99C,3507,1685794319739
 E:/project/et_project/ET7/Config/Luban/draw_drawtreasureconfig.bytes,BC2718E29A11439AACCB3FD1966BE8EF,40,1686192560177
@@ -286,7 +288,7 @@ E:/project/et_project/ET7/Config/Luban/title_titleconfig.bytes,94E4353F76A1ADF1C
 E:/project/et_project/ET7/Config/Luban/title_titleconfig.json,61F6C2CB9B534BFC7842501DAEC5F2E9,2033,1678614924431
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/__beans__.xlsx,AF6AB2C7317C53F379C36633EFC2391,14996,1685681547313
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/__enums__.xlsx,1FBA5246E219A290277ED13EFA199,12674,1686192549498
-E:/project/et_project/ET7/Doc/ExcelConfig/Datas/__tables__.xlsx,3AE7359DACEAD3B354D8DAAA837CCEF,12325,1686321387256
+E:/project/et_project/ET7/Doc/ExcelConfig/Datas/__tables__.xlsx,16DD87B660D045015CA56EBCB1C472,12350,1686391074757
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/称号/TitleConfig.xlsx,225B654A53F7F1FC497B0537CB1963,10043,1674881631633
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/成就/AchievementConfig.xlsx,7E45A4BD75187223FF2D74D1B26DDDA,11094,1674881631626
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/抽奖/DrawTreasureConfig.xlsx,2C1AAFF2FFE2F62DC10E4931942DFE,9990,1685957907210
@@ -321,6 +323,7 @@ E:/project/et_project/ET7/Doc/ExcelConfig/Datas/dota/BuffEffectConfig.xlsx,9F8E3
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/dota/BuildingLevelUpConfig.xlsx,3EA83B76D65FF10AF5CE0207FC94735,66266,1686134481205
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/dota/CombinationConfig.xlsx,735D17A268143E6C57B7CB251759C50,50892,1685449955639
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/dota/CourierAbilityLevelUpConfig.xlsx,CC8946509A69FD407D17B99770F626AE,11159,1684654773695
+E:/project/et_project/ET7/Doc/ExcelConfig/Datas/dota/InfoPassLevelUpConfig.xlsx,7BD7472C4655C9AE9ECF56B82E2768,14494,1686392036341
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/dota/PoolConfig.xlsx,A7ED76D5E581C5D75712A3121EC4D6F5,20280,1685335701015
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/dota/PoolGroupConfig.xlsx,09D505ABEFCD9A3E1770B84FEEAF13,10491,1684989251492
 E:/project/et_project/ET7/Doc/ExcelConfig/Datas/dota/PublicShopConfig.xlsx,58B2F6FE59963571D2DCD653A221630,10457,1682173423020
@@ -348,6 +351,7 @@ E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/dota_buffeffectconfig.json,A4
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/dota_buildinglevelupconfig.json,2AAF8D1E2BA527757D4334B924386A2,203872,1686130273406
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/dota_combinationconfig.json,9C33F0CA517F3EE0A857FF86F95425EC,245242,1684237021198
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/dota_courierabilitylevelupconfig.json,7D061D6DEEB3B54AC2B8BDBF4E127,7936,1684395276958
+E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/dota_infopasslevelupconfig.json,36BC7BAAF0B94C97BC1B47D094BB1EB9,28602,1686392042829
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/dota_poolconfig.json,1B5386A9D764AADB56EBED1888C842,46586,1685335784267
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/dota_poolgroupconfig.json,94359F7BDE9DDBF8420DF5757E34BA,3792,1684989265793
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/dota_publicshopconfig.json,C48FB9E8D456F9C7F6E19D7C3D1B543,4062,1682173442789
@@ -369,7 +373,7 @@ E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/rank_rankprizeconfig.json,EA6
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/season_seasonconfig.json,7013B81BD49C4C80BB3EF157BF0DD9A,261,1669810242502
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/shop_shopconfig.json,504DD65D408F5BCA38527286D6A274E0,88533,1682931310640
 E:/project/et_project/ET7/Doc/ExcelConfig/Gen/json/title_titleconfig.json,1F643F8E46AEF4DD1638DC973193FC0,3110,1669810242504
-E:/project/et_project/ET7/Doc/ExcelConfig/Gen/Types.ts,2B0FF5B44144AAA2CCC2FB5DBF814E,143736,1686321697740
+E:/project/et_project/ET7/Doc/ExcelConfig/Gen/Types.ts,A0F1175F51C46312231C3967EDA28AED,145680,1686392042829
 E:/project/et_project/ET7/DotNet/Hotfix/Config/Luban/Achievement/AchievementConfig.cs,C1F4AF83C6654DC2261D6D925F7DA,2055,1676880432510
 E:/project/et_project/ET7/DotNet/Hotfix/Config/Luban/Achievement/AchievementConfigRecord.cs,62E2B086889BB5E4D75D9E43AAE14BD5,3917,1676880432514
 E:/project/et_project/ET7/DotNet/Hotfix/Config/Luban/Activity/ActivityConfig.cs,BD957639D8316782B68CD47B3EF820D5,1977,1676880432528
@@ -406,6 +410,8 @@ E:/project/et_project/ET7/DotNet/Hotfix/Config/Luban/Dota/BattlePassTaskConfig.c
 E:/project/et_project/ET7/DotNet/Hotfix/Config/Luban/Dota/BattlePassTaskConfigRecord.cs,38312144447F7302DA4865A43247AEF,2698,1686308359897
 E:/project/et_project/ET7/DotNet/Hotfix/Config/Luban/Dota/BuildingLevelUpConfig.cs,17DC7BA8CB4DE9252E7D4EDF1463DC,2045,1678615288262
 E:/project/et_project/ET7/DotNet/Hotfix/Config/Luban/Dota/BuildingLevelUpConfigRecord.cs,182BDA4E59458C521CC5795DA7243A33,3406,1685847834146
+E:/project/et_project/ET7/DotNet/Hotfix/Config/Luban/Dota/InfoPassLevelUpConfig.cs,6A11162416821FCA30257237F6BA8B95,2027,1686391081938
+E:/project/et_project/ET7/DotNet/Hotfix/Config/Luban/Dota/InfoPassLevelUpConfigRecord.cs,FA8969F137C5EF72CE8ADC72D78FAB,1640,1686392045712
 E:/project/et_project/ET7/DotNet/Hotfix/Config/Luban/Dota/RoundDrawEnemyConfigBean.cs,971F8346A4CD11D3AC27104DA6B366F4,3581,1685794319740
 E:/project/et_project/ET7/DotNet/Hotfix/Config/Luban/Dota/RoundEnemyPoolConfig.cs,ECF8A6B64C30B1E7E570C14D96832E69,2031,1685794319740
 E:/project/et_project/ET7/DotNet/Hotfix/Config/Luban/Dota/RoundEnemyPoolConfigRecord.cs,803037C5A0AF4DE367AED75F1703019,3568,1685794319737
@@ -457,7 +463,7 @@ E:/project/et_project/ET7/DotNet/Hotfix/Config/Luban/Season/SeasonConfigRecord.c
 E:/project/et_project/ET7/DotNet/Hotfix/Config/Luban/Shop/ShopConfig.cs,7A1DA629DA17FC185AADCC6084963C7E,1873,1676880432518
 E:/project/et_project/ET7/DotNet/Hotfix/Config/Luban/Shop/ShopConfigRecord.cs,599873067756892C6AB90DF0214C5,3067,1676880432525
 E:/project/et_project/ET7/DotNet/Hotfix/Config/Luban/Shop/ShopSellItemBean.cs,1B6632BB27C95724E8F1A447CF8FD1,4495,1676880432519
-E:/project/et_project/ET7/DotNet/Hotfix/Config/Luban/Tables.cs,8883FBEDF6B468E4C088948E2981F,11535,1686321422762
+E:/project/et_project/ET7/DotNet/Hotfix/Config/Luban/Tables.cs,4DE5916EE6AD9E7C7FF9106EF911C4,11885,1686391081938
 E:/project/et_project/ET7/DotNet/Hotfix/Config/Luban/Task/TaskFinishConditionBean.cs,F0743DC8BA91BE9EEDD1B3BC159C292,1560,1676880432508
 E:/project/et_project/ET7/DotNet/Hotfix/Config/Luban/Title/TitleConfig.cs,AD37CF858453FD68684D44FC883FA127,1899,1676880432526
 E:/project/et_project/ET7/DotNet/Hotfix/Config/Luban/Title/TitleConfigRecord.cs,A620BD15C4122967A94E04DC0542578,2333,1676880432532

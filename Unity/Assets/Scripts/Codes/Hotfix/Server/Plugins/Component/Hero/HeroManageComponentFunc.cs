@@ -132,7 +132,7 @@ namespace ET.Server
         public static (int, string) ChangeHeroDressEquipState(this HeroManageComponent self, C2H_ChangeHeroDressEquipState request)
         {
             var hero = self.Character.HeroManageComp.GetHeroUnit(request.HeroId);
-            if (hero == null )
+            if (hero == null)
             {
                 return (ErrorCode.ERR_Error, "hero cant find");
             }
@@ -183,6 +183,67 @@ namespace ET.Server
             }
 
             return (ErrorCode.ERR_Success, "");
+        }
+
+        public static (int, string) GetInfoPassPrize(this HeroManageComponent self, int prizeLevel, bool IsOnluKey)
+        {
+            var prizelevels = new List<int>();
+            if (IsOnluKey)
+            {
+                var levels = LuBanConfigComponent.Instance.Config().InfoPassLevelUpConfig.DataMap.Keys;
+                foreach (var level in levels)
+                {
+                    if (level <= self.SumHeroLevel && !self.HeroLevelPrizeGet.Contains(level))
+                    {
+                        prizelevels.Add(level);
+                    }
+                }
+
+                if (prizelevels.Count == 0)
+                {
+                    return (ErrorCode.ERR_Error, "no prize can get");
+                }
+            }
+            else
+            {
+                if (self.SumHeroLevel < prizeLevel)
+                {
+                    return (ErrorCode.ERR_Error, "SumHeroLevel not enough");
+                }
+
+                if (self.HeroLevelPrizeGet.Contains(prizeLevel))
+                {
+                    return (ErrorCode.ERR_Error, "prize_had_get");
+                }
+
+                var config = LuBanConfigComponent.Instance.Config().InfoPassLevelUpConfig.GetOrDefault(prizeLevel);
+                if (config == null)
+                {
+                    return (ErrorCode.ERR_Error, "cant find config");
+                }
+
+                prizelevels.Add(prizeLevel);
+            }
+
+            var itemInfo = new List<FItemInfo>();
+            foreach (var configID in prizelevels)
+            {
+                var config = LuBanConfigComponent.Instance.Config().InfoPassLevelUpConfig.GetOrDefault(configID);
+                if (config != null)
+                {
+                    itemInfo.Add(new FItemInfo(config.TaskComPrize.ItemConfigId, config.TaskComPrize.ItemCount));
+                }
+            }
+
+            var r = self.Character.BagComp.AddTItemOrMoney(itemInfo);
+            if (r.Item1 == ErrorCode.ERR_Success)
+            {
+                self.HeroLevelPrizeGet.AddRange(prizelevels);
+                self.Character.SyncHttpEntity(self);
+                return (ErrorCode.ERR_Success, itemInfo.ToListString());
+            }
+
+            return (ErrorCode.ERR_Error, "item add fail");
         }
     }
 }

@@ -44,6 +44,7 @@ public partial class Tables
     public Dota.BattlePassChargeConfig BattlePassChargeConfig {get; }
     public Dota.BattlePassTaskConfig BattlePassTaskConfig {get; }
     public Dota.BattlePassLevelUpConfig BattlePassLevelUpConfig {get; }
+    public Dota.InfoPassLevelUpConfig InfoPassLevelUpConfig {get; }
     public Dota.RoundEnemyPoolConfig RoundEnemyPoolConfig {get; }
 
     public Tables(System.Func<string, ByteBuf> loader)
@@ -111,6 +112,8 @@ public partial class Tables
         tables.Add("Dota.BattlePassTaskConfig", BattlePassTaskConfig);
         BattlePassLevelUpConfig = new Dota.BattlePassLevelUpConfig(loader("dota_battlepasslevelupconfig")); 
         tables.Add("Dota.BattlePassLevelUpConfig", BattlePassLevelUpConfig);
+        InfoPassLevelUpConfig = new Dota.InfoPassLevelUpConfig(loader("dota_infopasslevelupconfig")); 
+        tables.Add("Dota.InfoPassLevelUpConfig", InfoPassLevelUpConfig);
         RoundEnemyPoolConfig = new Dota.RoundEnemyPoolConfig(loader("dota_roundenemypoolconfig")); 
         tables.Add("Dota.RoundEnemyPoolConfig", RoundEnemyPoolConfig);
 
@@ -146,6 +149,7 @@ public partial class Tables
         BattlePassChargeConfig.Resolve(tables); 
         BattlePassTaskConfig.Resolve(tables); 
         BattlePassLevelUpConfig.Resolve(tables); 
+        InfoPassLevelUpConfig.Resolve(tables); 
         RoundEnemyPoolConfig.Resolve(tables); 
         PostResolve();
     }
@@ -183,6 +187,7 @@ public partial class Tables
         BattlePassChargeConfig.TranslateText(translator); 
         BattlePassTaskConfig.TranslateText(translator); 
         BattlePassLevelUpConfig.TranslateText(translator); 
+        InfoPassLevelUpConfig.TranslateText(translator); 
         RoundEnemyPoolConfig.TranslateText(translator); 
     }
     

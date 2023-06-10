@@ -35,7 +35,7 @@ namespace ET
         /// 兑换消耗的道具Id
         /// </summary>
         public int ChargeItemConfigId = 20001;
-
+        
         [BsonIgnore]
         public TCharacter Character
         {

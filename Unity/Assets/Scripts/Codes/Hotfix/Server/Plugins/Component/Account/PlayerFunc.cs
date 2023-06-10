@@ -57,6 +57,14 @@ namespace ET.Server
                 }
 
                 character.LastLoginTime = TimeHelper.ServerNow();
+                if (character.VipEndTimeSpan == -1)
+                {
+                    character.VipType = 3;
+                }
+                else if (character.VipEndTimeSpan >= 0 && TimeHelper.ServerNow() < character.VipEndTimeSpan)
+                {
+                    character.VipType = 0;
+                }
             }
             else
             {

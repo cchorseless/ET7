@@ -158,11 +158,12 @@ namespace ET.Server
             mail.State.Remove((int)EMailState.UnItemGet);
             mail.State.Add((int)EMailState.ItemGet);
             self.Character.SyncHttpEntity(mail);
-            return (ErrorCode.ERR_Success, "");
+            return (ErrorCode.ERR_Success, mail.Items.ToListString());
         }
 
         public static (int, string) GetItemAllMail(this CharacterMailComponent self)
         {
+            var allitem = new List<FItemInfo>();
             foreach (var mailId in self.Mails)
             {
                 var mail = self.GetChild<TMail>(mailId);
@@ -183,11 +184,15 @@ namespace ET.Server
                     {
                         return result;
                     }
+                    else
+                    {
+                        allitem.AddRange(mail.Items);
+                    }
                 }
             }
 
             self.Character.SyncHttpEntity(self);
-            return (ErrorCode.ERR_Success, "");
+            return (ErrorCode.ERR_Success, allitem.ToListString());
         }
 
         public static (int, string) DeleteOneMail(this CharacterMailComponent self, long mailId)
@@ -197,6 +202,7 @@ namespace ET.Server
             {
                 return (ErrorCode.ERR_Error, "cant find mail");
             }
+
             if (mail.Items != null && mail.Items.Count > 0 && mail.State.Contains((int)EMailState.UnItemGet))
             {
                 return (ErrorCode.ERR_Error, "mail has items not get");
@@ -231,6 +237,7 @@ namespace ET.Server
                 self.Character.SyncHttpEntity(mail);
                 i--;
             }
+
             self.Character.SyncHttpEntity(self);
             return (ErrorCode.ERR_Success, "");
         }

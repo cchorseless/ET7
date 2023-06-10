@@ -13,7 +13,7 @@ namespace ET
         public Dictionary<string, long> HeroUnits = new Dictionary<string, long>();
 
         public List<long> HeroBanDesign = new List<long>();
-        
+        public List<int> HeroLevelPrizeGet = new List<int>();
         public int SumHeroLevel;
             
         [BsonIgnore]

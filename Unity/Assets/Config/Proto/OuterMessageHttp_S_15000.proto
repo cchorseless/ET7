@@ -123,14 +123,6 @@ message C2H_GetPrize_ActivityMonthTotalLogin // IRequest
   int32  Day = 1;
 }
 
-//ResponseType H2C_CommonResponse
-message C2H_GetPrize_ActivityBattlePass // IRequest
-{
-  int32  RpcId = 90;
-  int32  Level = 1;
-  bool  IsVip = 2;
-  bool  IsOneKeyGetPrize = 3;
-}
 
 //ResponseType H2C_CommonResponse
 message C2H_GetPrize_ActivityDailyOnlinePrize // IRequest
@@ -174,20 +166,6 @@ message C2H_GetPrize_ActivityGiftCommond // IRequest
   int32  GiftConfigId = 1;
 }
 
-//ResponseType H2C_CommonResponse
-message C2H_Buy_ActivityBattlePass // IRequest
-{
-  int32  RpcId = 90;
-  int32  PayType = 2;
-}
-
-//ResponseType H2C_CommonResponse
-message C2H_Buy_ActivityMemberShip // IRequest
-{
-  int32  RpcId = 90;
-  int32  BuyType = 1;
-  int32  PayType = 2;
-}
 
 //ResponseType H2C_CommonResponse
 message C2H_Recharge_MetaStone // IRequest
@@ -299,6 +277,14 @@ message C2H_ChangeHeroTalentState // IRequest
 	int32  TalentIndex = 2;
   bool   IsLearn = 3;
   string  HeroId = 4;
+}
+
+//ResponseType H2C_CommonResponse
+message C2H_GetInfoPassPrize // IRequest
+{
+  int32  RpcId = 90;
+  int32  PrizeLevel = 1;
+  bool   IsOnlyKey = 3;
 }
 
 //ResponseType H2C_CommonResponse

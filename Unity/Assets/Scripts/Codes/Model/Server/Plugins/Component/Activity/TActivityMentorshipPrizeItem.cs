@@ -22,6 +22,6 @@ namespace ET
 
 
         [BsonIgnore]
-        public TActivityMemberShipData MemberShipData { get => this.GetParent<TActivityMemberShipData>(); }
+        public TActivityMentorshipTreeData MentorshipTreeData { get => this.GetParent<TActivityMentorshipTreeData>(); }
     }
 }

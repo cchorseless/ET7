@@ -157,6 +157,19 @@ namespace ET
             MongoHelper.Init();
         }
 
+        public static string ToListString(this List<FItemInfo> self)
+        {
+            var str = "";
+            foreach (var item in self)
+            {
+                str += item + ",";
+            }
+
+            str = str.Substring(0, str.Length - 1);
+            str = "[" + str + "]";
+            return str;
+        }
+
         public static void Init()
         {
         }

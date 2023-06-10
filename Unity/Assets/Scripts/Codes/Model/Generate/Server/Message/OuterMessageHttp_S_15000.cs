@@ -254,25 +254,6 @@ namespace ET
 	}
 
 	[ResponseType(nameof(H2C_CommonResponse))]
-	[Message(OuterMessageHttp.C2H_GetPrize_ActivityBattlePass)]
-	[ProtoContract]
-	public partial class C2H_GetPrize_ActivityBattlePass: ProtoObject, IRequest
-	{
-		[ProtoMember(90)]
-		public int RpcId { get; set; }
-
-		[ProtoMember(1)]
-		public int Level { get; set; }
-
-		[ProtoMember(2)]
-		public bool IsVip { get; set; }
-
-		[ProtoMember(3)]
-		public bool IsOneKeyGetPrize { get; set; }
-
-	}
-
-	[ResponseType(nameof(H2C_CommonResponse))]
 	[Message(OuterMessageHttp.C2H_GetPrize_ActivityDailyOnlinePrize)]
 	[ProtoContract]
 	public partial class C2H_GetPrize_ActivityDailyOnlinePrize: ProtoObject, IRequest
@@ -347,35 +328,6 @@ namespace ET
 
 		[ProtoMember(1)]
 		public int GiftConfigId { get; set; }
-
-	}
-
-	[ResponseType(nameof(H2C_CommonResponse))]
-	[Message(OuterMessageHttp.C2H_Buy_ActivityBattlePass)]
-	[ProtoContract]
-	public partial class C2H_Buy_ActivityBattlePass: ProtoObject, IRequest
-	{
-		[ProtoMember(90)]
-		public int RpcId { get; set; }
-
-		[ProtoMember(2)]
-		public int PayType { get; set; }
-
-	}
-
-	[ResponseType(nameof(H2C_CommonResponse))]
-	[Message(OuterMessageHttp.C2H_Buy_ActivityMemberShip)]
-	[ProtoContract]
-	public partial class C2H_Buy_ActivityMemberShip: ProtoObject, IRequest
-	{
-		[ProtoMember(90)]
-		public int RpcId { get; set; }
-
-		[ProtoMember(1)]
-		public int BuyType { get; set; }
-
-		[ProtoMember(2)]
-		public int PayType { get; set; }
 
 	}
 
@@ -608,6 +560,22 @@ namespace ET
 
 		[ProtoMember(4)]
 		public string HeroId { get; set; }
+
+	}
+
+	[ResponseType(nameof(H2C_CommonResponse))]
+	[Message(OuterMessageHttp.C2H_GetInfoPassPrize)]
+	[ProtoContract]
+	public partial class C2H_GetInfoPassPrize: ProtoObject, IRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public int PrizeLevel { get; set; }
+
+		[ProtoMember(3)]
+		public bool IsOnlyKey { get; set; }
 
 	}
 
@@ -884,41 +852,39 @@ namespace ET
 		 public const ushort C2H_GetPrize_ActivitySevenDayLogin = 15014;
 		 public const ushort C2H_GetPrize_ActivityMonthLogin = 15015;
 		 public const ushort C2H_GetPrize_ActivityMonthTotalLogin = 15016;
-		 public const ushort C2H_GetPrize_ActivityBattlePass = 15017;
-		 public const ushort C2H_GetPrize_ActivityDailyOnlinePrize = 15018;
-		 public const ushort C2H_GetPrize_ActivityTotalGainMetaStone = 15019;
-		 public const ushort C2H_GetPrize_ActivityTotalOnlineTime = 15020;
-		 public const ushort C2H_GetPrize_ActivityTotalSpendMetaStone = 15021;
-		 public const ushort C2H_GetPrize_ActivityInvestMetaStone = 15022;
-		 public const ushort C2H_GetPrize_ActivityGiftCommond = 15023;
-		 public const ushort C2H_Buy_ActivityBattlePass = 15024;
-		 public const ushort C2H_Buy_ActivityMemberShip = 15025;
-		 public const ushort C2H_Recharge_MetaStone = 15026;
-		 public const ushort C2H_Handle_CharacterMail = 15027;
-		 public const ushort C2H_DrawTreasure = 15028;
-		 public const ushort C2H_CurRankDataInfo = 15029;
-		 public const ushort C2H_CharacterRankDataInfo = 15030;
-		 public const ushort C2H_Buy_ShopItem = 15031;
-		 public const ushort C2H_Use_BagItem = 15032;
-		 public const ushort C2H_MergeBagEquip = 15033;
-		 public const ushort C2H_ReplaceEquipProps = 15034;
-		 public const ushort C2H_Use_AddHeroLevelByComHeroExp = 15035;
-		 public const ushort C2H_Save_AddHeroBanDesign = 15036;
-		 public const ushort C2H_ChangeHeroDressEquipState = 15037;
-		 public const ushort C2H_ChangeHeroTalentState = 15038;
-		 public const ushort C2H_ChangeCharacterTitleState = 15039;
-		 public const ushort C2H_GetPrize_AchieveMentPrize = 15040;
-		 public const ushort C2H_ChangeDailyTaskState = 15041;
-		 public const ushort C2H_GetPrize_TaskPrize = 15042;
-		 public const ushort C2H_BattlePass_GetPrize = 15043;
-		 public const ushort C2H_BattlePass_ChargePrize = 15044;
-		 public const ushort C2H_Mentorship_ApplyForMaster = 15045;
-		 public const ushort C2H_Mentorship_DropTree = 15046;
-		 public const ushort C2H_Mentorship_ChangeApplyState = 15047;
-		 public const ushort C2H_DrawEnemy_GetEnemyInfo = 15048;
-		 public const ushort FBattleUnitInfoItem = 15049;
-		 public const ushort FBattleTeamRecord = 15050;
-		 public const ushort C2H_DrawEnemy_UploadEnemyInfo = 15051;
-		 public const ushort C2H_DrawEnemy_UploadBattleResult = 15052;
+		 public const ushort C2H_GetPrize_ActivityDailyOnlinePrize = 15017;
+		 public const ushort C2H_GetPrize_ActivityTotalGainMetaStone = 15018;
+		 public const ushort C2H_GetPrize_ActivityTotalOnlineTime = 15019;
+		 public const ushort C2H_GetPrize_ActivityTotalSpendMetaStone = 15020;
+		 public const ushort C2H_GetPrize_ActivityInvestMetaStone = 15021;
+		 public const ushort C2H_GetPrize_ActivityGiftCommond = 15022;
+		 public const ushort C2H_Recharge_MetaStone = 15023;
+		 public const ushort C2H_Handle_CharacterMail = 15024;
+		 public const ushort C2H_DrawTreasure = 15025;
+		 public const ushort C2H_CurRankDataInfo = 15026;
+		 public const ushort C2H_CharacterRankDataInfo = 15027;
+		 public const ushort C2H_Buy_ShopItem = 15028;
+		 public const ushort C2H_Use_BagItem = 15029;
+		 public const ushort C2H_MergeBagEquip = 15030;
+		 public const ushort C2H_ReplaceEquipProps = 15031;
+		 public const ushort C2H_Use_AddHeroLevelByComHeroExp = 15032;
+		 public const ushort C2H_Save_AddHeroBanDesign = 15033;
+		 public const ushort C2H_ChangeHeroDressEquipState = 15034;
+		 public const ushort C2H_ChangeHeroTalentState = 15035;
+		 public const ushort C2H_GetInfoPassPrize = 15036;
+		 public const ushort C2H_ChangeCharacterTitleState = 15037;
+		 public const ushort C2H_GetPrize_AchieveMentPrize = 15038;
+		 public const ushort C2H_ChangeDailyTaskState = 15039;
+		 public const ushort C2H_GetPrize_TaskPrize = 15040;
+		 public const ushort C2H_BattlePass_GetPrize = 15041;
+		 public const ushort C2H_BattlePass_ChargePrize = 15042;
+		 public const ushort C2H_Mentorship_ApplyForMaster = 15043;
+		 public const ushort C2H_Mentorship_DropTree = 15044;
+		 public const ushort C2H_Mentorship_ChangeApplyState = 15045;
+		 public const ushort C2H_DrawEnemy_GetEnemyInfo = 15046;
+		 public const ushort FBattleUnitInfoItem = 15047;
+		 public const ushort FBattleTeamRecord = 15048;
+		 public const ushort C2H_DrawEnemy_UploadEnemyInfo = 15049;
+		 public const ushort C2H_DrawEnemy_UploadBattleResult = 15050;
 	}
 }

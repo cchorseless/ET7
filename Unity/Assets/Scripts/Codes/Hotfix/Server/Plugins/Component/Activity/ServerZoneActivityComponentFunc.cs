@@ -74,12 +74,6 @@ namespace ET.Server
                 case EActivityType.TActivityMonthLogin:
                     self.UpdateActivity<TActivityMonthLogin>(activityconfigid);
                     break;
-                case EActivityType.TActivityBattlePass:
-                    self.UpdateActivity<TActivityBattlePass>(activityconfigid);
-                    break;
-                case EActivityType.TActivityMemberShip:
-                    self.UpdateActivity<TActivityMemberShip>(activityconfigid);
-                    break;
                 case EActivityType.TActivityHeroRecordLevel:
                     self.UpdateActivity<TActivityHeroRecordLevel>(activityconfigid);
                     break;
@@ -159,14 +153,6 @@ namespace ET.Server
             else if (activity is TActivityMonthLogin)
             {
                 (activity as TActivityMonthLogin).LoadAllChild();
-            }
-            else if (activity is TActivityBattlePass)
-            {
-                (activity as TActivityBattlePass).LoadAllChild();
-            }
-            else if (activity is TActivityMemberShip)
-            {
-                (activity as TActivityMemberShip).LoadAllChild();
             }
             else if (activity is TActivityHeroRecordLevel)
             {

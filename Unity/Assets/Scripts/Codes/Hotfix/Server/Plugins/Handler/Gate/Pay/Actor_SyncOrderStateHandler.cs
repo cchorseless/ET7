@@ -23,13 +23,11 @@ namespace ET.Server
                     var serverZone = character.GetMyServerZone();
                     if (order.Label == EPayOrderLabel.PayForBattlePass)
                     {
-                        var activity = serverZone.ActivityComp.GetActivity<TActivityBattlePass>(EActivityType.TActivityBattlePass);
-                        activity.OnBuyBattlePass(character, order);
+                  
                     }
                     else if (order.Label == EPayOrderLabel.PayForMemberShip)
                     {
-                        var activity = serverZone.ActivityComp.GetActivity<TActivityMemberShip>(EActivityType.TActivityMemberShip);
-                        activity.OnBuyMemberShip(character, order);
+              
                     }
                     else if (order.Label == EPayOrderLabel.PayForMetaStone)
                     {

@@ -45,15 +45,7 @@ namespace ET.Server
             }
             return null;
         }
-        public static bool IsMemberShipVip(this CharacterActivityComponent self)
-        {
-            var memberData = self.GetActivityData<TActivityMemberShipData>(EActivityType.TActivityMemberShip);
-            if (memberData != null)
-            {
-                return memberData.IsVip();
-            }
-            return false;
-        }
+
 
         public static void UpdateActivityData(this CharacterActivityComponent self, int activityconfigid)
         {
@@ -68,12 +60,6 @@ namespace ET.Server
                     break;
                 case EActivityType.TActivityMonthLogin:
                     self.UpdateActivityData<TActivityMonthLoginData>(activityconfigid);
-                    break;
-                case EActivityType.TActivityBattlePass:
-                    self.UpdateActivityData<TActivityBattlePassData>(activityconfigid);
-                    break;
-                case EActivityType.TActivityMemberShip:
-                    self.UpdateActivityData<TActivityMemberShipData>(activityconfigid);
                     break;
                 case EActivityType.TActivityHeroRecordLevel:
                     self.UpdateActivityData<TActivityHeroRecordLevelData>(activityconfigid);
@@ -148,14 +134,6 @@ namespace ET.Server
             else if (activitydata is TActivityMonthLoginData)
             {
                 (activitydata as TActivityMonthLoginData).LoadAllChild();
-            }
-            else if (activitydata is TActivityBattlePassData)
-            {
-                (activitydata as TActivityBattlePassData).LoadAllChild();
-            }
-            else if (activitydata is TActivityMemberShipData)
-            {
-                (activitydata as TActivityMemberShipData).LoadAllChild();
             }
             else if (activitydata is TActivityHeroRecordLevelData)
             {

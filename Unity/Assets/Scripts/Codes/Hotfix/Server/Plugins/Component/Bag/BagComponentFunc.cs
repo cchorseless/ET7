@@ -170,19 +170,6 @@ namespace ET.Server
             }
         }
 
-        public struct FItemPrizeResult
-        {
-            public string ItemId;
-            public int ItemConfigId;
-            public int ItemCount;
-
-          public  FItemPrizeResult(string itemId, int itemConfigId, int itemCount)
-            {
-                ItemId = itemId;
-                ItemConfigId = itemConfigId;
-                ItemCount = itemCount;
-            }
-        }
 
         public static (int, string) AddTItemOrMoney(this BagComponent self, List<FItemInfo> itemsInfo)
         {
@@ -191,16 +178,16 @@ namespace ET.Server
                 return (ErrorCode.ERR_Error, "Bag IsFull");
             }
 
-            var r = new List<FItemPrizeResult>();
+            var r = new List<FItemInfo>();
             itemsInfo.ForEach(item =>
             {
                 var result = self.AddTItemOrMoney(item.ItemConfigId, item.ItemCount);
                 if (result.Item1)
                 {
-                    r.Add(new FItemPrizeResult(result.Item2.ToString(), item.ItemConfigId, item.ItemCount));
+                    r.Add(new FItemInfo( item.ItemConfigId, item.ItemCount));
                 }
             });
-            return (ErrorCode.ERR_Success, JsonHelper.ToLitJson(r));
+            return (ErrorCode.ERR_Success, r.ToListString());
         }
 
         public static (bool, long) AddTItemOrMoney(this BagComponent self, int configid, int count = 1)
