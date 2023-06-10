@@ -11,7 +11,6 @@ namespace ET.Server
     {
         public const short TActivitySevenDayLogin = 1;
         public const short TActivityMonthLogin = 2;
-        public const short TActivityHeroRecordLevel = 5;
         public const short TActivityDailyOnlinePrize = 6;
         public const short TActivityInvestMetaStone = 7;
         public const short TActivityTotalGainMetaStone = 8;

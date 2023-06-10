@@ -9,34 +9,27 @@ using Bright.Serialization;
 using System.Collections.Generic;
 
 
-namespace cfg.Activity
+namespace cfg.Item
 {
-public sealed partial class BattlePassBean :  Bright.Config.BeanBase 
+public sealed partial class ItemInfoWithIndexBean :  Bright.Config.BeanBase 
 {
-    public BattlePassBean(ByteBuf _buf) 
+    public ItemInfoWithIndexBean(ByteBuf _buf) 
     {
-        Level = _buf.ReadInt();
-        Exp = _buf.ReadInt();
+        Index = _buf.ReadInt();
         ItemConfigId = _buf.ReadInt();
         ItemCount = _buf.ReadInt();
-        VIPItemConfigId = _buf.ReadInt();
-        VIPItemCount = _buf.ReadInt();
         PostInit();
     }
 
-    public static BattlePassBean DeserializeBattlePassBean(ByteBuf _buf)
+    public static ItemInfoWithIndexBean DeserializeItemInfoWithIndexBean(ByteBuf _buf)
     {
-        return new Activity.BattlePassBean(_buf);
+        return new Item.ItemInfoWithIndexBean(_buf);
     }
 
     /// <summary>
-    /// 等级
+    /// 道具组索引
     /// </summary>
-    public int Level { get; private set; }
-    /// <summary>
-    /// 升级经验
-    /// </summary>
-    public int Exp { get; private set; }
+    public int Index { get; private set; }
     /// <summary>
     /// 道具索引
     /// </summary>
@@ -45,16 +38,8 @@ public sealed partial class BattlePassBean :  Bright.Config.BeanBase
     /// 道具数量
     /// </summary>
     public int ItemCount { get; private set; }
-    /// <summary>
-    /// vip道具索引
-    /// </summary>
-    public int VIPItemConfigId { get; private set; }
-    /// <summary>
-    /// vip道具数量
-    /// </summary>
-    public int VIPItemCount { get; private set; }
 
-    public const int __ID__ = -1192206088;
+    public const int __ID__ = -591448064;
     public override int GetTypeId() => __ID__;
 
     public  void Resolve(Dictionary<string, object> _tables)
@@ -69,12 +54,9 @@ public sealed partial class BattlePassBean :  Bright.Config.BeanBase
     public override string ToString()
     {
         return "{ "
-        + "Level:" + Level + ","
-        + "Exp:" + Exp + ","
+        + "Index:" + Index + ","
         + "ItemConfigId:" + ItemConfigId + ","
         + "ItemCount:" + ItemCount + ","
-        + "VIPItemConfigId:" + VIPItemConfigId + ","
-        + "VIPItemCount:" + VIPItemCount + ","
         + "}";
     }
     

@@ -69,7 +69,7 @@ namespace ET.Server
                 return (ErrorCode.ERR_Error, "cost no full");
             }
             var addstate = character.BagComp.AddTItemOrMoney(config.ItemConfigId, config.ItemCount * count);
-            if (addstate.Item1 == false)
+            if (addstate.Item1 == ErrorCode.ERR_Error)
             {
                 return (ErrorCode.ERR_Error, "add item fail");
             }

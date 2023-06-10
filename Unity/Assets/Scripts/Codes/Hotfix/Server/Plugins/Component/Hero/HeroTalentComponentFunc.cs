@@ -46,7 +46,7 @@ namespace ET.Server
         public static void OnHeroLevelUp(this HeroTalentComponent self)
         {
             var level = self.HeroUnit.Level;
-            var talentPoint = LuBanConfigComponent.Instance.Config().HeroLevelUpConfig.GetOrDefault(level).TotalTalentPoint;
+            var talentPoint = LuBanConfigComponent.Instance.Config().BuildingLevelUpExpConfig.GetOrDefault(level).TotalTalentPoint;
             if (talentPoint > self.TotalTalentPoint)
             {
                 self.TalentPoint += talentPoint - self.TotalTalentPoint;

@@ -9,8 +9,8 @@ namespace ET
     public class TActivityMonthLogin : TActivity
     {
         [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
-        public Dictionary<int, List<FItemInfo>> Items = new Dictionary<int, List<FItemInfo>>();
+        public Dictionary<int, FItemInfo> Items = new Dictionary<int, FItemInfo>();
         [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
-        public Dictionary<int, List<FItemInfo>> TotalLoginItems = new Dictionary<int, List<FItemInfo>>();
+        public Dictionary<int, FItemInfo> TotalLoginItems = new Dictionary<int, FItemInfo>();
     }
 }

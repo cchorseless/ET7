@@ -74,9 +74,6 @@ namespace ET.Server
                 case EActivityType.TActivityMonthLogin:
                     self.UpdateActivity<TActivityMonthLogin>(activityconfigid);
                     break;
-                case EActivityType.TActivityHeroRecordLevel:
-                    self.UpdateActivity<TActivityHeroRecordLevel>(activityconfigid);
-                    break;
                 case EActivityType.TActivityDailyOnlinePrize:
                     self.UpdateActivity<TActivityDailyOnlinePrize>(activityconfigid);
                     break;
@@ -153,10 +150,6 @@ namespace ET.Server
             else if (activity is TActivityMonthLogin)
             {
                 (activity as TActivityMonthLogin).LoadAllChild();
-            }
-            else if (activity is TActivityHeroRecordLevel)
-            {
-                (activity as TActivityHeroRecordLevel).LoadAllChild();
             }
             else if (activity is TActivityDailyOnlinePrize)
             {

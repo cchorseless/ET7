@@ -9,9 +9,10 @@ namespace ET
 {
     public class TActivitySevenDayLoginData : TActivityData
     {
-        [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
-        public Dictionary<int, int> ItemState = new Dictionary<int, int>();
+        public List<int> ItemHadGet = new List<int>();
 
         public int LoginDayCount;
+        
+        public int SeasonConfigId;
     }
 }

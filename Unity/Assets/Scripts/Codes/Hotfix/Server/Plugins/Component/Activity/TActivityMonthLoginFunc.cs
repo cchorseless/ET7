@@ -13,12 +13,11 @@ namespace ET.Server
             self.Items.Clear();
             self.TotalLoginItems.Clear();
             var curTime = TimeHelper.ServerNow() / 1000;
-            var monthData = LuBanConfigComponent.Instance.Config().TActivityMonthLogin.DataList.Find(
-                record =>
-                {
-                    return record.ActivityStartTime <= curTime && curTime <=  record.ActivityEndTime;
-                });
-            if (monthData != null )
+            var monthData = LuBanConfigComponent.Instance.Config().TActivityMonthLogin.DataList.Find(record =>
+            {
+                return record.ActivityStartTime <= curTime && curTime <= record.ActivityEndTime;
+            });
+            if (monthData != null)
             {
                 self.ConfigId = monthData.Id;
                 self.StartTime = monthData.ActivityStartTime;
@@ -27,28 +26,17 @@ namespace ET.Server
                 {
                     if (!self.Items.ContainsKey(item.Index))
                     {
-                        var itemList = new List<FItemInfo>();
-                        item.ItemGroup.ForEach(_info =>
-                        {
-                            itemList.Add(new FItemInfo(_info.ItemConfigId, _info.ItemCount));
-                        });
-                        self.Items.Add(item.Index, itemList);
+                        self.Items.Add(item.Index, new FItemInfo(item.ItemConfigId, item.ItemCount));
                     }
                 });
                 monthData.TotalLoginPrize.ForEach(item =>
                 {
                     if (!self.TotalLoginItems.ContainsKey(item.Index))
                     {
-                        var itemList = new List<FItemInfo>();
-                        item.ItemGroup.ForEach(_info =>
-                        {
-                            itemList.Add(new FItemInfo(_info.ItemConfigId, _info.ItemCount));
-                        });
-                        self.TotalLoginItems.Add(item.Index, itemList);
+                        self.TotalLoginItems.Add(item.Index, new FItemInfo(item.ItemConfigId, item.ItemCount));
                     }
                 });
             }
-           
         }
 
         public static (int, string) GetPrize(this TActivityMonthLogin self, TCharacter character, int dayIndex)
@@ -57,42 +45,34 @@ namespace ET.Server
             {
                 return (ErrorCode.ERR_Error, "active not valid");
             }
+
             if (!self.Items.TryGetValue(dayIndex, out var prizeItem))
             {
                 return (ErrorCode.ERR_Error, "dayIndex not valid");
             }
+
             var activityData = character.ActivityComp.GetActivityData<TActivityMonthLoginData>(EActivityType.TActivityMonthLogin);
             if (activityData == null || !activityData.IsValid())
             {
                 return (ErrorCode.ERR_Error, "activityData not valid");
             }
-            if (activityData.ItemState.TryGetValue(dayIndex, out var itemPrizeState))
+            if (dayIndex > activityData.LoginDayCount)
             {
-                if (itemPrizeState == (int)EItemPrizeState.HadGet)
-                {
-                    return (ErrorCode.ERR_Error, "activityData had Get");
-                }
-                else if (itemPrizeState == (int)EItemPrizeState.CanNotGet)
-                {
-                    return (ErrorCode.ERR_Error, "activityData CanNotGet");
-                }
-                else if (itemPrizeState == (int)EItemPrizeState.OutOfDate)
-                {
-                    return (ErrorCode.ERR_Error, "activityData OutOfDate");
-                }
-                else if (itemPrizeState == (int)EItemPrizeState.CanGet)
-                {
-                    var addResult = character.BagComp.AddTItemOrMoney(prizeItem);
-                    if (addResult.Item1 == ErrorCode.ERR_Success)
-                    {
-                        activityData.ItemState[dayIndex] = (int)EItemPrizeState.HadGet;
-                    }
-                    return addResult;
-                }
+                return (ErrorCode.ERR_Error, "dayIndex not enough");
             }
-            return (ErrorCode.ERR_Error, "no activity data");
-        }
+            if (activityData.ItemHadGet.Contains(dayIndex))
+            {
+                return (ErrorCode.ERR_Error, "activityData had Get");
+            }
 
+            var addResult = character.BagComp.AddTItemOrMoney(prizeItem.ItemConfigId, prizeItem.ItemCount);
+            if (addResult.Item1 == ErrorCode.ERR_Success)
+            {
+                activityData.ItemHadGet.Add(dayIndex);
+            }
+
+            return addResult;
+        }
 
         public static (int, string) GetTotalPrize(this TActivityMonthLogin self, TCharacter character, int dayIndex)
         {
@@ -100,40 +80,33 @@ namespace ET.Server
             {
                 return (ErrorCode.ERR_Error, "active not valid");
             }
+
             if (!self.TotalLoginItems.TryGetValue(dayIndex, out var prizeItem))
             {
                 return (ErrorCode.ERR_Error, "dayIndex not valid");
             }
+
             var activityData = character.ActivityComp.GetActivityData<TActivityMonthLoginData>(EActivityType.TActivityMonthLogin);
             if (activityData == null || !activityData.IsValid())
             {
                 return (ErrorCode.ERR_Error, "activityData not valid");
             }
-            if (activityData.TotalLoginItemState.TryGetValue(dayIndex, out var itemPrizeState))
+            if (dayIndex > activityData.LoginDayCount)
             {
-                if (itemPrizeState == (int)EItemPrizeState.HadGet)
-                {
-                    return (ErrorCode.ERR_Error, "activityData had Get");
-                }
-                else if (itemPrizeState == (int)EItemPrizeState.CanNotGet)
-                {
-                    return (ErrorCode.ERR_Error, "activityData CanNotGet");
-                }
-                else if (itemPrizeState == (int)EItemPrizeState.OutOfDate)
-                {
-                    return (ErrorCode.ERR_Error, "activityData OutOfDate");
-                }
-                else if (itemPrizeState == (int)EItemPrizeState.CanGet)
-                {
-                    var addResult = character.BagComp.AddTItemOrMoney(prizeItem);
-                    if (addResult.Item1 == ErrorCode.ERR_Success)
-                    {
-                        activityData.ItemState[dayIndex] = (int)EItemPrizeState.HadGet;
-                    }
-                    return addResult;
-                }
+                return (ErrorCode.ERR_Error, "dayIndex not enough");
             }
-            return (ErrorCode.ERR_Error, "no activity data");
+            if (activityData.TotalLoginItemHadGet.Contains(dayIndex))
+            {
+                return (ErrorCode.ERR_Error, "activityData had Get");
+            }
+
+            var addResult = character.BagComp.AddTItemOrMoney(prizeItem.ItemConfigId, prizeItem.ItemCount);
+            if (addResult.Item1 == ErrorCode.ERR_Success)
+            {
+                activityData.TotalLoginItemHadGet.Add(dayIndex);
+            }
+
+            return addResult;
         }
     }
 }

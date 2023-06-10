@@ -18,8 +18,8 @@ public sealed partial class TActivityMonthLoginRecord :  Bright.Config.BeanBase
         Id = _buf.ReadInt();
         ActivityStartTime = _buf.ReadLong();
         ActivityEndTime = _buf.ReadLong();
-        {int n0 = System.Math.Min(_buf.ReadSize(), _buf.Size);LoginPrize = new System.Collections.Generic.List<Item.ItemGroupBean>(n0);for(var i0 = 0 ; i0 < n0 ; i0++) { Item.ItemGroupBean _e0;  _e0 = Item.ItemGroupBean.DeserializeItemGroupBean(_buf); LoginPrize.Add(_e0);}}
-        {int n0 = System.Math.Min(_buf.ReadSize(), _buf.Size);TotalLoginPrize = new System.Collections.Generic.List<Item.ItemGroupBean>(n0);for(var i0 = 0 ; i0 < n0 ; i0++) { Item.ItemGroupBean _e0;  _e0 = Item.ItemGroupBean.DeserializeItemGroupBean(_buf); TotalLoginPrize.Add(_e0);}}
+        {int n0 = System.Math.Min(_buf.ReadSize(), _buf.Size);LoginPrize = new System.Collections.Generic.List<Item.ItemInfoWithIndexBean>(n0);for(var i0 = 0 ; i0 < n0 ; i0++) { Item.ItemInfoWithIndexBean _e0;  _e0 = Item.ItemInfoWithIndexBean.DeserializeItemInfoWithIndexBean(_buf); LoginPrize.Add(_e0);}}
+        {int n0 = System.Math.Min(_buf.ReadSize(), _buf.Size);TotalLoginPrize = new System.Collections.Generic.List<Item.ItemInfoWithIndexBean>(n0);for(var i0 = 0 ; i0 < n0 ; i0++) { Item.ItemInfoWithIndexBean _e0;  _e0 = Item.ItemInfoWithIndexBean.DeserializeItemInfoWithIndexBean(_buf); TotalLoginPrize.Add(_e0);}}
         PostInit();
     }
 
@@ -42,8 +42,8 @@ public sealed partial class TActivityMonthLoginRecord :  Bright.Config.BeanBase
     /// </summary>
     public long ActivityEndTime { get; private set; }
     public long ActivityEndTime_Millis => ActivityEndTime * 1000L;
-    public System.Collections.Generic.List<Item.ItemGroupBean> LoginPrize { get; private set; }
-    public System.Collections.Generic.List<Item.ItemGroupBean> TotalLoginPrize { get; private set; }
+    public System.Collections.Generic.List<Item.ItemInfoWithIndexBean> LoginPrize { get; private set; }
+    public System.Collections.Generic.List<Item.ItemInfoWithIndexBean> TotalLoginPrize { get; private set; }
 
     public const int __ID__ = -2097445346;
     public override int GetTypeId() => __ID__;

@@ -168,14 +168,12 @@ namespace ET.Server
             }
 
             var r = self.Character.BagComp.AddTItemOrMoney(itemInfo.ItemConfigId, itemInfo.ItemCount);
-            if (r.Item1)
+            if (r.Item1==ErrorCode.ERR_Success)
             {
                 self.BattlePassPrizeGet.Add(prizeKey);
                 self.Character.SyncHttpEntity(self);
-                return (ErrorCode.ERR_Success, itemInfo.ToString());
             }
-
-            return (ErrorCode.ERR_Error, "item add fail");
+            return r;
         }
 
         public static (int, string) GetTaskPrize(this CharacterBattlePassComponent self, string taskId_str)
@@ -210,7 +208,7 @@ namespace ET.Server
             var prize = entity.TaskConfig().TaskPrize;
             var itemsPrize = new FItemInfo(prize.ItemConfigId, prize.ItemCount);
             var r = self.Character.BagComp.AddTItemOrMoney(itemsPrize.ItemConfigId, itemsPrize.ItemCount);
-            if (r.Item1)
+            if (r.Item1==ErrorCode.ERR_Success)
             {
                 entity.IsPrizeGet = true;
                 if (self.DailyTasks.Contains(entityId))
@@ -218,11 +216,8 @@ namespace ET.Server
                     entity.Dispose();
                     self.DailyTasks.Remove(entityId);
                 }
-
-                return (ErrorCode.ERR_Success, itemsPrize.ToString());
             }
-
-            return (ErrorCode.ERR_Error, "add item fail");
+            return r;
         }
 
         public static (int, string) ChangeDailyTaskState(this CharacterBattlePassComponent self, string taskId_str, bool isDropTask)
@@ -291,16 +286,14 @@ namespace ET.Server
             itemInfo.ItemCount = config.ChargeTo.ItemCount;
 
             var r = self.Character.BagComp.AddTItemOrMoney(itemInfo.ItemConfigId, itemInfo.ItemCount);
-            if (r.Item1)
+            if (r.Item1 == ErrorCode.ERR_Success)
             {
                 costItem.ChangeItemCount(-needcount);
                 self.BattlePassChargeGet.Add(chargeConfigId);
                 self.Character.SyncHttpEntity(costItem);
                 self.Character.SyncHttpEntity(self);
-                return (ErrorCode.ERR_Success, itemInfo.ToString());
             }
-
-            return (ErrorCode.ERR_Error, "item add fail");
+            return r;
         }
     }
 }

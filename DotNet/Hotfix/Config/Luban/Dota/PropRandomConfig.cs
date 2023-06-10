@@ -9,35 +9,35 @@ using Bright.Serialization;
 using System.Collections.Generic;
 
 
-namespace cfg.Hero
+namespace cfg.Dota
 {
    
-public partial class HeroLevelUpConfig
+public partial class PropRandomConfig
 {
-    private readonly Dictionary<int, Hero.HeroLevelUpConfigRecord> _dataMap;
-    private readonly List<Hero.HeroLevelUpConfigRecord> _dataList;
+    private readonly Dictionary<int, Dota.PropRandomConfigRecord> _dataMap;
+    private readonly List<Dota.PropRandomConfigRecord> _dataList;
     
-    public HeroLevelUpConfig(ByteBuf _buf)
+    public PropRandomConfig(ByteBuf _buf)
     {
-        _dataMap = new Dictionary<int, Hero.HeroLevelUpConfigRecord>();
-        _dataList = new List<Hero.HeroLevelUpConfigRecord>();
+        _dataMap = new Dictionary<int, Dota.PropRandomConfigRecord>();
+        _dataList = new List<Dota.PropRandomConfigRecord>();
         
         for(int n = _buf.ReadSize() ; n > 0 ; --n)
         {
-            Hero.HeroLevelUpConfigRecord _v;
-            _v = Hero.HeroLevelUpConfigRecord.DeserializeHeroLevelUpConfigRecord(_buf);
+            Dota.PropRandomConfigRecord _v;
+            _v = Dota.PropRandomConfigRecord.DeserializePropRandomConfigRecord(_buf);
             _dataList.Add(_v);
             _dataMap.Add(_v.Id, _v);
         }
         PostInit();
     }
 
-    public Dictionary<int, Hero.HeroLevelUpConfigRecord> DataMap => _dataMap;
-    public List<Hero.HeroLevelUpConfigRecord> DataList => _dataList;
+    public Dictionary<int, Dota.PropRandomConfigRecord> DataMap => _dataMap;
+    public List<Dota.PropRandomConfigRecord> DataList => _dataList;
 
-    public Hero.HeroLevelUpConfigRecord GetOrDefault(int key) => _dataMap.TryGetValue(key, out var v) ? v : null;
-    public Hero.HeroLevelUpConfigRecord Get(int key) => _dataMap[key];
-    public Hero.HeroLevelUpConfigRecord this[int key] => _dataMap[key];
+    public Dota.PropRandomConfigRecord GetOrDefault(int key) => _dataMap.TryGetValue(key, out var v) ? v : null;
+    public Dota.PropRandomConfigRecord Get(int key) => _dataMap[key];
+    public Dota.PropRandomConfigRecord this[int key] => _dataMap[key];
 
     public void Resolve(Dictionary<string, object> _tables)
     {

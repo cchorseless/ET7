@@ -75,12 +75,7 @@ namespace ET.Server
             return null;
         }
 
-        public struct FHeroExpResult
-        {
-            public string HeroConfigId;
-            public int ExpCount;
-            public bool IsFull;
-        }
+
 
         public static (int, string) AddHeroExp(this HeroManageComponent self, string configid, int exp)
         {
@@ -90,19 +85,16 @@ namespace ET.Server
                 return (ErrorCode.ERR_Error, "hero cant find");
             }
 
-            var r = new FHeroExpResult() { ExpCount = exp, HeroConfigId = configid };
             if (hero.IsCanLevelUp())
             {
                 hero.AddExp(exp);
-                r.IsFull = false;
             }
             else
             {
                 self.Character.BagComp.AddTItemOrMoney((int)EMoneyType.ComHeroExp, exp / 2);
-                r.IsFull = true;
             }
 
-            return (ErrorCode.ERR_Success, JsonHelper.ToLitJson(r));
+            return (ErrorCode.ERR_Success, "");
         }
 
         public static (int, string) AddHeroLevelByComHeroExp(this HeroManageComponent self, string configid)

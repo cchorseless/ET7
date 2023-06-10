@@ -9,35 +9,35 @@ using Bright.Serialization;
 using System.Collections.Generic;
 
 
-namespace cfg.Prop
+namespace cfg.Dota
 {
    
 public partial class PropConfig
 {
-    private readonly Dictionary<int, Prop.PropConfigRecord> _dataMap;
-    private readonly List<Prop.PropConfigRecord> _dataList;
+    private readonly Dictionary<int, Dota.PropConfigRecord> _dataMap;
+    private readonly List<Dota.PropConfigRecord> _dataList;
     
     public PropConfig(ByteBuf _buf)
     {
-        _dataMap = new Dictionary<int, Prop.PropConfigRecord>();
-        _dataList = new List<Prop.PropConfigRecord>();
+        _dataMap = new Dictionary<int, Dota.PropConfigRecord>();
+        _dataList = new List<Dota.PropConfigRecord>();
         
         for(int n = _buf.ReadSize() ; n > 0 ; --n)
         {
-            Prop.PropConfigRecord _v;
-            _v = Prop.PropConfigRecord.DeserializePropConfigRecord(_buf);
+            Dota.PropConfigRecord _v;
+            _v = Dota.PropConfigRecord.DeserializePropConfigRecord(_buf);
             _dataList.Add(_v);
             _dataMap.Add(_v.Id, _v);
         }
         PostInit();
     }
 
-    public Dictionary<int, Prop.PropConfigRecord> DataMap => _dataMap;
-    public List<Prop.PropConfigRecord> DataList => _dataList;
+    public Dictionary<int, Dota.PropConfigRecord> DataMap => _dataMap;
+    public List<Dota.PropConfigRecord> DataList => _dataList;
 
-    public Prop.PropConfigRecord GetOrDefault(int key) => _dataMap.TryGetValue(key, out var v) ? v : null;
-    public Prop.PropConfigRecord Get(int key) => _dataMap[key];
-    public Prop.PropConfigRecord this[int key] => _dataMap[key];
+    public Dota.PropConfigRecord GetOrDefault(int key) => _dataMap.TryGetValue(key, out var v) ? v : null;
+    public Dota.PropConfigRecord Get(int key) => _dataMap[key];
+    public Dota.PropConfigRecord this[int key] => _dataMap[key];
 
     public void Resolve(Dictionary<string, object> _tables)
     {

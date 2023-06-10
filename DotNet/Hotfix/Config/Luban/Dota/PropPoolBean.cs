@@ -9,7 +9,7 @@ using Bright.Serialization;
 using System.Collections.Generic;
 
 
-namespace cfg.Prop
+namespace cfg.Dota
 {
 public sealed partial class PropPoolBean :  Bright.Config.BeanBase 
 {
@@ -25,7 +25,7 @@ public sealed partial class PropPoolBean :  Bright.Config.BeanBase
 
     public static PropPoolBean DeserializePropPoolBean(ByteBuf _buf)
     {
-        return new Prop.PropPoolBean(_buf);
+        return new Dota.PropPoolBean(_buf);
     }
 
     /// <summary>
@@ -49,7 +49,7 @@ public sealed partial class PropPoolBean :  Bright.Config.BeanBase
     /// </summary>
     public int PropMin { get; private set; }
 
-    public const int __ID__ = -208561382;
+    public const int __ID__ = 204463205;
     public override int GetTypeId() => __ID__;
 
     public  void Resolve(Dictionary<string, object> _tables)

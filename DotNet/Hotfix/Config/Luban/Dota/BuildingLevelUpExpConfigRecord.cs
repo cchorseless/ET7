@@ -9,47 +9,54 @@ using Bright.Serialization;
 using System.Collections.Generic;
 
 
-namespace cfg.Prop
+namespace cfg.Dota
 {
-public sealed partial class RandomPropConfigRecord :  Bright.Config.BeanBase 
+public sealed partial class BuildingLevelUpExpConfigRecord :  Bright.Config.BeanBase 
 {
-    public RandomPropConfigRecord(ByteBuf _buf) 
+    public BuildingLevelUpExpConfigRecord(ByteBuf _buf) 
     {
         Id = _buf.ReadInt();
-        {int n0 = System.Math.Min(_buf.ReadSize(), _buf.Size);PropPool = new System.Collections.Generic.List<Prop.PropPoolBean>(n0);for(var i0 = 0 ; i0 < n0 ; i0++) { Prop.PropPoolBean _e0;  _e0 = Prop.PropPoolBean.DeserializePropPoolBean(_buf); PropPool.Add(_e0);}}
+        Exp = _buf.ReadInt();
+        TotalTalentPoint = _buf.ReadInt();
         PostInit();
     }
 
-    public static RandomPropConfigRecord DeserializeRandomPropConfigRecord(ByteBuf _buf)
+    public static BuildingLevelUpExpConfigRecord DeserializeBuildingLevelUpExpConfigRecord(ByteBuf _buf)
     {
-        return new Prop.RandomPropConfigRecord(_buf);
+        return new Dota.BuildingLevelUpExpConfigRecord(_buf);
     }
 
     /// <summary>
-    /// 随机属性id
+    /// 等级
     /// </summary>
     public int Id { get; private set; }
-    public System.Collections.Generic.List<Prop.PropPoolBean> PropPool { get; private set; }
+    /// <summary>
+    /// 所需经验
+    /// </summary>
+    public int Exp { get; private set; }
+    /// <summary>
+    /// 天赋总点数
+    /// </summary>
+    public int TotalTalentPoint { get; private set; }
 
-    public const int __ID__ = -838305020;
+    public const int __ID__ = 78790139;
     public override int GetTypeId() => __ID__;
 
     public  void Resolve(Dictionary<string, object> _tables)
     {
-        foreach(var _e in PropPool) { _e?.Resolve(_tables); }
         PostResolve();
     }
 
     public  void TranslateText(System.Func<string, string, string> translator)
     {
-        foreach(var _e in PropPool) { _e?.TranslateText(translator); }
     }
 
     public override string ToString()
     {
         return "{ "
         + "Id:" + Id + ","
-        + "PropPool:" + Bright.Common.StringUtil.CollectionToString(PropPool) + ","
+        + "Exp:" + Exp + ","
+        + "TotalTalentPoint:" + TotalTalentPoint + ","
         + "}";
     }
     

@@ -7,9 +7,9 @@ using Bright.Serialization;
 using ET;
 
 
-namespace cfg.Prop
+namespace cfg.Dota
 {
-    public sealed partial class RandomPropConfigRecord : Bright.Config.BeanBase {
+    public sealed partial class PropRandomConfigRecord : Bright.Config.BeanBase {
 
         public List<PropPoolBean> GetRandomPropId(int count)
         {

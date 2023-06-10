@@ -9,7 +9,7 @@ using Bright.Serialization;
 using System.Collections.Generic;
 
 
-namespace cfg.Prop
+namespace cfg.Dota
 {
 public sealed partial class PropConfigRecord :  Bright.Config.BeanBase 
 {
@@ -23,7 +23,7 @@ public sealed partial class PropConfigRecord :  Bright.Config.BeanBase
 
     public static PropConfigRecord DeserializePropConfigRecord(ByteBuf _buf)
     {
-        return new Prop.PropConfigRecord(_buf);
+        return new Dota.PropConfigRecord(_buf);
     }
 
     /// <summary>
@@ -39,7 +39,7 @@ public sealed partial class PropConfigRecord :  Bright.Config.BeanBase
     /// </summary>
     public string Des { get; private set; }
 
-    public const int __ID__ = -1644002207;
+    public const int __ID__ = -809949140;
     public override int GetTypeId() => __ID__;
 
     public  void Resolve(Dictionary<string, object> _tables)

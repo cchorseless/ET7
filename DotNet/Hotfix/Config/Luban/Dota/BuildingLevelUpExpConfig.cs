@@ -9,35 +9,35 @@ using Bright.Serialization;
 using System.Collections.Generic;
 
 
-namespace cfg.Prop
+namespace cfg.Dota
 {
    
-public partial class RandomPropConfig
+public partial class BuildingLevelUpExpConfig
 {
-    private readonly Dictionary<int, Prop.RandomPropConfigRecord> _dataMap;
-    private readonly List<Prop.RandomPropConfigRecord> _dataList;
+    private readonly Dictionary<int, Dota.BuildingLevelUpExpConfigRecord> _dataMap;
+    private readonly List<Dota.BuildingLevelUpExpConfigRecord> _dataList;
     
-    public RandomPropConfig(ByteBuf _buf)
+    public BuildingLevelUpExpConfig(ByteBuf _buf)
     {
-        _dataMap = new Dictionary<int, Prop.RandomPropConfigRecord>();
-        _dataList = new List<Prop.RandomPropConfigRecord>();
+        _dataMap = new Dictionary<int, Dota.BuildingLevelUpExpConfigRecord>();
+        _dataList = new List<Dota.BuildingLevelUpExpConfigRecord>();
         
         for(int n = _buf.ReadSize() ; n > 0 ; --n)
         {
-            Prop.RandomPropConfigRecord _v;
-            _v = Prop.RandomPropConfigRecord.DeserializeRandomPropConfigRecord(_buf);
+            Dota.BuildingLevelUpExpConfigRecord _v;
+            _v = Dota.BuildingLevelUpExpConfigRecord.DeserializeBuildingLevelUpExpConfigRecord(_buf);
             _dataList.Add(_v);
             _dataMap.Add(_v.Id, _v);
         }
         PostInit();
     }
 
-    public Dictionary<int, Prop.RandomPropConfigRecord> DataMap => _dataMap;
-    public List<Prop.RandomPropConfigRecord> DataList => _dataList;
+    public Dictionary<int, Dota.BuildingLevelUpExpConfigRecord> DataMap => _dataMap;
+    public List<Dota.BuildingLevelUpExpConfigRecord> DataList => _dataList;
 
-    public Prop.RandomPropConfigRecord GetOrDefault(int key) => _dataMap.TryGetValue(key, out var v) ? v : null;
-    public Prop.RandomPropConfigRecord Get(int key) => _dataMap[key];
-    public Prop.RandomPropConfigRecord this[int key] => _dataMap[key];
+    public Dota.BuildingLevelUpExpConfigRecord GetOrDefault(int key) => _dataMap.TryGetValue(key, out var v) ? v : null;
+    public Dota.BuildingLevelUpExpConfigRecord Get(int key) => _dataMap[key];
+    public Dota.BuildingLevelUpExpConfigRecord this[int key] => _dataMap[key];
 
     public void Resolve(Dictionary<string, object> _tables)
     {

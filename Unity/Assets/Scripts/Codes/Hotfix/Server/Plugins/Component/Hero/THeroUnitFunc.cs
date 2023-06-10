@@ -37,8 +37,6 @@ namespace ET.Server
             {
                 self.Exp -= self.GetLevelUpExp();
                 self.Level += 1;
-                self.Character.ActivityComp.GetActivityData<TActivityHeroRecordLevelData>(EActivityType.TActivityHeroRecordLevel)?.AddHeroSumLevel();
-                self.HeroTalentComp.OnHeroLevelUp();
                 self.HeroManageComp.SumHeroLevel += 1;
             }
 
@@ -47,7 +45,7 @@ namespace ET.Server
 
         public static int GetLevelUpExp(this THeroUnit self)
         {
-            var needExp = LuBanConfigComponent.Instance.Config().HeroLevelUpConfig.GetOrDefault(self.Level);
+            var needExp = LuBanConfigComponent.Instance.Config().BuildingLevelUpExpConfig.GetOrDefault(self.Level);
             if (needExp != null)
             {
                 return needExp.Exp;

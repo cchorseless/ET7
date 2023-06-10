@@ -19,13 +19,9 @@ public partial class Tables
     public Item.ItemPrizePoolConfig ItemPrizePoolConfig {get; }
     public Item.ItemPrizePoolGroupConfig ItemPrizePoolGroupConfig {get; }
     public Shop.ShopConfig ShopConfig {get; }
-    public Prop.PropConfig PropConfig {get; }
-    public Prop.RandomPropConfig RandomPropConfig {get; }
     public Activity.ActivityConfig ActivityConfig {get; }
     public Activity.TActivityMonthLogin TActivityMonthLogin {get; }
     public Activity.TActivitySevenDayLogin TActivitySevenDayLogin {get; }
-    public Activity.TActivityBattlePass TActivityBattlePass {get; }
-    public Activity.TActivityHeroRecordLevel TActivityHeroRecordLevel {get; }
     public Activity.TActivityDailyOnlinePrize TActivityDailyOnlinePrize {get; }
     public Activity.TActivityInvestMetaStone TActivityInvestMetaStone {get; }
     public Activity.TActivityTotalGainMetaStone TActivityTotalGainMetaStone {get; }
@@ -33,7 +29,6 @@ public partial class Tables
     public Activity.TActivityTotalSpendMetaStone TActivityTotalSpendMetaStone {get; }
     public Activity.TActivityGiftCommond TActivityGiftCommond {get; }
     public Activity.TActivityMentorshipTree TActivityMentorshipTree {get; }
-    public Hero.HeroLevelUpConfig HeroLevelUpConfig {get; }
     public Season.SeasonConfig SeasonConfig {get; }
     public Rank.RankPrizeConfig RankPrizeConfig {get; }
     public Draw.DrawTreasureConfig DrawTreasureConfig {get; }
@@ -41,6 +36,9 @@ public partial class Tables
     public Title.TitleConfig TitleConfig {get; }
     public Glob.GlobalSetting GlobalSetting {get; }
     public Dota.BuildingLevelUpConfig BuildingLevelUpConfig {get; }
+    public Dota.BuildingLevelUpExpConfig BuildingLevelUpExpConfig {get; }
+    public Dota.PropConfig PropConfig {get; }
+    public Dota.PropRandomConfig PropRandomConfig {get; }
     public Dota.BattlePassChargeConfig BattlePassChargeConfig {get; }
     public Dota.BattlePassTaskConfig BattlePassTaskConfig {get; }
     public Dota.BattlePassLevelUpConfig BattlePassLevelUpConfig {get; }
@@ -62,20 +60,12 @@ public partial class Tables
         tables.Add("Item.ItemPrizePoolGroupConfig", ItemPrizePoolGroupConfig);
         ShopConfig = new Shop.ShopConfig(loader("shop_shopconfig")); 
         tables.Add("Shop.ShopConfig", ShopConfig);
-        PropConfig = new Prop.PropConfig(loader("prop_propconfig")); 
-        tables.Add("Prop.PropConfig", PropConfig);
-        RandomPropConfig = new Prop.RandomPropConfig(loader("prop_randompropconfig")); 
-        tables.Add("Prop.RandomPropConfig", RandomPropConfig);
         ActivityConfig = new Activity.ActivityConfig(loader("activity_activityconfig")); 
         tables.Add("Activity.ActivityConfig", ActivityConfig);
         TActivityMonthLogin = new Activity.TActivityMonthLogin(loader("activity_tactivitymonthlogin")); 
         tables.Add("Activity.TActivityMonthLogin", TActivityMonthLogin);
         TActivitySevenDayLogin = new Activity.TActivitySevenDayLogin(loader("activity_tactivitysevendaylogin")); 
         tables.Add("Activity.TActivitySevenDayLogin", TActivitySevenDayLogin);
-        TActivityBattlePass = new Activity.TActivityBattlePass(loader("activity_tactivitybattlepass")); 
-        tables.Add("Activity.TActivityBattlePass", TActivityBattlePass);
-        TActivityHeroRecordLevel = new Activity.TActivityHeroRecordLevel(loader("activity_tactivityherorecordlevel")); 
-        tables.Add("Activity.TActivityHeroRecordLevel", TActivityHeroRecordLevel);
         TActivityDailyOnlinePrize = new Activity.TActivityDailyOnlinePrize(loader("activity_tactivitydailyonlineprize")); 
         tables.Add("Activity.TActivityDailyOnlinePrize", TActivityDailyOnlinePrize);
         TActivityInvestMetaStone = new Activity.TActivityInvestMetaStone(loader("activity_tactivityinvestmetastone")); 
@@ -90,8 +80,6 @@ public partial class Tables
         tables.Add("Activity.TActivityGiftCommond", TActivityGiftCommond);
         TActivityMentorshipTree = new Activity.TActivityMentorshipTree(loader("activity_tactivitymentorshiptree")); 
         tables.Add("Activity.TActivityMentorshipTree", TActivityMentorshipTree);
-        HeroLevelUpConfig = new Hero.HeroLevelUpConfig(loader("hero_herolevelupconfig")); 
-        tables.Add("Hero.HeroLevelUpConfig", HeroLevelUpConfig);
         SeasonConfig = new Season.SeasonConfig(loader("season_seasonconfig")); 
         tables.Add("Season.SeasonConfig", SeasonConfig);
         RankPrizeConfig = new Rank.RankPrizeConfig(loader("rank_rankprizeconfig")); 
@@ -106,6 +94,12 @@ public partial class Tables
         tables.Add("Glob.GlobalSetting", GlobalSetting);
         BuildingLevelUpConfig = new Dota.BuildingLevelUpConfig(loader("dota_buildinglevelupconfig")); 
         tables.Add("Dota.BuildingLevelUpConfig", BuildingLevelUpConfig);
+        BuildingLevelUpExpConfig = new Dota.BuildingLevelUpExpConfig(loader("dota_buildinglevelupexpconfig")); 
+        tables.Add("Dota.BuildingLevelUpExpConfig", BuildingLevelUpExpConfig);
+        PropConfig = new Dota.PropConfig(loader("dota_propconfig")); 
+        tables.Add("Dota.PropConfig", PropConfig);
+        PropRandomConfig = new Dota.PropRandomConfig(loader("dota_proprandomconfig")); 
+        tables.Add("Dota.PropRandomConfig", PropRandomConfig);
         BattlePassChargeConfig = new Dota.BattlePassChargeConfig(loader("dota_battlepasschargeconfig")); 
         tables.Add("Dota.BattlePassChargeConfig", BattlePassChargeConfig);
         BattlePassTaskConfig = new Dota.BattlePassTaskConfig(loader("dota_battlepasstaskconfig")); 
@@ -124,13 +118,9 @@ public partial class Tables
         ItemPrizePoolConfig.Resolve(tables); 
         ItemPrizePoolGroupConfig.Resolve(tables); 
         ShopConfig.Resolve(tables); 
-        PropConfig.Resolve(tables); 
-        RandomPropConfig.Resolve(tables); 
         ActivityConfig.Resolve(tables); 
         TActivityMonthLogin.Resolve(tables); 
         TActivitySevenDayLogin.Resolve(tables); 
-        TActivityBattlePass.Resolve(tables); 
-        TActivityHeroRecordLevel.Resolve(tables); 
         TActivityDailyOnlinePrize.Resolve(tables); 
         TActivityInvestMetaStone.Resolve(tables); 
         TActivityTotalGainMetaStone.Resolve(tables); 
@@ -138,7 +128,6 @@ public partial class Tables
         TActivityTotalSpendMetaStone.Resolve(tables); 
         TActivityGiftCommond.Resolve(tables); 
         TActivityMentorshipTree.Resolve(tables); 
-        HeroLevelUpConfig.Resolve(tables); 
         SeasonConfig.Resolve(tables); 
         RankPrizeConfig.Resolve(tables); 
         DrawTreasureConfig.Resolve(tables); 
@@ -146,6 +135,9 @@ public partial class Tables
         TitleConfig.Resolve(tables); 
         GlobalSetting.Resolve(tables); 
         BuildingLevelUpConfig.Resolve(tables); 
+        BuildingLevelUpExpConfig.Resolve(tables); 
+        PropConfig.Resolve(tables); 
+        PropRandomConfig.Resolve(tables); 
         BattlePassChargeConfig.Resolve(tables); 
         BattlePassTaskConfig.Resolve(tables); 
         BattlePassLevelUpConfig.Resolve(tables); 
@@ -162,13 +154,9 @@ public partial class Tables
         ItemPrizePoolConfig.TranslateText(translator); 
         ItemPrizePoolGroupConfig.TranslateText(translator); 
         ShopConfig.TranslateText(translator); 
-        PropConfig.TranslateText(translator); 
-        RandomPropConfig.TranslateText(translator); 
         ActivityConfig.TranslateText(translator); 
         TActivityMonthLogin.TranslateText(translator); 
         TActivitySevenDayLogin.TranslateText(translator); 
-        TActivityBattlePass.TranslateText(translator); 
-        TActivityHeroRecordLevel.TranslateText(translator); 
         TActivityDailyOnlinePrize.TranslateText(translator); 
         TActivityInvestMetaStone.TranslateText(translator); 
         TActivityTotalGainMetaStone.TranslateText(translator); 
@@ -176,7 +164,6 @@ public partial class Tables
         TActivityTotalSpendMetaStone.TranslateText(translator); 
         TActivityGiftCommond.TranslateText(translator); 
         TActivityMentorshipTree.TranslateText(translator); 
-        HeroLevelUpConfig.TranslateText(translator); 
         SeasonConfig.TranslateText(translator); 
         RankPrizeConfig.TranslateText(translator); 
         DrawTreasureConfig.TranslateText(translator); 
@@ -184,6 +171,9 @@ public partial class Tables
         TitleConfig.TranslateText(translator); 
         GlobalSetting.TranslateText(translator); 
         BuildingLevelUpConfig.TranslateText(translator); 
+        BuildingLevelUpExpConfig.TranslateText(translator); 
+        PropConfig.TranslateText(translator); 
+        PropRandomConfig.TranslateText(translator); 
         BattlePassChargeConfig.TranslateText(translator); 
         BattlePassTaskConfig.TranslateText(translator); 
         BattlePassLevelUpConfig.TranslateText(translator); 

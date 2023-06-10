@@ -22,9 +22,11 @@ namespace ET.Server
                     len--;
                 }
             }
-         // 处理关卡难度
-         self.RefreshRankCharpter();
+
+            // 处理关卡难度
+            self.RefreshRankCharpter();
         }
+
         public static void RefreshRankCharpter(this BagComponent self)
         {
             var serverzone = self.Character.GetMyServerZone();
@@ -33,6 +35,7 @@ namespace ET.Server
             var score = self.DifficultyChapter * 1000 + self.DifficultyLevel;
             seasonCharpterRank.UpdateRankData(self.Character.Id, self.Character.Name, score);
         }
+
         public static bool CanOverLayMany(this BagComponent self, int configid)
         {
             var item = LuBanConfigComponent.Instance.Config().ItemConfig.GetOrDefault(configid);
@@ -170,7 +173,6 @@ namespace ET.Server
             }
         }
 
-
         public static (int, string) AddTItemOrMoney(this BagComponent self, List<FItemInfo> itemsInfo)
         {
             if (self.IsFullForItems(itemsInfo))
@@ -182,20 +184,21 @@ namespace ET.Server
             itemsInfo.ForEach(item =>
             {
                 var result = self.AddTItemOrMoney(item.ItemConfigId, item.ItemCount);
-                if (result.Item1)
+                if (result.Item1 == ErrorCode.ERR_Success)
                 {
-                    r.Add(new FItemInfo( item.ItemConfigId, item.ItemCount));
+                    r.Add(new FItemInfo(item.ItemConfigId, item.ItemCount));
                 }
             });
             return (ErrorCode.ERR_Success, r.ToListString());
         }
 
-        public static (bool, long) AddTItemOrMoney(this BagComponent self, int configid, int count = 1)
+        public static (int, string) AddTItemOrMoney(this BagComponent self, int configid, int count = 1)
         {
+            var itemInfo = new FItemInfo(configid, count);
             if (configid < EMoneyType.MoneyMax)
             {
                 self.Character.DataComp.ChangeNumeric(configid, count);
-                return (true, 0);
+                return (ErrorCode.ERR_Success, itemInfo.ToString());
             }
             else
             {
@@ -208,11 +211,11 @@ namespace ET.Server
                         self.Character.SyncHttpEntity(item);
                     }
 
-                    return (true, item.Id);
+                    return (ErrorCode.ERR_Success, itemInfo.ToString());
                 }
                 else
                 {
-                    return (false, 0);
+                    return (ErrorCode.ERR_Error, "Add item fail");
                 }
             }
         }

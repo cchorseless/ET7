@@ -40,7 +40,7 @@ namespace ET.Server
                     i = 0;
                 }
                 int configid = randomPropPoolid[i];
-                var config = LuBanConfigComponent.Instance.Config().RandomPropConfig.GetOrDefault(configid);
+                var config = LuBanConfigComponent.Instance.Config().PropRandomConfig.GetOrDefault(configid);
                 if (config != null)
                 {
                     var propInfo = config.GetOneRandomPropId();
