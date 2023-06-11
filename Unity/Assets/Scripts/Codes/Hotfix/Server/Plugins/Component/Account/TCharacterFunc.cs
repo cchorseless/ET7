@@ -10,7 +10,7 @@ namespace ET.Server
         protected override void Destroy(TCharacter self)
         {
             self.GetMyServerZone()?.CharacterComp.Remove(self.Id);
-            self.PartialOnlineTime += TimeHelper.ServerNow() - self.LastLoginTime;
+            self.TodayOnlineTime += TimeHelper.ServerNow() - self.LastLoginTime;
         }
     }
 
@@ -128,10 +128,6 @@ namespace ET.Server
             }
         }
 
-        public static long TodayTotalOnlineTime(this TCharacter self)
-        {
-            return self.PartialOnlineTime + TimeHelper.ServerNow() - self.LastLoginTime;
-        }
 
         public static Player GetMyPlayer(this TCharacter self)
         {

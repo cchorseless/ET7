@@ -65,8 +65,8 @@ namespace ET.Server
             if (addResult.Item1 == ErrorCode.ERR_Success)
             {
                 activityData.ItemHadGet.Add(dayIndex);
+                character.SyncHttpEntity(activityData);
             }
-
             return addResult;
         }
     }

@@ -327,7 +327,7 @@ namespace ET
 		public int RpcId { get; set; }
 
 		[ProtoMember(1)]
-		public int GiftConfigId { get; set; }
+		public string GiftConfigId { get; set; }
 
 	}
 

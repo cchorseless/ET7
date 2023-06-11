@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ET
 {
-    public class TActivityGiftCommondItem : Entity, IAwake<int>, ISerializeToEntity
+    public class TActivityGiftCommondItem : Entity, IAwake<string>, ISerializeToEntity
     {
-        public int ConfigId;
+        public string ConfigId;
         public int GiftCost;
         public int GiftMax;
     }

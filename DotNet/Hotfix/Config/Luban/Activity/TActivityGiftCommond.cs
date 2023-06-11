@@ -14,12 +14,12 @@ namespace cfg.Activity
    
 public partial class TActivityGiftCommond
 {
-    private readonly Dictionary<int, Activity.TActivityGiftCommondRecord> _dataMap;
+    private readonly Dictionary<string, Activity.TActivityGiftCommondRecord> _dataMap;
     private readonly List<Activity.TActivityGiftCommondRecord> _dataList;
     
     public TActivityGiftCommond(ByteBuf _buf)
     {
-        _dataMap = new Dictionary<int, Activity.TActivityGiftCommondRecord>();
+        _dataMap = new Dictionary<string, Activity.TActivityGiftCommondRecord>();
         _dataList = new List<Activity.TActivityGiftCommondRecord>();
         
         for(int n = _buf.ReadSize() ; n > 0 ; --n)
@@ -32,12 +32,12 @@ public partial class TActivityGiftCommond
         PostInit();
     }
 
-    public Dictionary<int, Activity.TActivityGiftCommondRecord> DataMap => _dataMap;
+    public Dictionary<string, Activity.TActivityGiftCommondRecord> DataMap => _dataMap;
     public List<Activity.TActivityGiftCommondRecord> DataList => _dataList;
 
-    public Activity.TActivityGiftCommondRecord GetOrDefault(int key) => _dataMap.TryGetValue(key, out var v) ? v : null;
-    public Activity.TActivityGiftCommondRecord Get(int key) => _dataMap[key];
-    public Activity.TActivityGiftCommondRecord this[int key] => _dataMap[key];
+    public Activity.TActivityGiftCommondRecord GetOrDefault(string key) => _dataMap.TryGetValue(key, out var v) ? v : null;
+    public Activity.TActivityGiftCommondRecord Get(string key) => _dataMap[key];
+    public Activity.TActivityGiftCommondRecord this[string key] => _dataMap[key];
 
     public void Resolve(Dictionary<string, object> _tables)
     {

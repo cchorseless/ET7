@@ -15,9 +15,8 @@ public sealed partial class TActivityGiftCommondRecord :  Bright.Config.BeanBase
 {
     public TActivityGiftCommondRecord(ByteBuf _buf) 
     {
-        Id = _buf.ReadInt();
+        Id = _buf.ReadString();
         IsValid = _buf.ReadBool();
-        GiftCommond = _buf.ReadString();
         GiftCount = _buf.ReadInt();
         ActivityStartTime = _buf.ReadLong();
         ActivityEndTime = _buf.ReadLong();
@@ -33,15 +32,11 @@ public sealed partial class TActivityGiftCommondRecord :  Bright.Config.BeanBase
     /// <summary>
     /// 礼包Id
     /// </summary>
-    public int Id { get; private set; }
+    public string Id { get; private set; }
     /// <summary>
     /// 是否有效
     /// </summary>
     public bool IsValid { get; private set; }
-    /// <summary>
-    /// 礼包口令
-    /// </summary>
-    public string GiftCommond { get; private set; }
     /// <summary>
     /// 礼包数量
     /// </summary>
@@ -77,7 +72,6 @@ public sealed partial class TActivityGiftCommondRecord :  Bright.Config.BeanBase
         return "{ "
         + "Id:" + Id + ","
         + "IsValid:" + IsValid + ","
-        + "GiftCommond:" + GiftCommond + ","
         + "GiftCount:" + GiftCount + ","
         + "ActivityStartTime:" + ActivityStartTime + ","
         + "ActivityEndTime:" + ActivityEndTime + ","

@@ -47,7 +47,7 @@ namespace ET.Server
                 character.IsFirstLoginSeason = false;
                 if (character.IsFirstLoginToday)
                 {
-                    character.PartialOnlineTime = 0;
+                    character.TodayOnlineTime = 0;
                     var lastWeek = TimeHelper.WeekCount(TimeInfo.Instance.ToDateTime(character.LastLoginTime));
                     character.IsFirstLoginWeek = lastWeek < TimeHelper.WeekCount(TimeHelper.DateTimeNow());
                     // Log.Console($"  {character.ServerID} --- {character.GetMyServerZone() == null}");

@@ -9,6 +9,6 @@ namespace ET
     public class TActivityGiftCommondData : TActivityData
     {
         [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
-        public Dictionary<int, long> GiftCommonds = new Dictionary<int, long>();
+        public Dictionary<string, long> GiftCommonds = new Dictionary<string, long>();
     }
 }

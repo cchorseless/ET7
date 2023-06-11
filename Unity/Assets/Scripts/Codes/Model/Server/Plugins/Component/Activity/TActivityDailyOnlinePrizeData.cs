@@ -9,9 +9,9 @@ namespace ET
 {
     public class TActivityDailyOnlinePrizeData : TActivityData
     {
-        [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
-        public Dictionary<int, int> ItemState = new Dictionary<int, int>();
+        public List<int> ItemHadGet = new List<int>();
 
+        public long LoginTimeSpan;
         [BsonIgnore]
         public CharacterActivityComponent ActivityComp { get=>GetParent<CharacterActivityComponent>();}
     }

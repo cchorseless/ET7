@@ -11,13 +11,15 @@ namespace ET.Server
     {
         public const short TActivitySevenDayLogin = 1;
         public const short TActivityMonthLogin = 2;
-        public const short TActivityDailyOnlinePrize = 6;
-        public const short TActivityInvestMetaStone = 7;
-        public const short TActivityTotalGainMetaStone = 8;
-        public const short TActivityTotalOnlineTime = 9;
-        public const short TActivityTotalSpendMetaStone = 10;
-        public const short TActivityGiftCommond = 11;
-        public const short TActivityMentorshipTree = 12;
+        public const short TActivityDailyOnlinePrize = 3;
+        public const short TActivityInvestMetaStone = 4;
+        public const short TActivityTotalGainMetaStone = 5;
+        public const short TActivityGiftCommond = 6;
+        public const short TActivityFirstCharge = 7;
+        public const short TActivityTotalOnlineTime = 8;
+        public const short TActivityTotalSpendMetaStone = 9;
+        public const short TActivityMentorshipTree = 10;
+   
         public const short ServerZoneActivityMax = 1000;
 
     }

@@ -74,6 +74,9 @@ namespace ET.Server
                 case EActivityType.TActivityMonthLogin:
                     self.UpdateActivity<TActivityMonthLogin>(activityconfigid);
                     break;
+                case EActivityType.TActivityFirstCharge:
+                    self.UpdateActivity<TActivityFirstCharge>(activityconfigid);
+                    break;
                 case EActivityType.TActivityDailyOnlinePrize:
                     self.UpdateActivity<TActivityDailyOnlinePrize>(activityconfigid);
                     break;
@@ -154,6 +157,10 @@ namespace ET.Server
             else if (activity is TActivityDailyOnlinePrize)
             {
                 (activity as TActivityDailyOnlinePrize).LoadAllChild();
+            }
+            else if (activity is TActivityFirstCharge)
+            {
+                (activity as TActivityFirstCharge).LoadAllChild();
             }
             else if (activity is TActivityInvestMetaStone)
             {

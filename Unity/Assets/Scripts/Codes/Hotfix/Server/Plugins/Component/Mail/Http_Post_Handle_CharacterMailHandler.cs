@@ -7,7 +7,7 @@ using System.Text;
 namespace ET.Server
 {
     [HttpHandler(SceneType.Gate, "/Handle_CharacterMail")]
-    public class Http_Post_Handle_CharacterMailHandler : HttpPostHandler<C2H_Handle_CharacterMail, H2C_CommonResponse>
+    public class Http_Post_Handle_CharacterMailHandler: HttpPostHandler<C2H_Handle_CharacterMail, H2C_CommonResponse>
     {
         protected override async ETTask Run(Entity domain, C2H_Handle_CharacterMail request, H2C_CommonResponse response, long playerid)
         {
@@ -15,7 +15,7 @@ namespace ET.Server
             PlayerComponent playerComponent = scene.GetComponent<PlayerComponent>();
             Player player = playerComponent.Get(playerid);
             var character = player.GetMyCharacter();
-            if ( character.MailComp != null)
+            if (character.MailComp != null)
             {
                 if (request.IsOneKey)
                 {
@@ -34,7 +34,7 @@ namespace ET.Server
                 }
                 else
                 {
-                    if(long.TryParse(request.MailId, out var mailId))
+                    if (long.TryParse(request.MailId, out var mailId))
                     {
                         switch (request.HandleType)
                         {
@@ -51,6 +51,7 @@ namespace ET.Server
                     }
                 }
             }
+
             await ETTask.CompletedTask;
         }
     }

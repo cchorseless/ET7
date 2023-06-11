@@ -33,7 +33,7 @@ namespace ET.Server
                 {
                     if (!self.Gifts.ContainsKey(info.Id))
                     {
-                        var gift = self.AddChild<TActivityGiftCommondItem, int>(info.Id);
+                        var gift = self.AddChild<TActivityGiftCommondItem, string>(info.Id);
                         self.Gifts.Add(info.Id, gift.Id);
                         gift.LoadAllChild();
                     }
@@ -41,8 +41,12 @@ namespace ET.Server
             });
         }
 
-        public static (int, string) GetPrize(this TActivityGiftCommond self, TCharacter character, int giftConfigId)
+        public static (int, string) GetPrize(this TActivityGiftCommond self, TCharacter character, string giftConfigId)
         {
+            if (string.IsNullOrEmpty(giftConfigId))
+            {
+                return (ErrorCode.ERR_Error, "giftConfigId not valid");
+            }
             if (!self.IsValid())
             {
                 return (ErrorCode.ERR_Error, "active not valid");

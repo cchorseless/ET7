@@ -18,10 +18,7 @@ namespace ET.Server
                 if (!self.Items.ContainsKey(item.Id))
                 {
                     var itemList = new List<FItemInfo>();
-                    item.ItemGroup.ForEach(_info =>
-                    {
-                        itemList.Add(new FItemInfo(_info.ItemConfigId, _info.ItemCount));
-                    });
+                    item.ItemGroup.ForEach(_info => { itemList.Add(new FItemInfo(_info.ItemConfigId, _info.ItemCount)); });
                     self.Items.Add(item.Id, itemList);
                 }
             });
@@ -33,40 +30,36 @@ namespace ET.Server
             {
                 return (ErrorCode.ERR_Error, "active not valid");
             }
+
             if (!self.Items.TryGetValue(onlineTime, out var prizeItem))
             {
                 return (ErrorCode.ERR_Error, "dayIndex not valid");
             }
+
             var activityData = character.ActivityComp.GetActivityData<TActivityDailyOnlinePrizeData>(EActivityType.TActivityDailyOnlinePrize);
             if (activityData == null || !activityData.IsValid())
             {
                 return (ErrorCode.ERR_Error, "activityData not valid");
             }
-            if (activityData.ItemState.TryGetValue(onlineTime, out var itemPrizeState))
+
+            if (activityData.ItemHadGet.Contains(onlineTime))
             {
-                if (itemPrizeState == (int)EItemPrizeState.HadGet)
-                {
-                    return (ErrorCode.ERR_Error, "activityData had Get");
-                }
-                else if (itemPrizeState == (int)EItemPrizeState.CanNotGet)
-                {
-                    return (ErrorCode.ERR_Error, "activityData CanNotGet");
-                }
-                else if (itemPrizeState == (int)EItemPrizeState.OutOfDate)
-                {
-                    return (ErrorCode.ERR_Error, "activityData OutOfDate");
-                }
-                else if (itemPrizeState == (int)EItemPrizeState.CanGet)
-                {
-                    var addResult = character.BagComp.AddTItemOrMoney(prizeItem);
-                    if (addResult.Item1 == ErrorCode.ERR_Success)
-                    {
-                        activityData.ItemState[onlineTime] = (int)EItemPrizeState.HadGet;
-                    }
-                    return addResult;
-                }
+                return (ErrorCode.ERR_Error, "activityData had Get");
             }
-            return (ErrorCode.ERR_Error, "no activity data");
+            
+            if (activityData.GetSecTodayOnlineTime() < onlineTime)
+            {
+                return (ErrorCode.ERR_Error, "time not enough");
+            }
+            
+            var addResult = character.BagComp.AddTItemOrMoney(prizeItem);
+            if (addResult.Item1 == ErrorCode.ERR_Success)
+            {
+                activityData.ItemHadGet.Add(onlineTime);
+                character.SyncHttpEntity(activityData);
+            }
+
+            return addResult;
         }
     }
 }

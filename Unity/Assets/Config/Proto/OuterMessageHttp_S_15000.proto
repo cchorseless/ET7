@@ -163,7 +163,7 @@ message C2H_GetPrize_ActivityInvestMetaStone // IRequest
 message C2H_GetPrize_ActivityGiftCommond // IRequest
 {
   int32  RpcId = 90;
-  int32  GiftConfigId = 1;
+  string  GiftConfigId = 1;
 }
 
 

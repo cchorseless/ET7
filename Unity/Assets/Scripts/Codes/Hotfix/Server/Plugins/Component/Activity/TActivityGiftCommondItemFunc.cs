@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace ET.Server
 {
     [ObjectSystem]
-    public class TActivityGiftCommondItemAwakeSystem : AwakeSystem<TActivityGiftCommondItem, int>
+    public class TActivityGiftCommondItemAwakeSystem : AwakeSystem<TActivityGiftCommondItem, string>
     {
-        protected override void Awake(TActivityGiftCommondItem self, int configId)
+        protected override void Awake(TActivityGiftCommondItem self, string configId)
         {
             self.ConfigId = configId;
         }

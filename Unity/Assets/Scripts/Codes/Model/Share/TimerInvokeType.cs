@@ -15,7 +15,6 @@
         public const int SessionAcceptTimeout = 203;
         public const int RoomCheckEmptyTimeout = 204;
 
-        public const int TActivityDailyOnlinePrize = 2000;
         public const int CharacterTitleItem = 2001;
         public const int ServerZoneHourPlan = 3000;
         public const int ServerZoneDailyPlan = 3001;
