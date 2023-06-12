@@ -359,14 +359,16 @@ namespace ET.Server
 
         public static int GetTItemCount(this BagComponent self, int configid)
         {
+            if (configid < EMoneyType.MoneyMax)
+            {
+                return self.Character.DataComp.GetCoinCount(configid);
+            }
+
             var itemtype = self.GetItemType(configid);
             switch (itemtype)
             {
                 case cfg.EEnum.EItemType.Equip:
                     return self.GetTItemCount<TEquipItem>(configid);
-
-                //case EItemType.Money:
-                //    return self.GetTItemCount<TMoneyItem>(configid);
 
                 case cfg.EEnum.EItemType.None:
                 default:

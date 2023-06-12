@@ -12,6 +12,7 @@ namespace ET.Server
         protected override void Awake(TActivityGiftCommondItem self, string configId)
         {
             self.ConfigId = configId;
+            self.Des = self.ActivityGiftConfig().Des;
         }
     }
     public static class TActivityGiftCommondItemFunc
@@ -19,6 +20,7 @@ namespace ET.Server
         public static void LoadAllChild(this TActivityGiftCommondItem self)
         {
             self.GiftMax = self.ActivityGiftConfig().GiftCount;
+            self.IsShowUI = self.ActivityGiftConfig().BindMonthIndex == TimeHelper.DateTimeNow().Month;
         }
 
         public static cfg.Activity.TActivityGiftCommondRecord ActivityGiftConfig(this TActivityGiftCommondItem self)

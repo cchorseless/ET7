@@ -7,12 +7,17 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace ET
 {
-    public class TActivityDailyOnlinePrizeData : TActivityData
+    public class TActivityDailyOnlinePrizeData: TActivityData, IDestroy
     {
         public List<int> ItemHadGet = new List<int>();
 
         public long LoginTimeSpan;
+        public long TodayOnlineTime;
+
         [BsonIgnore]
-        public CharacterActivityComponent ActivityComp { get=>GetParent<CharacterActivityComponent>();}
+        public CharacterActivityComponent ActivityComp
+        {
+            get => GetParent<CharacterActivityComponent>();
+        }
     }
 }

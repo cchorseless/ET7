@@ -10,7 +10,7 @@ namespace ET
         public long Int64PlayerId { get; set; }
         public long CreateTime { get; set; }
         public long LastLoginTime { get; set; }
-        public long TodayOnlineTime { get; set; }
+
         public bool IsFirstLoginToday { get; set; }
         public bool IsFirstLoginWeek { get; set; }
         public bool IsFirstLoginSeason { get; set; }

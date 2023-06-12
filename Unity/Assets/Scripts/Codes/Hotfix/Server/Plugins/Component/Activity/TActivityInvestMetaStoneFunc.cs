@@ -12,11 +12,10 @@ namespace ET.Server
         {
             self.Items.Clear();
             var curTime = TimeHelper.ServerNow() / 1000;
-            var data = LuBanConfigComponent.Instance.Config().TActivityInvestMetaStone.DataList.Find(
-                record =>
-                {
-                    return record.ActivityStartTime <= curTime && curTime <= (record.ActivityEndTime);
-                });
+            var data = LuBanConfigComponent.Instance.Config().TActivityInvestMetaStone.DataList.Find(record =>
+            {
+                return record.ActivityStartTime <= curTime && curTime <= (record.ActivityEndTime);
+            });
 
             if (data != null)
             {
@@ -33,28 +32,36 @@ namespace ET.Server
             }
         }
 
-
         public static (int, string) GetPrize(this TActivityInvestMetaStone self, TCharacter character, int metaStoneCount)
         {
             if (!self.IsValid())
             {
                 return (ErrorCode.ERR_Error, "active not valid");
             }
+
             if (!self.Items.TryGetValue(metaStoneCount, out var info))
             {
                 return (ErrorCode.ERR_Error, "dayIndex not valid");
             }
+
+            if (metaStoneCount > character.BagComp.GetTItemCount((int)EMoneyType.MetaStone))
+            {
+                return (ErrorCode.ERR_Error, "metaStone not enough");
+            }
+
             var activityData = character.ActivityComp.GetActivityData<TActivityInvestMetaStoneData>(EActivityType.TActivityInvestMetaStone);
             if (activityData == null || !activityData.IsValid())
             {
                 return (ErrorCode.ERR_Error, "activityData not valid");
             }
+
             if (activityData.ItemState.ContainsKey(metaStoneCount))
             {
                 return (ErrorCode.ERR_Error, "activityData had Get");
             }
+
             var keys = self.Items.Keys.ToList();
-            keys.Sort();
+            keys.Sort((a, b) => a - b);
             var index = keys.IndexOf(metaStoneCount);
             if (index > 0)
             {
@@ -64,9 +71,11 @@ namespace ET.Server
                     return (ErrorCode.ERR_Error, "last activityData not Get");
                 }
             }
+
             int metaGet = RandomGenerator.RandomNumber(info.ItemConfigId, info.ItemCount);
             activityData.ItemState.Add(metaStoneCount, metaGet);
-            character.BagComp.AddTItemOrMoney((int)EMoneyType.MetaStone, metaGet);
+            character.BagComp.AddTItemOrMoney((int)EMoneyType.MetaStone, metaGet - metaStoneCount);
+            character.SyncHttpEntity(activityData);
             return (ErrorCode.ERR_Success, "" + metaGet);
         }
     }

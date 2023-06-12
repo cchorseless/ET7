@@ -10,7 +10,6 @@ namespace ET.Server
         protected override void Destroy(TCharacter self)
         {
             self.GetMyServerZone()?.CharacterComp.Remove(self.Id);
-            self.TodayOnlineTime += TimeHelper.ServerNow() - self.LastLoginTime;
         }
     }
 

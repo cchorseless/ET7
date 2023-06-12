@@ -16,8 +16,10 @@ public sealed partial class TActivityGiftCommondRecord :  Bright.Config.BeanBase
     public TActivityGiftCommondRecord(ByteBuf _buf) 
     {
         Id = _buf.ReadString();
+        Des = _buf.ReadString();
         IsValid = _buf.ReadBool();
         GiftCount = _buf.ReadInt();
+        BindMonthIndex = _buf.ReadInt();
         ActivityStartTime = _buf.ReadLong();
         ActivityEndTime = _buf.ReadLong();
         {int n0 = System.Math.Min(_buf.ReadSize(), _buf.Size);ItemGroup = new System.Collections.Generic.List<Item.ItemInfoBean>(n0);for(var i0 = 0 ; i0 < n0 ; i0++) { Item.ItemInfoBean _e0;  _e0 = Item.ItemInfoBean.DeserializeItemInfoBean(_buf); ItemGroup.Add(_e0);}}
@@ -34,6 +36,10 @@ public sealed partial class TActivityGiftCommondRecord :  Bright.Config.BeanBase
     /// </summary>
     public string Id { get; private set; }
     /// <summary>
+    /// 礼包描述
+    /// </summary>
+    public string Des { get; private set; }
+    /// <summary>
     /// 是否有效
     /// </summary>
     public bool IsValid { get; private set; }
@@ -41,6 +47,10 @@ public sealed partial class TActivityGiftCommondRecord :  Bright.Config.BeanBase
     /// 礼包数量
     /// </summary>
     public int GiftCount { get; private set; }
+    /// <summary>
+    /// 显示绑定的月份
+    /// </summary>
+    public int BindMonthIndex { get; private set; }
     /// <summary>
     /// 开启时间
     /// </summary>
@@ -71,8 +81,10 @@ public sealed partial class TActivityGiftCommondRecord :  Bright.Config.BeanBase
     {
         return "{ "
         + "Id:" + Id + ","
+        + "Des:" + Des + ","
         + "IsValid:" + IsValid + ","
         + "GiftCount:" + GiftCount + ","
+        + "BindMonthIndex:" + BindMonthIndex + ","
         + "ActivityStartTime:" + ActivityStartTime + ","
         + "ActivityEndTime:" + ActivityEndTime + ","
         + "ItemGroup:" + Bright.Common.StringUtil.CollectionToString(ItemGroup) + ","

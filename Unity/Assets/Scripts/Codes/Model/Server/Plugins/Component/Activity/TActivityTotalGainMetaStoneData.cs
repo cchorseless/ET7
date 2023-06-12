@@ -9,11 +9,10 @@ namespace ET
 {
     public class TActivityTotalGainMetaStoneData : TActivityData
     {
-        [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
-        public Dictionary<int, int> ItemState = new Dictionary<int, int>();
+        public List<int> ItemHadGet = new List<int>();
 
-        public int TotalGainMetaStone;
-
+        public int TotalChargeMoney;
+        public int SeasonConfigId;
         [BsonIgnore]
         public CharacterActivityComponent ActivityComp { get=>GetParent<CharacterActivityComponent>();}
     }

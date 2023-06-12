@@ -37,12 +37,11 @@ namespace ET.Server
         public const int SeasonDataMax = 999;
 
         public const int MoneyMax = 1000;
-
     }
 
-    [FriendOf(typeof(CharacterDataComponent))]
-    [FriendOf(typeof(NumericComponent))]
-    [FriendOf(typeof(CharacterInGameDataComponent))]
+    [FriendOf(typeof (CharacterDataComponent))]
+    [FriendOf(typeof (NumericComponent))]
+    [FriendOf(typeof (CharacterInGameDataComponent))]
     public static class CharacterDataComponentFunc
     {
         public static void LoadAllChild(this CharacterDataComponent self)
@@ -71,19 +70,17 @@ namespace ET.Server
                     }
                 }
             }
+
             if (!self.NumericComp.NumericDic.ContainsKey(EMoneyType.MetaStone))
             {
                 self.SetNumeric(EMoneyType.MetaStone, 1000000);
             }
+
             if (!self.NumericComp.NumericDic.ContainsKey(EMoneyType.StarStone))
             {
                 self.SetNumeric(EMoneyType.StarStone, 1000000);
             }
-
         }
-
-
-
 
         public static void SetNumeric(this CharacterDataComponent self, int numericType, int value)
         {
@@ -103,6 +100,7 @@ namespace ET.Server
                 self.ChangeInGameData(numericType, value);
             }
         }
+
         public static void ChangeNumeric(this CharacterDataComponent self, int numericType, int value)
         {
             if (numericType > EMoneyType.InGameMax)
@@ -116,6 +114,7 @@ namespace ET.Server
                 {
                     self.NumericComp.SetNoEvent(numericType, cur);
                 }
+
                 self.Character.SyncHttpEntity(self.NumericComp);
             }
             else
@@ -123,11 +122,16 @@ namespace ET.Server
                 self.ChangeInGameData(numericType, value);
             }
         }
+
         public static bool GreaterThan(this CharacterDataComponent self, int numericType, int value)
         {
             return self.NumericComp.GetAsInt(numericType) >= value;
         }
 
+        public static int GetCoinCount(this CharacterDataComponent self, int numericType)
+        {
+            return self.NumericComp.GetAsInt(numericType);
+        }
 
         public static (int, string) UploadGameRecord(this CharacterDataComponent self, Dictionary<string, string> record)
         {
@@ -142,10 +146,10 @@ namespace ET.Server
                     self.GameRecord.Add(kv.Key, kv.Value);
                 }
             }
+
             self.Character.SyncHttpEntity(self);
             return (ErrorCode.ERR_Success, "");
         }
-
 
         public static void ChangeInGameData(this CharacterDataComponent self, int numericType, int value)
         {
@@ -156,14 +160,14 @@ namespace ET.Server
             self.InGameDataComp.NumericValue = 0;
         }
     }
+
     [ObjectSystem]
-    public class CharacterDataComponentAwakeSystem : AwakeSystem<CharacterDataComponent>
+    public class CharacterDataComponentAwakeSystem: AwakeSystem<CharacterDataComponent>
     {
         protected override void Awake(CharacterDataComponent self)
         {
             self.AddComponent<NumericComponent>();
             self.AddComponent<CharacterInGameDataComponent>();
-
         }
     }
 }
