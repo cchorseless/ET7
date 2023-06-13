@@ -26,16 +26,9 @@ namespace ET.Server
                 self.SumHeroLevel += heroUnit.Level;
                 heroUnit.LoadAllChild();
             });
-            self.RefreshRankBattleScore();
+            self.Character.RankComp.UpdataRankData((int)ERankType.HeroSumBattleSorceRank, self.GetHeroSumBattleScore(), false);
         }
 
-        public static void RefreshRankBattleScore(this HeroManageComponent self)
-        {
-            var serverzone = self.Character.GetMyServerZone();
-            var seasonRank = serverzone.RankComp.CurSeasonRank;
-            var SeasonBattleSorceRank = seasonRank.GetRank<TRankHeroSumBattleScore>((int)ERankType.HeroSumBattleSorceRank);
-            SeasonBattleSorceRank.UpdateRankData(self.Character.Id, self.Character.Name, self.GetHeroSumBattleScore());
-        }
 
         public static List<THeroUnit> GetAllHeroUnit(this HeroManageComponent self)
         {
@@ -74,8 +67,6 @@ namespace ET.Server
 
             return null;
         }
-
-
 
         public static (int, string) AddHeroExp(this HeroManageComponent self, string configid, int exp)
         {

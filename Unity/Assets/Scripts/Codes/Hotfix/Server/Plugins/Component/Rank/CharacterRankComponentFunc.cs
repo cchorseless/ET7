@@ -24,5 +24,19 @@ namespace ET.Server
                 entity.LoadAllChild();
             }
         }
+
+        public static void UpdataRankData(this CharacterRankComponent self, int ranktype, int score, bool issync = true)
+        {
+            self.Character.GetMyServerZone().RankComp.UpdataRankData(ranktype, self.Character.Id, self.Character.Name, score);
+            if (self.SeasonRankData.TryGetValue(self.SeasonConfigId, out var entityid))
+            {
+                var entity = self.GetChild<TSeasonCharacterRankData>(entityid);
+                entity.UpdateRankSingleData(ranktype);
+                if (issync)
+                {
+                    self.Character.SyncHttpEntity(entity);
+                }
+            }
+        }
     }
 }

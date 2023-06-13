@@ -22,6 +22,16 @@ namespace ET.Server
             allTeam.ForEach(record => { self.RegBattleTeamRecord(record); });
         }
 
+        public static int GetBattleTeamCount(this ServerZoneBattleTeamComponent self)
+        {
+            int count = 0;
+            foreach (var kv in self.RoundTBattleTeam.Values)
+            {
+                count += kv.Count;
+            }
+            return count;
+        }
+        
         public static void RegBattleTeamRecord(this ServerZoneBattleTeamComponent self, TBattleTeamRecord record)
         {
             int roundKey = record.GetRoundKey();

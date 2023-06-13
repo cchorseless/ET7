@@ -25,30 +25,35 @@ namespace ET.Server
             {
                 foreach (var ranktype in RankComp.SeasonRankType)
                 {
-                    TRankSingleData entity = null;
-                    if (self.RankDatas.TryGetValue(ranktype, out var entityid))
-                    {
-                        entity = self.GetChild<TRankSingleData>(entityid);
-                    }
-                    else
-                    {
-                        entity = self.AddChild<TRankSingleData>();
-                        self.RankDatas.Add(ranktype, entity.Id);
-                        entity.CharacterId = self.CharacterRankComp.Character.Id;
-                        entity.SteamAccountId = self.CharacterRankComp.Character.Name;
-                        entity.RankType = ranktype;
-                    }
+                    self.UpdateRankSingleData(ranktype);
+                }
+            }
+        }
 
-                    if (entity != null)
-                    {
-                        var rankdata = RankComp.GetCurSeasonCharacterRankDataInfo(ranktype, entity.CharacterId);
-                        if (rankdata != null)
-                        {
-                            entity.Score = rankdata.Score;
-                            entity.RankIndex = rankdata.RankIndex;
-                        }
-                    }
-                   
+        public static void UpdateRankSingleData(this TSeasonCharacterRankData self, int ranktype)
+        {
+            var RankComp = self.CharacterRankComp.Character.GetMyServerZone().RankComp;
+            TRankSingleData entity = null;
+            if (self.RankDatas.TryGetValue(ranktype, out var entityid))
+            {
+                entity = self.GetChild<TRankSingleData>(entityid);
+            }
+            else
+            {
+                entity = self.AddChild<TRankSingleData>();
+                self.RankDatas.Add(ranktype, entity.Id);
+                entity.CharacterId = self.CharacterRankComp.Character.Id;
+                entity.SteamAccountId = self.CharacterRankComp.Character.Name;
+                entity.RankType = ranktype;
+            }
+
+            if (entity != null)
+            {
+                var rankdata = RankComp.GetCurSeasonCharacterRankDataInfo(ranktype, entity.CharacterId);
+                if (rankdata != null)
+                {
+                    entity.Score = rankdata.Score;
+                    entity.RankIndex = rankdata.RankIndex;
                 }
             }
         }

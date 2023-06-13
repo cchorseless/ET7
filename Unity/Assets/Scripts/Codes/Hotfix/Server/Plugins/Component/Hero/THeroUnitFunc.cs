@@ -26,7 +26,7 @@ namespace ET.Server
         public static void AddBattleScore(this THeroUnit self, int score)
         {
             self.BattleScore += score;
-            self.HeroManageComp.RefreshRankBattleScore();
+            self.Character.RankComp.UpdataRankData((int)ERankType.HeroSumBattleSorceRank, self.HeroManageComp.GetHeroSumBattleScore());
         }
 
         public static void AddExp(this THeroUnit self, int exp)

@@ -10,20 +10,17 @@ namespace ET.Server
     {
         public static void LoadAllChild(this CharacterBattleTeamComponent self)
         {
-            self.RefreshRankData();
+            self.Character.RankComp.UpdataRankData((int)ERankType.SeasonBattleSorceRank, self.BattleScore, false);
         }
-        public static void RefreshRankData(this CharacterBattleTeamComponent self)
-        {
-            self.Character.GetMyServerZone().RankComp.UpdataRankData((int)ERankType.SeasonBattleSorceRank,
-                self.Character.Id, self.Character.Name, self.BattleScore);
-        }
+
         public static async ETTask UploadBattleTeamRecord(this CharacterBattleTeamComponent self, FBattleTeamRecord recordinfo)
         {
             TBattleTeamRecord record = null;
             DBComponent db = DBManagerComponent.Instance.GetZoneDB(self.DomainZone());
             var BattleTeamComp = self.Character.GetMyServerZone().BattleTeamComp;
+            // 先注释掉
             int RoundKey = recordinfo.RoundIndex + recordinfo.RoundCharpter * 1000;
-            if (self.BattleTeams.TryGetValue(RoundKey, out var lastrecordid))
+            if (BattleTeamComp.GetBattleTeamCount() > 4000 && self.BattleTeams.TryGetValue(RoundKey, out var lastrecordid))
             {
                 record = BattleTeamComp.GetChild<TBattleTeamRecord>(lastrecordid);
                 if (record == null)
@@ -117,7 +114,7 @@ namespace ET.Server
             }
 
             self.BattleScore += score;
-            self.RefreshRankData();
+            self.Character.RankComp.UpdataRankData((int)ERankType.SeasonBattleSorceRank, self.BattleScore);
             self.Character.SyncHttpEntity(self);
             return (ErrorCode.ERR_Success, "" + self.BattleScore);
         }

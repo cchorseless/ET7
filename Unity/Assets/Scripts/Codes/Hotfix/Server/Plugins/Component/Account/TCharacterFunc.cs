@@ -41,6 +41,9 @@ namespace ET.Server
         public static async ETTask LoadAllComponent(this TCharacter self)
         {
             self.AddComponent<TimerEntityComponent>();
+            // 排行榜写在最前面 因为其他组件要用它更新排名
+            await self.LoadOrAddComponent<CharacterRankComponent>();
+            self.RankComp.LoadAllChild();
             await self.LoadOrAddComponent<BagComponent>();
             self.BagComp.LoadAllChild();
             await self.LoadOrAddComponent<CharacterDataComponent>();
@@ -71,9 +74,6 @@ namespace ET.Server
             self.GameRecordComp.LoadAllChild();
             await self.LoadOrAddComponent<CharacterBattleTeamComponent>();
             self.BattleTeamComp.LoadAllChild();
-            // 排行榜写在最后 因为要去拿数据更新排名
-            await self.LoadOrAddComponent<CharacterRankComponent>();
-            self.RankComp.LoadAllChild();
         }
 
         public static async ETTask Save(this TCharacter self)
@@ -126,7 +126,6 @@ namespace ET.Server
                 self.SyncHttpEntity(new Entity[] { serverZone.SeasonComp, serverZone.ActivityComp, serverZone.RankComp });
             }
         }
-
 
         public static Player GetMyPlayer(this TCharacter self)
         {
