@@ -27,6 +27,14 @@ namespace cfg.EEnum
         /// 随机替换怪
         /// </summary>
         RandomReplace = 3,
+        /// <summary>
+        /// 数据绑定匹配敌人
+        /// </summary>
+        DataDriver = 4,
+        /// <summary>
+        /// 共同的敌人
+        /// </summary>
+        PublicEnemy = 5,
     }
 
 } 

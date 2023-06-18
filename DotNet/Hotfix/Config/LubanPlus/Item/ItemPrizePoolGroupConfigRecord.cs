@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using ET;
 
-
-
 namespace cfg.Item
 {
     public sealed partial class ItemPrizePoolGroupConfigRecord
@@ -13,8 +11,12 @@ namespace cfg.Item
         {
             var count = new List<int>();
             var weight = new List<int>();
-            int randomTimes = this.RandomCountInfo[0].RandomCount;
-            if (this.RandomCountInfo.Count > 1)
+            int randomTimes = 1;
+            if (this.RandomCountInfo.Count == 1)
+            {
+                randomTimes = this.RandomCountInfo[0].RandomCount;
+            }
+            else if (this.RandomCountInfo.Count > 1)
             {
                 foreach (var data in this.RandomCountInfo)
                 {
@@ -24,8 +26,10 @@ namespace cfg.Item
                         weight.Add(data.RandomWeight);
                     }
                 }
+
                 randomTimes = count[RandomGenerator.RandomByWeight(weight)];
             }
+
             count.Clear();
             weight.Clear();
             foreach (var data in this.ItemPoolGroup)
@@ -36,47 +40,51 @@ namespace cfg.Item
                     weight.Add(data.ItemPoolWeight);
                 }
             }
+
             var r = new List<ItemPrizePoolBean>();
-            if (this.IsRandomRepeat == 1)
+            for (var i = 0; i < randomTimes; i++)
             {
-                for (var i = 0; i < randomTimes; i++)
+                var poolConfigId = count[RandomGenerator.RandomByWeight(weight)];
+                var poolConfig = LuBanConfigComponent.Instance.Config().ItemPrizePoolConfig.GetOrDefault(poolConfigId);
+                if (poolConfig != null)
                 {
-                    var poolConfigId = count[RandomGenerator.RandomByWeight(weight)];
-                    var poolConfig = LuBanConfigComponent.Instance.Config().ItemPrizePoolConfig.GetOrDefault(poolConfigId);
-                    if (poolConfig != null)
-                    {
-                        r.Add(poolConfig.GetOneRandomItemId());
-                    }
+                    r.Add(poolConfig.GetOneRandomItemId());
                 }
             }
-            else
-            {
-                var quo = randomTimes / count.Count;
-                var mod = randomTimes % count.Count;
-                for (var i = 0; i < quo; i++)
-                {
-                    count.ForEach(poolConfigId =>
-                    {
-                        var poolConfig = LuBanConfigComponent.Instance.Config().ItemPrizePoolConfig.GetOrDefault(poolConfigId);
-                        if (poolConfig != null)
-                        {
-                            r.Add(poolConfig.GetOneRandomItemId());
-                        }
-                    });
-                }
-                for (var i = 0; i < mod; i++)
-                {
-                    var index = RandomGenerator.RandomByWeight(weight);
-                    var poolConfigId = count[index];
-                    count.RemoveAt(index);
-                    weight.RemoveAt(index);
-                    var poolConfig = LuBanConfigComponent.Instance.Config().ItemPrizePoolConfig.GetOrDefault(poolConfigId);
-                    if (poolConfig != null)
-                    {
-                        r.Add(poolConfig.GetOneRandomItemId());
-                    }
-                }
-            }
+            // if (this.IsRandomRepeat)
+            // {
+            //    
+            // }
+            // else
+            // {
+            //     var quo = randomTimes / count.Count;
+            //     var mod = randomTimes % count.Count;
+            //     for (var i = 0; i < quo; i++)
+            //     {
+            //         count.ForEach(poolConfigId =>
+            //         {
+            //             var poolConfig = LuBanConfigComponent.Instance.Config().ItemPrizePoolConfig.GetOrDefault(poolConfigId);
+            //             if (poolConfig != null)
+            //             {
+            //                 r.Add(poolConfig.GetOneRandomItemId());
+            //             }
+            //         });
+            //     }
+            //
+            //     for (var i = 0; i < mod; i++)
+            //     {
+            //         var index = RandomGenerator.RandomByWeight(weight);
+            //         var poolConfigId = count[index];
+            //         count.RemoveAt(index);
+            //         weight.RemoveAt(index);
+            //         var poolConfig = LuBanConfigComponent.Instance.Config().ItemPrizePoolConfig.GetOrDefault(poolConfigId);
+            //         if (poolConfig != null)
+            //         {
+            //             r.Add(poolConfig.GetOneRandomItemId());
+            //         }
+            //     }
+            // }
+
             return r;
         }
     }

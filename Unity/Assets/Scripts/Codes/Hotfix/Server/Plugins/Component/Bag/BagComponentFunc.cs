@@ -22,18 +22,6 @@ namespace ET.Server
                     len--;
                 }
             }
-
-            // 处理关卡难度
-            self.RefreshRankCharpter();
-        }
-
-        public static void RefreshRankCharpter(this BagComponent self)
-        {
-            var serverzone = self.Character.GetMyServerZone();
-            var seasonRank = serverzone.RankComp.CurSeasonRank;
-            var seasonCharpterRank = seasonRank.GetRank<TRankSeasonSingleCharpter>((int)ERankType.SeasonSingleCharpterRank);
-            var score = self.DifficultyChapter * 1000 + self.DifficultyLevel;
-            seasonCharpterRank.UpdateRankData(self.Character.Id, self.Character.Name, score);
         }
 
         public static bool CanOverLayMany(this BagComponent self, int configid)
@@ -120,7 +108,7 @@ namespace ET.Server
         {
             if (configid < EMoneyType.MoneyMax || !self.IsSitBagSlot(configid))
             {
-                return true;
+                return false;
             }
 
             int countSlot = 0;
@@ -173,6 +161,23 @@ namespace ET.Server
             }
         }
 
+        public static (int, string) ApplyUseBagItem(this BagComponent self, long itemId, int count)
+        {
+            var item = self.GetChild<TItem>(itemId);
+            if (item == null)
+            {
+                return (ErrorCode.ERR_Error, "cant find item");
+            }
+
+            var r = item.ApplyUse(count);
+            if (r.Item1 == ErrorCode.ERR_Success)
+            {
+                self.Character.SyncHttpEntity(item);
+            }
+
+            return r;
+        }
+
         public static (int, string) AddTItemOrMoney(this BagComponent self, List<FItemInfo> itemsInfo)
         {
             if (self.IsFullForItems(itemsInfo))
@@ -181,14 +186,19 @@ namespace ET.Server
             }
 
             var r = new List<FItemInfo>();
-            itemsInfo.ForEach(item =>
+            foreach (var item in itemsInfo)
             {
                 var result = self.AddTItemOrMoney(item.ItemConfigId, item.ItemCount);
                 if (result.Item1 == ErrorCode.ERR_Success)
                 {
                     r.Add(new FItemInfo(item.ItemConfigId, item.ItemCount));
                 }
-            });
+                else
+                {
+                    return result;
+                }
+            }
+
             return (ErrorCode.ERR_Success, r.ToListString());
         }
 
@@ -237,7 +247,7 @@ namespace ET.Server
             {
                 case cfg.EEnum.EItemType.Equip:
                     return self.AddTItem<TEquipItem>(configid, count);
-
+                case cfg.EEnum.EItemType.HeroExp:
                 case cfg.EEnum.EItemType.None:
                 default:
                     return self.AddTItem<TItem>(configid, count);

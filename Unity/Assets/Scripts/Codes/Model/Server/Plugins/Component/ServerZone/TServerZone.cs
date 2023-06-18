@@ -76,11 +76,6 @@ namespace ET
             get => GetComponent<ServerZoneRechargeComponent>();
         }
 
-        [BsonIgnore]
-        public ServerZoneTItemManageComponent TItemManageComp
-        {
-            get => GetComponent<ServerZoneTItemManageComponent>();
-        }
 
         [BsonIgnore]
         public ServerZoneBuffComponent BuffComp

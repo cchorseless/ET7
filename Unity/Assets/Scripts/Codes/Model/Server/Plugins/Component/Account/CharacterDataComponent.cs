@@ -10,9 +10,13 @@ namespace ET
 {
     public class CharacterDataComponent : Entity, IAwake
     {
+        
         [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
         public Dictionary<string, string> GameRecord = new Dictionary<string, string>();
 
+        
+        public List<string> AllCouriers = new List<string>();
+        
         [BsonIgnore]
         public NumericComponent NumericComp { get => this.GetComponent<NumericComponent>(); }
 

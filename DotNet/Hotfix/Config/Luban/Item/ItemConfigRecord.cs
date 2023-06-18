@@ -25,7 +25,7 @@ public sealed partial class ItemConfigRecord :  Bright.Config.BeanBase
         BagSlotType = (EEnum.EBagSlotType)_buf.ReadInt();
         AutoUse = _buf.ReadBool();
         OneGameUseLimit = _buf.ReadInt();
-        MaxOwnerCount = _buf.ReadInt();
+        DecomposeStarStone = _buf.ReadInt();
         BatchUseable = _buf.ReadBool();
         BindHeroName = _buf.ReadString();
         UseScript = (EEnum.EItemUseScript)_buf.ReadInt();
@@ -80,9 +80,9 @@ public sealed partial class ItemConfigRecord :  Bright.Config.BeanBase
     /// </summary>
     public int OneGameUseLimit { get; private set; }
     /// <summary>
-    /// 最大拥有数量
+    /// 自动分解获得星石数量
     /// </summary>
-    public int MaxOwnerCount { get; private set; }
+    public int DecomposeStarStone { get; private set; }
     /// <summary>
     /// 批量使用
     /// </summary>
@@ -128,7 +128,7 @@ public sealed partial class ItemConfigRecord :  Bright.Config.BeanBase
         + "BagSlotType:" + BagSlotType + ","
         + "AutoUse:" + AutoUse + ","
         + "OneGameUseLimit:" + OneGameUseLimit + ","
-        + "MaxOwnerCount:" + MaxOwnerCount + ","
+        + "DecomposeStarStone:" + DecomposeStarStone + ","
         + "BatchUseable:" + BatchUseable + ","
         + "BindHeroName:" + BindHeroName + ","
         + "UseScript:" + UseScript + ","

@@ -42,6 +42,7 @@ public partial class Tables
     public Dota.BattlePassChargeConfig BattlePassChargeConfig {get; }
     public Dota.BattlePassTaskConfig BattlePassTaskConfig {get; }
     public Dota.BattlePassLevelUpConfig BattlePassLevelUpConfig {get; }
+    public Dota.WearableConfig WearableConfig {get; }
     public Dota.InfoPassLevelUpConfig InfoPassLevelUpConfig {get; }
     public Dota.RoundEnemyPoolConfig RoundEnemyPoolConfig {get; }
 
@@ -106,6 +107,8 @@ public partial class Tables
         tables.Add("Dota.BattlePassTaskConfig", BattlePassTaskConfig);
         BattlePassLevelUpConfig = new Dota.BattlePassLevelUpConfig(loader("dota_battlepasslevelupconfig")); 
         tables.Add("Dota.BattlePassLevelUpConfig", BattlePassLevelUpConfig);
+        WearableConfig = new Dota.WearableConfig(loader("dota_wearableconfig")); 
+        tables.Add("Dota.WearableConfig", WearableConfig);
         InfoPassLevelUpConfig = new Dota.InfoPassLevelUpConfig(loader("dota_infopasslevelupconfig")); 
         tables.Add("Dota.InfoPassLevelUpConfig", InfoPassLevelUpConfig);
         RoundEnemyPoolConfig = new Dota.RoundEnemyPoolConfig(loader("dota_roundenemypoolconfig")); 
@@ -141,6 +144,7 @@ public partial class Tables
         BattlePassChargeConfig.Resolve(tables); 
         BattlePassTaskConfig.Resolve(tables); 
         BattlePassLevelUpConfig.Resolve(tables); 
+        WearableConfig.Resolve(tables); 
         InfoPassLevelUpConfig.Resolve(tables); 
         RoundEnemyPoolConfig.Resolve(tables); 
         PostResolve();
@@ -177,6 +181,7 @@ public partial class Tables
         BattlePassChargeConfig.TranslateText(translator); 
         BattlePassTaskConfig.TranslateText(translator); 
         BattlePassLevelUpConfig.TranslateText(translator); 
+        WearableConfig.TranslateText(translator); 
         InfoPassLevelUpConfig.TranslateText(translator); 
         RoundEnemyPoolConfig.TranslateText(translator); 
     }

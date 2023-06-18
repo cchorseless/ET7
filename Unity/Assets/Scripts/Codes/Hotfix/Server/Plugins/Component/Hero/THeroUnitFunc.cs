@@ -45,7 +45,7 @@ namespace ET.Server
 
         public static int GetLevelUpExp(this THeroUnit self)
         {
-            var needExp = LuBanConfigComponent.Instance.Config().BuildingLevelUpExpConfig.GetOrDefault(self.Level);
+            var needExp = LuBanConfigComponent.Instance.Config().BuildingLevelUpExpConfig.GetOrDefault(self.Level + 1);
             if (needExp != null)
             {
                 return needExp.Exp;
@@ -62,6 +62,7 @@ namespace ET.Server
             }
 
             self.SkinConfigId = skinConfigid;
+            self.Character.SyncHttpEntity(self);
             return (ErrorCode.ERR_Success, "");
         }
 

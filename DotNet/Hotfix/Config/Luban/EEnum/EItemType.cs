@@ -43,6 +43,10 @@ namespace cfg.EEnum
         /// 皮肤
         /// </summary>
         Skin = 7,
+        /// <summary>
+        /// 英雄经验
+        /// </summary>
+        HeroExp = 8,
     }
 
 } 

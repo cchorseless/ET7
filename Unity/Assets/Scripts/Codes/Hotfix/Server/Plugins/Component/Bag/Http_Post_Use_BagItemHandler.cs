@@ -7,7 +7,7 @@ using System.Text;
 namespace ET.Server
 {
     [HttpHandler(SceneType.Gate, "/Use_BagItem")]
-    public class Http_Post_Use_BagItemHandler : HttpPostHandler<C2H_Use_BagItem, H2C_CommonResponse>
+    public class Http_Post_Use_BagItemHandler: HttpPostHandler<C2H_Use_BagItem, H2C_CommonResponse>
     {
         protected override async ETTask Run(Entity domain, C2H_Use_BagItem request, H2C_CommonResponse response, long playerid)
         {
@@ -17,11 +17,11 @@ namespace ET.Server
             var character = player.GetMyCharacter();
             var sceneZone = character.GetMyServerZone();
             response.Error = ErrorCode.ERR_Error;
-            if (sceneZone != null && sceneZone.TItemManageComp != null
-                && character.BagComp != null && long.TryParse(request.ItemId, out long ItemId))
+            if (sceneZone != null && character.BagComp != null && long.TryParse(request.ItemId, out long ItemId))
             {
-                (response.Error, response.Message) = sceneZone.TItemManageComp.ApplyUseBagItem(character, ItemId, request.ItemCount);
+                (response.Error, response.Message) = character.BagComp.ApplyUseBagItem(ItemId, request.ItemCount);
             }
+
             await ETTask.CompletedTask;
         }
     }

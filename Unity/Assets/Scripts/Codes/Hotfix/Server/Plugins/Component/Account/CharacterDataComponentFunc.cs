@@ -39,6 +39,21 @@ namespace ET.Server
         public const int MoneyMax = 1000;
     }
 
+    public static class ECharacterGameRecordKey
+    {
+        /**當前信使 */
+        public const string sCourierIDInUse = "sCourierIDInUse";
+
+        /**当前信使特效 */
+        public const string sCourierIDInUseFx = "sCourierIDInUseFx";
+
+        /**通关的最大难度章节 */
+        public const string iDifficultyMaxChapter = "iDifficultyMaxChapter";
+
+        /**通关的无尽最大难度层数 */
+        public const string iDifficultyMaxLevel = "iDifficultyMaxLevel";
+    }
+
     [FriendOf(typeof (CharacterDataComponent))]
     [FriendOf(typeof (NumericComponent))]
     [FriendOf(typeof (CharacterInGameDataComponent))]
@@ -80,6 +95,20 @@ namespace ET.Server
             {
                 self.SetNumeric(EMoneyType.StarStone, 1000000);
             }
+
+            // 处理关卡难度
+            self.RefreshRankCharpter();
+        }
+
+        public static void RefreshRankCharpter(this CharacterDataComponent self)
+        {
+            var serverzone = self.Character.GetMyServerZone();
+            var seasonRank = serverzone.RankComp.CurSeasonRank;
+            var seasonCharpterRank = seasonRank.GetRank<TRankSeasonSingleCharpter>((int)ERankType.SeasonSingleCharpterRank);
+            int DifficultyChapter = self.GetGameRecordAsInt(ECharacterGameRecordKey.iDifficultyMaxChapter, 1);
+            int DifficultyLevel = self.GetGameRecordAsInt(ECharacterGameRecordKey.iDifficultyMaxLevel);
+            var score = DifficultyChapter * 1000 + DifficultyLevel;
+            seasonCharpterRank.UpdateRankData(self.Character.Id, self.Character.Name, score);
         }
 
         public static void SetNumeric(this CharacterDataComponent self, int numericType, int value)
@@ -149,6 +178,29 @@ namespace ET.Server
 
             self.Character.SyncHttpEntity(self);
             return (ErrorCode.ERR_Success, "");
+        }
+
+        public static string GetGameRecordAsString(this CharacterDataComponent self, string key, string defaultV = "")
+        {
+            if (self.GameRecord.TryGetValue(key, out var v))
+            {
+                return v;
+            }
+
+            return defaultV;
+        }
+
+        public static int GetGameRecordAsInt(this CharacterDataComponent self, string key, int defaultV = 0)
+        {
+            if (self.GameRecord.TryGetValue(key, out var v))
+            {
+                if (int.TryParse(v, out var result))
+                {
+                    return result;
+                }
+            }
+
+            return defaultV;
         }
 
         public static void ChangeInGameData(this CharacterDataComponent self, int numericType, int value)

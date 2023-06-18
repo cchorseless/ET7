@@ -16,7 +16,7 @@ public sealed partial class ItemPrizePoolGroupConfigRecord :  Bright.Config.Bean
     public ItemPrizePoolGroupConfigRecord(ByteBuf _buf) 
     {
         Id = _buf.ReadInt();
-        IsRandomRepeat = _buf.ReadInt();
+        IsRandomRepeat = _buf.ReadBool();
         {int n0 = System.Math.Min(_buf.ReadSize(), _buf.Size);RandomCountInfo = new System.Collections.Generic.List<Item.ItemRandomCountBean>(n0);for(var i0 = 0 ; i0 < n0 ; i0++) { Item.ItemRandomCountBean _e0;  _e0 = Item.ItemRandomCountBean.DeserializeItemRandomCountBean(_buf); RandomCountInfo.Add(_e0);}}
         {int n0 = System.Math.Min(_buf.ReadSize(), _buf.Size);ItemPoolGroup = new System.Collections.Generic.List<Item.ItemPoolGroupBean>(n0);for(var i0 = 0 ; i0 < n0 ; i0++) { Item.ItemPoolGroupBean _e0;  _e0 = Item.ItemPoolGroupBean.DeserializeItemPoolGroupBean(_buf); ItemPoolGroup.Add(_e0);}}
         PostInit();
@@ -34,7 +34,7 @@ public sealed partial class ItemPrizePoolGroupConfigRecord :  Bright.Config.Bean
     /// <summary>
     /// 随机奖励是否重复
     /// </summary>
-    public int IsRandomRepeat { get; private set; }
+    public bool IsRandomRepeat { get; private set; }
     public System.Collections.Generic.List<Item.ItemRandomCountBean> RandomCountInfo { get; private set; }
     public System.Collections.Generic.List<Item.ItemPoolGroupBean> ItemPoolGroup { get; private set; }
 

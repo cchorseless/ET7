@@ -9,15 +9,6 @@ namespace ET
 
         public int MaxSize;
 
-        /// <summary>
-        /// 关卡难度
-        /// </summary>
-        public int DifficultyChapter = 1;
-        /// <summary>
-        /// 无尽难度等级
-        /// </summary>
-        public int DifficultyLevel = 0;
-
         [BsonIgnore]
         public TCharacter Character
         {

@@ -456,6 +456,22 @@ namespace ET
 	}
 
 	[ResponseType(nameof(H2C_CommonResponse))]
+	[Message(OuterMessageHttp.C2H_Add_BagItem)]
+	[ProtoContract]
+	public partial class C2H_Add_BagItem: ProtoObject, IRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public string AddReason { get; set; }
+
+		[ProtoMember(2)]
+		public List<string> ItemDes { get; set; }
+
+	}
+
+	[ResponseType(nameof(H2C_CommonResponse))]
 	[Message(OuterMessageHttp.C2H_MergeBagEquip)]
 	[ProtoContract]
 	public partial class C2H_MergeBagEquip: ProtoObject, IRequest
@@ -865,26 +881,27 @@ namespace ET
 		 public const ushort C2H_CharacterRankDataInfo = 15027;
 		 public const ushort C2H_Buy_ShopItem = 15028;
 		 public const ushort C2H_Use_BagItem = 15029;
-		 public const ushort C2H_MergeBagEquip = 15030;
-		 public const ushort C2H_ReplaceEquipProps = 15031;
-		 public const ushort C2H_Use_AddHeroLevelByComHeroExp = 15032;
-		 public const ushort C2H_Save_AddHeroBanDesign = 15033;
-		 public const ushort C2H_ChangeHeroDressEquipState = 15034;
-		 public const ushort C2H_ChangeHeroTalentState = 15035;
-		 public const ushort C2H_GetInfoPassPrize = 15036;
-		 public const ushort C2H_ChangeCharacterTitleState = 15037;
-		 public const ushort C2H_GetPrize_AchieveMentPrize = 15038;
-		 public const ushort C2H_ChangeDailyTaskState = 15039;
-		 public const ushort C2H_GetPrize_TaskPrize = 15040;
-		 public const ushort C2H_BattlePass_GetPrize = 15041;
-		 public const ushort C2H_BattlePass_ChargePrize = 15042;
-		 public const ushort C2H_Mentorship_ApplyForMaster = 15043;
-		 public const ushort C2H_Mentorship_DropTree = 15044;
-		 public const ushort C2H_Mentorship_ChangeApplyState = 15045;
-		 public const ushort C2H_DrawEnemy_GetEnemyInfo = 15046;
-		 public const ushort FBattleUnitInfoItem = 15047;
-		 public const ushort FBattleTeamRecord = 15048;
-		 public const ushort C2H_DrawEnemy_UploadEnemyInfo = 15049;
-		 public const ushort C2H_DrawEnemy_UploadBattleResult = 15050;
+		 public const ushort C2H_Add_BagItem = 15030;
+		 public const ushort C2H_MergeBagEquip = 15031;
+		 public const ushort C2H_ReplaceEquipProps = 15032;
+		 public const ushort C2H_Use_AddHeroLevelByComHeroExp = 15033;
+		 public const ushort C2H_Save_AddHeroBanDesign = 15034;
+		 public const ushort C2H_ChangeHeroDressEquipState = 15035;
+		 public const ushort C2H_ChangeHeroTalentState = 15036;
+		 public const ushort C2H_GetInfoPassPrize = 15037;
+		 public const ushort C2H_ChangeCharacterTitleState = 15038;
+		 public const ushort C2H_GetPrize_AchieveMentPrize = 15039;
+		 public const ushort C2H_ChangeDailyTaskState = 15040;
+		 public const ushort C2H_GetPrize_TaskPrize = 15041;
+		 public const ushort C2H_BattlePass_GetPrize = 15042;
+		 public const ushort C2H_BattlePass_ChargePrize = 15043;
+		 public const ushort C2H_Mentorship_ApplyForMaster = 15044;
+		 public const ushort C2H_Mentorship_DropTree = 15045;
+		 public const ushort C2H_Mentorship_ChangeApplyState = 15046;
+		 public const ushort C2H_DrawEnemy_GetEnemyInfo = 15047;
+		 public const ushort FBattleUnitInfoItem = 15048;
+		 public const ushort FBattleTeamRecord = 15049;
+		 public const ushort C2H_DrawEnemy_UploadEnemyInfo = 15050;
+		 public const ushort C2H_DrawEnemy_UploadBattleResult = 15051;
 	}
 }

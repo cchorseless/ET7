@@ -228,6 +228,15 @@ message C2H_Use_BagItem // IRequest
 }
 
 //ResponseType H2C_CommonResponse
+message C2H_Add_BagItem // IRequest
+{
+  int32  RpcId = 90;
+  string  AddReason = 1;
+  repeated string  ItemDes = 2;
+  
+}
+
+//ResponseType H2C_CommonResponse
 message C2H_MergeBagEquip // IRequest
 {
   int32  RpcId = 90;

@@ -58,6 +58,12 @@ namespace ET.Server
                     case cfg.EEnum.EItemAwakeScript.AddHeroExp:
                         self.AddHeroExp(awakescript.ScriptValue);
                         break;
+                    case cfg.EEnum.EItemAwakeScript.ActiveCourier:
+                        self.ActiveCourier(awakescript.ScriptValue);
+                        break;
+                    case cfg.EEnum.EItemAwakeScript.ActiveSkin:
+                        self.ActiveSkin(awakescript.ScriptValue);
+                        break;
                 }
             }
         }
@@ -76,10 +82,97 @@ namespace ET.Server
             if (hero == null)
             {
                 Log.Warning($"AddHeroExp,hero is null,configid:{self.ConfigId} {heroname}");
-                return;
             }
-            int exp_sum = exp * self.ItemCount;
-            self.BagComp.Character.HeroManageComp.AddHeroExp(hero.ConfigId, exp_sum);
+            else
+            {
+                int exp_sum = exp * self.ItemCount;
+                self.BagComp.Character.HeroManageComp.AddHeroExp(hero.ConfigId, exp_sum);
+            }
+            self.Dispose();
+        }
+
+        public static void ActiveCourier(this TItem self, List<int> argsList)
+        {
+            int exp = argsList[0];
+            string couriername = self.Config().BindHeroName;
+            var character = self.BagComp.Character;
+            if (character.DataComp.AllCouriers.Contains(couriername))
+            {
+                int StarStone = self.Config().DecomposeStarStone;
+                if (StarStone > 0)
+                {
+                    self.BagComp.AddTItemOrMoney((int)cfg.EEnum.EMoneyType.StarStone, StarStone);
+                }
+            }
+            else
+            {
+                character.DataComp.AllCouriers.Add(couriername);
+                character.SyncHttpEntity(character.DataComp);
+            }
+
+            self.Dispose();
+        }
+
+        public static void ActiveSkin(this TItem self, List<int> argsList)
+        {
+            int validtime = argsList[0];
+            string wearconfigid = self.Config().BindHeroName;
+            var config = LuBanConfigComponent.Instance.Config().WearableConfig.GetOrDefault(wearconfigid);
+            if (config != null)
+            {
+                var heroname = config.UsedByHeroes.Replace("npc_", "building_");
+                var hero = self.BagComp.Character.HeroManageComp.GetHeroUnit(heroname);
+                if (hero == null)
+                {
+                    Log.Warning($"AddHeroExp,hero is null,configid:{self.ConfigId} {heroname}");
+                }
+                else
+                {
+                    if (hero.Skins.TryGetValue(wearconfigid, out var time))
+                    {
+                        // 永久皮肤
+                        if (time < 0)
+                        {
+                            int StarStone = self.Config().DecomposeStarStone;
+                            if (StarStone > 0)
+                            {
+                                self.BagComp.AddTItemOrMoney((int)cfg.EEnum.EMoneyType.StarStone, StarStone);
+                            }
+                        }
+                        else
+                        {
+                            // 替换为永久皮肤
+                            if (validtime < 0)
+                            {
+                                hero.Skins[wearconfigid] = validtime;
+                            }
+                            else
+                            {
+                                hero.Skins[wearconfigid] = Math.Max(time, TimeHelper.ServerNow()) + validtime;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // 替换为永久皮肤
+                        if (validtime < 0)
+                        {
+                            hero.Skins.Add(wearconfigid, validtime);
+                        }
+                        else
+                        {
+                            hero.Skins.Add(wearconfigid, TimeHelper.ServerNow() + validtime);
+                        }
+                    }
+
+                    // 自动穿戴
+                    if (string.IsNullOrEmpty(hero.SkinConfigId))
+                    {
+                        hero.DressSkin(wearconfigid);
+                    }
+                }
+            }
+
             self.Dispose();
         }
 
@@ -130,6 +223,7 @@ namespace ET.Server
             {
                 self.ChangeItemCount(-count);
             }
+
             return r;
         }
 
