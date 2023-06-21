@@ -115,6 +115,10 @@ export enum EMoneyType {
      * 铭文碎片
      */
     MingWenExp = 105,
+    /**
+     * 天梯积分
+     */
+    BattleScore = 106,
 }
 }
 
@@ -3191,6 +3195,12 @@ export class RoundBoardConfigRecord {
         this.roundType = _json_.round_type
         if (_json_.round_label === undefined) { throw new Error() }
         this.roundLabel = _json_.round_label
+        if (_json_.enemyScoreMin === undefined) { throw new Error() }
+        this.enemyScoreMin = _json_.enemyScoreMin
+        if (_json_.enemyScoreMax === undefined) { throw new Error() }
+        this.enemyScoreMax = _json_.enemyScoreMax
+        if (_json_.enemyDamge === undefined) { throw new Error() }
+        this.enemyDamge = _json_.enemyDamge
         if (_json_.rankScore === undefined) { throw new Error() }
         this.rankScore = _json_.rankScore
         if (_json_.winPrizeHeroExp === undefined) { throw new Error() }
@@ -3231,6 +3241,18 @@ export class RoundBoardConfigRecord {
      * 回合标签
      */
     readonly roundLabel: string
+    /**
+     * 敌方匹配分数最低
+     */
+    readonly enemyScoreMin: number
+    /**
+     * 敌方匹配分数最高
+     */
+    readonly enemyScoreMax: number
+    /**
+     * 敌方伤害
+     */
+    readonly enemyDamge: number
     /**
      * 天梯分数
      */
