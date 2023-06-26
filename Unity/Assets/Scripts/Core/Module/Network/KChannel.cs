@@ -377,7 +377,7 @@ namespace ET
 			catch (Exception e)
 			{
 				Log.Error(e);
-				this.OnError(ErrorCore.ERR_SocketCantSend);
+				// this.OnError(ErrorCore.ERR_SocketCantSend);
 			}
 		}
 
