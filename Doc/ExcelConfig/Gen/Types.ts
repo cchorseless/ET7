@@ -3207,6 +3207,8 @@ export class RoundBoardConfigRecord {
         this.winPrizeHeroExp = _json_.winPrizeHeroExp
         if (_json_.winPrizeItems === undefined) { throw new Error() }
         this.winPrizeItems = _json_.winPrizeItems
+        if (_json_.winDropItems === undefined) { throw new Error() }
+        this.winDropItems = _json_.winDropItems
         if (_json_.randomEnemy === undefined) { throw new Error() }
         this.randomEnemy = _json_.randomEnemy
         if (_json_.roundprize_gold === undefined) { throw new Error() }
@@ -3265,6 +3267,10 @@ export class RoundBoardConfigRecord {
      * 获胜局外随机道具奖励池
      */
     readonly winPrizeItems: number
+    /**
+     * 获胜局内随机道具奖励池
+     */
+    readonly winDropItems: string
     /**
      * 是否随机敌人
      */
@@ -3346,8 +3352,6 @@ export class RoundEnemyConfigBean {
         this.soulcrystalMax = _json_.soulcrystal_max
         if (_json_.elite_drop_index === undefined) { throw new Error() }
         this.eliteDropIndex = _json_.elite_drop_index
-        if (_json_.spawn_buff === undefined) { throw new Error() }
-        this.spawnBuff = _json_.spawn_buff
     }
 
     /**
@@ -3442,10 +3446,6 @@ export class RoundEnemyConfigBean {
      * 精英怪掉落池编号
      */
     readonly eliteDropIndex: string
-    /**
-     * 单位自带buff
-     */
-    readonly spawnBuff: string
 
     resolve(_tables: Map<string, any>) {
     }
@@ -3579,8 +3579,6 @@ export class RoundChallengeEnemyConfigBean {
         this.soulcrystalMax = _json_.soulcrystal_max
         if (_json_.elite_drop_index === undefined) { throw new Error() }
         this.eliteDropIndex = _json_.elite_drop_index
-        if (_json_.spawn_buff === undefined) { throw new Error() }
-        this.spawnBuff = _json_.spawn_buff
     }
 
     /**
@@ -3679,10 +3677,6 @@ export class RoundChallengeEnemyConfigBean {
      * 精英怪掉落池编号
      */
     readonly eliteDropIndex: string
-    /**
-     * 单位自带buff
-     */
-    readonly spawnBuff: string
 
     resolve(_tables: Map<string, any>) {
     }
