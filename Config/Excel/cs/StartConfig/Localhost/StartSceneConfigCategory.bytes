@@ -20,9 +20,8 @@
 "Gate*Gate4_20šV8@
 "Manager*Manager4
 "Location*	Location4
-ec"Realm*Realm_GM0ÞV8@
-fc"Gate*Gate_GM0ßV8@
-gc"Http*Http_GM0¿W
+ec"Http*Realm_GM0ÞV8@
+fc"Http*Gate_GM0ßV8@
 É"Robot*Robot10á]
 Ê"Robot*Robot20â]
 Ë"Robot*Robot30ã]

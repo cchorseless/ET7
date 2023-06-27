@@ -20,7 +20,7 @@ namespace ET.Server
             Root.Instance.Scene.AddComponent<ActorMessageDispatcherComponent>();
             Root.Instance.Scene.AddComponent<ServerSceneManagerComponent>();
             Root.Instance.Scene.AddComponent<RobotCaseComponent>();
-            Root.Instance.Scene.AddComponent<NavmeshComponent>();
+            // Root.Instance.Scene.AddComponent<NavmeshComponent>();
             // 数据库管理
             Root.Instance.Scene.AddComponent<DBManagerComponent>();
             // 日志输出到服务器

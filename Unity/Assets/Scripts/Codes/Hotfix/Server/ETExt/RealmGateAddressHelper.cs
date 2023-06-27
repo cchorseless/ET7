@@ -13,19 +13,5 @@ namespace ET.Server
             int n = RandomGenerator.RandomNumber(0, zoneGates.Count);
             return zoneGates[n];
         }
-
-        public static StartSceneConfig GetGMWebGate()
-        {
-            List<StartSceneConfig> Gates = StartSceneConfigCategory.Instance.GetByProcess(GameConfig.GmWebProcessID);
-            for (var i = 0; i < Gates.Count; i++)
-            {
-                if (Gates[i].Type == SceneType.Gate)
-                {
-                    return Gates[i];
-                }
-            }
-            return null;
-        }
-
     }
 }

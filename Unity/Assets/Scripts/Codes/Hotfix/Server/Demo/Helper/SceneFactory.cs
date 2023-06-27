@@ -26,26 +26,20 @@ namespace ET.Server
                     break;
                 case SceneType.Realm:
                     //scene.AddComponent<NetServerComponent, IPEndPoint>(startSceneConfig.InnerIPOutPort);
-                    if (startSceneConfig.Process == GameConfig.GmWebProcessID)
-                    {
-                        scene.AddComponent<NetServerComponent, IEnumerable<string>>(new List<string>() { startSceneConfig.WebSocketUrl });
-                    }
-                    else
-                    {
-                        scene.AddComponent<HttpComponent, string>(startSceneConfig.HttpUrl);
-                    }
+                    // if (startSceneConfig.Process == GameConfig.GmWebProcessID)
+                    // {
+                    //     scene.AddComponent<NetServerComponent, IEnumerable<string>>(new List<string>() { startSceneConfig.WebSocketUrl });
+                    // }
+                    scene.AddComponent<HttpComponent, string>(startSceneConfig.HttpUrl);
                     scene.AddComponent<ServerSceneCloseComponent, int>((int)SceneType.Realm);
                     break;
                 case SceneType.Gate:
                     //scene.AddComponent<NetServerComponent, IPEndPoint>(startSceneConfig.InnerIPOutPort);
-                    if (startSceneConfig.Process == GameConfig.GmWebProcessID)
-                    {
-                        scene.AddComponent<NetServerComponent, IEnumerable<string>>(new List<string>() { startSceneConfig.WebSocketUrl });
-                    }
-                    else
-                    {
-                        scene.AddComponent<HttpComponent, string>(startSceneConfig.HttpUrl);
-                    }
+                    // if (startSceneConfig.Process == GameConfig.GmWebProcessID)
+                    // {
+                    //     scene.AddComponent<NetServerComponent, IEnumerable<string>>(new List<string>() { startSceneConfig.WebSocketUrl });
+                    // }
+                    scene.AddComponent<HttpComponent, string>(startSceneConfig.HttpUrl);
                     scene.AddComponent<PlayerComponent>();
                     scene.AddComponent<GateSessionKeyComponent>();
                     scene.AddComponent<ServerSceneCloseComponent, int>((int)SceneType.Gate);
@@ -57,8 +51,10 @@ namespace ET.Server
                 case SceneType.Location:
                     scene.AddComponent<LocationComponent>();
                     break;
+                // GM
                 case SceneType.Http:
                     scene.AddComponent<HttpComponent, string>(startSceneConfig.HttpUrl);
+                    scene.AddComponent<PlayerComponent>();
                     break;
                 case SceneType.Robot:
                     scene.AddComponent<RobotManagerComponent>();

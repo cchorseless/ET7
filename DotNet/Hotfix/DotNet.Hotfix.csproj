@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework> 
+        <TargetFramework>net7.0</TargetFramework> 
         <RootNamespace>ET</RootNamespace>
         <LangVersion>10</LangVersion>
         <AssemblyName>Hotfix</AssemblyName>
@@ -46,6 +46,9 @@
     <ItemGroup>
       <Folder Include="..\..\Unity\Assets\Scripts\Codes\Hotfix\Client\ETExt">
         <Link>Client\ETExt</Link>
+      </Folder>
+      <Folder Include="..\..\Unity\Assets\Scripts\Codes\Hotfix\Server\Plugins\GmWeb\Handler\Realm">
+        <Link>Server\Plugins\GmWeb\Handler\Realm</Link>
       </Folder>
     </ItemGroup>
 

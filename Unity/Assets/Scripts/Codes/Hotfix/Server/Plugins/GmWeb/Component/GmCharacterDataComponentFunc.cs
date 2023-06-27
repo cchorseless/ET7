@@ -6,11 +6,12 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace ET.Server
 {
     [ObjectSystem]
-    public class GmCharacterDataComponentAwakeSystem : AwakeSystem<GmCharacterDataComponent>
+    public class GmCharacterDataComponentAwakeSystem : AwakeSystem<GmCharacterDataComponent,long>
     {
-        protected override void Awake(GmCharacterDataComponent self)
+        protected override void Awake(GmCharacterDataComponent self, long playerid)
         {
-            self.Routes = new List<string>();
+            self.Int64PlayerId = playerid;
+            self.Roles = new List<int>();
             self.Avatar = "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif";
             //https://wpimg.wallstcn.com/4c69009c-0fd4-4153-b112-6cb53d1cf943
         }

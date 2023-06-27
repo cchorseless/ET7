@@ -14,7 +14,7 @@ namespace ET.Server
                 response.Error = ErrorCode.ERR_Error;
                 response.Message = "this process no perssion";
             }
-            else if (request.NOTICE == null || request.NOTICE.Length == 0)
+            else if (string.IsNullOrEmpty(request.NOTICE))
             {
                 response.Error = ErrorCode.ERR_Error;
                 response.Message = "NOTICE error";
