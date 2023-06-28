@@ -18,10 +18,10 @@ message C2H_GetServerZoneInfo // IRequest
 
 message FServerInfo // IMessage
 {
-	string ServerName = 1;
-	int32 ServerID = 2;
-	int32 ZoneID = 3;
-	repeated int32 State = 4;
+  string ServerName = 1;
+  int32 ServerID = 2;
+  int32 ZoneID = 3;
+  repeated int32 State = 4;
 }
 
 message H2C_GetServerList // IResponse
@@ -167,13 +167,6 @@ message C2H_GetPrize_ActivityGiftCommond // IRequest
 }
 
 
-//ResponseType H2C_CommonResponse
-message C2H_Recharge_MetaStone // IRequest
-{
-  int32  RpcId = 90;
-  int32  BuyType = 1;
-  int32  PayType = 2;
-}
 
 //ResponseType H2C_CommonResponse
 message C2H_Handle_CharacterMail // IRequest
@@ -215,8 +208,10 @@ message C2H_Buy_ShopItem // IRequest
   int32  RpcId = 90;
   int32  ShopConfigId = 1;
   int32  SellConfigId = 2;
+  //  0国内 1海外
   int32  PriceType = 3;
   int32  ItemCount = 4;
+  int32  PayType = 5;
 }
 
 //ResponseType H2C_CommonResponse
@@ -233,7 +228,7 @@ message C2H_Add_BagItem // IRequest
   int32  RpcId = 90;
   string  AddReason = 1;
   repeated string  ItemDes = 2;
-  
+
 }
 
 //ResponseType H2C_CommonResponse
@@ -265,7 +260,7 @@ message C2H_Save_AddHeroBanDesign // IRequest
 {
   int32  RpcId = 90;
   int32  Slot = 4;
-	repeated string BanHeroList = 1;
+  repeated string BanHeroList = 1;
 }
 
 //ResponseType H2C_CommonResponse
@@ -273,7 +268,7 @@ message C2H_ChangeHeroDressEquipState // IRequest
 {
   int32  RpcId = 90;
   int32  Slot = 1;
-	string EquipId = 2;
+  string EquipId = 2;
   bool IsDressUp = 3;
   string  HeroId = 4;
 }
@@ -283,7 +278,7 @@ message C2H_ChangeHeroTalentState // IRequest
 {
   int32  RpcId = 90;
   int32  TalentLevel = 1;
-	int32  TalentIndex = 2;
+  int32  TalentIndex = 2;
   bool   IsLearn = 3;
   string  HeroId = 4;
 }

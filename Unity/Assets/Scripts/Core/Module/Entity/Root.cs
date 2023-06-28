@@ -10,7 +10,7 @@ namespace ET
     {
         // 管理所有的Entity
         private readonly Dictionary<long, Entity> allEntities = new();
-        
+
         public Scene Scene { get; private set; }
 
         public void Awake()
@@ -27,7 +27,7 @@ namespace ET
         {
             this.allEntities.Add(entity.InstanceId, entity);
         }
-        
+
         public void Remove(long instanceId)
         {
             this.allEntities.Remove(instanceId);
@@ -39,7 +39,26 @@ namespace ET
             this.allEntities.TryGetValue(instanceId, out component);
             return component;
         }
-        
+
+        public Dictionary<string, int> GetEntityCountMap()
+        {
+            Dictionary<string, int> typeCount = new Dictionary<string, int>();
+            foreach (var kv in this.allEntities)
+            {
+                Type type = kv.Value.GetType();
+                if (typeCount.ContainsKey(type.Name))
+                {
+                    typeCount[type.Name]++;
+                }
+                else
+                {
+                    typeCount[type.Name] = 1;
+                }
+            }
+
+            return typeCount;
+        }
+
         public override string ToString()
         {
             StringBuilder sb = new();

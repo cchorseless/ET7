@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ET.Server
 {
-    [HttpHandler(SceneType.Http, "/GMLogin", false)]
+    [HttpHandler(SceneType.GmWeb, "/GMLogin", false)]
     public class Http_PostGMLoginHandler: HttpPostHandler<C2G_GMLogin, G2C_GMLogin>
     {
         protected override async ETTask Run(Entity domain, C2G_GMLogin request, G2C_GMLogin response, long playerid)

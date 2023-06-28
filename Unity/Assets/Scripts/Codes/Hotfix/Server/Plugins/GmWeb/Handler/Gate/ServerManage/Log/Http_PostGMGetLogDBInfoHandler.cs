@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ET.Server
 
 {
-    [HttpHandler(SceneType.Http, "/GMGetLogDBInfo")]
+    [HttpHandler(SceneType.GmWeb, "/GMGetLogDBInfo")]
     public class Http_PostGMGetLogDBInfoHandler: HttpPostHandler<C2G_GMGetLogDBInfo, G2C_GMGetLogDBInfo>
     {
         protected override async ETTask Run(Entity domain, C2G_GMGetLogDBInfo request, G2C_GMGetLogDBInfo response, long playerid)

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ET.Server
 
 {
-    [HttpHandler(SceneType.Http, "/GMEditServerZone")]
+    [HttpHandler(SceneType.GmWeb, "/GMEditServerZone")]
     public class Http_PostGMEditServerZoneHandler: HttpPostHandler<C2G_GMEditServerZone, H2C_CommonResponse>
     {
         protected override async ETTask Run(Entity domain, C2G_GMEditServerZone request, H2C_CommonResponse response, long playerid)
@@ -88,8 +88,7 @@ namespace ET.Server
             }
             else
             {
-                Session serverSession = NetInnerComponent.Instance.Get(GameConfig.AccountProcessID);
-                var cbmsg = (A2M_GMEditServerZone)await serverSession.Call(new M2A_GMEditServerZone()
+                var cbmsg = (P2G_GMEditServerZone)await WatcherHelper.CallManage(GameConfig.AccountProcessID, new G2P_GMEditServerZone()
                 {
                     State = request.State,
                     ServerName = request.ServerName,

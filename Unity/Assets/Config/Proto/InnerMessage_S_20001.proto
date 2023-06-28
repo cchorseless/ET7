@@ -3,13 +3,13 @@ package ET;
 
 
 //ResponseType Actor_GhostSyncResponse
-message Actor_GhostSyncRequest // IRequest
+message Actor_GhostSyncRequest // IActorRequest
 {
 	int32 RpcId = 1;
 	repeated bytes Entitys = 3;
 }
 
-message Actor_GhostSyncResponse // IResponse
+message Actor_GhostSyncResponse // IActorResponse
 {
 	int32 RpcId = 90;
 	int32 Error = 91;
@@ -17,7 +17,7 @@ message Actor_GhostSyncResponse // IResponse
 }
 
 //ResponseType Actor_GhostChangePropResponse
-message Actor_GhostChangePropRequest // IRequest
+message Actor_GhostChangePropRequest // IActorRequest
 {
 	int32 RpcId = 1;
 	int32 ChangeType = 2;
@@ -26,7 +26,7 @@ message Actor_GhostChangePropRequest // IRequest
 	string PropJson = 6;
 }
 
-message Actor_GhostChangePropResponse // IResponse
+message Actor_GhostChangePropResponse // IActorResponse
 {
 	int32 RpcId = 90;
 	int32 Error = 91;
@@ -34,13 +34,15 @@ message Actor_GhostChangePropResponse // IResponse
 }
 
 //ResponseType Actor_SyncOrderStateResponse
-message Actor_SyncOrderStateRequest // IRequest
+message Actor_SyncOrderStateRequest // IActorRequest
 {
 	int32 RpcId = 1;
-	bytes Entitys = 3;
+	int64 OrderId = 2;
+	int32 OrderPaySource = 3;
+	string OrderState = 4;
 }
 
-message Actor_SyncOrderStateResponse // IResponse
+message Actor_SyncOrderStateResponse // IActorResponse
 {
 	int32 RpcId = 90;
 	int32 Error = 91;

@@ -8,7 +8,7 @@ namespace ET.Server
 {
     public static class CharacterShopComponentFunc
     {
-        public static (int, string) BuyShopUnit(this CharacterShopComponent self, C2H_Buy_ShopItem data)
+        public static async ETTask<(int, string)> BuyShopUnit(this CharacterShopComponent self, C2H_Buy_ShopItem data)
         {
             if (data.ItemCount <= 0)
             {
@@ -27,7 +27,7 @@ namespace ET.Server
                 return (ErrorCode.ERR_Error, "cant find item");
             }
 
-            return item.BuyItem(self.Character, data.PriceType, data.ItemCount);
+            return await item.BuyItem(self.Character, data.PriceType, data.ItemCount, data.PayType);
         }
 
         public static TShopUnit GetShopUnit(this CharacterShopComponent self, long shopid)

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ET.Server
 
 {
-    [HttpHandler(SceneType.Http, "/GMGetServerZoneInfo")]
+    [HttpHandler(SceneType.GmWeb, "/GMGetServerZoneInfo")]
     public class Http_PostGMGetServerZoneInfoHandler: HttpPostHandler<C2G_GMGetServerZoneInfo, H2C_CommonResponse>
     {
         protected override async ETTask Run(Entity domain, C2G_GMGetServerZoneInfo request, H2C_CommonResponse response, long playerid)

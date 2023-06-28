@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ET.Server
 
 {
-    [HttpHandler(SceneType.Http, "/GMAddNewServerNotice")]
+    [HttpHandler(SceneType.GmWeb, "/GMAddNewServerNotice")]
     public class Http_PostGMAddNewServerNoticeHandler: HttpPostHandler<C2G_GMAddNewServerNotice, H2C_CommonResponse>
     {
         protected override async ETTask Run(Entity domain, C2G_GMAddNewServerNotice request, H2C_CommonResponse response, long playerid)
@@ -35,11 +35,8 @@ namespace ET.Server
             }
             else
             {
-                Session serverSession = NetInnerComponent.Instance.Get(GameConfig.AccountProcessID);
-                var cbmsg = (A2M_GMAddNewNotice)await serverSession.Call(new M2A_GMAddNewNotice()
-                {
-                    NOTICE = request.NOTICE, OperateTime = request.OperateTime
-                });
+                var cbmsg = (P2G_GMAddNewNotice)await WatcherHelper.CallManage(GameConfig.AccountProcessID,
+                    new G2P_GMAddNewNotice() { NOTICE = request.NOTICE, OperateTime = request.OperateTime });
                 response.Error = cbmsg.Error;
                 response.Message = cbmsg.Message;
             }

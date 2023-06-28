@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ET.Server
 
 {
-    [HttpHandler(SceneType.Http, "/GMGetAllUserInfo")]
+    [HttpHandler(SceneType.GmWeb, "/GMGetAllUserInfo")]
     public class Http_PostGMGetAllUserInfoHandler: HttpPostHandler<C2G_GMGetAllUserInfo, H2C_CommonResponse>
     {
         protected override async ETTask Run(Entity domain, C2G_GMGetAllUserInfo request, H2C_CommonResponse response, long playerid)

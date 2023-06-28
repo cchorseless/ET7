@@ -6,7 +6,7 @@ namespace ET
 	[ResponseType(nameof(Actor_GhostSyncResponse))]
 	[Message(InnerMessage.Actor_GhostSyncRequest)]
 	[ProtoContract]
-	public partial class Actor_GhostSyncRequest: ProtoObject, IRequest
+	public partial class Actor_GhostSyncRequest: ProtoObject, IActorRequest
 	{
 		[ProtoMember(1)]
 		public int RpcId { get; set; }
@@ -18,7 +18,7 @@ namespace ET
 
 	[Message(InnerMessage.Actor_GhostSyncResponse)]
 	[ProtoContract]
-	public partial class Actor_GhostSyncResponse: ProtoObject, IResponse
+	public partial class Actor_GhostSyncResponse: ProtoObject, IActorResponse
 	{
 		[ProtoMember(90)]
 		public int RpcId { get; set; }
@@ -34,7 +34,7 @@ namespace ET
 	[ResponseType(nameof(Actor_GhostChangePropResponse))]
 	[Message(InnerMessage.Actor_GhostChangePropRequest)]
 	[ProtoContract]
-	public partial class Actor_GhostChangePropRequest: ProtoObject, IRequest
+	public partial class Actor_GhostChangePropRequest: ProtoObject, IActorRequest
 	{
 		[ProtoMember(1)]
 		public int RpcId { get; set; }
@@ -55,7 +55,7 @@ namespace ET
 
 	[Message(InnerMessage.Actor_GhostChangePropResponse)]
 	[ProtoContract]
-	public partial class Actor_GhostChangePropResponse: ProtoObject, IResponse
+	public partial class Actor_GhostChangePropResponse: ProtoObject, IActorResponse
 	{
 		[ProtoMember(90)]
 		public int RpcId { get; set; }
@@ -71,19 +71,25 @@ namespace ET
 	[ResponseType(nameof(Actor_SyncOrderStateResponse))]
 	[Message(InnerMessage.Actor_SyncOrderStateRequest)]
 	[ProtoContract]
-	public partial class Actor_SyncOrderStateRequest: ProtoObject, IRequest
+	public partial class Actor_SyncOrderStateRequest: ProtoObject, IActorRequest
 	{
 		[ProtoMember(1)]
 		public int RpcId { get; set; }
 
+		[ProtoMember(2)]
+		public long OrderId { get; set; }
+
 		[ProtoMember(3)]
-		public byte[] Entitys { get; set; }
+		public int OrderPaySource { get; set; }
+
+		[ProtoMember(4)]
+		public string OrderState { get; set; }
 
 	}
 
 	[Message(InnerMessage.Actor_SyncOrderStateResponse)]
 	[ProtoContract]
-	public partial class Actor_SyncOrderStateResponse: ProtoObject, IResponse
+	public partial class Actor_SyncOrderStateResponse: ProtoObject, IActorResponse
 	{
 		[ProtoMember(90)]
 		public int RpcId { get; set; }

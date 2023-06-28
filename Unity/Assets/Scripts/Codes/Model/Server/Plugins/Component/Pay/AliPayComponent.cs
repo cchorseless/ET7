@@ -27,7 +27,7 @@ namespace ET
                 //可设置AES密钥，调用AES加解密相关接口时需要（可选）
                 EncryptKey = "wB1tM9fz0pbMHag0GbF0EQ==",
                 //可设置异步通知接收服务地址（可选）
-                NotifyUrl = "http://henhaoji.games:8080/AliPayNotifyUrl",
+                NotifyUrl = "http://xiyou.henhaoji.games:8080/AliPayNotifyUrl",
 
                 // 支付宝公钥 RSA公钥
                 // 为支付宝开放平台-支付宝公钥

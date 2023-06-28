@@ -3,10 +3,10 @@
 namespace ET.Server
 
 {
-    [MessageHandler(SceneType.Gate)]
-    public class W2P_GMReloadHandler: AMRpcHandler<M2A_GMReload, A2M_GMReload>
+    [ActorMessageHandler(SceneType.Manager)]
+    public class W2P_GMReloadHandler: AMActorRpcHandler<Scene,W2P_GMReload, P2W_GMReload>
     {
-        protected override async ETTask Run(Session session, M2A_GMReload request, A2M_GMReload response)
+        protected override async ETTask Run(Scene scene, W2P_GMReload request, P2W_GMReload response)
         {
             await ReloadDllConsoleHandler.Handle();
         }

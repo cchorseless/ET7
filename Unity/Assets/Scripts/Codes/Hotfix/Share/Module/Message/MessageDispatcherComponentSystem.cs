@@ -6,7 +6,7 @@ namespace ET
     /// <summary>
     /// 消息分发组件
     /// </summary>
-    [FriendOf(typeof(MessageDispatcherComponent))]
+    [FriendOf(typeof (MessageDispatcherComponent))]
     public static class MessageDispatcherComponentHelper
     {
         [ObjectSystem]
@@ -56,14 +56,14 @@ namespace ET
                     continue;
                 }
 
-                object[] attrs = type.GetCustomAttributes(typeof(MessageHandlerAttribute), false);
-                
+                object[] attrs = type.GetCustomAttributes(typeof (MessageHandlerAttribute), false);
+
                 foreach (object attr in attrs)
                 {
                     MessageHandlerAttribute messageHandlerAttribute = attr as MessageHandlerAttribute;
-                    
+
                     Type messageType = iMHandler.GetMessageType();
-                    
+
                     ushort opcode = NetServices.Instance.GetOpcode(messageType);
                     if (opcode == 0)
                     {
@@ -71,7 +71,7 @@ namespace ET
                         continue;
                     }
 
-                    MessageDispatcherInfo messageDispatcherInfo = new (messageHandlerAttribute.SceneType, iMHandler);
+                    MessageDispatcherInfo messageDispatcherInfo = new(messageHandlerAttribute.SceneType, iMHandler);
                     self.RegisterHandler(opcode, messageDispatcherInfo);
                 }
             }
@@ -104,7 +104,7 @@ namespace ET
                 {
                     continue;
                 }
-                
+
                 try
                 {
                     ev.IMHandler.Handle(session, message);

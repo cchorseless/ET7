@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 namespace ET.Server
 
 {
-    [HttpHandler(SceneType.Http, "/GMSearchLog")]
+    [HttpHandler(SceneType.GmWeb, "/GMSearchLog")]
     public class Http_PostGMSearchLogHandler: HttpPostHandler<C2G_GMSearchLog, G2C_GMSearchLog>
     {
         protected override async ETTask Run(Entity domain, C2G_GMSearchLog request, G2C_GMSearchLog response, long playerid)
@@ -21,7 +21,7 @@ namespace ET.Server
                 return;
             }
 
-            if (request.ProcessId == null || request.ProcessId.Length == 0)
+            if (string.IsNullOrEmpty(request.ProcessId))
             {
                 response.Error = ErrorCode.ERR_Error;
                 response.Message = "no ProcessId";
@@ -123,8 +123,7 @@ namespace ET.Server
                 records = records.GetRange((records.Count / request.PageCount) * request.PageCount, records.Count % request.PageCount);
             }
 
-            player.GetMyCharacter().SyncClientEntity(records.ToArray());
-            records.ForEach(record => { response.SearchResult.Add(record.Id.ToString()); });
+            records.ForEach(record => { response.SearchResult.Add(MongoHelper.ToClientJson(record)); });
         }
     }
 }

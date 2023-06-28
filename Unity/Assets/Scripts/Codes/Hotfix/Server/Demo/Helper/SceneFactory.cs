@@ -26,19 +26,11 @@ namespace ET.Server
                     break;
                 case SceneType.Realm:
                     //scene.AddComponent<NetServerComponent, IPEndPoint>(startSceneConfig.InnerIPOutPort);
-                    // if (startSceneConfig.Process == GameConfig.GmWebProcessID)
-                    // {
-                    //     scene.AddComponent<NetServerComponent, IEnumerable<string>>(new List<string>() { startSceneConfig.WebSocketUrl });
-                    // }
                     scene.AddComponent<HttpComponent, string>(startSceneConfig.HttpUrl);
                     scene.AddComponent<ServerSceneCloseComponent, int>((int)SceneType.Realm);
                     break;
                 case SceneType.Gate:
                     //scene.AddComponent<NetServerComponent, IPEndPoint>(startSceneConfig.InnerIPOutPort);
-                    // if (startSceneConfig.Process == GameConfig.GmWebProcessID)
-                    // {
-                    //     scene.AddComponent<NetServerComponent, IEnumerable<string>>(new List<string>() { startSceneConfig.WebSocketUrl });
-                    // }
                     scene.AddComponent<HttpComponent, string>(startSceneConfig.HttpUrl);
                     scene.AddComponent<PlayerComponent>();
                     scene.AddComponent<GateSessionKeyComponent>();
@@ -48,11 +40,17 @@ namespace ET.Server
                     scene.AddComponent<UnitComponent>();
                     scene.AddComponent<AOIManagerComponent>();
                     break;
+                case SceneType.Manager:
+                    break;
                 case SceneType.Location:
                     scene.AddComponent<LocationComponent>();
                     break;
-                // GM
+                // GM进程上 支付回调+通用的http接口
                 case SceneType.Http:
+                    scene.AddComponent<HttpComponent, string>(startSceneConfig.HttpUrl);
+                    break;
+                // GM
+                case SceneType.GmWeb:
                     scene.AddComponent<HttpComponent, string>(startSceneConfig.HttpUrl);
                     scene.AddComponent<PlayerComponent>();
                     break;

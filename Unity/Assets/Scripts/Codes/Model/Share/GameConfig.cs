@@ -31,9 +31,9 @@ namespace ET
             return str;
         }
 
-        public const short AccountProcessID = 1;
+        public const short AccountProcessID = 1000;
 
-        public const short GmWebProcessID = 99;
+        public const short GmWebProcessID = 1900;
 
         /// <summary>
         /// 账号数据库

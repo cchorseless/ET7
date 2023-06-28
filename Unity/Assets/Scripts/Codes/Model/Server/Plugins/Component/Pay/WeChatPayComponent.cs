@@ -44,7 +44,7 @@ namespace ET
                 // 目前仅调用"企业付款到银行卡API [V2]"时使用，执行本示例中的"获取RSA加密公钥API [V2]"即可获取。
                 RsaPublicKey = "",
 
-                NotifyUrl = "http://www.henhaoji.games:8080/WeChatPayNotifyUrl",
+                NotifyUrl = "http://xiyou.henhaoji.games:8080/WeChatPayNotifyUrl",
             };
         }
     }

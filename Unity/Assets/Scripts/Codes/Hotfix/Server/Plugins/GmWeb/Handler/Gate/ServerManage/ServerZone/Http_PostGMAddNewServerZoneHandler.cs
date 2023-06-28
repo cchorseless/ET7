@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ET.Server
 
 {
-    [HttpHandler(SceneType.Http, "/GMAddNewServerZone")]
+    [HttpHandler(SceneType.GmWeb, "/GMAddNewServerZone")]
     public class Http_PostGMAddNewServerZoneHandler: HttpPostHandler<C2G_GMAddNewServerZone, H2C_CommonResponse>
     {
         protected override async ETTask Run(Entity domain, C2G_GMAddNewServerZone request, H2C_CommonResponse response, long playerid)
@@ -53,14 +53,14 @@ namespace ET.Server
             }
             else
             {
-                Session serverSession = NetInnerComponent.Instance.Get(GameConfig.AccountProcessID);
-                var cbmsg = (A2M_GMAddNewServerZone)await serverSession.Call(new M2A_GMAddNewServerZone()
-                {
-                    ZoneId = request.ZoneId,
-                    ServerName = request.ServerName,
-                    ServerLabel = request.ServerLabel,
-                    OperateTime = request.OperateTime
-                });
+                var cbmsg = (P2G_GMAddNewServerZone)await WatcherHelper.CallManage(GameConfig.AccountProcessID,
+                    new G2P_GMAddNewServerZone()
+                    {
+                        ZoneId = request.ZoneId,
+                        ServerName = request.ServerName,
+                        ServerLabel = request.ServerLabel,
+                        OperateTime = request.OperateTime
+                    });
                 response.Error = cbmsg.Error;
                 response.Message = cbmsg.Message;
             }

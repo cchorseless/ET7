@@ -45,5 +45,29 @@ namespace ET.Server
             //ViewData["response"] = response.Body;
             return qrcode;
         }
+
+        /// <summary>
+        /// 查询订单
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="order"></param>
+        /// <returns></returns>
+        public static async ETTask<bool> QueryOrderStateV2(this WeChatPayComponent self, TPayOrderItem order)
+        {
+            var request = new WeChatPayOrderQueryRequest();
+            request.OutTradeNo = order.Id.ToString();
+            var response = await self.ClientV2.ExecuteAsync(request, self.PayOptions);
+            if (response != null)
+            {
+                if (response.ReturnCode.ToUpper() == EPayOrderResult.SUCCESS &&
+                    response.ResultCode.ToUpper() == EPayOrderResult.SUCCESS &&
+                    response.TradeState.ToUpper() == EPayOrderResult.SUCCESS)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }

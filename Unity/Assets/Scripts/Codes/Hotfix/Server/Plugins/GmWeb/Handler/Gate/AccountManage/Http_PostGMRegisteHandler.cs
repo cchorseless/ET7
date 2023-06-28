@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ET.Server
 
 {
-    [HttpHandler(SceneType.Http, "/GMRegiste")]
+    [HttpHandler(SceneType.GmWeb, "/GMRegiste")]
     public class Http_PostGMRegisteHandler: HttpPostHandler<C2G_GMRegiste, H2C_CommonResponse>
     {
         protected override async ETTask Run(Entity domain, C2G_GMRegiste request, H2C_CommonResponse response, long playerid)

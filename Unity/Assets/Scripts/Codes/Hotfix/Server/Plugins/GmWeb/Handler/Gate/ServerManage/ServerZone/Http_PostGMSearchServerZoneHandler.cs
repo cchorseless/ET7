@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace ET.Server
 
 {
-    [HttpHandler(SceneType.Http, "/GMSearchServerZone")]
+    [HttpHandler(SceneType.GmWeb, "/GMSearchServerZone")]
     public class Http_PostGMSearchServerZoneHandler: HttpPostHandler<C2G_GMSearchServerZone, G2C_GMSearchServerZone>
     {
         protected override async ETTask Run(Entity domain, C2G_GMSearchServerZone request, G2C_GMSearchServerZone response, long playerid)

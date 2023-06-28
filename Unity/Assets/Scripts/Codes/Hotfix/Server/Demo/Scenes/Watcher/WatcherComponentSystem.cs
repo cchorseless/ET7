@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace ET.Server
 {
-    [FriendOf(typeof(WatcherComponent))]
+    [FriendOf(typeof (WatcherComponent))]
     public static class WatcherComponentSystem
     {
         public class WatcherComponentAwakeSystem: AwakeSystem<WatcherComponent>
@@ -13,7 +13,7 @@ namespace ET.Server
                 WatcherComponent.Instance = self;
             }
         }
-    
+
         public class WatcherComponentDestroySystem: DestroySystem<WatcherComponent>
         {
             protected override void Destroy(WatcherComponent self)
@@ -21,18 +21,23 @@ namespace ET.Server
                 WatcherComponent.Instance = null;
             }
         }
-        
+
         public static void Start(this WatcherComponent self, int createScenes = 0)
         {
-            string[] localIP = NetworkHelper.GetAddressIPs();
+            var machineConfig = WatcherHelper.GetThisMachineConfig();
             var processConfigs = StartProcessConfigCategory.Instance.GetAll();
             foreach (StartProcessConfig startProcessConfig in processConfigs.Values)
             {
-                Log.Console(startProcessConfig.InnerIP);
-                if (!WatcherHelper.IsThisMachine(startProcessConfig.InnerIP, localIP))
+                if (startProcessConfig.MachineId != machineConfig.Id)
                 {
                     continue;
                 }
+
+                if (startProcessConfig.IsWatcher())
+                {
+                    continue;
+                }
+
                 Process process = WatcherHelper.StartProcess(startProcessConfig.Id, createScenes);
                 self.Processes.Add(startProcessConfig.Id, process);
             }

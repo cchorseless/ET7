@@ -83,9 +83,6 @@ namespace ET
 		/// <summary>守护进程端口</summary>
 		[ProtoMember(4)]
 		public string WatcherPort { get; set; }
-		/// <summary>守护进程外网端口</summary>
-		[ProtoMember(5)]
-		public string WatcherOutPort { get; set; }
 
 	}
 }

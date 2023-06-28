@@ -298,43 +298,6 @@ namespace ET
 
 	}
 
-	[ResponseType(nameof(G2C_CreatePayOrder))]
-	[Message(OuterMessage.C2G_CreatePayOrder)]
-	[ProtoContract]
-	public partial class C2G_CreatePayOrder: ProtoObject, IRequest
-	{
-		[ProtoMember(90)]
-		public int RpcId { get; set; }
-
-		[ProtoMember(91)]
-		public int PayType { get; set; }
-
-		[ProtoMember(92)]
-		public int Money { get; set; }
-
-		[ProtoMember(93)]
-		public string Title { get; set; }
-
-		[ProtoMember(94)]
-		public string Label { get; set; }
-
-	}
-
-	[Message(OuterMessage.G2C_CreatePayOrder)]
-	[ProtoContract]
-	public partial class G2C_CreatePayOrder: ProtoObject, IResponse
-	{
-		[ProtoMember(90)]
-		public int RpcId { get; set; }
-
-		[ProtoMember(91)]
-		public int Error { get; set; }
-
-		[ProtoMember(92)]
-		public string Message { get; set; }
-
-	}
-
 	public static class OuterMessage
 	{
 		 public const ushort HttpGetRouterResponse = 10002;
@@ -360,7 +323,5 @@ namespace ET
 		 public const ushort M2C_Stop = 10022;
 		 public const ushort C2M_PathfindingResult = 10023;
 		 public const ushort M2C_PathfindingResult = 10024;
-		 public const ushort C2G_CreatePayOrder = 10025;
-		 public const ushort G2C_CreatePayOrder = 10026;
 	}
 }

@@ -11,7 +11,7 @@ namespace ET.Server
         ShutDown = 3
     }
 
-    [HttpHandler(SceneType.Http, "/GMProcessEdit")]
+    [HttpHandler(SceneType.GmWeb, "/GMProcessEdit")]
     public class Http_PostGMProcessEditHandler: HttpPostHandler<C2G_GMProcessEdit, H2C_CommonResponse>
     {
         protected override async ETTask Run(Entity domain, C2G_GMProcessEdit request, H2C_CommonResponse response, long playerid)
@@ -36,22 +36,11 @@ namespace ET.Server
             switch (request.OperateType)
             {
                 case (int)EProcessEdit.Reload:
-                    if (request.ProcessId == Options.Instance.Process)
-                    {
-                        await ReloadDllConsoleHandler.Handle();
-                    }
-                    else
-                    {
-                        Session serverSession = NetInnerComponent.Instance.Get(request.ProcessId);
-                        await serverSession.Call(new M2A_GMReload());
-                    }
-
-                    break;
                 case (int)EProcessEdit.ReStart:
                 case (int)EProcessEdit.Start:
                 case (int)EProcessEdit.ShutDown:
-                    var cbmsg = await WatcherSessionComponent.Instance.GetThisMachineWatcherSession().Call(
-                        new M2A_GMProcessEdit() { ProcessId = request.ProcessId, OperateType = request.OperateType, });
+                    var cbmsg = await WatcherHelper.CallWatcher(
+                        new G2W_GMProcessEdit() { ProcessId = request.ProcessId, OperateType = request.OperateType, });
                     response.Error = cbmsg.Error;
                     response.Message = cbmsg.Message;
                     break;

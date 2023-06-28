@@ -150,22 +150,6 @@ message M2C_PathfindingResult // IActorMessage
 	repeated Unity.Mathematics.float3 Points = 3;
 }
 
-//ResponseType G2C_CreatePayOrder
-message C2G_CreatePayOrder // IRequest
-{
-	int32 RpcId = 90;
-	int32 PayType = 91;
-	int32 Money = 92;
-	string Title = 93;
-	string Label = 94;
-}
-
-message G2C_CreatePayOrder // IResponse
-{
-	int32 RpcId = 90;
-	int32 Error = 91;
-	string Message = 92;
-}
 
 
 

@@ -33,5 +33,15 @@ namespace ET
             this.SceneId = instanceIdStruct.ToLong();
             Log.Info($"StartProcess info: {this.MachineId} {this.Id} {this.SceneId}");
         }
+
+        public bool IsWatcher()
+        {
+            return this.AppName == "Watcher";
+        }
+        
+        public bool IsRobot()
+        {
+            return this.AppName == "Robot";
+        }
     }
 }

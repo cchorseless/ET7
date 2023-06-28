@@ -3,7 +3,7 @@
 namespace ET.Server
 
 {
-    [HttpHandler(SceneType.Http, "/GMIgnoreErrorLog")]
+    [HttpHandler(SceneType.GmWeb, "/GMIgnoreErrorLog")]
     public class Http_PostGMIgnoreErrorLogHandler: HttpPostHandler<C2G_GMIgnoreErrorLog, H2C_CommonResponse>
     {
         protected override async ETTask Run(Entity domain, C2G_GMIgnoreErrorLog request, H2C_CommonResponse response, long playerid)

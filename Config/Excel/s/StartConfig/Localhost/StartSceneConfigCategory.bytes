@@ -1,34 +1,35 @@
 
-"Realm*Realm10˙U8@
-"Gate*Gate1_10˚U8@
-"Gate*Gate1_20¸U8@
-"Manager*Manager1
-"Location*	Location1
-"Realm*Realm20ÑV8@
-"Gate*Gate2_10ÖV8@
-"Gate*Gate2_20ÜV8@
-	"Manager*Manager2
-
-"Location*	Location2
-"Realm*Realm30éV8@
-"Gate*Gate3_10èV8@
-"Gate*Gate3_20êV8@
-"Manager*Manager3
-"Location*	Location3
-"Realm*Realm40òV8@
-"Gate*Gate4_10ôV8@
-"Gate*Gate4_20öV8@
-"Manager*Manager4
-"Location*	Location4
-ec"Http*Realm_GM0ﬁV8@
-fc"Http*Gate_GM0ﬂV8@
-…"Robot*Robot10·]
- "Robot*Robot20‚]
-À"Robot*Robot30„]
-Ã"Robot*Robot40‰]
-Õ	"Robot*Robot50Â]
-Œ
-"Robot*Robot60Ê]
-œ"Robot*Robot70Á]
-–"Robot*Robot80Ë]
-—"Robot*Robot90È]
+!ÁèN"Manager*WatcherManager
+eË"Realm*Realm10ıN8@
+fË"Gate*Gate1_10ˆN8@
+gË"Gate*Gate1_20˜N8@
+hË"Manager*Manager1
+iË"Location*	Location1
+oÃ"Realm*Realm20ˇN8@
+pÃ"Gate*Gate2_10ÄO8@
+qÃ"Gate*Gate2_20ÅO8@
+rÃ"Manager*Manager2
+y∞	"Realm*Realm30âO8@
+z∞	"Gate*Gate3_10äO8@
+{∞	"Gate*Gate3_20ãO8@
+|∞	"Manager*Manager3
+Éî
+"Realm*Realm40ìO8@
+Ñî
+"Gate*Gate4_10îO8@
+Öî
+"Gate*Gate4_20ïO8@
+Üî
+"Manager*Manager4
+øÏ"GmWeb*GmWeb0œO8@
+¿Ï"Manager*
+Manager_GM
+…–"Robot*Robot10ŸO
+ –"Robot*Robot20⁄O
+À–"Robot*Robot30€O
+Ã–"Robot*Robot40‹O
+Õ–"Robot*Robot50›O
+Œ–"Robot*Robot60ﬁO
+œ–"Robot*Robot70ﬂO
+––"Robot*Robot80‡O
+—–"Robot*Robot90·O

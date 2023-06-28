@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ET.Server
 
 {
-    [HttpHandler(SceneType.Http, "/GMEditAccount")]
+    [HttpHandler(SceneType.GmWeb, "/GMEditAccount")]
     public class Http_PostGMEditAccountHandler: HttpPostHandler<C2G_GMEditAccount, H2C_CommonResponse>
     {
         enum EEditAccountOperate

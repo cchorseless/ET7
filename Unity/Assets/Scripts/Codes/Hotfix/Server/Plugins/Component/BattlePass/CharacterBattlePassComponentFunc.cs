@@ -295,5 +295,15 @@ namespace ET.Server
             }
             return r;
         }
+
+        public static void RechargeBattlePassSuccess(this CharacterBattlePassComponent self, TPayOrderItem payOrder)
+        {
+            if (self.IsBattlePass)
+            {
+                Log.Error($"repeat charge BattlePass {payOrder.Id}");
+            }
+            self.IsBattlePass = true;
+            self.Character.SyncHttpEntity(self);
+        }
     }
 }

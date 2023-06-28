@@ -2,26 +2,26 @@ syntax = "proto3";
 package ET;
 
 
-//ResponseType A2M_GMReload
-message M2A_GMReload // IRequest
+//ResponseType P2W_GMReload
+message W2P_GMReload // IActorRequest
 {
 	int32 RpcId = 90;
 }
 
-message A2M_GMReload // IResponse
+message P2W_GMReload // IActorResponse
 {
 	int32 RpcId = 90;
 	int32 Error = 91;
 	string Message = 92;
 }
 
-//ResponseType G2W_GMShutDown
-message W2G_GMShutDown // IRequest
+//ResponseType P2W_GMShutDown
+message W2P_GMShutDown // IActorRequest
 {
 	int32 RpcId = 90;
 }
 
-message G2W_GMShutDown // IResponse
+message P2W_GMShutDown // IActorResponse
 {
 	int32 RpcId = 90;
 	int32 Error = 91;
@@ -29,33 +29,33 @@ message G2W_GMShutDown // IResponse
 }
 
 //ResponseType W2G_GMGetProcessInfo
-message G2W_GMGetProcessInfo // IRequest
+message G2W_GMGetProcessInfo // IActorRequest
 {
 	int32 RpcId = 90;
 }
 
-message W2G_GMGetProcessInfo // IResponse
-{
-	int32 RpcId = 90;
-	int32 Error = 91;
-	string Message = 92;
-}
-
-//ResponseType G2W_GMGetProcessEntityInfo
-message W2G_GMGetProcessEntityInfo // IRequest
-{
-	int32 RpcId = 90;
-}
-
-message G2W_GMGetProcessEntityInfo // IResponse
+message W2G_GMGetProcessInfo // IActorResponse
 {
 	int32 RpcId = 90;
 	int32 Error = 91;
 	string Message = 92;
 }
 
-//ResponseType A2M_GMProcessEdit
-message M2A_GMProcessEdit // IRequest
+//ResponseType P2W_GMGetProcessEntityInfo
+message W2P_GMGetProcessEntityInfo // IActorRequest
+{
+	int32 RpcId = 90;
+}
+
+message P2W_GMGetProcessEntityInfo // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//ResponseType W2G_GMProcessEdit
+message G2W_GMProcessEdit // IActorRequest
 {
 	int32 RpcId = 90;
 	int32 ProcessId = 91;
@@ -63,30 +63,30 @@ message M2A_GMProcessEdit // IRequest
 	int32 OperateType = 92;
 }
 
-message A2M_GMProcessEdit // IResponse
+message W2G_GMProcessEdit // IActorResponse
 {
 	int32 RpcId = 90;
 	int32 Error = 91;
 	string Message = 92;
 }
 
-//ResponseType A2M_GMAddNewNotice
-message M2A_GMAddNewNotice // IRequest
+//ResponseType P2G_GMAddNewNotice
+message G2P_GMAddNewNotice // IActorRequest
 {
 	int32 RpcId = 90;
 	string NOTICE = 92;
   	int32 OperateTime = 94;
 }
 
-message A2M_GMAddNewNotice // IResponse
+message P2G_GMAddNewNotice // IActorResponse
 {
 	int32 RpcId = 90;
 	int32 Error = 91;
 	string Message = 92;
 }
 
-//ResponseType A2M_GMAddNewServerZone
-message M2A_GMAddNewServerZone // IRequest
+//ResponseType P2G_GMAddNewServerZone
+message G2P_GMAddNewServerZone // IActorRequest
 {
 	int32 RpcId = 90;
 	int32 ZoneId = 91;
@@ -95,15 +95,15 @@ message M2A_GMAddNewServerZone // IRequest
   	int32 OperateTime = 94;
 }
 
-message A2M_GMAddNewServerZone // IResponse
+message P2G_GMAddNewServerZone // IActorResponse
 {
 	int32 RpcId = 90;
 	int32 Error = 91;
 	string Message = 92;
 }
 
-//ResponseType A2M_GMEditServerZone
-message M2A_GMEditServerZone // IRequest
+//ResponseType P2G_GMEditServerZone
+message G2P_GMEditServerZone // IActorRequest
 {
 	int32 RpcId = 90;
 	int32 State = 91;
@@ -114,7 +114,7 @@ message M2A_GMEditServerZone // IRequest
   	string ServerName = 96;
 }
 
-message A2M_GMEditServerZone // IResponse
+message P2G_GMEditServerZone // IActorResponse
 {
 	int32 RpcId = 90;
 	int32 Error = 91;

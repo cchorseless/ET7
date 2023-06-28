@@ -4,4 +4,5 @@
 {"_t":"StartProcessConfig","_id":2,"MachineId":1,"InnerPort":20002,"AppName":"Server","ProcessDes":"Game2"},
 {"_t":"StartProcessConfig","_id":3,"MachineId":1,"InnerPort":20003,"AppName":"Server","ProcessDes":"Game3"},
 {"_t":"StartProcessConfig","_id":4,"MachineId":1,"InnerPort":20004,"AppName":"Server","ProcessDes":"Game4"},
+{"_t":"StartProcessConfig","_id":9999,"MachineId":1,"InnerPort":29999,"AppName":"Watcher","ProcessDes":"Watcher"},
 ]}

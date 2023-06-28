@@ -1,24 +1,21 @@
 
+!çN"Manager*WatcherManager
 "Realm*Realm10úU8@
 "Gate*Gate1_10ûU8@
 "Gate*Gate1_20üU8@
-"Manager*Manager1
-"Location*	Location1
-"Realm*Realm20„V8@
-"Gate*Gate2_10…V8@
-"Gate*Gate2_20†V8@
-	"Manager*Manager2
-
-"Location*	Location2
-"Realm*Realm30V8@
-"Gate*Gate3_10V8@
-"Gate*Gate3_20V8@
-"Manager*Manager3
-"Location*	Location3
-"Realm*Realm40˜V8@
-"Gate*Gate4_10™V8@
-"Gate*Gate4_20šV8@
-"Manager*Manager4
-"Location*	Location4
+"Location*	Location1
+
+"Realm*Realm20„V8@
+"Gate*Gate2_10…V8@
+"Gate*Gate2_20†V8@
+"Location*	Location2
+"Realm*Realm30V8@
+"Gate*Gate3_10V8@
+"Gate*Gate3_20V8@
+"Location*	Location3
+"Realm*Realm40˜V8@
+"Gate*Gate4_10™V8@
+ "Gate*Gate4_20šV8@
+!"Location*	Location4
 ec"Http*Realm_GM0ŞV8@
 fc"Http*Gate_GM0ßV8@
