@@ -45,7 +45,7 @@ namespace ET.Server
                 return;
             }
 
-            if (request.Roles != null && request.Roles.Count == 0 )
+            if (request.Roles != null && request.Roles.Count == 0)
             {
                 response.Error = ErrorCode.ERR_Error;
                 response.Message = "error Routes length";
@@ -69,7 +69,7 @@ namespace ET.Server
             newAccount.CreateTime = TimeHelper.ServerNow();
             newAccount.GmLevel = request.GmLevel;
             await accountDB.Save(newAccount);
-            var CharacterData = Entity.CreateOne<GmCharacterDataComponent, long>(scene, newAccount.Id);
+            var CharacterData = Entity.CreateOne<GmCharacterDataComponent, string, long>(scene, newAccount.Account, newAccount.Id);
             CharacterData.Description = request.Des;
             CharacterData.Roles = request.Roles;
             await accountDB.Save(CharacterData);

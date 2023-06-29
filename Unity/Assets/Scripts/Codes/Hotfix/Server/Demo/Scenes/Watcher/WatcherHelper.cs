@@ -33,12 +33,18 @@ namespace ET.Server
             return await ActorMessageSenderComponent.Instance.Call(actorid, request);
         }
 
-        public static async ETTask<IActorResponse> CallManage(int processid ,IActorRequest request)
+        public static async ETTask<IActorResponse> CallManage(int processid, IActorRequest request)
         {
             var actorid = StartSceneConfigCategory.Instance.GetManageActorId(processid);
             return await ActorMessageSenderComponent.Instance.Call(actorid, request);
         }
-        
+
+        public static void SendManage(int processid, IActorRequest request)
+        {
+            var actorid = StartSceneConfigCategory.Instance.GetManageActorId(processid);
+            ActorMessageSenderComponent.Instance.Send(actorid, request);
+        }
+
         public static Session GetThisMachineWatcherSession()
         {
             return NetInnerComponent.Instance.Get(GetThisWatcherConfig().Id);

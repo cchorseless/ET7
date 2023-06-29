@@ -58,9 +58,10 @@ namespace ET.Server
                     player.AddComponent(GmCharacterData);
                 }
             }
+
             if (GmCharacterData == null)
             {
-                GmCharacterData = player.AddComponent<GmCharacterDataComponent, long>(player.Id);
+                GmCharacterData = player.AddComponent<GmCharacterDataComponent, string, long>(player.Account, player.Id);
                 if (!GmCharacterData.Roles.Contains(player.GmLevel))
                 {
                     GmCharacterData.Roles.Add(player.GmLevel);

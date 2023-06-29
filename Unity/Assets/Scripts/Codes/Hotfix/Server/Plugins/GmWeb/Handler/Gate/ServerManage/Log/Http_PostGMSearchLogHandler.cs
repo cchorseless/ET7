@@ -82,7 +82,7 @@ namespace ET.Server
             List<string> dbCollectName = new List<string>();
             while (start < end)
             {
-                dbCollectName.Add(DBLogger.GetDBCollectionName(request.ProcessId, request.LogLevel, ref start));
+                dbCollectName.Add(DBLogManagerComponent.Instance.GetDBCollectionName(request.ProcessId, request.LogLevel, start));
                 start = start.AddDays(1);
             }
 
@@ -123,6 +123,7 @@ namespace ET.Server
                 records = records.GetRange((records.Count / request.PageCount) * request.PageCount, records.Count % request.PageCount);
             }
 
+            response.SearchResult = new List<string>();
             records.ForEach(record => { response.SearchResult.Add(MongoHelper.ToClientJson(record)); });
         }
     }

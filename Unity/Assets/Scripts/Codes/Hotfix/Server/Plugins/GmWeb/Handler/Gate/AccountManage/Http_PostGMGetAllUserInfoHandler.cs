@@ -22,25 +22,21 @@ namespace ET.Server
                 return;
             }
 
-            var json = JsonHelper.GetLitObject();
-            var gmAccountInfo = JsonHelper.GetLitArray();
-            var gmCharacterDataInfo = JsonHelper.GetLitArray();
+            var role_json=JsonHelper.GetLitArray();
             var accountDB = DBManagerComponent.Instance.GetAccountDB();
-            List<TAccountInfo> accountInfos = await accountDB.Query<TAccountInfo>(account =>
-                    account.Account != "admin" &&
-                    account.GmLevel > (int)EGmPlayerRole.GmRole_PlayerGm);
-            foreach (var accountInfo in accountInfos)
+            var GmCharacterDatas = await accountDB.Query<GmCharacterDataComponent>(data => true);
+            foreach (var CharacterData in GmCharacterDatas)
             {
-                gmAccountInfo.Add(MongoHelper.ToClientJson(accountInfo));
-                var dataComp = await accountDB.QueryOne<GmCharacterDataComponent>(CharacterData => CharacterData.Int64PlayerId == accountInfo.Id);
-                if (dataComp != null)
+                var _json = JsonHelper.FromEntity(CharacterData);
+                var account = await accountDB.QueryOne<TAccountInfo>(accountInfo => CharacterData.Int64PlayerId == accountInfo.Id);
+                if (account != null)
                 {
-                    gmCharacterDataInfo.Add(MongoHelper.ToClientJson(dataComp));
+                    _json["LastLoginTime"] = account.LastLoginTime;
+                    _json["GmLevel"] = account.GmLevel;
                 }
+                role_json.Add(_json);
             }
-            json["Account"] = gmAccountInfo;
-            json["Character"] = gmCharacterDataInfo;
-            response.Message = JsonHelper.ToLitJson(json);
+            response.Message = JsonHelper.ToLitJson(role_json);
         }
     }
 }

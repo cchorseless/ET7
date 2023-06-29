@@ -27,14 +27,14 @@ namespace ET.Server
                 }
 
                 var date = TimeInfo.Instance.ToDateTime((long)request.LogTime * 1000);
-                var collectName = DBLogger.GetDBCollectionName(request.LogProcess, (int)DBLogger.EDBLogLevel.Error, ref date);
+                var collectName = DBLogManagerComponent.Instance.GetDBCollectionName(request.LogProcess, (int)DBLogger.EDBLogLevel.Error,  date);
                 long logid = long.Parse(request.LogId);
                 var db = DBManagerComponent.Instance.GetLogDB();
                 var log = await db.Query<DBLogRecord>(record => record.Id == logid, collectName);
                 if (log.Count > 0)
                 {
                     log[0].IsIgnore = true;
-                    await db.Save<DBLogRecord>(log[0], collectName);
+                    await db.Save(log[0], collectName);
                 }
                 else
                 {

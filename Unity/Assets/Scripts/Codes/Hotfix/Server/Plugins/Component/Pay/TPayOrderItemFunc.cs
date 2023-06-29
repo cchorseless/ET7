@@ -181,9 +181,9 @@ namespace ET.Server
             return false;
         }
 
-        public static async ETTask SyncOrderState(this TPayOrderItem self, string state)
+        public static void SyncOrderState(this TPayOrderItem self, string state)
         {
-            await ActorMessageSenderComponent.Instance.Call(self.GateActorId,
+             ActorMessageSenderComponent.Instance.Send(self.GateActorId,
                 new Actor_SyncOrderStateRequest() { OrderId = self.Id, OrderPaySource = self.PayOrderSource, OrderState = state, });
         }
 

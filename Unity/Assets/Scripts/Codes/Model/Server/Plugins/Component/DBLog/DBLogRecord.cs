@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ET.Server
 {
-    public class DBLogRecord : Entity, IDestroy
+    public class DBLogRecord : Entity, IAwake, IDestroy
     {
         [BsonIgnoreIfDefault]
         public string Process { get; set; }
@@ -27,19 +27,4 @@ namespace ET.Server
         [BsonIgnoreIfDefault]
         public int Count { get; set; }
     }
-
-    [ObjectSystem]
-    public class DBLogRecordDestroySystem : DestroySystem<DBLogRecord>
-    {
-        protected override void Destroy(DBLogRecord self)
-        {
-            self.Process = null;
-            self.Time = 0;
-            self.Level = 0;
-            self.Msg = null;
-            self.IsIgnore = false;
-            self.Label = null;
-        }
-    }
-
 }

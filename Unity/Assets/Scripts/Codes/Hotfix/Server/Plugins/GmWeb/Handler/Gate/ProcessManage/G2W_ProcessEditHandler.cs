@@ -35,14 +35,13 @@ namespace ET.Server
                     switch (request.OperateType)
                     {
                         case (int)EProcessEdit.Reload:
-                            await WatcherHelper.CallManage(request.ProcessId, new W2P_GMReload());
+                            WatcherHelper.SendManage(request.ProcessId, new W2P_GMReload());
                             break;
                         case (int)EProcessEdit.ReStart:
                         case (int)EProcessEdit.ShutDown:
-                            // todo 保存玩家进度
-                            await WatcherHelper.CallManage(request.ProcessId, new W2P_GMShutDown());
-                            await TimerComponent.Instance.WaitAsync(5000);
+                            WatcherHelper.SendManage(request.ProcessId, new W2P_GMShutDown());
                             watchComp.Processes.Remove(request.ProcessId);
+                            await TimerComponent.Instance.WaitAsync(5000);
                             Log.Debug($"SHUTDOWN SUCCESS -{request.ProcessId}");
                             break;
                     }

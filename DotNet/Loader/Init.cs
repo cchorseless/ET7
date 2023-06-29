@@ -23,6 +23,7 @@ namespace ET
 					.WithParsed(Game.AddSingleton);
 				
 				Game.AddSingleton<TimeInfo>();
+				Game.AddSingleton<DBLogger>();
 				Game.AddSingleton<Logger>().ILog = new NLogger(Options.Instance.AppType.ToString(), Options.Instance.Process, "../Config/NLog/NLog.config");
 				Game.AddSingleton<ObjectPool>();
 				Game.AddSingleton<IdGenerater>();

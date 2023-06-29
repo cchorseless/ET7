@@ -74,8 +74,8 @@ namespace ET.Server
                 records = records.GetRange((records.Count / request.PageCount) * request.PageCount, records.Count % request.PageCount);
             }
 
-            player.GetMyCharacter().SyncClientEntity(records.ToArray());
-            records.ForEach(record => response.SearchResult.Add(record.Id.ToString()));
+            response.SearchResult = new List<string>();
+            records.ForEach(record => response.SearchResult.Add(MongoHelper.ToClientJson(record)));
         }
     }
 }

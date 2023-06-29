@@ -24,7 +24,7 @@ namespace ET.Server
             // 数据库管理
             Root.Instance.Scene.AddComponent<DBManagerComponent>();
             // 日志输出到服务器
-            Game.AddSingleton<DBLogger>().RegisterLogDB(DBManagerComponent.Instance.GetLogDB());
+            Root.Instance.Scene.AddComponent<DBLogManagerComponent>();
             // redis
             Root.Instance.Scene.AddComponent<RedisManagerComponent>();
             // 监视文件改变

@@ -12,6 +12,7 @@ namespace ET
         {
             return this.GetComponent<GhostEntityComponent>() != null;
         }
+
         public int GhostServerId()
         {
             return this.GetComponent<GhostEntityComponent>().ServerId;
@@ -19,9 +20,17 @@ namespace ET
 
         public void Merge(Entity merge, bool mergeDestroy = true)
         {
-            if (merge == null || merge is GhostEntityComponent) { return; }
+            if (merge == null || merge is GhostEntityComponent)
+            {
+                return;
+            }
+
             Type t = this.GetType();
-            if (t.Name != merge.GetType().Name) { return; }
+            if (t.Name != merge.GetType().Name)
+            {
+                return;
+            }
+
             ProcessGhostSyncComponent.Instance.MergeProps(t, this, merge);
             if (this.childrenDB != null)
             {
@@ -41,6 +50,7 @@ namespace ET
                     }
                 }
             }
+
             if (this.componentsDB != null)
             {
                 var _list = this.componentsDB.ToList();
@@ -59,6 +69,7 @@ namespace ET
                     }
                 }
             }
+
             if (merge.childrenDB != null)
             {
                 var _list = merge.childrenDB.ToList();
@@ -74,6 +85,7 @@ namespace ET
                     }
                 }
             }
+
             if (merge.componentsDB != null)
             {
                 var _list = merge.componentsDB.ToList();
@@ -89,6 +101,7 @@ namespace ET
                     }
                 }
             }
+
             if (mergeDestroy)
             {
                 merge.Dispose();
@@ -102,7 +115,8 @@ namespace ET
             {
                 return _list;
             }
-            Type type = typeof(K);
+
+            Type type = typeof (K);
             foreach (var component in this.Children)
             {
                 if (component.Value.GetType().Equals(type))
@@ -110,10 +124,9 @@ namespace ET
                     _list.Add((K)component.Value);
                 }
             }
+
             return _list;
         }
-
-
 
         public K GetUnActiveChild<K>(long entityId) where K : Entity
         {
@@ -121,8 +134,9 @@ namespace ET
             {
                 return null;
             }
+
             var _list = this.childrenDB.ToList();
-            Type type = typeof(K);
+            Type type = typeof (K);
             foreach (var _child in _list)
             {
                 if (_child.Id == entityId)
@@ -130,6 +144,7 @@ namespace ET
                     return (K)_child;
                 }
             }
+
             return null;
         }
 
@@ -139,8 +154,9 @@ namespace ET
             {
                 return null;
             }
+
             var _list = this.componentsDB.ToList();
-            Type type = typeof(K);
+            Type type = typeof (K);
             foreach (var component in _list)
             {
                 if (component.GetType().Equals(type))
@@ -148,6 +164,7 @@ namespace ET
                     return (K)component;
                 }
             }
+
             return null;
         }
 
@@ -158,10 +175,12 @@ namespace ET
             {
                 idReplace.Add(oldId, IdGenerater.Instance.GenerateId().ToString());
             }
+
             foreach (var _child in entity.Children)
             {
                 EntityWithNewId(_child.Value, idReplace);
             }
+
             foreach (var _child in entity.Components)
             {
                 EntityWithNewId(_child.Value, idReplace);
@@ -177,6 +196,7 @@ namespace ET
             {
                 json = json.Replace(kv.Key, kv.Value);
             }
+
             T t = MongoHelper.FromJson<T>(json);
             t.Domain = entity.Domain;
             return t;
@@ -192,7 +212,7 @@ namespace ET
 
         public static T CreateOne<T>(bool isFromPool = false) where T : Entity
         {
-            Type type = typeof(T);
+            Type type = typeof (T);
             T component = (T)Entity.Create(type, isFromPool);
             component.Id = IdGenerater.Instance.GenerateId();
             return component;
@@ -200,25 +220,26 @@ namespace ET
 
         public static T CreateOne<T>(Scene scene, bool isFromPool = false) where T : Entity
         {
-            Type type = typeof(T);
+            Type type = typeof (T);
             T component = (T)Entity.Create(type, isFromPool);
             component.Id = IdGenerater.Instance.GenerateId();
             component.Domain = scene.Domain;
             return component;
         }
 
-        public static T CreateOne<T, A>(Scene scene, A p1, bool isFromPool = false) where T : Entity
+        public static T CreateOne<T, A>(Scene scene, A p1, bool isFromPool = false) where T : Entity, IAwake<A>
         {
-            Type type = typeof(T);
+            Type type = typeof (T);
             T component = (T)Entity.Create(type, isFromPool);
             component.Id = IdGenerater.Instance.GenerateId();
             component.Domain = scene.Domain;
             EventSystem.Instance.Awake(component, p1);
             return component;
         }
-        public static T CreateOne<T, A, B>(Scene scene, A p1, B p2, bool isFromPool = false) where T : Entity
+
+        public static T CreateOne<T, A, B>(Scene scene, A p1, B p2, bool isFromPool = false) where T : Entity, IAwake<A, B>
         {
-            Type type = typeof(T);
+            Type type = typeof (T);
             T component = (T)Entity.Create(type, isFromPool);
             component.Id = IdGenerater.Instance.GenerateId();
             component.Domain = scene.Domain;

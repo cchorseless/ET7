@@ -26,21 +26,29 @@ namespace ET.Server
                 return;
             }
 
-            if (!StartProcessConfigCategory.Instance.Contain(request.ProcessId))
+            var config = StartProcessConfigCategory.Instance.Get(request.ProcessId);
+            if (config == null)
             {
                 response.Error = ErrorCode.ERR_Error;
                 response.Message = $"cant find Process {request.ProcessId}";
                 return;
             }
-
+            if (config.IsWatcher())
+            {
+                response.Error = ErrorCode.ERR_Error;
+                response.Message = $"cant handle watcher Process {request.ProcessId}";
+                return;
+            }
             switch (request.OperateType)
             {
                 case (int)EProcessEdit.Reload:
                 case (int)EProcessEdit.ReStart:
                 case (int)EProcessEdit.Start:
                 case (int)EProcessEdit.ShutDown:
-                    var cbmsg = await WatcherHelper.CallWatcher(
-                        new G2W_GMProcessEdit() { ProcessId = request.ProcessId, OperateType = request.OperateType, });
+                    var cbmsg = await WatcherHelper.CallWatcher(new G2W_GMProcessEdit()
+                    {
+                        ProcessId = request.ProcessId, OperateType = request.OperateType,
+                    });
                     response.Error = cbmsg.Error;
                     response.Message = cbmsg.Message;
                     break;

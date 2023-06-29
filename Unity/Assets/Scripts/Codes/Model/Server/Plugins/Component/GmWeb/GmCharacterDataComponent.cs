@@ -5,11 +5,11 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace ET.Server
 {
-    public class GmCharacterDataComponent : Entity, IAwake<long>
+    public class GmCharacterDataComponent: Entity, IAwake<string, long>
     {
         public long Int64PlayerId;
-        
-        public string Name;
+
+        public string Account;
 
         public string Avatar;
 
@@ -22,6 +22,9 @@ namespace ET.Server
         public List<int> Roles;
 
         [BsonIgnore]
-        public Player Player { get => this.GetParent<Player>(); }
+        public Player Player
+        {
+            get => this.GetParent<Player>();
+        }
     }
 }
