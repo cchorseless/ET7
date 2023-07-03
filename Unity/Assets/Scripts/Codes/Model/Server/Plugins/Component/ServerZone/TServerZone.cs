@@ -84,9 +84,9 @@ namespace ET
         }
 
         [BsonIgnore]
-        public ServerZoneDataReportComponent DataReportComp
+        public ServerZoneDataStatisticComponent DataStatisticComp
         {
-            get => GetComponent<ServerZoneDataReportComponent>();
+            get => GetComponent<ServerZoneDataStatisticComponent>();
         }
 
         [BsonIgnore]

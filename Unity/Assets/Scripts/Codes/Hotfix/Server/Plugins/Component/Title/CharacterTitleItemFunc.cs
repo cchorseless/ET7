@@ -59,7 +59,7 @@ namespace ET.Server
             self.TitleBuff.Clear();
         }
 
-        public static cfg.Title.TitleConfigRecord TitleConfig(this CharacterTitleItem self)
+        public static Conf.Title.TitleConfigRecord TitleConfig(this CharacterTitleItem self)
         {
             return LuBanConfigComponent.Instance.Config().TitleConfig.GetOrDefault(self.ConfigId);
         }

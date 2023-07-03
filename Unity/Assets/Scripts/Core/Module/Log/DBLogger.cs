@@ -15,12 +15,15 @@ namespace ET
 
         public enum EDBLogLevel
         {
-          
             Debug = 2,
             Info = 3,
             Warning = 4,
             Error = 5,
             Important = 9,
+            //前端报错记录
+            ClientError = 10,
+            //前端反馈建议
+            ClientSuggest = 11,
         }
 
         public void RegisterLogDB(ILogDBHandler db)
@@ -53,6 +56,26 @@ namespace ET
             LogDB.HandleDBLog((int)EDBLogLevel.Important, message, label);
         }
 
+        public void ClientError(string label, string message)
+        {
+            if (LogDB == null)
+            {
+                return;
+            }
+
+            LogDB.HandleDBLog((int)EDBLogLevel.ClientError, message, label);
+        }
+        
+        public void ClientSuggest(string label, string message)
+        {
+            if (LogDB == null)
+            {
+                return;
+            }
+
+            LogDB.HandleDBLog((int)EDBLogLevel.ClientSuggest, message, label);
+        }
+        
         public void Info(string message)
         {
             if (LogDB == null)

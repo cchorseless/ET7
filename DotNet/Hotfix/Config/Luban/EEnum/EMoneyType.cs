@@ -7,7 +7,7 @@
 //------------------------------------------------------------------------------
 
 
-namespace cfg.EEnum
+namespace ET.Conf.EEnum
 { 
     public enum EMoneyType
     {
@@ -51,6 +51,10 @@ namespace cfg.EEnum
         /// 铭文碎片
         /// </summary>
         MingWenExp = 105,
+        /// <summary>
+        /// 天梯积分
+        /// </summary>
+        BattleScore = 106,
     }
 
 } 

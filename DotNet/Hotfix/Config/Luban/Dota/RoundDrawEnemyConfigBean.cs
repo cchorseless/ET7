@@ -9,7 +9,7 @@ using Bright.Serialization;
 using System.Collections.Generic;
 
 
-namespace cfg.Dota
+namespace ET.Conf.Dota
 {
 public sealed partial class RoundDrawEnemyConfigBean :  Bright.Config.BeanBase 
 {

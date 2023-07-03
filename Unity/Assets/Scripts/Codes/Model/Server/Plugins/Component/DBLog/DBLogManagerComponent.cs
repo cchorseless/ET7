@@ -19,14 +19,17 @@ namespace ET.Server
             {
                 return true;
             }
+
             return Options.Instance.LogLevel <= level;
         }
+
         public void HandleDBLog(int level, string message, string label = "")
         {
             if (this.LogDB == null || this.IsDisposed || string.IsNullOrEmpty(message) || !CheckLogLevel(level))
             {
                 return;
             }
+
             DBLogRecord entity;
             if (TempLogCache.TryGetValue(message, out var entityid))
             {
@@ -107,6 +110,14 @@ namespace ET.Server
         {
             var levelDes = ((DBLogger.EDBLogLevel)loglevel).ToString();
             var timestr = date.ToLocalTime().ToString("yyyy-MM-dd");
+            if (loglevel == (int)DBLogger.EDBLogLevel.ClientError ||
+                loglevel == (int)DBLogger.EDBLogLevel.ClientSuggest ||
+                loglevel == (int)DBLogger.EDBLogLevel.Important
+               )
+            {
+                return $"{timestr}_{levelDes}";
+            }
+
             return $"{processName}_{timestr}_{levelDes}";
         }
     }

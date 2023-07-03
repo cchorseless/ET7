@@ -7,7 +7,7 @@
 //------------------------------------------------------------------------------
 
 
-namespace cfg.EEnum
+namespace ET.Conf.EEnum
 { 
     public enum EItemAwakeScript
     {

@@ -1,7 +1,7 @@
 ﻿namespace ET
 {
     [FriendOf(typeof(ServerSceneManagerComponent))]
-    public static class ServerSceneManagerComponentSystem
+    public static partial class ServerSceneManagerComponentSystem
     {
         [ObjectSystem]
         public class ServerSceneManagerComponentAwakeSystem: AwakeSystem<ServerSceneManagerComponent>
@@ -31,5 +31,9 @@
         {
             self.RemoveChild(id);
         }
+        
+        
+        
+        
     }
 }

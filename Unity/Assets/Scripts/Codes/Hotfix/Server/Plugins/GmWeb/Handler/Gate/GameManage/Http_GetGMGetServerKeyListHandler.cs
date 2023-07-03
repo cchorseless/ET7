@@ -7,19 +7,21 @@ using System.IO;
 
 namespace ET.Server
 {
-    [HttpHandler(SceneType.Http, "/GetServerKey", false)]
-    public class Http_GetServerKeyHandler : HttpGetHandler<H2C_CommonResponse>
+    [HttpHandler(SceneType.GmWeb, "/GMGetServerKeyList")]
+    public class Http_GetGMGetServerKeyListHandler: HttpGetHandler<H2C_CommonResponse>
     {
         protected override async ETTask Run(Entity domain, H2C_CommonResponse response, long playerid)
         {
             var db = DBManagerComponent.Instance.GetAccountDB();
             var entitys = await db.Query<TServerKey>(e => true);
-            response.Message = "";
-            entitys.ForEach(e =>
+            if (entitys.Count > 0)
             {
-                response.Message += $"<br>[CreateTime=>{e.CreateTime}|Name=>{e.Name}|Label=>{e.Label}|ServerKey=>{e.ServerKey}]<br>";
-            });
+                response.Message = MongoHelper.ToArrayClientJson(entitys.ToArray());
+            }
+            else
+            {
+                response.Message = "[]";
+            }
         }
-
     }
 }

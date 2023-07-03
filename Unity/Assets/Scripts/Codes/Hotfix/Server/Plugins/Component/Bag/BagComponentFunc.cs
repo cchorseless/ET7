@@ -29,7 +29,7 @@ namespace ET.Server
             var item = LuBanConfigComponent.Instance.Config().ItemConfig.GetOrDefault(configid);
             if (item != null)
             {
-                return item.BagSlotType != cfg.EEnum.EBagSlotType.ForbidMany;
+                return item.BagSlotType != Conf.EEnum.EBagSlotType.ForbidMany;
             }
 
             return true;
@@ -40,13 +40,13 @@ namespace ET.Server
             var item = LuBanConfigComponent.Instance.Config().ItemConfig.GetOrDefault(configid);
             if (item != null)
             {
-                return item.BagSlotType != cfg.EEnum.EBagSlotType.NoSlot;
+                return item.BagSlotType != Conf.EEnum.EBagSlotType.NoSlot;
             }
 
             return true;
         }
 
-        public static cfg.EEnum.EItemType GetItemType(this BagComponent self, int configid)
+        public static Conf.EEnum.EItemType GetItemType(this BagComponent self, int configid)
         {
             var item = LuBanConfigComponent.Instance.Config().ItemConfig.GetOrDefault(configid);
             if (item != null)
@@ -54,7 +54,7 @@ namespace ET.Server
                 return item.ItemType;
             }
 
-            return cfg.EEnum.EItemType.None;
+            return Conf.EEnum.EItemType.None;
         }
 
         public static bool IsAutoUse(this BagComponent self, int configid)
@@ -70,7 +70,7 @@ namespace ET.Server
 
         public static bool IsValidQuality(this BagComponent self, int quality)
         {
-            return quality >= (int)cfg.EEnum.ERarity.C && quality <= (int)cfg.EEnum.ERarity.SS;
+            return quality >= (int)Conf.EEnum.ERarity.C && quality <= (int)Conf.EEnum.ERarity.SS;
         }
 
         public static bool IsValidItem(this BagComponent self, int configid)
@@ -245,10 +245,10 @@ namespace ET.Server
             var itemtype = self.GetItemType(configid);
             switch (itemtype)
             {
-                case cfg.EEnum.EItemType.Equip:
+                case Conf.EEnum.EItemType.Equip:
                     return self.AddTItem<TEquipItem>(configid, count);
-                case cfg.EEnum.EItemType.HeroExp:
-                case cfg.EEnum.EItemType.None:
+                case Conf.EEnum.EItemType.HeroExp:
+                case Conf.EEnum.EItemType.None:
                 default:
                     return self.AddTItem<TItem>(configid, count);
             }
@@ -377,10 +377,10 @@ namespace ET.Server
             var itemtype = self.GetItemType(configid);
             switch (itemtype)
             {
-                case cfg.EEnum.EItemType.Equip:
+                case Conf.EEnum.EItemType.Equip:
                     return self.GetTItemCount<TEquipItem>(configid);
 
-                case cfg.EEnum.EItemType.None:
+                case Conf.EEnum.EItemType.None:
                 default:
                     return self.GetTItemCount<TItem>(configid);
             }

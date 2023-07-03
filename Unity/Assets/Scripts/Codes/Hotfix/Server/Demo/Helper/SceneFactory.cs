@@ -27,14 +27,12 @@ namespace ET.Server
                 case SceneType.Realm:
                     //scene.AddComponent<NetServerComponent, IPEndPoint>(startSceneConfig.InnerIPOutPort);
                     scene.AddComponent<HttpComponent, string>(startSceneConfig.HttpUrl);
-                    scene.AddComponent<ServerSceneCloseComponent, int>((int)SceneType.Realm);
                     break;
                 case SceneType.Gate:
                     //scene.AddComponent<NetServerComponent, IPEndPoint>(startSceneConfig.InnerIPOutPort);
                     scene.AddComponent<HttpComponent, string>(startSceneConfig.HttpUrl);
                     scene.AddComponent<PlayerComponent>();
                     scene.AddComponent<GateSessionKeyComponent>();
-                    scene.AddComponent<ServerSceneCloseComponent, int>((int)SceneType.Gate);
                     break;
                 case SceneType.Map:
                     scene.AddComponent<UnitComponent>();

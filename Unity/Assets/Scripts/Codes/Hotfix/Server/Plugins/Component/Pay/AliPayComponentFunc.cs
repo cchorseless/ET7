@@ -36,11 +36,17 @@ namespace ET.Server
             }
         }
 
-        public static async ETTask<string> GetQrCodePay(this AliPayComponent self, TCharacter character, string title, int money_fen,
+        public static async ETTask<(int, string)> GetQrCodePay(this AliPayComponent self, TCharacter character, string title, int money_fen,
         FItemInfo itemInfo, string label = "")
         {
             await ETTask.CompletedTask;
             string QrCode = "";
+            int errorCode = ErrorCode.ERR_Error;
+            if (!self.IsWorking)
+            {
+                return (errorCode, "AliPay Not Working");
+            }
+
             var order = self.AddChild<TPayOrderItem>();
             order.LoadData(character, title, money_fen, itemInfo, (int)EPayOrderSourceType.AliPay_QrCode, label);
             try
@@ -77,11 +83,12 @@ namespace ET.Server
             }
             else
             {
+                errorCode = ErrorCode.ERR_Success;
                 await order.SaveAndExit(false);
                 order.CheckOrderState().Coroutine();
             }
 
-            return QrCode;
+            return (errorCode, QrCode);
         }
 
         /// <summary>

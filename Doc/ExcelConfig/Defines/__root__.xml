@@ -1,21 +1,18 @@
 <root>
 
-	<topmodule name="cfg"/>
+	<topmodule name="ET.Conf" />
 
-	<patch name="cn"/>
-	<patch name="en"/>
+	<patch name="cn" />
+	<patch name="en" />
 
-	<group name="c" default="1"/> client
-	<group name="s" default="1"/> server
-	<group name="e" default="1"/> editor
+	<group name="c" default="1" />
+	client <group name="s" default="1" /> server <group name="e" default="1" /> editor <import
+		name="." />
 	
-	<import name="."/>
-	
-	<importexcel name="__tables__.xlsx" type="table"/> 相对data目录
-	<importexcel name="__enums__.xlsx" type="enum"/>相对data目录
-	<importexcel name="__beans__.xlsx" type="bean"/>相对data目录
-
-	<service name="server" manager="Tables" group="s"/>
-	<service name="client" manager="Tables" group="c"/>
-	<service name="all" manager="Tables" group="c,s,e"/>
+	<importexcel name="__tables__.xlsx" type="table" /> 相对data目录 <importexcel
+		name="__enums__.xlsx" type="enum" />相对data目录 <importexcel name="__beans__.xlsx" type="bean" />
+	相对data目录 <service name="server" manager="Tables" group="s" />
+	<service name="client"
+		manager="Tables" group="c" />
+	<service name="all" manager="Tables" group="c,s,e" />
 </root>

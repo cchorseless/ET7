@@ -23,7 +23,6 @@ namespace ET.Server
         IOS = 8,
     }
 
-
     public static class ServerZoneManageComponentFunc
     {
         public static List<int> GetProcessByServerId(this ServerZoneManageComponent self, SceneType sceneType, int serverid)
@@ -39,10 +38,12 @@ namespace ET.Server
                         {
                             r.Add(sceneconfig.Key);
                         }
+
                         break;
                     }
                 }
             }
+
             return r;
         }
 
@@ -52,6 +53,18 @@ namespace ET.Server
             if (GameConfig.IsAccountProcess())
             {
                 await self.LoadNoticeRecord();
+            }
+        }
+
+        public static async ETTask SaveAllChild(this ServerZoneManageComponent self)
+        {
+            foreach (var kv in self.ServerZoneDict)
+            {
+                var serverZone = self.GetChild<TServerZone>(kv.Value);
+                if (serverZone != null)
+                {
+                    await serverZone.Save();
+                }
             }
         }
 
@@ -89,6 +102,7 @@ namespace ET.Server
                 {
                     Log.Error("Load TServerZone Error");
                 }
+
                 var config = StartSceneConfigCategory.Instance.GetByProcess(Options.Instance.Process);
                 foreach (var serverZone in serverZoneList)
                 {
@@ -109,14 +123,13 @@ namespace ET.Server
             }
         }
 
-
         public static async ETTask LoadNoticeRecord(this ServerZoneManageComponent self)
         {
             var accountDB = DBManagerComponent.Instance.GetAccountDB();
             int isValid = (int)EStatefulTimer.Enable;
             int isWaitValid = (int)EStatefulTimer.WaitEnable;
             var noticeRecord = await accountDB.Query<TServerNoticeRecord>(a =>
-            a.State.Contains(isValid) || a.State.Contains(isWaitValid));
+                    a.State.Contains(isValid) || a.State.Contains(isWaitValid));
             if (noticeRecord.Count == 0)
             {
                 await self.AddNewNotice("notice error");
@@ -134,23 +147,23 @@ namespace ET.Server
             }
         }
 
-
         public static TServerZone GetServerZone(this ServerZoneManageComponent self, int ServerID)
         {
             if (self.ServerZoneDict.TryGetValue(ServerID, out var serverid))
             {
                 return self.GetChild<TServerZone>(serverid);
             }
+
             return null;
         }
 
         public static async ETTask AddNewServer(this ServerZoneManageComponent self, int zoneId,
-            string serverName, int serverLabel = 0, long operateTime = 0)
+        string serverName, int serverLabel = 0, long operateTime = 0)
         {
             bool isWait = operateTime > TimeHelper.ServerNow();
             var item = self.AddChild<TServerZone, int, int, string>(zoneId, self.ServerZoneDict.Count + 1, serverName);
             await item.LoadAllComponent();
-            foreach (EServerZoneLabel labels in Enum.GetValues(typeof(EServerZoneLabel)))
+            foreach (EServerZoneLabel labels in Enum.GetValues(typeof (EServerZoneLabel)))
             {
                 int _v = (int)labels;
                 if ((serverLabel & _v) == _v)
@@ -158,6 +171,7 @@ namespace ET.Server
                     item.ServerLabel.Add(_v);
                 }
             }
+
             if (!isWait)
             {
                 item.State.Add((int)EServerZoneState.Working);
@@ -170,12 +184,13 @@ namespace ET.Server
                 item.CreateTime = operateTime;
                 item.AddChild<TStatefulTimer, long>(operateTime);
             }
+
             self.ServerZoneDict.Add(item.ServerID, item.Id);
             await item.Save();
         }
 
         public static async ETTask<int> EditServer(this ServerZoneManageComponent self, long serverZoneid,
-           string serverName, int serverLabel = 0, int serverstate = 0)
+        string serverName, int serverLabel = 0, int serverstate = 0)
         {
             var item = self.GetChild<TServerZone>(serverZoneid);
             if (item == null)
@@ -183,11 +198,13 @@ namespace ET.Server
                 await ETTask.CompletedTask;
                 return ErrorCode.ERR_Error;
             }
+
             if (serverName != null && serverName.Length > 5 && serverName.Length < 20)
             {
                 item.ServerName = serverName;
             }
-            foreach (EServerZoneLabel labels in Enum.GetValues(typeof(EServerZoneLabel)))
+
+            foreach (EServerZoneLabel labels in Enum.GetValues(typeof (EServerZoneLabel)))
             {
                 int _v = (int)labels;
                 if ((serverLabel & _v) == _v)
@@ -199,7 +216,8 @@ namespace ET.Server
                     item.ServerLabel.Remove(_v);
                 }
             }
-            foreach (EServerZoneLabel labels in Enum.GetValues(typeof(EServerZoneState)))
+
+            foreach (EServerZoneLabel labels in Enum.GetValues(typeof (EServerZoneState)))
             {
                 int _v = (int)labels;
                 if (_v > (int)EServerZoneState.WaitForClosing)
@@ -214,13 +232,14 @@ namespace ET.Server
                     }
                 }
             }
+
             var accountDB = DBManagerComponent.Instance.GetAccountDB();
             await accountDB.Save(item);
             return ErrorCode.ERR_Success;
         }
 
         public static async ETTask<int> ManageServer(this ServerZoneManageComponent self, long serverZoneid,
-         int operate, long operateTime)
+        int operate, long operateTime)
         {
             bool isWait = operateTime > TimeHelper.ServerNow();
             var item = self.GetChild<TServerZone>(serverZoneid);
@@ -229,6 +248,7 @@ namespace ET.Server
                 await ETTask.CompletedTask;
                 return ErrorCode.ERR_Error;
             }
+
             item.GetChilds<TStatefulTimer>().ForEach(timer => timer.Dispose());
             item.State.Remove((int)EServerZoneState.WaitForWorking);
             item.State.Remove((int)EServerZoneState.WaitForClosing);
@@ -266,6 +286,7 @@ namespace ET.Server
                     item.AddChild<TStatefulTimer, long>(operateTime);
                 }
             }
+
             var accountDB = DBManagerComponent.Instance.GetAccountDB();
             await accountDB.Save(item);
             return ErrorCode.ERR_Success;
@@ -285,8 +306,10 @@ namespace ET.Server
                     await accountDB.Save(last);
                     last.Dispose();
                 }
+
                 self.LastServerNoticeID = 0;
             }
+
             var item = self.AddChild<TServerNoticeRecord>();
             item.Notice = serverNotice;
             if (!isWait)
@@ -302,10 +325,9 @@ namespace ET.Server
                 item.CreateTime = operateTime;
                 item.AddChild<TStatefulTimer, long>(operateTime);
             }
+
             await accountDB.Save(item);
         }
-
-
 
         public static async ETTask EnableNotice(this ServerZoneManageComponent self, TServerNoticeRecord notice)
         {
@@ -320,24 +342,24 @@ namespace ET.Server
                     await accountDB.Save(last);
                     last.Dispose();
                 }
+
                 self.LastServerNoticeID = 0;
             }
+
             if (notice.Parent != self)
             {
                 self.AddChild(notice);
             }
+
             notice.State.Clear();
             notice.State.Add((int)EStatefulTimer.Enable);
             self.LastServerNoticeID = notice.Id;
             await accountDB.Save(notice);
-
         }
-
-
     }
 
     [ObjectSystem]
-    public class ServerZoneManageComponentAwakeSystem : AwakeSystem<ServerZoneManageComponent>
+    public class ServerZoneManageComponentAwakeSystem: AwakeSystem<ServerZoneManageComponent>
     {
         protected override void Awake(ServerZoneManageComponent self)
         {

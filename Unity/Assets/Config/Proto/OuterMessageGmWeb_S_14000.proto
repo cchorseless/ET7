@@ -31,6 +31,12 @@ message G2C_GMLogin // IResponse
 }
 
 //ResponseType H2C_CommonResponse
+message C2G_GMLoginOut // IRequest
+{
+	int32 RpcId = 90;
+}
+
+//ResponseType H2C_CommonResponse
 message C2G_GMGetUserInfo // IRequest
 {
 	int32 RpcId = 90;
@@ -74,6 +80,12 @@ message C2G_GMProcessEdit // IRequest
 	int32 OperateType = 1;
 }
 
+//ResponseType H2C_CommonResponse
+message C2G_GMCloseAllProcess // IRequest
+{
+	int32 RpcId = 90;
+	int32 TimeSpan = 1;
+}
 
 
 //ResponseType H2C_CommonResponse
@@ -97,6 +109,67 @@ message G2C_GMGetLogDBInfo // IResponse
 	string Ip = 1;
 	string Port = 2;
 	string DbName = 3;
+}
+
+//ResponseType G2C_GMSearchClientErrorLog
+message C2G_GMSearchClientErrorLog // IRequest
+{
+	int32 RpcId = 90;
+	int32 StartTime = 1;
+	int32 EndTime = 2;
+	string Title = 3;
+	int32 PageCount = 7;
+	int32 PageIndex = 8;
+}
+
+message G2C_GMSearchClientErrorLog // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	repeated string SearchResult = 1;
+	int32 SearchCount = 2;
+
+}
+
+//ResponseType G2C_GMSearchClientSuggest
+message C2G_GMSearchClientSuggest // IRequest
+{
+	int32 RpcId = 90;
+	int32 StartTime = 1;
+	int32 EndTime = 2;
+	string Title = 3;
+	string Label = 4;
+	int32 PageCount = 7;
+	int32 PageIndex = 8;
+}
+
+message G2C_GMSearchClientSuggest // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	repeated string SearchResult = 1;
+	int32 SearchCount = 2;
+
+}
+
+//ResponseType G2C_GMSearchDailyDataStatistic
+message C2G_GMSearchDailyDataStatistic // IRequest
+{
+	int32 RpcId = 90;
+	int32 StartTime = 1;
+	int32 EndTime = 2;
+}
+
+message G2C_GMSearchDailyDataStatistic // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	repeated string SearchResult = 1;
+	int32 SearchCount = 2;
+
 }
 
 //ResponseType G2C_GMSearchLog
@@ -131,10 +204,6 @@ message C2G_GMIgnoreErrorLog // IRequest
 	int32 LogTime = 92;
 	string LogProcess = 93;
 }
-
-
-
-
 
 
 //ResponseType G2C_GMAddNewServerNotice

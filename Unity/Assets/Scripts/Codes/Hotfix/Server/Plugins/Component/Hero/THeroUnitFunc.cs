@@ -13,7 +13,7 @@ namespace ET.Server
             // self.HeroTalentComp.LoadAllChild();
         }
 
-        public static cfg.Dota.BuildingLevelUpConfigRecord HeroConfig(this THeroUnit self)
+        public static Conf.Dota.BuildingLevelUpConfigRecord HeroConfig(this THeroUnit self)
         {
             return LuBanConfigComponent.Instance.Config().BuildingLevelUpConfig.GetOrDefault(self.ConfigId);
         }
@@ -96,7 +96,7 @@ namespace ET.Server
 
         public static bool IsValidSlot(this THeroUnit self, int slot)
         {
-            return slot > (int)cfg.EEnum.EEquipSolt.None && slot < (int)cfg.EEnum.EEquipSolt.SlotMax;
+            return slot > (int)Conf.EEnum.EEquipSolt.None && slot < (int)Conf.EEnum.EEquipSolt.SlotMax;
         }
     }
 

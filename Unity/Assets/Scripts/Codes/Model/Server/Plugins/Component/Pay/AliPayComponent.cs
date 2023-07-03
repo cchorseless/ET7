@@ -63,6 +63,7 @@ namespace ET
 
     public class AliPayComponent : Entity, IAwake, IDestroy
     {
+        public bool IsWorking = true;
         public static AliPayComponent Instance;
         public Pay.Alipay.AlipayOptions PayOptions;
         public Pay.Alipay.AlipayClient Client;

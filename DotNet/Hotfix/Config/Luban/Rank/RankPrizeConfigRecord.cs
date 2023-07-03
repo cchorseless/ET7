@@ -9,7 +9,7 @@ using Bright.Serialization;
 using System.Collections.Generic;
 
 
-namespace cfg.Rank
+namespace ET.Conf.Rank
 {
 public sealed partial class RankPrizeConfigRecord :  Bright.Config.BeanBase 
 {

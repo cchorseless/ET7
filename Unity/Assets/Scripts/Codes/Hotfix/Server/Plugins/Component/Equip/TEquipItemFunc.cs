@@ -8,7 +8,7 @@ namespace ET.Server
 
     public static class TEquipItemFunc
     {
-        public static cfg.Item.ItemEquipConfigRecord EquipConfig(this TEquipItem self)
+        public static Conf.Item.ItemEquipConfigRecord EquipConfig(this TEquipItem self)
         {
             return LuBanConfigComponent.Instance.Config().ItemEquipConfig.GetOrDefault(self.ConfigId);
         }

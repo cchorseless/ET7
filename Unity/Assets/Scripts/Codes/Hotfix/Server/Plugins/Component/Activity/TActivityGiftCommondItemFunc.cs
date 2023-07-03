@@ -23,7 +23,7 @@ namespace ET.Server
             self.IsShowUI = self.ActivityGiftConfig().BindMonthIndex == TimeHelper.DateTimeNow().Month;
         }
 
-        public static cfg.Activity.TActivityGiftCommondRecord ActivityGiftConfig(this TActivityGiftCommondItem self)
+        public static Conf.Activity.TActivityGiftCommondRecord ActivityGiftConfig(this TActivityGiftCommondItem self)
         {
             return LuBanConfigComponent.Instance.Config().TActivityGiftCommond.GetOrDefault(self.ConfigId);
         }

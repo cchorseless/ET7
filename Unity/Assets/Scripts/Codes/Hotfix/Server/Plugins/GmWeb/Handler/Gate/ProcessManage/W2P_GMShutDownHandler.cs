@@ -12,15 +12,27 @@ namespace ET.Server
             CloseScene().Coroutine();
         }
 
-        public async ETTask CloseScene()
+        public static async ETTask CloseScene()
         {
             await TimerComponent.Instance.WaitAsync(200);
-            var comp = Root.Instance.Scene.GetComponent<ServerSceneCloseComponent>();
+            // 关闭支付
+            if (WeChatPayComponent.Instance != null)
+            {
+                WeChatPayComponent.Instance.IsWorking = false;
+            }
+
+            if (AliPayComponent.Instance != null)
+            {
+                AliPayComponent.Instance.IsWorking = false;
+            }
+
+            var comp = ServerSceneManagerComponent.Instance;
             if (comp != null)
             {
-                await comp.CloseDomainScene();
+                await comp.CloseAllScene();
             }
-            await TimerComponent.Instance.WaitAsync(2000);
+
+            await TimerComponent.Instance.WaitAsync(1000);
             try
             {
                 Game.Close();

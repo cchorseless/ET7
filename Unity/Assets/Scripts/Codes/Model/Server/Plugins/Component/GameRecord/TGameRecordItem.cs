@@ -10,6 +10,8 @@ namespace ET
     {
         public List<long> Players = new List<long>();
 
+        public int SuggestCount;
+        
         [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
         public Dictionary<string, string> RecordInfo = new Dictionary<string, string>();
 

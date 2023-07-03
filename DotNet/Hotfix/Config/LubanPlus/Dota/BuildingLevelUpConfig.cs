@@ -1,7 +1,7 @@
 using Bright.Serialization;
 using System.Collections.Generic;
 
-namespace cfg.Dota
+namespace ET.Conf.Dota
 {
     public partial class BuildingLevelUpConfig
     {

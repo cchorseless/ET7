@@ -5,7 +5,7 @@ using ET;
 
 
 
-namespace cfg.Item
+namespace ET.Conf.Item
 {
     public sealed partial class ItemPrizePoolConfigRecord
     {

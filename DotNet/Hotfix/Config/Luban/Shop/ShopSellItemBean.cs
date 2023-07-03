@@ -9,7 +9,7 @@ using Bright.Serialization;
 using System.Collections.Generic;
 
 
-namespace cfg.Shop
+namespace ET.Conf.Shop
 {
 public sealed partial class ShopSellItemBean :  Bright.Config.BeanBase 
 {

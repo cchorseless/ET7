@@ -11,36 +11,36 @@ namespace ET.Server
             Scene scene = domain.DomainScene();
             PlayerComponent playerComponent = scene.GetComponent<PlayerComponent>();
             Player player = playerComponent.Get(playerid);
-          
-                if (!player.HasGmRolePermission(EGmPlayerRole.GmRole_WebServerManager))
-                {
-                    response.Error = ErrorCode.ERR_Error;
-                    response.Message = "no Permission";
-                    return;
-                }
 
-                if (request.LogProcess == null)
-                {
-                    response.Error = ErrorCode.ERR_Error;
-                    response.Message = "no LogProcess";
-                    return;
-                }
-
-                var date = TimeInfo.Instance.ToDateTime((long)request.LogTime * 1000);
-                var collectName = DBLogManagerComponent.Instance.GetDBCollectionName(request.LogProcess, (int)DBLogger.EDBLogLevel.Error,  date);
-                long logid = long.Parse(request.LogId);
-                var db = DBManagerComponent.Instance.GetLogDB();
-                var log = await db.Query<DBLogRecord>(record => record.Id == logid, collectName);
-                if (log.Count > 0)
-                {
-                    log[0].IsIgnore = true;
-                    await db.Save(log[0], collectName);
-                }
-                else
-                {
-                    response.Error = ErrorCode.ERR_Error;
-                    response.Message = "cant find log";
-                }
+            if (!player.HasGmRolePermission(EGmPlayerRole.GmRole_WebServerManager))
+            {
+                response.Error = ErrorCode.ERR_Error;
+                response.Message = "no Permission";
+                return;
             }
+
+            if (request.LogProcess == null)
+            {
+                response.Error = ErrorCode.ERR_Error;
+                response.Message = "no LogProcess";
+                return;
+            }
+
+            var date = TimeInfo.Instance.ToDateTime((long)request.LogTime * 1000);
+            var collectName = DBLogManagerComponent.Instance.GetDBCollectionName(request.LogProcess, (int)DBLogger.EDBLogLevel.Error, date);
+            long logid = long.Parse(request.LogId);
+            var db = DBManagerComponent.Instance.GetLogDB();
+            var log = await db.Query<DBLogRecord>(record => record.Id == logid, collectName);
+            if (log.Count > 0)
+            {
+                log[0].IsIgnore = true;
+                await db.Save(log[0], collectName);
+            }
+            else
+            {
+                response.Error = ErrorCode.ERR_Error;
+                response.Message = "cant find log";
+            }
+        }
     }
 }

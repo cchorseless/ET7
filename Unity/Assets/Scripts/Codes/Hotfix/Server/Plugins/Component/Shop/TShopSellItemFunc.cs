@@ -47,13 +47,13 @@ namespace ET.Server
                 return (ErrorCode.ERR_Error, "time no valid");
             }
 
-            if (config.CostType == cfg.EEnum.EMoneyType.Money)
+            if (config.CostType == Conf.EEnum.EMoneyType.Money)
             {
                 return await self.CreatePayOrder(character, pricetype, count, paytype);
             }
 
             var cost = config.RealPrice;
-            if (pricetype == (int)cfg.EEnum.EShopPriceType.OverSeaPrice)
+            if (pricetype == (int)Conf.EEnum.EShopPriceType.OverSeaPrice)
             {
                 cost = config.OverSeaRealPrice;
             }
@@ -94,7 +94,7 @@ namespace ET.Server
             var config = self.Config();
             var money = config.RealPrice;
             var title = "商品购买";
-            if (pricetype == (int)cfg.EEnum.EShopPriceType.OverSeaPrice)
+            if (pricetype == (int)Conf.EEnum.EShopPriceType.OverSeaPrice)
             {
                 money = config.OverSeaRealPrice;
                 title = "Buy Item";
@@ -104,15 +104,15 @@ namespace ET.Server
             switch (paytype)
             {
                 case (int)EPayOrderSourceType.AliPay_QrCode:
-                    message = await AliPayComponent.Instance.GetQrCodePay(character, title, money,
+                    (code, message) = await AliPayComponent.Instance.GetQrCodePay(character, title, money,
                         new FItemInfo(config.ItemConfigId, config.ItemCount));
                     break;
                 case (int)EPayOrderSourceType.WeChat_QrCodeV3:
-                    message = await WeChatPayComponent.Instance.GetQrCodePayV3(character, title, money,
+                    (code, message) = await WeChatPayComponent.Instance.GetQrCodePayV3(character, title, money,
                         new FItemInfo(config.ItemConfigId, config.ItemCount));
                     break;
                 case (int)EPayOrderSourceType.WeChat_H5PayV3:
-                    message = await WeChatPayComponent.Instance.GetH5PayV3(character, title, money,
+                    (code, message) = await WeChatPayComponent.Instance.GetH5PayV3(character, title, money,
                         new FItemInfo(config.ItemConfigId, config.ItemCount));
                     break;
                 default:
@@ -124,7 +124,7 @@ namespace ET.Server
             return (code, message);
         }
 
-        public static cfg.Shop.ShopSellItemBean Config(this TShopSellItem self)
+        public static Conf.Shop.ShopSellItemBean Config(this TShopSellItem self)
         {
             var shopinfo = LuBanConfigComponent.Instance.Config().ShopConfig.GetOrDefault(self.ShopId);
             if (shopinfo != null)

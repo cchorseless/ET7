@@ -29,7 +29,7 @@ namespace ET.Server
             self.UpdateTaskState();
         }
 
-        public static cfg.Dota.BattlePassTaskConfigRecord TaskConfig(this TBattlePassTaskItem self)
+        public static Conf.Dota.BattlePassTaskConfigRecord TaskConfig(this TBattlePassTaskItem self)
         {
             return LuBanConfigComponent.Instance.Config().BattlePassTaskConfig.GetOrDefault(self.ConfigId);
         }

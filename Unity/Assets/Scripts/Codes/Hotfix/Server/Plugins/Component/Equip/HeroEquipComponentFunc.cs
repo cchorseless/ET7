@@ -88,7 +88,7 @@ namespace ET.Server
 
         public static bool IsValidSlot(this HeroEquipComponent self, int slot)
         {
-            return slot > (int)cfg.EEnum.EEquipSolt.None && slot < (int)cfg.EEnum.EEquipSolt.SlotMax;
+            return slot > (int)Conf.EEnum.EEquipSolt.None && slot < (int)Conf.EEnum.EEquipSolt.SlotMax;
         }
 
         public static TEquipItem GetSlotEquip(this HeroEquipComponent self, int slot)

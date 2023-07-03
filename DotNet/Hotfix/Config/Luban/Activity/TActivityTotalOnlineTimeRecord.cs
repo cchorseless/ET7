@@ -9,7 +9,7 @@ using Bright.Serialization;
 using System.Collections.Generic;
 
 
-namespace cfg.Activity
+namespace ET.Conf.Activity
 {
 public sealed partial class TActivityTotalOnlineTimeRecord :  Bright.Config.BeanBase 
 {

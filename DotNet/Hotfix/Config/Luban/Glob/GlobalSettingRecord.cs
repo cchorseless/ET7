@@ -9,7 +9,7 @@ using Bright.Serialization;
 using System.Collections.Generic;
 
 
-namespace cfg.Glob
+namespace ET.Conf.Glob
 {
 public sealed partial class GlobalSettingRecord :  Bright.Config.BeanBase 
 {

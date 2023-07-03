@@ -9,7 +9,7 @@ using Bright.Serialization;
 using System.Collections.Generic;
 
 
-namespace cfg.Season
+namespace ET.Conf.Season
 {
    
 public partial class SeasonConfig

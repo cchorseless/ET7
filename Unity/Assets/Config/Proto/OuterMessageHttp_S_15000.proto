@@ -79,6 +79,27 @@ message C2H_SetServerKey // IRequest
   string  Name = 2;
   string  Label = 3;
 }
+
+//ResponseType H2C_CommonResponse
+message C2H_ReportGameSuggest // IRequest
+{
+  int32  RpcId = 90;
+  string  SuggestMsg = 1;
+  string  Label = 2;
+  string  AccountId = 4;
+}
+
+
+//ResponseType H2C_CommonResponse
+message C2H_ReportGameError // IRequest
+{
+  int32  RpcId = 90;
+  string  ErrorMsg = 1;
+  string  GameTime = 2;
+  string  TimeSpan = 3;
+  string  GameId = 4;
+}
+
 //ResponseType H2C_CommonResponse
 message C2H_CreateGameRecord // IRequest
 {
@@ -95,7 +116,7 @@ message C2H_UploadGameRecord // IRequest
 }
 
 //ResponseType H2C_CommonResponse
-message C2H_UploadCharacterGameRecord // IRequest
+message C2H_UploadCharacterData // IRequest
 {
   int32  RpcId = 90;
   repeated string  Keys = 1;

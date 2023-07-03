@@ -9,7 +9,7 @@ using Bright.Serialization;
 using System.Collections.Generic;
 
 
-namespace cfg.Title
+namespace ET.Conf.Title
 {
 public sealed partial class TitleConfigRecord :  Bright.Config.BeanBase 
 {

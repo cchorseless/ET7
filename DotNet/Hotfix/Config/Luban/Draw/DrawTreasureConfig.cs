@@ -9,7 +9,7 @@ using Bright.Serialization;
 using System.Collections.Generic;
 
 
-namespace cfg.Draw
+namespace ET.Conf.Draw
 {
    
 public partial class DrawTreasureConfig

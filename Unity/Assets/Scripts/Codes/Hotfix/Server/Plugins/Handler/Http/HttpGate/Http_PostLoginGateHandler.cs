@@ -67,6 +67,8 @@ namespace ET.Server
                     character = player.AddChild<TCharacter, long>(player.Id);
                     character.ZoneID = scene.DomainZone();
                     character.ServerID = 1;
+                    // 新增角色
+                    serverZone.DataStatisticComp.GetCurDataItem().UpdateHoursPlayerNew();
                     await db.Save(character);
                 }
 

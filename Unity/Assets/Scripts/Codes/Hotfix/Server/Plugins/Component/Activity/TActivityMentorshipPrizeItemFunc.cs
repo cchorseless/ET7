@@ -17,7 +17,7 @@ namespace ET.Server
 
     public static class TActivityMentorshipPrizeItemFunc
     {
-        public static cfg.Activity.TActivityMentorshipTreeRecord MentorshipPrizeConfig(this TActivityMentorshipPrizeItem self)
+        public static Conf.Activity.TActivityMentorshipTreeRecord MentorshipPrizeConfig(this TActivityMentorshipPrizeItem self)
         {
             return LuBanConfigComponent.Instance.Config().TActivityMentorshipTree.GetOrDefault(self.ConfigId);
         }

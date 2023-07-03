@@ -51,6 +51,7 @@ namespace ET
 
     public class WeChatPayComponent : Entity, IAwake, IDestroy
     {
+        public bool IsWorking = true;
         public static WeChatPayComponent Instance;
         public Pay.WeChatPay.WeChatPayOptions PayOptions;
         public Pay.WeChatPay.V3.WeChatPayClient ClientV3;

@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace ET.Server
 {
-    [HttpHandler(SceneType.Gate, "/UploadCharacterGameRecord")]
-    public class Http_Post_UploadCharacterGameRecordHandler : HttpPostHandler<C2H_UploadCharacterGameRecord, H2C_CommonResponse>
+    [HttpHandler(SceneType.Gate, "/UploadCharacterData")]
+    public class Http_Post_UploadCharacterDataHandler : HttpPostHandler<C2H_UploadCharacterData, H2C_CommonResponse>
     {
-        protected override async ETTask Run(Entity domain, C2H_UploadCharacterGameRecord request, H2C_CommonResponse response, long playerid)
+        protected override async ETTask Run(Entity domain, C2H_UploadCharacterData request, H2C_CommonResponse response, long playerid)
         {
             Scene scene = domain.DomainScene();
             PlayerComponent playerComponent = scene.GetComponent<PlayerComponent>();

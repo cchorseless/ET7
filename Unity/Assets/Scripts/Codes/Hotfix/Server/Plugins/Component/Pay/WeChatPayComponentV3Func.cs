@@ -25,10 +25,16 @@ namespace ET.Server
             }
         }
 
-        public static async ETTask<string> GetQrCodePayV3(this WeChatPayComponent self, TCharacter character, string title, int money,
+        public static async ETTask<(int, string)> GetQrCodePayV3(this WeChatPayComponent self, TCharacter character, string title, int money,
         FItemInfo itemInfo, string label = "")
         {
             string QrCode = "";
+            int errorCode = ErrorCode.ERR_Error;
+            if (!self.IsWorking)
+            {
+                return (errorCode, "WeChatPay Not Working");
+            }
+
             var order = self.AddChild<TPayOrderItem>();
             order.LoadData(character, title, money, itemInfo, (int)EPayOrderSourceType.WeChat_QrCodeV3, label);
             var model = new WeChatPayTransactionsNativeBodyModel();
@@ -65,11 +71,12 @@ namespace ET.Server
             }
             else
             {
+                errorCode = ErrorCode.ERR_Success;
                 await order.SaveAndExit(false);
                 order.CheckOrderState().Coroutine();
             }
 
-            return QrCode;
+            return (errorCode, QrCode);
         }
 
         /// <summary>
@@ -121,10 +128,16 @@ namespace ET.Server
             return qrcode;
         }
 
-        public static async ETTask<string> GetH5PayV3(this WeChatPayComponent self, TCharacter character, string title, int money, FItemInfo itemInfo,
-        string label = "")
+        public static async ETTask<(int, string)> GetH5PayV3(this WeChatPayComponent self, TCharacter character, string title, int money,
+        FItemInfo itemInfo, string label = "")
         {
             string h5url = "";
+            int errorCode = ErrorCode.ERR_Error;
+            if (!self.IsWorking)
+            {
+                return (errorCode, "WeChatPay Not Working");
+            }
+
             var order = self.AddChild<TPayOrderItem>();
             order.LoadData(character, title, money, itemInfo, (int)EPayOrderSourceType.WeChat_H5PayV3, label);
             string payerClientIp = character.GetMyPlayer().GetMySession().RemoteAddress.Address.ToString();
@@ -164,11 +177,12 @@ namespace ET.Server
             }
             else
             {
+                errorCode = ErrorCode.ERR_Success;
                 await order.SaveAndExit(false);
                 order.CheckOrderState().Coroutine();
             }
 
-            return h5url;
+            return (errorCode, h5url);
         }
 
         /// <summary>

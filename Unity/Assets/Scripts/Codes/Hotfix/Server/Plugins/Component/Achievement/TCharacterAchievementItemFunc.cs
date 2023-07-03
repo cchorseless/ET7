@@ -30,7 +30,7 @@ namespace ET.Server
 
         }
 
-        public static cfg.Achievement.AchievementConfigRecord AchieveConfig(this TCharacterAchievementItem self)
+        public static Conf.Achievement.AchievementConfigRecord AchieveConfig(this TCharacterAchievementItem self)
         {
             return LuBanConfigComponent.Instance.Config().AchievementConfig.GetOrDefault(self.ConfigId);
         }

@@ -48,8 +48,6 @@ namespace ET.Server
                     Root.Instance.Scene.AddComponent<DBTempSceneComponent>();
                     // 区服管理
                     await Root.Instance.Scene.AddComponent<ServerZoneManageComponent>().LoadAllChild();
-                    // 关闭进程
-                    Root.Instance.Scene.AddComponent<ServerSceneCloseComponent, int>((int)SceneType.Process);
                     Root.Instance.Scene.AddComponent<NetInnerComponent, IPEndPoint>(processConfig.InnerIPPort);
                     foreach (StartSceneConfig startConfig in processScenes)
                     {

@@ -33,7 +33,7 @@ namespace ET
                 output[key] = await File.ReadAllBytesAsync(file);
             }
 
-            Type type = EventSystem.Instance.GetType("cfg.Tables");
+            Type type = EventSystem.Instance.GetType("ET.Conf.Tables");
             // == luban ==
             Func<string, Bright.Serialization.ByteBuf> loader = (file => new Bright.Serialization.ByteBuf(output[file]));
             self.LuBanConfig = Activator.CreateInstance(type, loader);
@@ -41,10 +41,10 @@ namespace ET
             await self.LoadClientSyncConfig();
         }
 
-        public static cfg.Tables Config(this LuBanConfigComponent self)
+        public static Conf.Tables Config(this LuBanConfigComponent self)
         {
             // == luban ==
-            return self.LuBanConfig as cfg.Tables;
+            return self.LuBanConfig as Conf.Tables;
             // == luban ==
         }
 

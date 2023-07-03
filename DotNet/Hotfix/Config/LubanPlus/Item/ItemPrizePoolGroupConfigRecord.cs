@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ET;
 
-namespace cfg.Item
+namespace ET.Conf.Item
 {
     public sealed partial class ItemPrizePoolGroupConfigRecord
     {

@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Bright.Serialization;
-using ET;
 
 
-namespace cfg.Dota
+namespace ET.Conf.Dota
 {
     public sealed partial class PropRandomConfigRecord : Bright.Config.BeanBase {
 

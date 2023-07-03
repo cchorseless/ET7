@@ -8,7 +8,7 @@ namespace ET.Server
 {
     public static class TShopUnitFunc
     {
-        public static cfg.Shop.ShopConfigRecord Config(this TShopUnit self)
+        public static Conf.Shop.ShopConfigRecord Config(this TShopUnit self)
         {
             return LuBanConfigComponent.Instance.Config().ShopConfig.GetOrDefault(self.ConfigId);
         }

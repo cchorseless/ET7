@@ -21,12 +21,12 @@ namespace ET.Server
     {
         protected override void Run(TServerZoneTimePlan self)
         {
-            switch (self.TimePlanLabel)
-            {
-                case (int)ETimePlanLabel.ServerZoneDataReportUpdate:
-                    self.TimePlanComp.ServerZone.DataReportComp?.ServerZoneDataReportUpdate();
-                    break;
-            }
+            // switch (self.TimePlanLabel)
+            // {
+            //     case (int)ETimePlanLabel.ServerZoneDataStatisticUpdate:
+            //         self.TimePlanComp.ServerZone.DataStatisticComp?.UpdateDataStatistic();
+            //         break;
+            // }
             self.TimePlanComp.AddDailyPlan((ETimePlanLabel)self.TimePlanLabel, self.Hour, self.Min, self.Sec);
             self.Dispose();
         }
@@ -55,7 +55,7 @@ namespace ET.Server
     public enum ETimePlanLabel
     {
         Common = 0,
-        ServerZoneDataReportUpdate = 1,
+        ServerZoneDataStatisticUpdate = 1,
     }
 
 

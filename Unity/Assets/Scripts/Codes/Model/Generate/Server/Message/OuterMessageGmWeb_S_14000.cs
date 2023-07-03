@@ -66,6 +66,16 @@ namespace ET
 	}
 
 	[ResponseType(nameof(H2C_CommonResponse))]
+	[Message(OuterMessageGmWeb.C2G_GMLoginOut)]
+	[ProtoContract]
+	public partial class C2G_GMLoginOut: ProtoObject, IRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+	}
+
+	[ResponseType(nameof(H2C_CommonResponse))]
 	[Message(OuterMessageGmWeb.C2G_GMGetUserInfo)]
 	[ProtoContract]
 	public partial class C2G_GMGetUserInfo: ProtoObject, IRequest
@@ -144,6 +154,19 @@ namespace ET
 	}
 
 	[ResponseType(nameof(H2C_CommonResponse))]
+	[Message(OuterMessageGmWeb.C2G_GMCloseAllProcess)]
+	[ProtoContract]
+	public partial class C2G_GMCloseAllProcess: ProtoObject, IRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public int TimeSpan { get; set; }
+
+	}
+
+	[ResponseType(nameof(H2C_CommonResponse))]
 	[Message(OuterMessageGmWeb.C2G_GMGetProcessState)]
 	[ProtoContract]
 	public partial class C2G_GMGetProcessState: ProtoObject, IRequest
@@ -184,6 +207,138 @@ namespace ET
 
 		[ProtoMember(3)]
 		public string DbName { get; set; }
+
+	}
+
+	[ResponseType(nameof(G2C_GMSearchClientErrorLog))]
+	[Message(OuterMessageGmWeb.C2G_GMSearchClientErrorLog)]
+	[ProtoContract]
+	public partial class C2G_GMSearchClientErrorLog: ProtoObject, IRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public int StartTime { get; set; }
+
+		[ProtoMember(2)]
+		public int EndTime { get; set; }
+
+		[ProtoMember(3)]
+		public string Title { get; set; }
+
+		[ProtoMember(7)]
+		public int PageCount { get; set; }
+
+		[ProtoMember(8)]
+		public int PageIndex { get; set; }
+
+	}
+
+	[Message(OuterMessageGmWeb.G2C_GMSearchClientErrorLog)]
+	[ProtoContract]
+	public partial class G2C_GMSearchClientErrorLog: ProtoObject, IResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+		[ProtoMember(1)]
+		public List<string> SearchResult { get; set; }
+
+		[ProtoMember(2)]
+		public int SearchCount { get; set; }
+
+	}
+
+	[ResponseType(nameof(G2C_GMSearchClientSuggest))]
+	[Message(OuterMessageGmWeb.C2G_GMSearchClientSuggest)]
+	[ProtoContract]
+	public partial class C2G_GMSearchClientSuggest: ProtoObject, IRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public int StartTime { get; set; }
+
+		[ProtoMember(2)]
+		public int EndTime { get; set; }
+
+		[ProtoMember(3)]
+		public string Title { get; set; }
+
+		[ProtoMember(4)]
+		public string Label { get; set; }
+
+		[ProtoMember(7)]
+		public int PageCount { get; set; }
+
+		[ProtoMember(8)]
+		public int PageIndex { get; set; }
+
+	}
+
+	[Message(OuterMessageGmWeb.G2C_GMSearchClientSuggest)]
+	[ProtoContract]
+	public partial class G2C_GMSearchClientSuggest: ProtoObject, IResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+		[ProtoMember(1)]
+		public List<string> SearchResult { get; set; }
+
+		[ProtoMember(2)]
+		public int SearchCount { get; set; }
+
+	}
+
+	[ResponseType(nameof(G2C_GMSearchDailyDataStatistic))]
+	[Message(OuterMessageGmWeb.C2G_GMSearchDailyDataStatistic)]
+	[ProtoContract]
+	public partial class C2G_GMSearchDailyDataStatistic: ProtoObject, IRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public int StartTime { get; set; }
+
+		[ProtoMember(2)]
+		public int EndTime { get; set; }
+
+	}
+
+	[Message(OuterMessageGmWeb.G2C_GMSearchDailyDataStatistic)]
+	[ProtoContract]
+	public partial class G2C_GMSearchDailyDataStatistic: ProtoObject, IResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+		[ProtoMember(1)]
+		public List<string> SearchResult { get; set; }
+
+		[ProtoMember(2)]
+		public int SearchCount { get; set; }
 
 	}
 
@@ -403,23 +558,31 @@ namespace ET
 		 public const ushort C2G_GMRegiste = 14001;
 		 public const ushort C2G_GMLogin = 14002;
 		 public const ushort G2C_GMLogin = 14003;
-		 public const ushort C2G_GMGetUserInfo = 14004;
-		 public const ushort C2G_GMGetAllUserInfo = 14005;
-		 public const ushort C2G_GMChangePassword = 14006;
-		 public const ushort C2G_GMEditAccount = 14007;
-		 public const ushort C2G_GMProcessEdit = 14008;
-		 public const ushort C2G_GMGetProcessState = 14009;
-		 public const ushort C2G_GMGetLogDBInfo = 14010;
-		 public const ushort G2C_GMGetLogDBInfo = 14011;
-		 public const ushort C2G_GMSearchLog = 14012;
-		 public const ushort G2C_GMSearchLog = 14013;
-		 public const ushort C2G_GMIgnoreErrorLog = 14014;
-		 public const ushort C2G_GMAddNewServerNotice = 14015;
-		 public const ushort G2C_GMAddNewServerNotice = 14016;
-		 public const ushort C2G_GMGetServerZoneInfo = 14017;
-		 public const ushort C2G_GMSearchServerZone = 14018;
-		 public const ushort G2C_GMSearchServerZone = 14019;
-		 public const ushort C2G_GMAddNewServerZone = 14020;
-		 public const ushort C2G_GMEditServerZone = 14021;
+		 public const ushort C2G_GMLoginOut = 14004;
+		 public const ushort C2G_GMGetUserInfo = 14005;
+		 public const ushort C2G_GMGetAllUserInfo = 14006;
+		 public const ushort C2G_GMChangePassword = 14007;
+		 public const ushort C2G_GMEditAccount = 14008;
+		 public const ushort C2G_GMProcessEdit = 14009;
+		 public const ushort C2G_GMCloseAllProcess = 14010;
+		 public const ushort C2G_GMGetProcessState = 14011;
+		 public const ushort C2G_GMGetLogDBInfo = 14012;
+		 public const ushort G2C_GMGetLogDBInfo = 14013;
+		 public const ushort C2G_GMSearchClientErrorLog = 14014;
+		 public const ushort G2C_GMSearchClientErrorLog = 14015;
+		 public const ushort C2G_GMSearchClientSuggest = 14016;
+		 public const ushort G2C_GMSearchClientSuggest = 14017;
+		 public const ushort C2G_GMSearchDailyDataStatistic = 14018;
+		 public const ushort G2C_GMSearchDailyDataStatistic = 14019;
+		 public const ushort C2G_GMSearchLog = 14020;
+		 public const ushort G2C_GMSearchLog = 14021;
+		 public const ushort C2G_GMIgnoreErrorLog = 14022;
+		 public const ushort C2G_GMAddNewServerNotice = 14023;
+		 public const ushort G2C_GMAddNewServerNotice = 14024;
+		 public const ushort C2G_GMGetServerZoneInfo = 14025;
+		 public const ushort C2G_GMSearchServerZone = 14026;
+		 public const ushort G2C_GMSearchServerZone = 14027;
+		 public const ushort C2G_GMAddNewServerZone = 14028;
+		 public const ushort C2G_GMEditServerZone = 14029;
 	}
 }

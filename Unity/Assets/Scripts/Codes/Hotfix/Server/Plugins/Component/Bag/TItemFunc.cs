@@ -16,7 +16,7 @@ namespace ET.Server
 
     public static class TItemFunc
     {
-        public static cfg.Item.ItemConfigRecord Config(this TItem self)
+        public static Conf.Item.ItemConfigRecord Config(this TItem self)
         {
             return LuBanConfigComponent.Instance.Config().ItemConfig.GetOrDefault(self.ConfigId);
         }
@@ -49,19 +49,19 @@ namespace ET.Server
             {
                 switch (awakescript.ScriptName)
                 {
-                    case cfg.EEnum.EItemAwakeScript.BindEquip:
+                    case Conf.EEnum.EItemAwakeScript.BindEquip:
                         ((TEquipItem)self).BindEquip();
                         break;
-                    case cfg.EEnum.EItemAwakeScript.AddTitle:
+                    case Conf.EEnum.EItemAwakeScript.AddTitle:
                         self.AddTitle(awakescript.ScriptValue);
                         break;
-                    case cfg.EEnum.EItemAwakeScript.AddHeroExp:
+                    case Conf.EEnum.EItemAwakeScript.AddHeroExp:
                         self.AddHeroExp(awakescript.ScriptValue);
                         break;
-                    case cfg.EEnum.EItemAwakeScript.ActiveCourier:
+                    case Conf.EEnum.EItemAwakeScript.ActiveCourier:
                         self.ActiveCourier(awakescript.ScriptValue);
                         break;
-                    case cfg.EEnum.EItemAwakeScript.ActiveSkin:
+                    case Conf.EEnum.EItemAwakeScript.ActiveSkin:
                         self.ActiveSkin(awakescript.ScriptValue);
                         break;
                 }
@@ -101,7 +101,7 @@ namespace ET.Server
                 int StarStone = self.Config().DecomposeStarStone;
                 if (StarStone > 0)
                 {
-                    self.BagComp.AddTItemOrMoney((int)cfg.EEnum.EMoneyType.StarStone, StarStone);
+                    self.BagComp.AddTItemOrMoney((int)Conf.EEnum.EMoneyType.StarStone, StarStone);
                 }
             }
             else
@@ -136,7 +136,7 @@ namespace ET.Server
                             int StarStone = self.Config().DecomposeStarStone;
                             if (StarStone > 0)
                             {
-                                self.BagComp.AddTItemOrMoney((int)cfg.EEnum.EMoneyType.StarStone, StarStone);
+                                self.BagComp.AddTItemOrMoney((int)Conf.EEnum.EMoneyType.StarStone, StarStone);
                             }
                         }
                         else
@@ -193,7 +193,7 @@ namespace ET.Server
                 return (ErrorCode.ERR_Error, "not in bag");
             }
 
-            if (self.ItemCount < count || self.Config().UseScript == cfg.EEnum.EItemUseScript.None)
+            if (self.ItemCount < count || self.Config().UseScript == Conf.EEnum.EItemUseScript.None)
             {
                 return (ErrorCode.ERR_Error, "count is not enough");
             }
@@ -202,18 +202,18 @@ namespace ET.Server
             bool needCostItem = false;
             switch (self.Config().UseScript)
             {
-                case cfg.EEnum.EItemUseScript.GetPrize:
+                case Conf.EEnum.EItemUseScript.GetPrize:
                     r = self.GetPrize(self.Config().UseArgs, count);
                     needCostItem = (r.Item1 == ErrorCode.ERR_Success);
                     break;
-                case cfg.EEnum.EItemUseScript.AddBuff:
+                case Conf.EEnum.EItemUseScript.AddBuff:
                     r = self.AddBuff(self.Config().UseArgs, count);
                     needCostItem = (r.Item1 == ErrorCode.ERR_Success);
                     break;
-                case cfg.EEnum.EItemUseScript.DressUp:
+                case Conf.EEnum.EItemUseScript.DressUp:
                     r = self.DressUp();
                     break;
-                case cfg.EEnum.EItemUseScript.CostCount:
+                case Conf.EEnum.EItemUseScript.CostCount:
                     needCostItem = true;
                     r = (ErrorCode.ERR_Success, "use success");
                     break;

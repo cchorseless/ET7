@@ -9,7 +9,7 @@ using Bright.Serialization;
 using System.Collections.Generic;
 
 
-namespace cfg.Item
+namespace ET.Conf.Item
 {
 public sealed partial class ItemPoolGroupBean :  Bright.Config.BeanBase 
 {

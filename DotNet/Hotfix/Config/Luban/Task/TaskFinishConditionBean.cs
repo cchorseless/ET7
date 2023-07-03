@@ -9,7 +9,7 @@ using Bright.Serialization;
 using System.Collections.Generic;
 
 
-namespace cfg.Task
+namespace ET.Conf.Task
 {
 public sealed partial class TaskFinishConditionBean :  Bright.Config.BeanBase 
 {

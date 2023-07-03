@@ -1,4 +1,4 @@
 {"list":[
 {"_t":"StartZoneConfig","_id":1,"DBConnection":"mongodb://root:123456Zlc@dds-uf626c73dcb758a41.mongodb.rds.aliyuncs.com:3717/admin?replicaSet=dds-uf626c73dcb758a4","DBName":"ET1"},
-{"_t":"StartZoneConfig","_id":100,"DBConnection":"mongodb://root:123456Zlc@dds-uf626c73dcb758a41.mongodb.rds.aliyuncs.com:3717/admin?replicaSet=dds-uf626c73dcb758a4","DBName":"ET_Log"},
+{"_t":"StartZoneConfig","_id":100,"DBConnection":"mongodb://root:123456Zlc@dds-uf626c73dcb758a41.mongodb.rds.aliyuncs.com:3717/admin?replicaSet=dds-uf626c73dcb758a4","DBName":"ET_LOG"},
 ]}

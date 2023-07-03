@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using ET;
 
-namespace cfg.Item
+namespace ET.Conf.Item
 {
     public partial class ItemEquipConfig
     {

@@ -27,6 +27,12 @@ namespace ET.Server
             return null;
         }
 
+        public static void SendWatcher(IActorRequest request)
+        {
+            var actorid = StartSceneConfigCategory.Instance.GetManageActorId(GetThisWatcherConfig().Id);
+            ActorMessageSenderComponent.Instance.Send(actorid, request);
+        }
+
         public static async ETTask<IActorResponse> CallWatcher(IActorRequest request)
         {
             var actorid = StartSceneConfigCategory.Instance.GetManageActorId(GetThisWatcherConfig().Id);

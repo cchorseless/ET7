@@ -5,5 +5,7 @@ namespace ET
     {
         [StaticField]
         public static ServerSceneManagerComponent Instance;
+
+        public bool IsClosing = false;
     }
 }

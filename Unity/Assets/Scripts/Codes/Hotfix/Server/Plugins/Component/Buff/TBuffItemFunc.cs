@@ -13,7 +13,7 @@ namespace ET.Server
     }
     public static class TBuffItemFunc
     {
-        public static cfg.Item.ItemBuffConfigRecord Config(this TBuffItem self)
+        public static Conf.Item.ItemBuffConfigRecord Config(this TBuffItem self)
         {
             return LuBanConfigComponent.Instance.Config().ItemBuffConfig.GetOrDefault(self.ConfigId);
         }

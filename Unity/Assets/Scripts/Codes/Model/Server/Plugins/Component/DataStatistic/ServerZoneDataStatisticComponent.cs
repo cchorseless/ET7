@@ -6,9 +6,9 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace ET
 {
-    public class ServerZoneDataReportComponent : Entity, IAwake
+    public class ServerZoneDataStatisticComponent : Entity, IAwake
     {
-        public long CurDataReportItemId { get; set; }
+        public long CurDataItemId { get; set; }
 
         [BsonIgnore]
         public TServerZone ServerZone { get => GetParent<TServerZone>(); }

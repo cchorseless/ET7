@@ -78,8 +78,8 @@ namespace ET.Server
             self.RechargeComp.LoadAllChild();
             await self.LoadOrAddComponent<ServerZoneBuffComponent>();
             self.BuffComp.LoadAllChild();
-            await self.LoadOrAddComponent<ServerZoneDataReportComponent>();
-            self.DataReportComp.LoadAllChild();
+            await self.LoadOrAddComponent<ServerZoneDataStatisticComponent>();
+            self.DataStatisticComp.LoadAllChild();
             await self.LoadOrAddComponent<ServerZoneGameRecordComponent>();
             self.GameRecordComp.LoadAllChild();
             await self.LoadOrAddComponent<ServerZoneBattleTeamComponent>();
@@ -100,7 +100,7 @@ namespace ET.Server
             }
             await accountDB.Save(self.RechargeComp);
             await accountDB.Save(self.BuffComp);
-            await accountDB.Save(self.DataReportComp);
+            await accountDB.Save(self.DataStatisticComp);
             await accountDB.Save(self.GameRecordComp);
             await accountDB.Save(self.BattleTeamComp);
             await accountDB.Save(self);

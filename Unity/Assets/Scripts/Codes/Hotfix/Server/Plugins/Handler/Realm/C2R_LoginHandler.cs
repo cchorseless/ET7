@@ -10,7 +10,7 @@ namespace ET.Server
         protected override async ETTask Run(Session session, C2R_Login request, R2C_Login response)
         {
             Scene scene = session.DomainScene();
-            var sceneCloseComp = scene.GetComponent<ServerSceneCloseComponent>();
+            var sceneCloseComp = ServerSceneManagerComponent.Instance;
             if (sceneCloseComp != null && sceneCloseComp.IsClosing)
             {
                 response.Error = ErrorCode.ERR_Error;

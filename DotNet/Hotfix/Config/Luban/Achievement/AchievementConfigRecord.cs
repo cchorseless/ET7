@@ -9,7 +9,7 @@ using Bright.Serialization;
 using System.Collections.Generic;
 
 
-namespace cfg.Achievement
+namespace ET.Conf.Achievement
 {
 public sealed partial class AchievementConfigRecord :  Bright.Config.BeanBase 
 {

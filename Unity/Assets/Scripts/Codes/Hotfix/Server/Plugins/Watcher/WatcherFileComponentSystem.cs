@@ -4,9 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 namespace ET.Server
 {
-      public static class WatcherFileComponentSystem
+    public static class WatcherFileComponentSystem
     {
         [ObjectSystem]
         public class WatcherFileComponentSystemAwakeSystem: AwakeSystem<WatcherFileComponent, string>
@@ -48,16 +49,22 @@ namespace ET.Server
 
         static void OnFileChanged(this WatcherFileComponent self, object sender, FileSystemEventArgs e)
         {
-            if(e.Name.Contains("WatcherLog"))
+            if (e.Name.Contains("WatcherLog"))
             {
                 var txt = File.ReadAllLines(e.FullPath, Encoding.UTF8);
                 var lastline = txt.Last();
                 if (lastline.Contains("Reload"))
                 {
-                    ReloadDllConsoleHandler.Handle().Coroutine();
+                    self.DelayReload().Coroutine();
                 }
             }
-            
+        }
+
+        static async ETTask DelayReload(this WatcherFileComponent self)
+        {
+            // 需要延时，不然有BUG读不到文件
+            await TimerComponent.Instance.WaitAsync(1000);
+            await ReloadDllConsoleHandler.Handle();
         }
 
         static void OnFileDeleted(this WatcherFileComponent self, object sender, FileSystemEventArgs e)
@@ -69,4 +76,3 @@ namespace ET.Server
         }
     }
 }
-
