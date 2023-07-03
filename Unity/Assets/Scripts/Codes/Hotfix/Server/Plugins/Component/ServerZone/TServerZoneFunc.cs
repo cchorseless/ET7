@@ -121,7 +121,6 @@ namespace ET.Server
             self.ServerName = serverName;
             self.ServerLabel = new HashSet<int>();
             self.State = new HashSet<int>();
-            self.AddComponent<GhostEntityComponent, int>(severid);
         }
     }
 }

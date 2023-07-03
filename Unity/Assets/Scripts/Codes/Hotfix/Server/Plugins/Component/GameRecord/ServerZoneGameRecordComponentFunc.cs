@@ -51,6 +51,8 @@ namespace ET.Server
             var entity = self.AddChild<TGameRecordItem>();
             entity.Players.AddRange(allPlayers);
             character.SyncHttpEntity(entity);
+            // 对局数统计
+            self.ServerZone.DataStatisticComp.GetCurDataItem().UpdateHoursBattleCount();
             allPlayers.ForEach(playerId =>
             {
                 playerComponent.Get(playerId).GetMyCharacter().GameRecordComp.AddGameRecord(entity.Id);

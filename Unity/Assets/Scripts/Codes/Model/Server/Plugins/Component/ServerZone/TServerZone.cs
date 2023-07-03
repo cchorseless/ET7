@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 
 namespace ET
 {
-    // 要求确保 同一个不能出现在两个进程中，进程:ServerZone= 一对多 滚服可以
-    // 单服 大服 ，需要 ServerZone:进程 = 一对多
     public class TServerZone: Entity, IAwake<int, int, string>
     {
         public string ServerName;
         public int ZoneID;
         public int ServerID;
+        public int ProcessID;
         public long CreateTime;
         public HashSet<int> State;
         public HashSet<int> ServerLabel;

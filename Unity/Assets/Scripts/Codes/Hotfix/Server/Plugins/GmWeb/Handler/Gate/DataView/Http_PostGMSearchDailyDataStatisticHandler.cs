@@ -42,7 +42,7 @@ namespace ET.Server
                 endTime = (long)request.EndTime * 1000;
             }
 
-            var db = DBManagerComponent.Instance.GetLogDB();
+            var db = DBManagerComponent.Instance.GetAccountDB();
             Expression<Func<TServerZoneDailyDataStatisticItem, bool>> filter = record =>
                     (record.Time >= startTime) &&
                     (record.Time <= endTime);
@@ -62,6 +62,7 @@ namespace ET.Server
             }
 
             records = tempDic.Values.ToList();
+            response.Error = ErrorCode.ERR_Success;
             response.SearchCount = records.Count;
             response.SearchResult = new List<string>();
             records.ForEach(record => { response.SearchResult.Add(MongoHelper.ToClientJson(record)); });

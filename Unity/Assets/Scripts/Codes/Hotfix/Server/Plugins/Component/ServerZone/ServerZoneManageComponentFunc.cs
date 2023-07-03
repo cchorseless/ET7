@@ -71,56 +71,24 @@ namespace ET.Server
         public static async ETTask LoadServerZone(this ServerZoneManageComponent self)
         {
             var accountDB = DBManagerComponent.Instance.GetAccountDB();
-            if (GameConfig.IsAccountProcess())
+            var ProcessID = Options.Instance.Process;
+            var serverZoneList = await accountDB.Query<TServerZone>(a => a.ProcessID == ProcessID);
+            TServerZone serverZone = null;
+            if (serverZoneList.Count == 0)
             {
-                var serverZoneList = await accountDB.Query<TServerZone>(a => true);
-                if (serverZoneList.Count == 0)
-                {
-                    await self.AddNewServer(GameConfig.AccountDBZone, "TestServer1", (int)EServerZoneLabel.Develop);
-                }
-                else
-                {
-                    foreach (var serverZone in serverZoneList)
-                    {
-                        self.AddChild(serverZone);
-                        await serverZone.LoadAllComponent();
-                        self.ServerZoneDict.Add(serverZone.ServerID, serverZone.Id);
-                    }
-                }
+                serverZone = self.AddChild<TServerZone, int, int, string>(GameConfig.AccountDBZone, 1, $"Server_Process{ProcessID}");
+                serverZone.ProcessID = ProcessID;
+                serverZone.State.Add((int)EServerZoneState.Working);
+                serverZone.CreateTime = TimeHelper.ServerNow();
             }
             else
             {
-                // 延时等创建完成
-                var serverZoneList = await accountDB.Query<TServerZone>(a => true);
-                if (serverZoneList.Count == 0)
-                {
-                    await TimerComponent.Instance.WaitAsync(2000);
-                    serverZoneList = await accountDB.Query<TServerZone>(a => true);
-                }
-
-                if (serverZoneList.Count == 0)
-                {
-                    Log.Error("Load TServerZone Error");
-                }
-
-                var config = StartSceneConfigCategory.Instance.GetByProcess(Options.Instance.Process);
-                foreach (var serverZone in serverZoneList)
-                {
-                    foreach (var sceneConfig in config)
-                    {
-                        if (sceneConfig.Type == SceneType.Gate)
-                        {
-                            if (sceneConfig.ServerMin <= serverZone.ServerID && sceneConfig.ServerMax >= serverZone.ServerID)
-                            {
-                                self.AddChild(serverZone);
-                                await serverZone.LoadAllComponent();
-                                self.ServerZoneDict.Add(serverZone.ServerID, serverZone.Id);
-                                break;
-                            }
-                        }
-                    }
-                }
+                serverZone = serverZoneList[0];
+                self.AddChild(serverZone);
             }
+            await serverZone.LoadAllComponent();
+            await serverZone.Save();
+            self.ServerZoneDict.Add(serverZone.ServerID, serverZone.Id);
         }
 
         public static async ETTask LoadNoticeRecord(this ServerZoneManageComponent self)
@@ -132,7 +100,7 @@ namespace ET.Server
                     a.State.Contains(isValid) || a.State.Contains(isWaitValid));
             if (noticeRecord.Count == 0)
             {
-                await self.AddNewNotice("notice error");
+                await self.AddNewNotice("first notice");
             }
             else
             {

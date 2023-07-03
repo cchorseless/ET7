@@ -51,6 +51,8 @@ namespace ET
 
         public long CreateTime;
 
+        public string Account;
+
         public long PayTime;
 
         public string ErrorMsg;

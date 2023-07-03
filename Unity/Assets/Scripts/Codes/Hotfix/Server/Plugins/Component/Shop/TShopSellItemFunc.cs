@@ -83,7 +83,8 @@ namespace ET.Server
 
             self.BuyCount += count;
             character.SyncHttpEntity(self);
-
+            // 统计订单物品
+            character.GetMyServerZone().DataStatisticComp.GetCurDataItem().UpdateShopSellItem(config.ItemConfigId, config.ItemCount * count);
             return (ErrorCode.ERR_Success, "");
         }
 

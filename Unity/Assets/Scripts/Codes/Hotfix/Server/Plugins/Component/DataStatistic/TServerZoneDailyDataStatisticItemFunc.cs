@@ -67,8 +67,19 @@ namespace ET.Server
             var count = self.HoursPlayerOnline.Length;
             for (var i = 0; i < count; i++)
             {
-                self.HoursPlayerNew[count] += other.HoursPlayerNew[count];
-                self.HoursPlayerOnline[count] += other.HoursPlayerOnline[count];
+                self.HoursPlayerNew[i] += other.HoursPlayerNew[i];
+                self.HoursPlayerOnline[i] += other.HoursPlayerOnline[i];
+                self.HoursBattleCount[i] += other.HoursBattleCount[i];
+            }
+
+            foreach (var kv in other.OrderIncome)
+            {
+                self.UpdateOrderIncome(kv.Key, kv.Value);
+            }
+
+            foreach (var kv in other.ShopSellItem)
+            {
+                self.UpdateShopSellItem(kv.Key, kv.Value);
             }
         }
 
@@ -90,6 +101,37 @@ namespace ET.Server
                 {
                     self.HoursPlayerOnline[hour] = count;
                 }
+            }
+        }
+
+        public static void UpdateHoursBattleCount(this TServerZoneDailyDataStatisticItem self)
+        {
+            int hour = TimeHelper.DateTimeNow().Hour;
+            var d = self.HoursBattleCount[hour];
+            self.HoursBattleCount[hour] = d + 1;
+        }
+
+        public static void UpdateOrderIncome(this TServerZoneDailyDataStatisticItem self, int paytype, int count)
+        {
+            if (self.OrderIncome.ContainsKey(paytype))
+            {
+                self.OrderIncome[paytype] += count;
+            }
+            else
+            {
+                self.OrderIncome[paytype] = count;
+            }
+        }
+
+        public static void UpdateShopSellItem(this TServerZoneDailyDataStatisticItem self, int itemconfigId, int itemcount)
+        {
+            if (self.ShopSellItem.ContainsKey(itemconfigId))
+            {
+                self.ShopSellItem[itemconfigId] += itemcount;
+            }
+            else
+            {
+                self.ShopSellItem[itemconfigId] = itemcount;
             }
         }
     }

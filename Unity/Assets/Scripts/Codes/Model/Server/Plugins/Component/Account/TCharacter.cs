@@ -17,7 +17,7 @@ namespace ET
         public int GmLevel { get; set; }
 
         /// <summary>
-        /// 昵称
+        /// 昵称 ,steam短id,account
         /// </summary>
         public string Name { get; set; }
 

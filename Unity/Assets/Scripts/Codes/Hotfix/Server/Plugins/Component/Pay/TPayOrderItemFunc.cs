@@ -6,18 +6,6 @@ using System.Threading.Tasks;
 
 namespace ET.Server
 {
-    public static class EPayOrderLabel
-    {
-        public static readonly string PayForBattlePass = "PayForBattlePass";
-        public static readonly string PayForMemberShip = "PayForMemberShip";
-
-        public static readonly string PayForMetaStone = "PayForMetaStone";
-        //public static readonly string PayForBattlePass = "PayForBattlePass";
-        //public static readonly string PayForBattlePass = "PayForBattlePass";
-        //public static readonly string PayForBattlePass = "PayForBattlePass";
-        //public static readonly string PayForBattlePass = "PayForBattlePass";
-    }
-
     public static class EPayOrderResult
     {
         //微信
@@ -51,6 +39,7 @@ namespace ET.Server
             self.PayOrderSource = payOrderSource;
             self.CharacterId = character.Id;
             self.PlayerId = character.Int64PlayerId;
+            self.Account = character.Name;
         }
 
         public static async ETTask CheckOrderState(this TPayOrderItem self)
@@ -183,7 +172,7 @@ namespace ET.Server
 
         public static void SyncOrderState(this TPayOrderItem self, string state)
         {
-             ActorMessageSenderComponent.Instance.Send(self.GateActorId,
+            ActorMessageSenderComponent.Instance.Send(self.GateActorId,
                 new Actor_SyncOrderStateRequest() { OrderId = self.Id, OrderPaySource = self.PayOrderSource, OrderState = state, });
         }
 
@@ -224,6 +213,10 @@ namespace ET.Server
                 self.State.Add((int)EPayOrderState.PayAddItemFail);
                 Log.Error($"PayFinishAddItem Fail , Order = {self.Id} , ItemConfigId = {self.ItemConfigId} ItemCount = {self.ItemCount}");
             }
+            // 统计订单收入
+            character.GetMyServerZone().DataStatisticComp.GetCurDataItem().UpdateOrderIncome(self.PayOrderSource, self.TotalAmount);
+            // 统计订单物品
+            character.GetMyServerZone().DataStatisticComp.GetCurDataItem().UpdateShopSellItem(self.ItemConfigId, self.ItemCount);
         }
     }
 }
