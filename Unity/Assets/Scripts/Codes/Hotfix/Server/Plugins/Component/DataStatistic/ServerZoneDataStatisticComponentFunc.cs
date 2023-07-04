@@ -21,7 +21,9 @@ namespace ET.Server
             {
                 return;
             }
+
             self.GetCurDataItem().UpdateHoursPlayerOnline();
+            await self.GetCurDataItem().UpdateTotalPlayerCount();
             await self.GetCurDataItem().SaveAndExit(false);
             self.UpdateStatisticData().Coroutine();
         }

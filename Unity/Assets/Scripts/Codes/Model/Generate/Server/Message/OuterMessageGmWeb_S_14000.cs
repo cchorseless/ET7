@@ -553,6 +553,89 @@ namespace ET
 
 	}
 
+	[ResponseType(nameof(G2C_GMSearchOrder))]
+	[Message(OuterMessageGmWeb.C2G_GMSearchOrder)]
+	[ProtoContract]
+	public partial class C2G_GMSearchOrder: ProtoObject, IRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public int StartTime { get; set; }
+
+		[ProtoMember(2)]
+		public int EndTime { get; set; }
+
+		[ProtoMember(3)]
+		public string Account { get; set; }
+
+		[ProtoMember(4)]
+		public int OrderState { get; set; }
+
+		[ProtoMember(5)]
+		public int ItemConfigId { get; set; }
+
+		[ProtoMember(6)]
+		public int PayType { get; set; }
+
+		[ProtoMember(7)]
+		public int PageCount { get; set; }
+
+		[ProtoMember(8)]
+		public int PageIndex { get; set; }
+
+	}
+
+	[Message(OuterMessageGmWeb.G2C_GMSearchOrder)]
+	[ProtoContract]
+	public partial class G2C_GMSearchOrder: ProtoObject, IResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+		[ProtoMember(1)]
+		public List<string> SearchResult { get; set; }
+
+		[ProtoMember(2)]
+		public int SearchCount { get; set; }
+
+	}
+
+	[ResponseType(nameof(G2C_GMSearchPlayerInfo))]
+	[Message(OuterMessageGmWeb.C2G_GMSearchPlayerInfo)]
+	[ProtoContract]
+	public partial class C2G_GMSearchPlayerInfo: ProtoObject, IRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(3)]
+		public string Account { get; set; }
+
+	}
+
+	[Message(OuterMessageGmWeb.G2C_GMSearchPlayerInfo)]
+	[ProtoContract]
+	public partial class G2C_GMSearchPlayerInfo: ProtoObject, IResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+	}
+
 	public static class OuterMessageGmWeb
 	{
 		 public const ushort C2G_GMRegiste = 14001;
@@ -584,5 +667,9 @@ namespace ET
 		 public const ushort G2C_GMSearchServerZone = 14027;
 		 public const ushort C2G_GMAddNewServerZone = 14028;
 		 public const ushort C2G_GMEditServerZone = 14029;
+		 public const ushort C2G_GMSearchOrder = 14030;
+		 public const ushort G2C_GMSearchOrder = 14031;
+		 public const ushort C2G_GMSearchPlayerInfo = 14032;
+		 public const ushort G2C_GMSearchPlayerInfo = 14033;
 	}
 }

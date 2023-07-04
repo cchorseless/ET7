@@ -62,8 +62,6 @@ namespace ET.Server
             self.HeroManageComp.LoadAllChild();
             await self.LoadOrAddComponent<CharacterDrawTreasureComponent>();
             self.DrawTreasureComp.LoadAllChild();
-            await self.LoadOrAddComponent<CharacterRechargeComponent>();
-            self.RechargeComp.LoadAllChild();
             await self.LoadOrAddComponent<CharacterBuffComponent>();
             self.BuffComp.LoadAllChild();
             await self.LoadOrAddComponent<CharacterTitleComponent>();
@@ -92,7 +90,6 @@ namespace ET.Server
                     self.ActivityComp,
                     self.HeroManageComp,
                     self.DrawTreasureComp,
-                    self.RechargeComp,
                     self.BuffComp,
                     self.TitleComp,
                     self.AchievementComp,
@@ -111,7 +108,7 @@ namespace ET.Server
             self.SyncHttpEntity(new Entity[]
             {
                 self.BagComp, self.DataComp, self.ShopComp, self.BattlePassComp, self.MailComp, self.ActivityComp, self.HeroManageComp,
-                self.DrawTreasureComp, self.RechargeComp, self.BuffComp, self.TitleComp, self.AchievementComp, self.GameRecordComp,
+                self.DrawTreasureComp,  self.BuffComp, self.TitleComp, self.AchievementComp, self.GameRecordComp,
                 self.BattleTeamComp, self.RankComp,
             });
         }

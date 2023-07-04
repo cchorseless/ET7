@@ -74,8 +74,6 @@ namespace ET.Server
             self.MailComp.LoadAllChild();
             await self.LoadOrAddComponent<ServerZoneRankComponent>();
             self.RankComp.LoadAllChild();
-            await self.LoadOrAddComponent<ServerZoneRechargeComponent>();
-            self.RechargeComp.LoadAllChild();
             await self.LoadOrAddComponent<ServerZoneBuffComponent>();
             self.BuffComp.LoadAllChild();
             await self.LoadOrAddComponent<ServerZoneDataStatisticComponent>();
@@ -98,7 +96,6 @@ namespace ET.Server
             {
                 await accountDB.Save(self.RankComp.CurSeasonRank);
             }
-            await accountDB.Save(self.RechargeComp);
             await accountDB.Save(self.BuffComp);
             await accountDB.Save(self.DataStatisticComp);
             await accountDB.Save(self.GameRecordComp);

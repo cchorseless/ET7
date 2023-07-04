@@ -271,6 +271,34 @@ namespace ET
 
 	}
 
+	[ResponseType(nameof(P2G_GMSearchPlayerInfo))]
+	[Message(InnerMessageGmWeb.G2P_GMSearchPlayerInfo)]
+	[ProtoContract]
+	public partial class G2P_GMSearchPlayerInfo: ProtoObject, IActorRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(92)]
+		public string Account { get; set; }
+
+	}
+
+	[Message(InnerMessageGmWeb.P2G_GMSearchPlayerInfo)]
+	[ProtoContract]
+	public partial class P2G_GMSearchPlayerInfo: ProtoObject, IActorResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+	}
+
 	public static class InnerMessageGmWeb
 	{
 		 public const ushort W2P_GMReload = 24001;
@@ -291,5 +319,7 @@ namespace ET
 		 public const ushort P2G_GMAddNewServerZone = 24016;
 		 public const ushort G2P_GMEditServerZone = 24017;
 		 public const ushort P2G_GMEditServerZone = 24018;
+		 public const ushort G2P_GMSearchPlayerInfo = 24019;
+		 public const ushort P2G_GMSearchPlayerInfo = 24020;
 	}
 }

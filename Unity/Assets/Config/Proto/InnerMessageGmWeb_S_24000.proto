@@ -134,3 +134,17 @@ message P2G_GMEditServerZone // IActorResponse
 	int32 Error = 91;
 	string Message = 92;
 }
+
+//ResponseType P2G_GMSearchPlayerInfo
+message G2P_GMSearchPlayerInfo // IActorRequest
+{
+	int32 RpcId = 90;
+	string Account = 92;
+}
+
+message P2G_GMSearchPlayerInfo // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}

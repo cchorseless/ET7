@@ -15,6 +15,8 @@ namespace ET
         public int Day { get; set; }
         public int ServerID { get; set; }
 
+        public int TotalPlayerCount;
+        
         public int[] HoursPlayerNew = new int[24];
 
         public int[] HoursPlayerOnline = new int[24];

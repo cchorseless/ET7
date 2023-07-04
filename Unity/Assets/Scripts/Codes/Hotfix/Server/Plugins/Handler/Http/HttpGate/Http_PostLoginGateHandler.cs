@@ -8,7 +8,7 @@ namespace ET.Server
         protected override async ETTask Run(Entity domain, C2G_LoginGate request, G2C_LoginGate response, long playerid)
         {
             Scene scene = domain.DomainScene();
-            var sceneConfig = StartSceneConfigCategory.Instance.GetBySceneName(scene.Zone, scene.Name);
+            var sceneConfig = StartSceneConfigCategory.Instance.Get((int)scene.Id);
             if (sceneConfig.ServerMin > request.ServerId || sceneConfig.ServerMax < request.ServerId)
             {
                 response.Error = ErrorCode.ERR_LoginError;
@@ -26,9 +26,10 @@ namespace ET.Server
                 return;
             }
 
-            TServerZone serverZone = await accountDB.QueryOne<TServerZone>(server =>
-                    server.ServerID == request.ServerId &&
-                    server.State.Contains((int)EServerZoneState.Working));
+            // 更新一下
+            accountInfo.LastGateId = sceneConfig.Id;
+            await accountDB.Save(accountInfo);
+            TServerZone serverZone = ServerZoneManageComponent.Instance.GetServerZone(request.ServerId);
             if (serverZone == null)
             {
                 response.Error = ErrorCode.ERR_LoginError;
@@ -62,11 +63,12 @@ namespace ET.Server
                 {
                     character = characters[0];
                 }
-                else if(characters.Count == 0 && GameConfig.AutoCreateDefaultCharacter)
+                else if (characters.Count == 0 && GameConfig.AutoCreateDefaultCharacter)
                 {
                     character = player.AddChild<TCharacter, long>(player.Id);
                     character.ZoneID = scene.DomainZone();
                     character.ServerID = 1;
+                    character.CreateTime = TimeHelper.ServerNow();
                     // 新增角色
                     serverZone.DataStatisticComp.GetCurDataItem().UpdateHoursPlayerNew();
                     await db.Save(character);
@@ -78,6 +80,7 @@ namespace ET.Server
                     response.Message = "CAN NOT FIND CHARACTER";
                     return;
                 }
+
                 player.SelectCharacter(character);
                 player.GetComponent<PlayerLoginOutComponent>().LogOutType = (int)ELogOutHandlerType.LogOutCharacter;
                 character.SyncHttpEntity(character);

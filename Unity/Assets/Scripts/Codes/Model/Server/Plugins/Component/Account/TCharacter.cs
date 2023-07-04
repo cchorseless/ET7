@@ -118,12 +118,6 @@ namespace ET
         }
 
         [BsonIgnore]
-        public CharacterRechargeComponent RechargeComp
-        {
-            get => GetComponent<CharacterRechargeComponent>();
-        }
-
-        [BsonIgnore]
         public CharacterBuffComponent BuffComp
         {
             get => GetComponent<CharacterBuffComponent>();

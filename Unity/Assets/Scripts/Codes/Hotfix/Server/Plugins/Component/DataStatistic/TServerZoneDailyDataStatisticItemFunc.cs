@@ -104,6 +104,12 @@ namespace ET.Server
             }
         }
 
+        public static async ETTask UpdateTotalPlayerCount(this TServerZoneDailyDataStatisticItem self)
+        {
+            var db = DBManagerComponent.Instance.GetAccountDB();
+            self.TotalPlayerCount = (int)await db.QueryCount<TCharacter>(v => true);
+        }
+
         public static void UpdateHoursBattleCount(this TServerZoneDailyDataStatisticItem self)
         {
             int hour = TimeHelper.DateTimeNow().Hour;

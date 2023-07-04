@@ -4,6 +4,11 @@ namespace ET
     {
         public static string ToClientJson(object obj)
         {
+            if (obj == null)
+            {
+                return "";
+            }
+
             var str = ToJson(obj, null);
             str = str.Replace(" ", "").Replace("\r\n", "").Replace("NumberLong", "").Replace("(", "").Replace(")", "");
             return str;

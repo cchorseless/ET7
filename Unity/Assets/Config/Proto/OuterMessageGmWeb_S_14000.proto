@@ -275,5 +275,43 @@ message C2G_GMEditServerZone // IRequest
   	string ServerName = 96;
 }
 
+//ResponseType G2C_GMSearchOrder
+message C2G_GMSearchOrder // IRequest
+{
+	int32 RpcId = 90;
+	int32 StartTime = 1;
+	int32 EndTime = 2;
+	string Account = 3;
+	int32 OrderState = 4;
+	int32 ItemConfigId = 5;
+	int32 PayType = 6;
+	int32 PageCount = 7;
+	int32 PageIndex = 8;
+}
 
+message G2C_GMSearchOrder // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	repeated string SearchResult = 1;
+	int32 SearchCount = 2;
+
+}
+
+//ResponseType G2C_GMSearchPlayerInfo
+message C2G_GMSearchPlayerInfo // IRequest
+{
+	int32 RpcId = 90;
+	string Account = 3;
+}
+
+message G2C_GMSearchPlayerInfo // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+}
+		
 

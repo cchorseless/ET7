@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using MongoDB.Bson.Serialization.Options;
 namespace ET
 {
     public class THeroUnit: Entity, IAwake<string>, ISerializeToEntity
@@ -17,9 +17,11 @@ namespace ET
         public int BattleScore;
 
         // 解锁的皮肤  ID:时间
+        [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
         public Dictionary<string, long> Skins = new Dictionary<string, long>();
 
         //当前装备
+        [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
         public Dictionary<int, long> Equips = new Dictionary<int, long>();
 
         [BsonIgnore]
