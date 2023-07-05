@@ -25,7 +25,6 @@ namespace ET.Server
         {
             if (self.GetChild<TPayOrderItem>(orderid) != null)
             {
-                await ETTask.CompletedTask;
                 return self.GetChild<TPayOrderItem>(orderid);
             }
             else

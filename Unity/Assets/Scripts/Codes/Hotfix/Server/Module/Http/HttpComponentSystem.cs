@@ -154,7 +154,7 @@ namespace ET.Server
 
             if (!self.VerifyAuth(context))
             {
-                context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                // context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                 context.FinishHander();
                 return;
             }

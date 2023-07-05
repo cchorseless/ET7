@@ -203,7 +203,7 @@ namespace ET
 		public string GameTime { get; set; }
 
 		[ProtoMember(3)]
-		public string TimeSpan { get; set; }
+		public string Label { get; set; }
 
 		[ProtoMember(4)]
 		public string GameId { get; set; }

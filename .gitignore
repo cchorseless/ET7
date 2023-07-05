@@ -92,3 +92,6 @@ Publish/
 
 *.crt
 *.p12
+Config/Crt/aliappPublicKey_RSA2048.txt
+Config/Crt/aliappPrivateKey.txt
+Config/Crt/alipayPublicKey_RSA2.txt

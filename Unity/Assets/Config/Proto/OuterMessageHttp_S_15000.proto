@@ -96,7 +96,7 @@ message C2H_ReportGameError // IRequest
   int32  RpcId = 90;
   string  ErrorMsg = 1;
   string  GameTime = 2;
-  string  TimeSpan = 3;
+  string  Label = 3;
   string  GameId = 4;
 }
 

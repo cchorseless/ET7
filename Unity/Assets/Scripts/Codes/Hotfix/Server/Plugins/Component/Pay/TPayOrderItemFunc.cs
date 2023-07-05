@@ -30,7 +30,7 @@ namespace ET.Server
         string label = "")
         {
             self.Title = title;
-            self.GateActorId = character.DomainScene().InstanceId;
+            self.GateId = (int)self.DomainScene().Id;
             self.CreateTime = TimeHelper.ServerNow();
             self.TotalAmount = money;
             self.ItemConfigId = itemInfo.ItemConfigId;
@@ -172,8 +172,12 @@ namespace ET.Server
 
         public static void SyncOrderState(this TPayOrderItem self, string state)
         {
-            ActorMessageSenderComponent.Instance.Send(self.GateActorId,
-                new Actor_SyncOrderStateRequest() { OrderId = self.Id, OrderPaySource = self.PayOrderSource, OrderState = state, });
+            var config = StartSceneConfigCategory.Instance.Get(self.GateId);
+            if (config != null)
+            {
+                ActorMessageSenderComponent.Instance.Send(config.InstanceId,
+                    new Actor_SyncOrderStateRequest() { OrderId = self.Id, OrderPaySource = self.PayOrderSource, OrderState = state, });
+            }
         }
 
         public static void PayFinishAddItem(this TPayOrderItem self)
@@ -193,16 +197,22 @@ namespace ET.Server
             PlayerComponent playerComponent = scene.GetComponent<PlayerComponent>();
             if (playerComponent == null)
             {
+                Log.Error($"order cant find playerComponent at {scene.Id} {scene.Name}");
                 return;
             }
 
             Player player = playerComponent.Get(self.PlayerId);
             if (player == null)
             {
+                Log.Error($"order cant find player at {scene.Id} {scene.Name}");
                 return;
             }
 
             TCharacter character = player.GetMyCharacter();
+            // 统计订单收入
+            character.GetMyServerZone().DataStatisticComp.GetCurDataItem().UpdateOrderIncome(self.PayOrderSource, self.TotalAmount);
+            // 统计订单物品
+            character.GetMyServerZone().DataStatisticComp.GetCurDataItem().UpdateShopSellItem(self.ItemConfigId, self.ItemCount);
             var r = character.BagComp.AddTItemOrMoney(self.ItemConfigId, self.ItemCount);
             if (r.Item1 == ErrorCode.ERR_Success)
             {
@@ -213,10 +223,6 @@ namespace ET.Server
                 self.State.Add((int)EPayOrderState.PayAddItemFail);
                 Log.Error($"PayFinishAddItem Fail , Order = {self.Id} , ItemConfigId = {self.ItemConfigId} ItemCount = {self.ItemCount}");
             }
-            // 统计订单收入
-            character.GetMyServerZone().DataStatisticComp.GetCurDataItem().UpdateOrderIncome(self.PayOrderSource, self.TotalAmount);
-            // 统计订单物品
-            character.GetMyServerZone().DataStatisticComp.GetCurDataItem().UpdateShopSellItem(self.ItemConfigId, self.ItemCount);
         }
     }
 }

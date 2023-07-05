@@ -18,7 +18,7 @@ namespace ET.Server
                 var order = await AliPayComponent.Instance.GetOrder(orderid);
                 if (order != null)
                 {
-                    Log.Info($"WeChatPayNotify {notify.TradeStatus} => OutTradeNo: " + notify.OutTradeNo);
+                    DBLogger.Instance.Important("PayNotify", $"WeChatPayNotify {notify.TradeStatus} => OutTradeNo: " + notify.OutTradeNo);
                     await AlipayNotifyResult.ReplySuccess(context.Response);
                     order.SyncOrderState(notify.TradeStatus);
                     order.Dispose();

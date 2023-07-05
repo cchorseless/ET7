@@ -19,7 +19,7 @@ namespace ET.Server
                 var order = await WeChatPayComponent.Instance.GetOrder(orderid);
                 if (order != null)
                 {
-                    Log.Info($"WeChatPayNotify {notify.TradeState} => OutTradeNo: " + notify.OutTradeNo);
+                    DBLogger.Instance.Important("PayNotify", $"WeChatPayNotify {notify.TradeState} => OutTradeNo: " + notify.OutTradeNo);
                     await WeChatPayNotifyResult.ReplySuccess(context.Response);
                     order.SyncOrderState(notify.TradeState);
                     order.Dispose();

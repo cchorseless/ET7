@@ -19,9 +19,11 @@ namespace ET
 
     public enum EPayOrderSourceType
     {
-        AliPay_QrCode = 1,
-        WeChat_QrCodeV3 = 2,
-        WeChat_H5PayV3 = 3,
+        AliPay_QrCode = 1000,
+        WeChat_QrCodeV3 = 2000,
+        WeChat_H5PayV3 = 2001,
+        Paypal_H5Pay = 3000,
+        YooMoney_H5Pay = 4000,
     }
 
     public class TPayOrderItem: Entity, IAwake
@@ -36,7 +38,7 @@ namespace ET
 
         public int ItemCount;
 
-        public long GateActorId;
+        public int GateId;
 
         public int TotalAmount;
 
