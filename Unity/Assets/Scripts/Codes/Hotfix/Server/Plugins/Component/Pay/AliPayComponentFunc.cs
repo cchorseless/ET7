@@ -10,8 +10,7 @@ namespace ET.Server
     {
         public static async ETTask<T> ExecuteAsync<T>(this AliPayComponent self, IAlipayRequest<T> request) where T : AlipayResponse
         {
-            if (self.PayOptions.AlipayPublicKey != null &&
-                self.PayOptions.AlipayPublicKey.Length > 0)
+            if (!string.IsNullOrEmpty(self.PayOptions.AlipayPublicKey))
             {
                 return await self.Client.ExecuteAsync(request, self.PayOptions);
             }
@@ -50,9 +49,12 @@ namespace ET.Server
             order.LoadData(character, title, money_fen, itemInfo, (int)EPayOrderSourceType.AliPay_QrCode, label);
             try
             {
-                var model = new AlipayTradePrecreateModel
+                var model = new AlipayTradePrecreateModel()
                 {
-                    OutTradeNo = order.Id.ToString(), Subject = title, TotalAmount = (money_fen / 100.0).ToString("F2"), Body = label,
+                    OutTradeNo = order.Id.ToString(), 
+                    Subject = title, 
+                    TotalAmount = (money_fen / 100.0).ToString("F2"), 
+                    Body = label,
                 };
                 var req = new AlipayTradePrecreateRequest();
                 req.SetBizModel(model);
@@ -66,7 +68,7 @@ namespace ET.Server
                 else
                 {
                     order.State.Add((int)EPayOrderState.CreateFail);
-                    order.ErrorMsg = $"{response.Body}";
+                    order.ErrorMsg = $"{response.Msg} | {response.SubMsg}";
                 }
             }
             catch (Exception ex)
@@ -101,7 +103,7 @@ namespace ET.Server
             order.LoadData(character, title, money, itemInfo, (int)EPayOrderSourceType.AliPay_QrCode, label);
             try
             {
-                var model = new AlipayTradeAppPayModel
+                var model = new AlipayTradeAppPayModel()
                 {
                     OutTradeNo = order.Id.ToString(),
                     Subject = title,
@@ -124,7 +126,7 @@ namespace ET.Server
                 else
                 {
                     order.State.Add((int)EPayOrderState.CreateFail);
-                    order.ErrorMsg = $"{response.Body}";
+                    order.ErrorMsg = $"{response.Msg} | {response.SubMsg}";
                 }
             }
             catch (Exception ex)

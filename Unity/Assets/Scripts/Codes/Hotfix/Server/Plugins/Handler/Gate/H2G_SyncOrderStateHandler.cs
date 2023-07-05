@@ -14,11 +14,11 @@ namespace ET.Server
             TPayOrderItem order = null;
             if (request.OrderPaySource == (int)EPayOrderSourceType.AliPay_QrCode)
             {
-                order = await AliPayComponent.Instance.GetOrder(request.OrderId);
+                order = AliPayComponent.Instance.GetChild<TPayOrderItem>(request.OrderId);
             }
             else if (request.OrderPaySource == (int)EPayOrderSourceType.WeChat_QrCodeV3)
             {
-                order = await WeChatPayComponent.Instance.GetOrder(request.OrderId);
+                order = WeChatPayComponent.Instance.GetChild<TPayOrderItem>(request.OrderId);
             }
 
             if (order != null)
@@ -33,7 +33,6 @@ namespace ET.Server
                 {
                     await order.SaveAndExit(false);
                 }
-              
             }
 
             await ETTask.CompletedTask;

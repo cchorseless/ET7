@@ -70,13 +70,14 @@ message W2G_GMProcessEdit // IActorResponse
 	string Message = 92;
 }
 
-//ResponseType W2G_GMCloseAllProcess
-message G2W_GMCloseAllProcess // IActorRequest
+//ResponseType W2G_GMHandleAllProcess
+message G2W_GMHandleAllProcess // IActorRequest
 {
 	int32 RpcId = 90;
+	int32 HandleType = 1;
 }
 
-message W2G_GMCloseAllProcess // IActorResponse
+message W2G_GMHandleAllProcess // IActorResponse
 {
 	int32 RpcId = 90;
 	int32 Error = 91;

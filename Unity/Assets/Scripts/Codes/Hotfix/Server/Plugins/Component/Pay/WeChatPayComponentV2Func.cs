@@ -29,7 +29,7 @@ namespace ET.Server
         public static async ETTask<string> GetQrCodePayV2(this WeChatPayComponent self, TWeChatPayQrCodePay viewModel)
         {
             string qrcode = "";
-            var request = new WeChatPayUnifiedOrderRequest
+            var request = new WeChatPayUnifiedOrderRequest()
             {
                 Body = viewModel.Body,
                 OutTradeNo = viewModel.OutTradeNo,

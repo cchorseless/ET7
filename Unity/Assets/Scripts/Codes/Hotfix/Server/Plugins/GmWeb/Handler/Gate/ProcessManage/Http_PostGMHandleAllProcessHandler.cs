@@ -6,10 +6,10 @@ namespace ET.Server
 
 {
 
-    [HttpHandler(SceneType.GmWeb, "/GMCloseAllProcess")]
-    public class Http_PostGMCloseAllProcessHandler: HttpPostHandler<C2G_GMCloseAllProcess, H2C_CommonResponse>
+    [HttpHandler(SceneType.GmWeb, "/GMHandleAllProcess")]
+    public class Http_PostGMHandleAllProcessHandler: HttpPostHandler<C2G_GMHandleAllProcess, H2C_CommonResponse>
     {
-        protected override async ETTask Run(Entity domain, C2G_GMCloseAllProcess request, H2C_CommonResponse response, long playerid)
+        protected override async ETTask Run(Entity domain, C2G_GMHandleAllProcess request, H2C_CommonResponse response, long playerid)
         {
             await ETTask.CompletedTask;
             Scene scene = domain.DomainScene();
@@ -21,7 +21,11 @@ namespace ET.Server
                 response.Message = "no Permission";
                 return;
             }
-            WatcherHelper.SendWatcher(new G2W_GMCloseAllProcess());
+          
+            WatcherHelper.SendWatcher(new G2W_GMHandleAllProcess()
+            {
+                HandleType = request.HandleType
+            });
             long TimeSpan = (long)request.TimeSpan * 1000;
             if (TimeHelper.ServerNow() >= TimeSpan)
             {

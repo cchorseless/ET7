@@ -30,7 +30,7 @@ namespace ET.Server
         string label = "")
         {
             self.Title = title;
-            self.GateId = (int)self.DomainScene().Id;
+            self.GateId = (int)character.DomainScene().Id;
             self.CreateTime = TimeHelper.ServerNow();
             self.TotalAmount = money;
             self.ItemConfigId = itemInfo.ItemConfigId;
@@ -66,8 +66,8 @@ namespace ET.Server
                 self.PayFinishAddItem();
                 await self.SaveAndExit();
             }
-            // 订单超时 最大15min
-            else if (TimeHelper.ServerNow() - self.CreateTime >= 15 * 60 * 1000)
+            // 订单超时 最大10min
+            else if (TimeHelper.ServerNow() - self.CreateTime >= 10 * 60 * 1000)
             {
                 switch (self.PayOrderSource)
                 {
@@ -193,11 +193,11 @@ namespace ET.Server
                 return;
             }
 
-            var scene = self.DomainScene();
+            var scene = ServerSceneManagerComponent.Instance.Get(self.GateId);
             PlayerComponent playerComponent = scene.GetComponent<PlayerComponent>();
             if (playerComponent == null)
             {
-                Log.Error($"order cant find playerComponent at {scene.Id} {scene.Name}");
+                Log.Error($"order cant find playerComponent at {self.GateId} {scene.Id} {scene.Name}");
                 return;
             }
 

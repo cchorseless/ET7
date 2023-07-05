@@ -81,10 +81,11 @@ message C2G_GMProcessEdit // IRequest
 }
 
 //ResponseType H2C_CommonResponse
-message C2G_GMCloseAllProcess // IRequest
+message C2G_GMHandleAllProcess // IRequest
 {
 	int32 RpcId = 90;
 	int32 TimeSpan = 1;
+	int32 HandleType = 2;
 }
 
 

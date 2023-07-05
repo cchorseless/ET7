@@ -154,15 +154,18 @@ namespace ET
 	}
 
 	[ResponseType(nameof(H2C_CommonResponse))]
-	[Message(OuterMessageGmWeb.C2G_GMCloseAllProcess)]
+	[Message(OuterMessageGmWeb.C2G_GMHandleAllProcess)]
 	[ProtoContract]
-	public partial class C2G_GMCloseAllProcess: ProtoObject, IRequest
+	public partial class C2G_GMHandleAllProcess: ProtoObject, IRequest
 	{
 		[ProtoMember(90)]
 		public int RpcId { get; set; }
 
 		[ProtoMember(1)]
 		public int TimeSpan { get; set; }
+
+		[ProtoMember(2)]
+		public int HandleType { get; set; }
 
 	}
 
@@ -647,7 +650,7 @@ namespace ET
 		 public const ushort C2G_GMChangePassword = 14007;
 		 public const ushort C2G_GMEditAccount = 14008;
 		 public const ushort C2G_GMProcessEdit = 14009;
-		 public const ushort C2G_GMCloseAllProcess = 14010;
+		 public const ushort C2G_GMHandleAllProcess = 14010;
 		 public const ushort C2G_GMGetProcessState = 14011;
 		 public const ushort C2G_GMGetLogDBInfo = 14012;
 		 public const ushort G2C_GMGetLogDBInfo = 14013;

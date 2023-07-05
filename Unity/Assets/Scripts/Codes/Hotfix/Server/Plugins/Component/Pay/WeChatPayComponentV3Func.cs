@@ -57,6 +57,7 @@ namespace ET.Server
                 else
                 {
                     order.State.Add((int)EPayOrderState.CreateFail);
+                    order.ErrorMsg = $"{response.Message} | {response.Detail}";
                 }
             }
             catch (Exception ex)
@@ -88,7 +89,7 @@ namespace ET.Server
             string qrcode = "";
             var order = self.AddChild<TPayOrderItem>();
             order.LoadData(character, title, money, itemInfo, (int)EPayOrderSourceType.WeChat_QrCodeV3, label);
-            var model = ObjectPool.Instance.Fetch<WeChatPayTransactionsJsApiBodyModel>();
+            var model = new WeChatPayTransactionsJsApiBodyModel();
             model.AppId = self.PayOptions.AppId;
             model.MchId = self.PayOptions.MchId;
             model.Amount = new Amount { Total = money, Currency = "CNY" };
@@ -141,7 +142,7 @@ namespace ET.Server
             var order = self.AddChild<TPayOrderItem>();
             order.LoadData(character, title, money, itemInfo, (int)EPayOrderSourceType.WeChat_H5PayV3, label);
             string payerClientIp = character.GetMyPlayer().GetMySession().RemoteAddress.Address.ToString();
-            var model = ObjectPool.Instance.Fetch<WeChatPayTransactionsH5BodyModel>();
+            var model = new WeChatPayTransactionsH5BodyModel();
             model.AppId = self.PayOptions.AppId;
             model.MchId = self.PayOptions.MchId;
             model.Amount = new Amount { Total = money, Currency = "CNY" };
@@ -207,8 +208,10 @@ namespace ET.Server
 
         public static async ETTask CloseOrderV3(this WeChatPayComponent self, TPayOrderItem order)
         {
+            var model = new WeChatPayTransactionsOutTradeNoCloseBodyModel() { MchId = self.PayOptions.MchId, };
             var request = new WeChatPayTransactionsOutTradeNoCloseRequest();
             request.OutTradeNo = order.Id.ToString();
+            request.SetBodyModel(model);
             order.State.Add((int)EPayOrderState.PayFail);
             await order.SaveAndExit();
             await self.ClientV3.ExecuteAsync(request, self.PayOptions);

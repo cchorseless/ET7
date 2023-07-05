@@ -135,19 +135,22 @@ namespace ET
 
 	}
 
-	[ResponseType(nameof(W2G_GMCloseAllProcess))]
-	[Message(InnerMessageGmWeb.G2W_GMCloseAllProcess)]
+	[ResponseType(nameof(W2G_GMHandleAllProcess))]
+	[Message(InnerMessageGmWeb.G2W_GMHandleAllProcess)]
 	[ProtoContract]
-	public partial class G2W_GMCloseAllProcess: ProtoObject, IActorRequest
+	public partial class G2W_GMHandleAllProcess: ProtoObject, IActorRequest
 	{
 		[ProtoMember(90)]
 		public int RpcId { get; set; }
 
+		[ProtoMember(1)]
+		public int HandleType { get; set; }
+
 	}
 
-	[Message(InnerMessageGmWeb.W2G_GMCloseAllProcess)]
+	[Message(InnerMessageGmWeb.W2G_GMHandleAllProcess)]
 	[ProtoContract]
-	public partial class W2G_GMCloseAllProcess: ProtoObject, IActorResponse
+	public partial class W2G_GMHandleAllProcess: ProtoObject, IActorResponse
 	{
 		[ProtoMember(90)]
 		public int RpcId { get; set; }
@@ -311,8 +314,8 @@ namespace ET
 		 public const ushort P2W_GMGetProcessEntityInfo = 24008;
 		 public const ushort G2W_GMProcessEdit = 24009;
 		 public const ushort W2G_GMProcessEdit = 24010;
-		 public const ushort G2W_GMCloseAllProcess = 24011;
-		 public const ushort W2G_GMCloseAllProcess = 24012;
+		 public const ushort G2W_GMHandleAllProcess = 24011;
+		 public const ushort W2G_GMHandleAllProcess = 24012;
 		 public const ushort G2P_GMAddNewNotice = 24013;
 		 public const ushort P2G_GMAddNewNotice = 24014;
 		 public const ushort G2P_GMAddNewServerZone = 24015;
