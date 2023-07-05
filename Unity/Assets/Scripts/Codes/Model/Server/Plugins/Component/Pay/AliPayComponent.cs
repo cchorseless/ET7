@@ -25,7 +25,7 @@ namespace ET
                 // 为支付宝开放平台-APPID
                 AppId = "2021003127644680",
                 //可设置AES密钥，调用AES加解密相关接口时需要（可选）
-                // EncryptKey = "wB1tM9fz0pbMHag0GbF0EQ==",
+                EncryptKey = "wB1tM9fz0pbMHag0GbF0EQ==",
                 //可设置异步通知接收服务地址（可选）
                 NotifyUrl = "http://xiyou.henhaoji.games:8080/AliPayNotifyUrl",
 
@@ -33,7 +33,7 @@ namespace ET
                 // 为支付宝开放平台-支付宝公钥
                 // “公钥证书”方式时，留空
                 // “普通公钥”方式时，必填
-                AlipayPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwo57w9RzfTzmCCkAQ5W9Dr9GOyIie18FK41ffXYlYRnUzRf//TH8Z3DeXB8lH4xLH8QF21KmhKWe/lujHA1WUoAbFecUv1tZIu+hvQ8jF+ZyohRuDw+soGdrJ+kJrM3FyGFnnQvWqP5/APPRNU5tISeuKOOjrH6hlYlRwga9CujYb+aeCUs4G0zNH/rx/fKeuD28dsU/vVjkMumSBl2fj4ZlmS2g4/VCmriwoR1ja3VNkm9K8ladO1QdRW3R3awmM8PkXK7e6OUUQQZEMi9Kx85MYUoFLUUr06vH23uZSKn5MqXx1en+QMAjAIMrbK4IAh4Bbiphw4GubCDPX+U4SwIDAQAB",
+                AlipayPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAobg67tIJBnTH8VFiGrqpqve//DmYaIy4FsSRbUNrhuFy6nWqlZqfRD8KEDr9bm2SAd02YgWe4TxyQGg/4NAN2pWA6sydDV9Mc0M6hbahVkKRV5JuAHZd/IsHk4dD5Z6b8NVnwikXIWeVkW3NZ78EMutCglm1JoArgw+NgDmontLxq65HNT/2zRy2LXU3AyDamv+fYbjHoOATQgPn9uAXTuqYkPF1BhDpUqsRYj+5WLGJwA/oeVoLh5iqIpDeOtk698d+X/UcQ7C2KZ1yk0ta6caY+K8H51eB+ajOfAPkxJwxrAiDsIdj0HKgn0vVMHAelrTWBfvNTEYcceBc0Mu2mwIDAQAB",
 
                 // 支付宝公钥证书
                 // 可为证书文件路径 / 证书文件的base64字符串
