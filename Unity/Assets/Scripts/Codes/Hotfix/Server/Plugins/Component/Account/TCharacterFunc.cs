@@ -202,8 +202,13 @@ namespace ET.Server
                 return;
             }
 
-            var str = MongoHelper.ToClientJson(entity);
             var player = self.GetMyPlayer();
+            if (player == null)
+            {
+                // 处理不在线修改数据的情况
+                return;
+            }
+            var str = MongoHelper.ToClientJson(entity);
             var HttpPlayerSession = player.GetComponent<HttpPlayerSessionComponent>();
             if (includeChild == false)
             {

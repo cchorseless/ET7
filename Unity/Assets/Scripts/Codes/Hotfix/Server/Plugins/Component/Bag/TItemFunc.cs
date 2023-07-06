@@ -31,6 +31,16 @@ namespace ET.Server
                     self.BagComp.RemoveTItem(self);
                 }
             }
+
+            if (self.IsDisposed)
+            {
+                self.IsValid = false;
+            }
+
+            if (self.BagComp?.Character != null)
+            {
+                self.BagComp.Character.SyncHttpEntity(self);
+            }
         }
 
         public static bool IsInBag(this TItem self)

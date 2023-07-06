@@ -17,7 +17,7 @@ namespace ET.Server
             {
                 var token = build
                       .WithAlgorithm(self.HMACSHA256Algorithm) // symmetric
-                      .WithSecret(HttpConfig.AuthSecret)
+                      .WithSecret(ConstValue.DotaDedicatedServerKeyV2)
                       .AddClaim(HttpConfig.Exp, DateTimeOffset.UtcNow.AddHours(hour).ToUnixTimeSeconds())
                       .AddClaim(HttpConfig.UUID, userId.ToString())
                       .AddClaim(HttpConfig.Key, key.ToString())
@@ -60,7 +60,7 @@ namespace ET.Server
                 try
                 {
                     var payload = build.WithAlgorithm(self.HMACSHA256Algorithm) // symmetric
-                     .WithSecret(HttpConfig.AuthSecret)
+                     .WithSecret(ConstValue.DotaDedicatedServerKeyV2)
                      .MustVerifySignature()
                      .Decode(token);
                     var json = JsonHelper.FromJson<Dictionary<string, object>>(payload);

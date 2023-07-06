@@ -102,7 +102,7 @@ namespace ET.Client
         {
             if (string.IsNullOrEmpty(self.Address))
             {
-                return ConstValue.HttpUrlHost + actionstr;
+                return "http://127.0.0.1:10101" + actionstr;
             }
 
             return self.Address + ":" + self.Port + actionstr;

@@ -86,22 +86,6 @@ namespace ET
         }
     }
 
-    public static class TMailConfig
-    {
-        public const int MaxSize = 50;
-    }
-
-    public static class THeroUnitConfig
-    {
-        public const int MaxLevel = 25;
-    }
-
-    public static class TItemConfig
-    {
-        public const int BagMaxSize = 50;
-        
-    }
-
     public static class HttpConfig
     {
         public const int PostMaxDataLength = 4096;
@@ -110,7 +94,6 @@ namespace ET
         public const string Key = "key";
         public const string TokenPrefix = "Bearer ";
         public const string Authorization = "Authorization";
-        public const string AuthSecret = "wIkOFc3QwBmwwefDKPgxeIele7JuQygD";
         public const string CustomAuthorization = "CustomAuthorization";
     }
 }

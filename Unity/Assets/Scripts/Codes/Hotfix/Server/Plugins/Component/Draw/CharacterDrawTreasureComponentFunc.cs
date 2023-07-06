@@ -131,7 +131,7 @@ namespace ET.Server
             }
             else
             {
-                self.Character.BagComp.RemoveTItem<TItem>(treasureId, 1);
+                self.Character.BagComp.RemoveTItemOrMoney(treasureId, 1);
             }
             return r;
         }

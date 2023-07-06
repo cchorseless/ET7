@@ -20,8 +20,6 @@ namespace ET
         [BsonIgnore]
         public NumericComponent NumericComp { get => this.GetComponent<NumericComponent>(); }
 
-        [BsonIgnore]
-        public CharacterInGameDataComponent InGameDataComp { get => this.GetComponent<CharacterInGameDataComponent>(); }
 
         [BsonIgnore]
         public TCharacter Character { get => this.GetParent<TCharacter>(); }

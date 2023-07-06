@@ -8,7 +8,7 @@ namespace ET.Server
 {
     public static class EMoneyType
     {
-        public const int InGame_Gold = 1;
+        public const int Gold = 1;
         public const int InGameMax = 100;
         public const int MetaStone = 101;
         public const int StarStone = 102;
@@ -56,7 +56,6 @@ namespace ET.Server
 
     [FriendOf(typeof (CharacterDataComponent))]
     [FriendOf(typeof (NumericComponent))]
-    [FriendOf(typeof (CharacterInGameDataComponent))]
     public static class CharacterDataComponentFunc
     {
         public static void LoadAllChild(this CharacterDataComponent self)
@@ -85,17 +84,6 @@ namespace ET.Server
                     }
                 }
             }
-
-            if (!self.NumericComp.NumericDic.ContainsKey(EMoneyType.MetaStone))
-            {
-                self.SetNumeric(EMoneyType.MetaStone, 1000000);
-            }
-
-            if (!self.NumericComp.NumericDic.ContainsKey(EMoneyType.StarStone))
-            {
-                self.SetNumeric(EMoneyType.StarStone, 1000000);
-            }
-
             // 处理关卡难度
             self.RefreshRankCharpter();
         }
@@ -124,10 +112,7 @@ namespace ET.Server
                     self.NumericComp.SetNoEvent(numericType, value);
                 }
             }
-            else
-            {
-                self.ChangeInGameData(numericType, value);
-            }
+          
         }
 
         public static void ChangeNumeric(this CharacterDataComponent self, int numericType, int value)
@@ -145,10 +130,6 @@ namespace ET.Server
                 }
 
                 self.Character.SyncHttpEntity(self.NumericComp);
-            }
-            else
-            {
-                self.ChangeInGameData(numericType, value);
             }
         }
 
@@ -202,15 +183,6 @@ namespace ET.Server
 
             return defaultV;
         }
-
-        public static void ChangeInGameData(this CharacterDataComponent self, int numericType, int value)
-        {
-            self.InGameDataComp.NumericType = numericType;
-            self.InGameDataComp.NumericValue = value;
-            self.Character.SyncHttpEntity(self.InGameDataComp);
-            self.InGameDataComp.NumericType = 0;
-            self.InGameDataComp.NumericValue = 0;
-        }
     }
 
     [ObjectSystem]
@@ -219,7 +191,6 @@ namespace ET.Server
         protected override void Awake(CharacterDataComponent self)
         {
             self.AddComponent<NumericComponent>();
-            self.AddComponent<CharacterInGameDataComponent>();
         }
     }
 }

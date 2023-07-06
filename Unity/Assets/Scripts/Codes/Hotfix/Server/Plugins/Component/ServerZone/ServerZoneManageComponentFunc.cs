@@ -86,6 +86,7 @@ namespace ET.Server
                 serverZone = serverZoneList[0];
                 self.AddChild(serverZone);
             }
+
             await serverZone.LoadAllComponent();
             await serverZone.Save();
             self.ServerZoneDict.Add(serverZone.ServerID, serverZone.Id);
@@ -115,7 +116,7 @@ namespace ET.Server
             }
         }
 
-        public static TServerZone GetServerZone(this ServerZoneManageComponent self, int ServerID)
+        public static TServerZone GetServerZone(this ServerZoneManageComponent self, int ServerID = 1)
         {
             if (self.ServerZoneDict.TryGetValue(ServerID, out var serverid))
             {

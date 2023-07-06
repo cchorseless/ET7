@@ -230,6 +230,67 @@ namespace ET.Server
             }
         }
 
+        public static (int, string) RemoveTItemOrMoney(this BagComponent self, int configid, int count = 1)
+        {
+            if (count <= 0)
+            {
+                return (ErrorCode.ERR_Error, "count must > 0");
+            }
+            var itemInfo = new FItemInfo(configid, count);
+            var success = (ErrorCode.ERR_Success, itemInfo.ToString());
+            if (configid < EMoneyType.MoneyMax)
+            {
+                self.Character.DataComp.ChangeNumeric(configid, -count);
+                return success;
+            }
+
+            if (self.CanOverLayMany(configid))
+            {
+                var item = self.GetOneTItem<TItem>(configid);
+                if (item != null && item.ItemCount >= count)
+                {
+                    item.ChangeItemCount(-count);
+                    return success;
+                }
+                else
+                {
+                    return (ErrorCode.ERR_Error, "count not enough");
+                }
+            }
+            else
+            {
+                var items = self.GetAllTItem<TItem>(configid);
+                int allCount = 0;
+                foreach (var item in items)
+                {
+                    allCount += item.ItemCount;
+                }
+
+                if (allCount >= count)
+                {
+                    while (count > 0)
+                    {
+                        var item = items[0];
+                        items.RemoveAt(0);
+                        var cost = count;
+                        if (cost > item.ItemCount)
+                        {
+                            cost = item.ItemCount;
+                        }
+
+                        count -= cost;
+                        item.ChangeItemCount(-cost);
+                    }
+
+                    return success;
+                }
+                else
+                {
+                    return (ErrorCode.ERR_Error, "count not enough");
+                }
+            }
+        }
+
         public static TItem AddTItem(this BagComponent self, int configid, int count = 1)
         {
             if (count <= 0)
@@ -311,60 +372,6 @@ namespace ET.Server
             }
 
             return item;
-        }
-
-        public static bool RemoveTItem<T>(this BagComponent self, int configid, int count = 1) where T : TItem
-        {
-            if (count <= 0)
-            {
-                return false;
-            }
-
-            if (self.CanOverLayMany(configid))
-            {
-                var item = self.GetOneTItem<T>(configid);
-                if (item != null && item.ItemCount >= count)
-                {
-                    item.ChangeItemCount(-count);
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                var items = self.GetAllTItem<T>(configid);
-                int allCount = 0;
-                foreach (var item in items)
-                {
-                    allCount += item.ItemCount;
-                }
-
-                if (allCount >= count)
-                {
-                    while (count > 0)
-                    {
-                        var item = items[0];
-                        items.RemoveAt(0);
-                        var cost = count;
-                        if (cost > item.ItemCount)
-                        {
-                            cost = item.ItemCount;
-                        }
-
-                        count -= cost;
-                        item.ChangeItemCount(-cost);
-                    }
-
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
         }
 
         public static int GetTItemCount(this BagComponent self, int configid)

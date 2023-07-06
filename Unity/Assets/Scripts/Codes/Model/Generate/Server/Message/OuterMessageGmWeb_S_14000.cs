@@ -639,6 +639,28 @@ namespace ET
 
 	}
 
+	[ResponseType(nameof(H2C_CommonResponse))]
+	[Message(OuterMessageGmWeb.C2G_GMHandlePlayerBagItem)]
+	[ProtoContract]
+	public partial class C2G_GMHandlePlayerBagItem: ProtoObject, IRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public int ItemConfigId { get; set; }
+
+		[ProtoMember(2)]
+		public int ItemCount { get; set; }
+
+		[ProtoMember(3)]
+		public int HandleType { get; set; }
+
+		[ProtoMember(5)]
+		public string Account { get; set; }
+
+	}
+
 	public static class OuterMessageGmWeb
 	{
 		 public const ushort C2G_GMRegiste = 14001;
@@ -674,5 +696,6 @@ namespace ET
 		 public const ushort G2C_GMSearchOrder = 14031;
 		 public const ushort C2G_GMSearchPlayerInfo = 14032;
 		 public const ushort G2C_GMSearchPlayerInfo = 14033;
+		 public const ushort C2G_GMHandlePlayerBagItem = 14034;
 	}
 }

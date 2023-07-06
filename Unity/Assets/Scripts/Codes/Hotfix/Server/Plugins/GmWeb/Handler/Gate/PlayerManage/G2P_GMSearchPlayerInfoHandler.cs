@@ -62,12 +62,12 @@ namespace ET.Server
                 if (characters != null && characters.Count > 0)
                 {
                     character = characters[0];
-                    DataComp = await accountDB.Query<CharacterDataComponent>(character.Int64PlayerId);
-                    BagComp = await accountDB.Query<BagComponent>(character.Int64PlayerId);
-                    BattlePassComp = await accountDB.Query<CharacterBattlePassComponent>(character.Int64PlayerId);
-                    HeroManageComp = await accountDB.Query<HeroManageComponent>(character.Int64PlayerId);
-                    RankComp = await accountDB.Query<CharacterRankComponent>(character.Int64PlayerId);
-                    BattleTeamComp= await accountDB.Query<CharacterBattleTeamComponent>(character.Int64PlayerId);
+                    DataComp = await accountDB.Query<CharacterDataComponent>(character.Id);
+                    BagComp = await accountDB.Query<BagComponent>(character.Id);
+                    BattlePassComp = await accountDB.Query<CharacterBattlePassComponent>(character.Id);
+                    HeroManageComp = await accountDB.Query<HeroManageComponent>(character.Id);
+                    RankComp = await accountDB.Query<CharacterRankComponent>(character.Id);
+                    BattleTeamComp= await accountDB.Query<CharacterBattleTeamComponent>(character.Id);
                 }
             }
             var ListEntity = new List<Entity>()

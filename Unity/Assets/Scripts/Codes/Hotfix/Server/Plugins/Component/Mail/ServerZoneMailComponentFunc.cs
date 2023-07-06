@@ -84,7 +84,7 @@ namespace ET.Server
             var clone = self.AddChild<TMail>();
             clone.Title = title;
             clone.Content = content;
-            clone.From = 0;
+            clone.From = (int)EMailType.SystemMail;
             clone.FromDes = "system mail";
             clone.To = new List<long>() { characterid };
             clone.ToDes = "";

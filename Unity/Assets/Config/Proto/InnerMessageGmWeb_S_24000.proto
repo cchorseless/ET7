@@ -149,3 +149,20 @@ message P2G_GMSearchPlayerInfo // IActorResponse
 	int32 Error = 91;
 	string Message = 92;
 }
+
+//ResponseType P2G_GMHandlePlayerBagItem
+message G2P_GMHandlePlayerBagItem // IActorRequest
+{
+	int32 RpcId = 90;
+	int32 ItemConfigId = 1;
+	int32 ItemCount = 2;
+	int32 HandleType = 3;
+	string Account = 5;
+}
+
+message P2G_GMHandlePlayerBagItem // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}

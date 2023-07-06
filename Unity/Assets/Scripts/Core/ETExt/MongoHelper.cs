@@ -25,13 +25,18 @@ namespace ET
             //}
             for (var i = 0; i < obj.Length; i++)
             {
-                str += ToClientJson(obj[i]);
-                if (i < obj.Length - 1)
+                if (obj[i] == null)
                 {
-                    str += ",";
+                    continue;
                 }
+
+                str += ToClientJson(obj[i]) + ",";
             }
 
+            if (str.Length > 1)
+            {
+                str = str.Substring(0, str.Length - 1);
+            }
             str += "]";
             return str;
         }
