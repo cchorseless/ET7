@@ -1,18 +1,34 @@
 ﻿using System;
-
+using System.IO;
+using System.Text;
 
 namespace ET
 {
-
     [ObjectSystem]
-    public class AliPayComponentAwakeSystem : AwakeSystem<AliPayComponent>
+    public class AliPayComponentAwakeSystem: AwakeSystem<AliPayComponent>
     {
         protected override void Awake(AliPayComponent self)
         {
             AliPayComponent.Instance = self;
             self.Client = new Pay.Alipay.AlipayClient();
             self.Notify = new Pay.Alipay.AlipayNotifyClient();
-            self.PayOptions = new Pay.Alipay.AlipayOptions()
+            self.LoadPayOption().Coroutine();
+        }
+    }
+
+    public class AliPayComponent: Entity, IAwake, IDestroy
+    {
+        public bool IsWorking = true;
+        public static AliPayComponent Instance;
+        public Pay.Alipay.AlipayOptions PayOptions;
+        public Pay.Alipay.AlipayClient Client;
+        public Pay.Alipay.AlipayNotifyClient Notify;
+
+        public async ETTask LoadPayOption()
+        {
+            var AlipayPublicKey = await File.ReadAllTextAsync("../Config/Crt/alipayPublicKey_RSA2.txt", Encoding.UTF8);
+            var AppPrivateKey = await File.ReadAllTextAsync("../Config/Crt/aliappPrivateKey.txt", Encoding.UTF8);
+            this.PayOptions = new Pay.Alipay.AlipayOptions()
             {
                 // 注意: 
                 // 若涉及资金类支出接口(如转账、红包等)接入，必须使用“公钥证书”方式。不涉及到资金类接口，也可以使用“普通公钥”方式进行加签。
@@ -33,17 +49,17 @@ namespace ET
                 // 为支付宝开放平台-支付宝公钥
                 // “公钥证书”方式时，留空
                 // “普通公钥”方式时，必填
-                AlipayPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAobg67tIJBnTH8VFiGrqpqve//DmYaIy4FsSRbUNrhuFy6nWqlZqfRD8KEDr9bm2SAd02YgWe4TxyQGg/4NAN2pWA6sydDV9Mc0M6hbahVkKRV5JuAHZd/IsHk4dD5Z6b8NVnwikXIWeVkW3NZ78EMutCglm1JoArgw+NgDmontLxq65HNT/2zRy2LXU3AyDamv+fYbjHoOATQgPn9uAXTuqYkPF1BhDpUqsRYj+5WLGJwA/oeVoLh5iqIpDeOtk698d+X/UcQ7C2KZ1yk0ta6caY+K8H51eB+ajOfAPkxJwxrAiDsIdj0HKgn0vVMHAelrTWBfvNTEYcceBc0Mu2mwIDAQAB",
+                AlipayPublicKey = AlipayPublicKey,
 
                 // 支付宝公钥证书
                 // 可为证书文件路径 / 证书文件的base64字符串
                 // “公钥证书”方式时，必填
                 // “普通公钥”方式时，留空
                 // AlipayPublicCert = "",
-                
+
                 // 应用私钥 RSA私钥
                 // 为“支付宝开放平台开发助手”所生成的应用私钥
-                AppPrivateKey = "MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDCjnvD1HN9POYIKQBDlb0Ov0Y7IiJ7XwUrjV99diVhGdTNF//9MfxncN5cHyUfjEsfxAXbUqaEpZ7+W6McDVZSgBsV5xS/W1ki76G9DyMX5nKiFG4PD6ygZ2sn6QmszcXIYWedC9ao/n8A89E1Tm0hJ64o46OsfqGViVHCBr0K6Nhv5p4JSzgbTM0f+vH98p64Pbx2xT+9WOQy6ZIGXZ+PhmWZLaDj9UKauLChHWNrdU2Sb0ryVp07VB1FbdHdrCYzw+Rcrt7o5RRBBkQyL0rHzkxhSgUtRSvTq8fbe5lIqfkypfHV6f5AwCMAgytsrggCHgFuKmHDga5sIM9f5ThLAgMBAAECggEAJRQWjknNAM88X83AmSDOeSMG9XoZ7D09tQEqc7SyhwDvR28NgGmoWuZt2kytPIf2QUWQgC4OQjV2Sa+ZNF1uWCbGArSZhaaZJElbH7bkz0dCDZWrK/+mvKM5DtAg4egNi5TUtF9vN6HY/ot5EZmyvqDbVjucE+HGVcNn63xxRsSobq6UPFsvO5saLDnBj1ZrvGnPHaNGx85oyJPhOioMZ9mj2JL5/Zjap4XV0CfTY5SA1ep/Mf35dSeOFsf7G12FaHOeTza9vFBtV8UeAzr1kYlvU2XP4lqWDf6+3pq7NUdQp4kjo71GfKnmwKE1ZiDO3aKtf0Eh6qAxjhDbtC87AQKBgQDmkE4IO9n3e2ux4bQo/jq0BmWihw3ylmrHymuLzyAtZXa/t13fLQOVN1ynx4dVTk91TLWAZlsoUQ+XSDCj7Uk6J3Y8O93bVixRWWW9EV85YawsVp+K+gy0eMJCvu2Xquptdqlzszgg4crbsOwIAev/DrnbipuCWbZoPpFak7y0wQKBgQDYBT9oMwjPrFWSTNSVaFUaJbL4s9vGwWhW4nkmb2o9SSH6XSRasB83Ez/i2Y10uyLigxCM17aEohl/GHTuk9pRdvyOshLJte5jD0H2QKTtWyrrwj/ULQVhfno/b+a387MLXlJuNlpCLGfyhuP1UFA39dwxU8iRCjzSCkHSE2J0CwKBgH2K08Jt/IhiHsjz8epkS8ictxihWzndJ3V0Rc0R0h6F4fwQNz//PbUxOPVuksUjZ+aiBy5MDZTNVqT0PO/1k2rj8+BmZK46pNUCzX/+hpAzG9HktOiysNpP6s73MV3lRdKmyyvhyU02RQQMuOi/SyZNeWwOdBCtEsJ+Vx0v1o/BAoGAevn5z9sF0BweluvwNaIwmHMPwO+7VRnzyUqih5Pz2jHRCxONR6duDc+CliUdl2+Ve3f7qwJ+oGEbvLPylYNMTQY83wtXEMfmjzQ3a/X/LjSxaYerCKIcpxT2iTiuEtjEe9tVd/KvTW60Omg6TARNtp3bnaVBz/gRCc3XDL4GVWMCgYB/FtjQWwLwEelLYonpn8MhijV9VG9bvJeMZfTaNRwEnEIoyIvFv5xcPkswYcp+BJfm9PChCfs03YJ3ZZUGQVqcPtTsX+Jz/dlD/qGWRUR9c2jF/+LRcOXRGQs/pP6CruippUdPPgff8Olz+cH77OV7Uq6WFwHhVi8q3xgLAEqPdg==",
+                AppPrivateKey = AppPrivateKey,
 
                 // 应用公钥证书
                 // 可为证书文件路径 / 证书文件的base64字符串
@@ -58,15 +74,5 @@ namespace ET
                 // AlipayRootCert = ""
             };
         }
-    }
-
-
-    public class AliPayComponent : Entity, IAwake, IDestroy
-    {
-        public bool IsWorking = true;
-        public static AliPayComponent Instance;
-        public Pay.Alipay.AlipayOptions PayOptions;
-        public Pay.Alipay.AlipayClient Client;
-        public Pay.Alipay.AlipayNotifyClient Notify;
     }
 }

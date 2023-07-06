@@ -14,25 +14,28 @@ namespace ET.Server
         {
             if (self.GetChild<TPayOrderItem>(orderid) != null)
             {
-                await ETTask.CompletedTask;
                 return self.GetChild<TPayOrderItem>(orderid);
             }
             else
             {
                 var order = await DBManagerComponent.Instance.GetAccountDB().Query<TPayOrderItem>(orderid);
-                self.AddChild(order);
+                if (order != null)
+                {
+                    self.AddChild(order);
+                }
+
                 return order;
             }
         }
 
-        public static async ETTask<(int, string)> GetQrCodePayV3(this WeChatPayComponent self, TCharacter character, string title, int money,
+        public static async ETTask<(long, string)> GetQrCodePayV3(this WeChatPayComponent self, TCharacter character, string title, int money,
         FItemInfo itemInfo, string label = "")
         {
             string QrCode = "";
-            int errorCode = ErrorCode.ERR_Error;
+            long orderid = 0;
             if (!self.IsWorking)
             {
-                return (errorCode, "WeChatPay Not Working");
+                return (orderid, "WeChatPay Not Working");
             }
 
             var order = self.AddChild<TPayOrderItem>();
@@ -57,7 +60,7 @@ namespace ET.Server
                 else
                 {
                     order.State.Add((int)EPayOrderState.CreateFail);
-                    order.ErrorMsg = $"{response.Message} | {response.Detail}";
+                    order.ErrorMsg = $"{response.Code} {response.Message} | {response.Detail} |{MongoHelper.ToJson(response)}";
                 }
             }
             catch (Exception ex)
@@ -72,12 +75,12 @@ namespace ET.Server
             }
             else
             {
-                errorCode = ErrorCode.ERR_Success;
+                orderid = order.Id;
                 await order.SaveAndExit(false);
                 order.CheckOrderState().Coroutine();
             }
 
-            return (errorCode, QrCode);
+            return (orderid, QrCode);
         }
 
         /// <summary>
@@ -129,14 +132,14 @@ namespace ET.Server
             return qrcode;
         }
 
-        public static async ETTask<(int, string)> GetH5PayV3(this WeChatPayComponent self, TCharacter character, string title, int money,
+        public static async ETTask<(long, string)> GetH5PayV3(this WeChatPayComponent self, TCharacter character, string title, int money,
         FItemInfo itemInfo, string label = "")
         {
             string h5url = "";
-            int errorCode = ErrorCode.ERR_Error;
+            long orderid = 0;
             if (!self.IsWorking)
             {
-                return (errorCode, "WeChatPay Not Working");
+                return (orderid, "WeChatPay Not Working");
             }
 
             var order = self.AddChild<TPayOrderItem>();
@@ -178,12 +181,12 @@ namespace ET.Server
             }
             else
             {
-                errorCode = ErrorCode.ERR_Success;
+                orderid = order.Id;
                 await order.SaveAndExit(false);
                 order.CheckOrderState().Coroutine();
             }
 
-            return (errorCode, h5url);
+            return (orderid, h5url);
         }
 
         /// <summary>
@@ -194,8 +197,10 @@ namespace ET.Server
         /// <returns></returns>
         public static async ETTask<bool> QueryOrderStateV3(this WeChatPayComponent self, TPayOrderItem order)
         {
+            var model = new WeChatPayPartnerTransactionsOutTradeNoQueryModel() { SpMchId = self.PayOptions.MchId, };
             var request = new WeChatPayPartnerTransactionsOutTradeNoRequest();
             request.OutTradeNo = order.Id.ToString();
+            request.SetQueryModel(model);
             var response = await self.ClientV3.ExecuteAsync(request, self.PayOptions);
             if (response != null && !response.IsError)
             {

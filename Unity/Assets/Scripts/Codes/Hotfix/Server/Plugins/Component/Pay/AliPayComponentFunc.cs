@@ -29,20 +29,24 @@ namespace ET.Server
             else
             {
                 var order = await DBManagerComponent.Instance.GetAccountDB().Query<TPayOrderItem>(orderid);
-                self.AddChild(order);
+                if (order != null)
+                {
+                    self.AddChild(order);
+                }
+
                 return order;
             }
         }
 
-        public static async ETTask<(int, string)> GetQrCodePay(this AliPayComponent self, TCharacter character, string title, int money_fen,
+        public static async ETTask<(long, string)> GetQrCodePay(this AliPayComponent self, TCharacter character, string title, int money_fen,
         FItemInfo itemInfo, string label = "")
         {
             await ETTask.CompletedTask;
             string QrCode = "";
-            int errorCode = ErrorCode.ERR_Error;
+            long qrid = 0;
             if (!self.IsWorking)
             {
-                return (errorCode, "AliPay Not Working");
+                return (qrid, "AliPay Not Working");
             }
 
             var order = self.AddChild<TPayOrderItem>();
@@ -51,12 +55,15 @@ namespace ET.Server
             {
                 var model = new AlipayTradePrecreateModel()
                 {
-                    OutTradeNo = order.Id.ToString(), 
-                    Subject = title, 
-                    TotalAmount = (money_fen / 100.0).ToString("F2"), 
+                    OutTradeNo = order.Id.ToString(),
+                    Subject = title,
+                    TotalAmount = (money_fen / 100.0).ToString("F2"),
                     Body = label,
+                    QrCodeTimeoutExpress = "10m"
                 };
                 var req = new AlipayTradePrecreateRequest();
+                req.SetNeedEncrypt(true);
+
                 req.SetBizModel(model);
                 req.SetNotifyUrl(self.PayOptions.NotifyUrl);
                 var response = await self.ExecuteAsync(req);
@@ -84,12 +91,12 @@ namespace ET.Server
             }
             else
             {
-                errorCode = ErrorCode.ERR_Success;
+                qrid = order.Id;
                 await order.SaveAndExit(false);
                 order.CheckOrderState().Coroutine();
             }
 
-            return (errorCode, QrCode);
+            return (qrid, QrCode);
         }
 
         /// <summary>

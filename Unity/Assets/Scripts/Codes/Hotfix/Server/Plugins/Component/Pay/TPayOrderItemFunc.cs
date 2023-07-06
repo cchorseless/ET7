@@ -220,9 +220,13 @@ namespace ET.Server
             }
             else
             {
-                self.State.Add((int)EPayOrderState.PayAddItemFail);
-                Log.Error($"PayFinishAddItem Fail , Order = {self.Id} , ItemConfigId = {self.ItemConfigId} ItemCount = {self.ItemCount}");
+                self.State.Add((int)EPayOrderState.PayAddItemSuccess);
+                self.State.Add((int)EPayOrderState.PayAddItemByEmail);
+                character.GetMyServerZone().MailComp.AddCharacterPrizeMail(character.Id, "Item Buy", "Bag is Full, Send Item By Email", -1,
+                    new List<FItemInfo>() { new FItemInfo(self.ItemConfigId, self.ItemCount) });
             }
+            // 同步给客户端
+            character.SyncHttpEntity(self);
         }
     }
 }

@@ -15,6 +15,7 @@ namespace ET
         PayWait = 32,
         PayAddItemSuccess = 64,
         PayAddItemFail = 128,
+        PayAddItemByEmail = 256,
     }
 
     public enum EPayOrderSourceType

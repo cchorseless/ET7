@@ -91,7 +91,8 @@ namespace ET.Server
         public static async ETTask<(int, string)> CreatePayOrder(this TShopSellItem self, TCharacter character, int pricetype, int count, int paytype)
         {
             string message = "";
-            int code = ErrorCode.ERR_Success;
+
+            long orderid = 0;
             var config = self.Config();
             var money = config.RealPrice;
             var title = "商品购买";
@@ -105,24 +106,27 @@ namespace ET.Server
             switch (paytype)
             {
                 case (int)EPayOrderSourceType.AliPay_QrCode:
-                    (code, message) = await AliPayComponent.Instance.GetQrCodePay(character, title, money,
+                    (orderid, message) = await AliPayComponent.Instance.GetQrCodePay(character, title, money,
                         new FItemInfo(config.ItemConfigId, config.ItemCount));
                     break;
                 case (int)EPayOrderSourceType.WeChat_QrCodeV3:
-                    (code, message) = await WeChatPayComponent.Instance.GetQrCodePayV3(character, title, money,
+                    (orderid, message) = await WeChatPayComponent.Instance.GetQrCodePayV3(character, title, money,
                         new FItemInfo(config.ItemConfigId, config.ItemCount));
                     break;
                 case (int)EPayOrderSourceType.WeChat_H5PayV3:
-                    (code, message) = await WeChatPayComponent.Instance.GetH5PayV3(character, title, money,
+                    (orderid, message) = await WeChatPayComponent.Instance.GetH5PayV3(character, title, money,
                         new FItemInfo(config.ItemConfigId, config.ItemCount));
                     break;
                 default:
-                    code = ErrorCode.ERR_Error;
                     message = "qrcode fail, not support this paytype";
                     break;
             }
 
-            return (code, message);
+            var json = JsonHelper.GetLitObject();
+            json["message"] = message;
+            json["orderid"] = orderid.ToString();
+            int code = orderid != 0? ErrorCode.ERR_Success : ErrorCode.ERR_Error;
+            return (code, JsonHelper.ToLitJson(json));
         }
 
         public static Conf.Shop.ShopSellItemBean Config(this TShopSellItem self)
