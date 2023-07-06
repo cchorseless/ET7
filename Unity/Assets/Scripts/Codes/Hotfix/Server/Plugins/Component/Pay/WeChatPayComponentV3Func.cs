@@ -218,6 +218,7 @@ namespace ET.Server
             request.OutTradeNo = order.Id.ToString();
             request.SetBodyModel(model);
             order.State.Add((int)EPayOrderState.PayFail);
+            order.ErrorMsg = "CloseOrder";
             await order.SaveAndExit();
             await self.ClientV3.ExecuteAsync(request, self.PayOptions);
         }

@@ -194,6 +194,7 @@ namespace ET.Server
         public static async ETTask CloseOrder(this AliPayComponent self, TPayOrderItem order)
         {
             order.State.Add((int)EPayOrderState.PayFail);
+            order.ErrorMsg = "CloseOrder";
             var model = new AlipayTradeCloseModel() { OutTradeNo = order.Id.ToString(), };
             var request = new AlipayTradeCloseRequest();
             request.SetBizModel(model);
