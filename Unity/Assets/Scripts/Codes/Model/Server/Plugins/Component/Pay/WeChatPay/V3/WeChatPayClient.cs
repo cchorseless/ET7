@@ -129,6 +129,8 @@ namespace ET.Pay.WeChatPay.V3
             }
 
             var client = _httpClientFactory.CreateClient(Name);
+            // gaiguo
+            client.DefaultRequestHeaders.Clear();
             var (headers, body, statusCode) = await client.PostAsync(request, options);
             var parser = new WeChatPayResponseJsonParser<T>();
             var response = parser.Parse(body, statusCode);
