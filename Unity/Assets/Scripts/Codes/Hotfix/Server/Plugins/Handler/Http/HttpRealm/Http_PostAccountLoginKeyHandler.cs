@@ -18,17 +18,12 @@ namespace ET.Server
                 response.Message = "Account error";
                 return;
             }
-            Log.Console($"Http_PostAccountLoginKeyHandler { request.Account}");
-            var accountDB = DBManagerComponent.Instance.GetAccountDB();
-            TAccountInfo newAccount = await accountDB.QueryOne<TAccountInfo>(account => account.Account == request.Account);
-            if (newAccount == null)
-            {
-                response.Error = ErrorCode.ERR_AccountNotExist;
-                response.Message = "Account CANT FIND";
-            }
 
+            response.Error = ErrorCode.ERR_Success;
             response.Key = RandomGenerator.RandInt64().ToString();
-            domain.GetComponent<HttpSessionKeyComponent>().Add(request.Account, response.Key);
+            var scene = domain.DomainScene();
+            scene.GetComponent<HttpRealmSessionKeyComponent>().Add(request.Account, response.Key);
+            await ETTask.CompletedTask;
         }
     }
 }

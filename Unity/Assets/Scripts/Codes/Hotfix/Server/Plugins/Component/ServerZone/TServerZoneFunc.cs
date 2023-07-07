@@ -92,21 +92,15 @@ namespace ET.Server
             await accountDB.Save(self.ActivityComp);
             await accountDB.Save(self.MailComp);
             await accountDB.Save(self.RankComp);
-            if (self.RankComp.CurSeasonRank != null)
-            {
-                await accountDB.Save(self.RankComp.CurSeasonRank);
-            }
+            await self.RankComp.SaveAllChild();
             await accountDB.Save(self.BuffComp);
             await accountDB.Save(self.DataStatisticComp);
             await accountDB.Save(self.GameRecordComp);
+            await self.GameRecordComp.SaveAllChild();
             await accountDB.Save(self.BattleTeamComp);
             await accountDB.Save(self);
         }
-        
-        
-     
     }
-  
 
     [ObjectSystem]
     public class TServerZoneAwakeSystem: AwakeSystem<TServerZone, int, int, string>

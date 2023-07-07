@@ -30,8 +30,6 @@ namespace ET.Server
                     self.Listener.Start();
 
                     self.Accept().Coroutine();
-
-                    self.Domain.AddComponent<HttpSessionKeyComponent>();
                 }
                 catch (HttpListenerException e)
                 {

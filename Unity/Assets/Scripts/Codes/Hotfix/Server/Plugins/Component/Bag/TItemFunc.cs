@@ -63,7 +63,7 @@ namespace ET.Server
                         ((TEquipItem)self).BindEquip();
                         break;
                     case Conf.EEnum.EItemAwakeScript.AddTitle:
-                        self.AddTitle(awakescript.ScriptValue);
+                        // self.AddTitle(awakescript.ScriptValue);
                         break;
                     case Conf.EEnum.EItemAwakeScript.AddHeroExp:
                         self.AddHeroExp(awakescript.ScriptValue);

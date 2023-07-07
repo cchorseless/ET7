@@ -34,6 +34,17 @@ namespace ET.Server
             }
         }
 
+        public static async ETTask SaveAllChild(this ServerZoneRankComponent self)
+        {
+            var accountDB = DBManagerComponent.Instance.GetAccountDB();
+            if (self.CurSeasonRank != null)
+            {
+                await accountDB.Save(self.CurSeasonRank);
+            }
+        }
+
+
+
         public static async ETTask LoadCurSeasonRank(this ServerZoneRankComponent self)
         {
             if (self.SeasonRankData.TryGetValue(self.SeasonConfigId, out var seasonRankDataId))
@@ -47,27 +58,7 @@ namespace ET.Server
                 }
             }
         }
-
-        public static void UpdataRankData(this ServerZoneRankComponent self, int rankconfigid, long CharacterId, string SteamAccountId, int score)
-        {
-            switch (rankconfigid)
-            {
-                case (int)ERankType.SeasonBattleSorceRank:
-                    self.CurSeasonRank.GetRank<TRankSeasonBattleSorce>(rankconfigid).UpdateRankData(CharacterId, SteamAccountId, score);
-                    return;
-                case (int)ERankType.HeroSumBattleSorceRank:
-                    self.CurSeasonRank.GetRank<TRankHeroSumBattleScore>(rankconfigid).UpdateRankData(CharacterId, SteamAccountId, score);
-                    return;
-
-                case (int)ERankType.SeasonSingleCharpterRank:
-                    self.CurSeasonRank.GetRank<TRankSeasonSingleCharpter>(rankconfigid).UpdateRankData(CharacterId, SteamAccountId, score);
-                    return;
-
-                case (int)ERankType.SeasonTeamCharpterRank:
-                    self.CurSeasonRank.GetRank<TRankSeasonTeamCharpter>(rankconfigid).UpdateRankData(CharacterId, SteamAccountId, score);
-                    return;
-            }
-        }
+      
 
         public static TSeasonServerZoneRankData GetRankData(this ServerZoneRankComponent self, int seasonConfigId)
         {
@@ -97,8 +88,8 @@ namespace ET.Server
                     entity = self.CurSeasonRank.GetRank<TRankSeasonTeamCharpter>(rankconfigid).GetRankData<TRankSingleData>(CharacterId);
                     break;
             }
+
             return entity;
-          
         }
 
         public static (int, string) GetCurSeasonRankDataInfo(this ServerZoneRankComponent self, int rankconfigid, int page, int pageCount)

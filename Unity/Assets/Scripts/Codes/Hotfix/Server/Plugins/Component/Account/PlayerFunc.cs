@@ -32,7 +32,8 @@ namespace ET.Server
                 return;
             }
 
-            if (player.GetChild<TCharacter>(player.CharacterId) == null)
+            var curCharacter = player.GetChild<TCharacter>(player.CharacterId);
+            if (curCharacter == null || character == curCharacter)
             {
                 if (character.Parent != player)
                 {

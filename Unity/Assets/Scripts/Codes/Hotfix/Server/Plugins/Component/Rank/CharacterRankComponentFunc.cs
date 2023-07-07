@@ -11,27 +11,47 @@ namespace ET.Server
         {
             var seasonConfigId = self.Character.GetMyServerZone().SeasonComp.CurSeasonConfigId;
             self.SeasonConfigId = seasonConfigId;
+            TSeasonCharacterRankData entity = null;
             if (self.SeasonRankData.TryGetValue(seasonConfigId, out var entityid))
             {
-                var entity = self.GetChild<TSeasonCharacterRankData>(entityid);
-                entity.LoadAllChild();
+                entity = self.GetChild<TSeasonCharacterRankData>(entityid);
             }
-            else
+
+            if (entity == null)
             {
-                var entity = self.AddChild<TSeasonCharacterRankData, int>(seasonConfigId);
+                entity = self.AddChild<TSeasonCharacterRankData, int>(seasonConfigId);
                 entity.SeasonConfigId = seasonConfigId;
                 self.SeasonRankData.Add(seasonConfigId, entity.Id);
-                entity.LoadAllChild();
             }
         }
 
-        public static void UpdataRankData(this CharacterRankComponent self, int ranktype, int score, bool issync = true)
+        public static void UpdateRankData(this CharacterRankComponent self, int ranktype, int score, bool issync = true)
         {
-            self.Character.GetMyServerZone().RankComp.UpdataRankData(ranktype, self.Character.Id, self.Character.Name, score);
+            var CurSeasonRank = self.Character.GetMyServerZone().RankComp.CurSeasonRank;
+            var CharacterId = self.Character.Id;
+            var SteamAccountId = self.Character.Name;
+            switch (ranktype)
+            {
+                case (int)ERankType.SeasonBattleSorceRank:
+                    CurSeasonRank.GetRank<TRankSeasonBattleSorce>(ranktype)?.UpdateRankData(CharacterId, SteamAccountId, score, true);
+                    break;
+                case (int)ERankType.HeroSumBattleSorceRank:
+                    CurSeasonRank.GetRank<TRankHeroSumBattleScore>(ranktype)?.UpdateRankData(CharacterId, SteamAccountId, score, true);
+                    break;
+
+                case (int)ERankType.SeasonSingleCharpterRank:
+                    CurSeasonRank.GetRank<TRankSeasonSingleCharpter>(ranktype)?.UpdateRankData(CharacterId, SteamAccountId, score, true);
+                    break;
+
+                case (int)ERankType.SeasonTeamCharpterRank:
+                    CurSeasonRank.GetRank<TRankSeasonTeamCharpter>(ranktype)?.UpdateRankData(CharacterId, SteamAccountId, score, true);
+                    break;
+            }
+
             if (self.SeasonRankData.TryGetValue(self.SeasonConfigId, out var entityid))
             {
                 var entity = self.GetChild<TSeasonCharacterRankData>(entityid);
-                entity.UpdateRankSingleData(ranktype);
+                entity.UpdateCharacterRankData(ranktype, score);
                 if (issync)
                 {
                     self.Character.SyncHttpEntity(entity);

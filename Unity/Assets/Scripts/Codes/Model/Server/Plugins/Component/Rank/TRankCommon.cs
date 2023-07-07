@@ -11,6 +11,9 @@ namespace ET
     {
         public int ConfigId { get; set; }
         public int SeasonConfigId { get; set; }
+        // 最大记录排行数据
+        public int MaxRandDataCount = 1000;
+ 
         public string Name { get; set; }
 
         public List<long> RankData = new List<long>();

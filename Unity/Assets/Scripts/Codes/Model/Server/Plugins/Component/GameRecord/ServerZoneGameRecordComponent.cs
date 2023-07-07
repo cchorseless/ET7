@@ -7,7 +7,7 @@ using MongoDB.Bson.Serialization.Options;
 
 namespace ET
 {
-    public class ServerZoneGameRecordComponent : Entity, IAwake
+    public class ServerZoneGameRecordComponent : Entity, IAwake ,IDestroy
     {
         [BsonIgnore]
         public List<long> Records = new List<long>();

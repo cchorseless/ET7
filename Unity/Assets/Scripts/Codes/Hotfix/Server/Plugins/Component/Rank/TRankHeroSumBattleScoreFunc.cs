@@ -13,5 +13,7 @@ namespace ET.Server
             self.LoadFakerData(1000,4000);
             self.AutoRankSort(10 * 60).Coroutine();
         }
+        
+       
     }
 }

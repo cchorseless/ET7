@@ -112,7 +112,7 @@ namespace ET.Server
                 {
                     if (activity.IsValid())
                     {
-                        /// 坑 扩展方法无法覆盖
+                        // 坑 扩展方法无法覆盖
                         self.LoadAllChildActivity(activity);
                     }
                     else if (activity.IsOutOfDate())

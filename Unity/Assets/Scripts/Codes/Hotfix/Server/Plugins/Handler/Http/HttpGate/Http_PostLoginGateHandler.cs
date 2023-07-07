@@ -55,46 +55,43 @@ namespace ET.Server
             response.PlayerId = player.Id;
             response.Message = scene.GetComponent<HttpComponent>().AuthorizeToken(request.UserId, request.Key, 24);
             TCharacter character = player.GetMyCharacter();
+            // 重新加载一下数据
+            if (character != null)
+            {
+                await character.Save();
+                character.Dispose();
+                character = null;
+            }
+            List<TCharacter> characters = await accountDB.Query<TCharacter>(x => x.Int64PlayerId == player.Id);
+            if (characters.Count > 0)
+            {
+                character = characters[0];
+            }
+            else if (characters.Count == 0 && GameConfig.AutoCreateDefaultCharacter)
+            {
+                character = player.AddChild<TCharacter, long>(player.Id);
+                character.ZoneID = scene.DomainZone();
+                character.ServerID = 1;
+                character.CreateTime = TimeHelper.ServerNow();
+                // 新增角色
+                serverZone.DataStatisticComp.GetCurDataItem().UpdateHoursPlayerNew();
+                await accountDB.Save(character);
+            }
+
             if (character == null)
             {
-                DBComponent db = DBManagerComponent.Instance.GetZoneDB(scene.Zone);
-                List<TCharacter> characters = await db.Query<TCharacter>(x => x.Int64PlayerId == player.Id);
-                if (characters.Count > 0)
-                {
-                    character = characters[0];
-                }
-                else if (characters.Count == 0 && GameConfig.AutoCreateDefaultCharacter)
-                {
-                    character = player.AddChild<TCharacter, long>(player.Id);
-                    character.ZoneID = scene.DomainZone();
-                    character.ServerID = 1;
-                    character.CreateTime = TimeHelper.ServerNow();
-                    // 新增角色
-                    serverZone.DataStatisticComp.GetCurDataItem().UpdateHoursPlayerNew();
-                    await db.Save(character);
-                }
-
-                if (character == null)
-                {
-                    response.Error = ErrorCode.ERR_LoginError;
-                    response.Message = "CAN NOT FIND CHARACTER";
-                    return;
-                }
-
-                player.SelectCharacter(character);
-                player.GetComponent<PlayerLoginOutComponent>().LogOutType = (int)ELogOutHandlerType.LogOutCharacter;
-                character.SyncHttpEntity(character);
-                await character.LoadAllComponent();
-                serverZone = character.GetMyServerZone();
-                serverZone.CharacterComp.Add(character);
-                character.SyncClientCharacterData();
+                response.Error = ErrorCode.ERR_LoginError;
+                response.Message = "CAN NOT FIND CHARACTER";
+                return;
             }
-            // 断线重连
-            else
-            {
-                character.SyncHttpEntity(character);
-                character.SyncClientCharacterData();
-            }
+
+            player.SelectCharacter(character);
+            player.GetComponent<PlayerLoginOutComponent>().LogOutType = (int)ELogOutHandlerType.LogOutCharacter;
+            character.SyncHttpEntity(character);
+            await character.LoadAllComponent();
+            serverZone = character.GetMyServerZone();
+            serverZone.CharacterComp.Add(character);
+            character.SyncClientCharacterData();
         }
     }
 }

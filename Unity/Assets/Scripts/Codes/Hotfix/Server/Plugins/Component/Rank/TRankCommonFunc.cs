@@ -18,16 +18,45 @@ namespace ET.Server
             }
         }
 
+        public static void MergeData(this TRankCommon self, TRankCommon other)
+        {
+            if (other == null)
+            {
+                return;
+            }
+
+            var childs = other.GetUnActiveChilds<TRankSingleData>();
+            foreach (var entity in childs)
+            {
+                if (entity.IsRobot)
+                {
+                    continue;
+                }
+
+                var oldentity = self.GetRankData<TRankSingleData>(entity.CharacterId);
+                if (oldentity != null && (oldentity.Score == entity.Score || oldentity.IsMasterData))
+                {
+                    continue;
+                }
+
+                self.UpdateRankData(entity.CharacterId, entity.SteamAccountId, entity.Score);
+            }
+        }
+
         public static void LoadFakerData(this TRankCommon self, int minscore, int maxscore)
         {
-            int fakerCount = 1000 - self.RankData.Count;
+            int fakerCount = 100 - self.RankData.Count;
             if (fakerCount > 0)
             {
                 for (var i = 0; i < fakerCount; i++)
                 {
                     int accountid = RandomGenerator.RandomNumber(100000000, 999999999);
                     int score = RandomGenerator.RandomNumber(minscore, maxscore);
-                    self.UpdateRankData(RandomGenerator.RandInt64(), accountid + "", score);
+                    var entity = self.UpdateRankData(RandomGenerator.RandInt64(), accountid + "", score);
+                    if (entity != null)
+                    {
+                        entity.IsRobot = true;
+                    }
                 }
             }
         }
@@ -35,9 +64,28 @@ namespace ET.Server
         public static void RankSort(this TRankCommon self)
         {
             self.RankData.Sort((a, b) => { return self.GetChild<TRankSingleData>(b).Score - self.GetChild<TRankSingleData>(a).Score; });
-            for (int i = 0; i < self.RankData.Count; i++)
+            var count = self.RankData.Count;
+            for (int i = 0; i < count; i++)
             {
-                self.GetChild<TRankSingleData>(self.RankData[i]).RankIndex = i + 1;
+                // 删除多余数据
+                if (i >= self.MaxRandDataCount)
+                {
+                    var entity = self.GetChild<TRankSingleData>(self.RankData[i]);
+                    if (entity != null)
+                    {
+                        self.CharacterRankData.Remove(entity.CharacterId);
+                        entity.Dispose();
+                    }
+                }
+                else
+                {
+                    self.GetChild<TRankSingleData>(self.RankData[i]).RankIndex = i + 1;
+                }
+            }
+
+            if (count > self.MaxRandDataCount)
+            {
+                self.RankData = self.RankData.GetRange(0, self.MaxRandDataCount);
             }
         }
 
@@ -74,7 +122,8 @@ namespace ET.Server
             return null;
         }
 
-        public static TRankSingleData UpdateRankData(this TRankCommon self, long characterid, string SteamAccountId, int score)
+        public static TRankSingleData UpdateRankData(this TRankCommon self, long characterid, string SteamAccountId, int score,
+        bool ismasterdata = false)
         {
             TRankSingleData rankdata;
             if (self.CharacterRankData.TryGetValue(characterid, out long rankdataId))
@@ -84,12 +133,37 @@ namespace ET.Server
             }
             else
             {
+                // 清理机器人
+                if (self.CharacterRankData.Count >= self.MaxRandDataCount)
+                {
+                    foreach (var kv in self.CharacterRankData)
+                    {
+                        rankdata = self.GetChild<TRankSingleData>(kv.Value);
+                        // 有机器人
+                        if (rankdata.IsRobot)
+                        {
+                            rankdata.CharacterId = characterid;
+                            rankdata.SteamAccountId = SteamAccountId;
+                            rankdata.RankType = self.ConfigId;
+                            rankdata.Score = score;
+                            rankdata.RankIndex = self.RankData.Count;
+                            rankdata.IsRobot = false;
+                            rankdata.IsMasterData = ismasterdata;
+                            self.CharacterRankData.Add(characterid, rankdata.Id);
+                            self.CharacterRankData.Remove(kv.Key);
+                            return rankdata;
+                        }
+                    }
+                }
+
+                // 没有机器人 也可以添加，排序会删掉
                 rankdata = self.AddChild<TRankSingleData>();
                 rankdata.CharacterId = characterid;
                 rankdata.SteamAccountId = SteamAccountId;
                 rankdata.RankType = self.ConfigId;
                 rankdata.Score = score;
                 rankdata.RankIndex = self.RankData.Count;
+                rankdata.IsMasterData = ismasterdata;
                 self.CharacterRankData.Add(characterid, rankdata.Id);
                 self.RankData.Add(rankdata.Id);
             }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Text;
 
 namespace ET
 {
@@ -12,30 +13,34 @@ namespace ET
             string msg = "";
             using (Stream inputStream = request.InputStream)
             {
-                using (StreamReader reader = new StreamReader(inputStream))
+                using (StreamReader reader = new StreamReader(inputStream, Encoding.UTF8))
                 {
                     msg = await reader.ReadToEndAsync();
                 }
             }
+
             return msg;
         }
 
         public static async ETTask<Dictionary<string, string>> ReadAsFormAsync(this HttpListenerRequest request)
         {
             var msg = await request.ReadStringAsync();
+            Log.Debug(msg);
             var obj = new Dictionary<string, string>();
-            try
+            if (!string.IsNullOrEmpty(msg))
             {
-                obj = JsonHelper.FromLitJson<Dictionary<string, string>>(msg);
+                var a = msg.Split("&");
+                foreach (var str in a)
+                {
+                    var index = str.IndexOf('=');
+                    if (index > -1)
+                    {
+                        obj.Add(str.Substring(0, index), str.Substring(index + 1));
+                    }
+                }
             }
-            catch (Exception ex)
-            {
-                Log.Error(ex.Message);
-            }
+            Log.Debug(MongoHelper.ToJson(obj));
             return obj;
         }
-
-
-
     }
 }

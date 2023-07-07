@@ -10,7 +10,7 @@ namespace ET.Server
     {
         public static void LoadAllChild(this CharacterBattleTeamComponent self)
         {
-            self.Character.RankComp.UpdataRankData((int)ERankType.SeasonBattleSorceRank, self.BattleScore, false);
+            self.Character.RankComp.UpdateRankData((int)ERankType.SeasonBattleSorceRank, self.BattleScore, false);
         }
 
         public static async ETTask UploadBattleTeamRecord(this CharacterBattleTeamComponent self, FBattleTeamRecord recordinfo)
@@ -114,7 +114,7 @@ namespace ET.Server
             }
 
             self.BattleScore += score;
-            self.Character.RankComp.UpdataRankData((int)ERankType.SeasonBattleSorceRank, self.BattleScore);
+            self.Character.RankComp.UpdateRankData((int)ERankType.SeasonBattleSorceRank, self.BattleScore);
             self.Character.SyncHttpEntity(self);
             return (ErrorCode.ERR_Success, "" + self.BattleScore);
         }

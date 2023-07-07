@@ -119,7 +119,7 @@ namespace ET
             Type type = typeof (K);
             foreach (var component in this.Children)
             {
-                if (component.Value.GetType().Equals(type))
+                if (component.Value.GetType() == type)
                 {
                     _list.Add((K)component.Value);
                 }
@@ -128,16 +128,30 @@ namespace ET
             return _list;
         }
 
+        public List<K> GetUnActiveChilds<K>() where K : Entity
+        {
+            var r = new List<K>();
+            if (this.childrenDB != null)
+            {
+                Type type = typeof (K);
+                foreach (var _child in this.childrenDB)
+                {
+                    if (_child.GetType() == type)
+                    {
+                        r.Add((K)_child);
+                    }
+                }
+            }
+            return r;
+        }
+
         public K GetUnActiveChild<K>(long entityId) where K : Entity
         {
             if (this.childrenDB == null)
             {
                 return null;
             }
-
-            var _list = this.childrenDB.ToList();
-            Type type = typeof (K);
-            foreach (var _child in _list)
+            foreach (var _child in this.childrenDB)
             {
                 if (_child.Id == entityId)
                 {
@@ -155,11 +169,10 @@ namespace ET
                 return null;
             }
 
-            var _list = this.componentsDB.ToList();
             Type type = typeof (K);
-            foreach (var component in _list)
+            foreach (var component in this.componentsDB)
             {
-                if (component.GetType().Equals(type))
+                if (component.GetType() == type)
                 {
                     return (K)component;
                 }

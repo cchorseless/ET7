@@ -23,6 +23,46 @@ namespace ET.Server
             self.UpdateRank((int)ERankType.HeroSumBattleSorceRank);
             self.UpdateRank((int)ERankType.SeasonSingleCharpterRank);
             // self.UpdateRank((int)ERankType.SeasonTeamCharpterRank);
+            self.MergeOtherProcessRankData().Coroutine();
+        }
+
+        public static async ETTask MergeOtherProcessRankData(this TSeasonServerZoneRankData self)
+        {
+            int delay = RandomGenerator.RandomNumber(5, 15);
+            await TimerComponent.Instance.WaitAsync(delay * 60 * 1000);
+            if (self.IsDisposed)
+            {
+                return;
+            }
+
+            var accountDB = DBManagerComponent.Instance.GetAccountDB();
+            var RankDatas = await accountDB.Query<TSeasonServerZoneRankData>(v => v.SeasonConfigId == self.SeasonConfigId
+                    && v.Id != self.Id);
+            var SeasonBattleSorce = self.GetRank<TRankSeasonBattleSorce>((int)ERankType.SeasonBattleSorceRank);
+            var HeroSumBattleScore = self.GetRank<TRankHeroSumBattleScore>((int)ERankType.HeroSumBattleSorceRank);
+            var SeasonSingleCharpter = self.GetRank<TRankSeasonSingleCharpter>((int)ERankType.SeasonSingleCharpterRank);
+            foreach (var rankdata in RankDatas)
+            {
+                var ranks = rankdata.GetUnActiveChilds<TRankCommon>();
+                foreach (var _rank in ranks)
+                {
+                    if (_rank.ConfigId == (int)ERankType.SeasonBattleSorceRank && SeasonBattleSorce != null)
+                    {
+                        SeasonBattleSorce.MergeData(_rank);
+                    }
+                    else if (_rank.ConfigId == (int)ERankType.HeroSumBattleSorceRank && HeroSumBattleScore != null)
+                    {
+                        HeroSumBattleScore.MergeData(_rank);
+                    }
+                    else if (_rank.ConfigId == (int)ERankType.SeasonSingleCharpterRank && SeasonSingleCharpter != null)
+                    {
+                        SeasonSingleCharpter.MergeData(_rank);
+                    }
+                }
+            }
+
+            // 存一下
+            await accountDB.Save(self);
         }
 
         public static T AddRank<T>(this TSeasonServerZoneRankData self, int rankconfigid) where T : Entity, new()

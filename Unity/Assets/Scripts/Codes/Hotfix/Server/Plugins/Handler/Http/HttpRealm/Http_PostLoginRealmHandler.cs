@@ -18,20 +18,20 @@ namespace ET.Server
                 response.Message = "Account error";
                 return;
             }
-
-            if (String.IsNullOrEmpty(request.Password))
-            {
-                response.Error = ErrorCode.ERR_LoginError;
-                response.Message = "Password error";
-                return;
-            }
-
-            var key = domain.GetComponent<HttpSessionKeyComponent>().Get(request.Account);
-            domain.GetComponent<HttpSessionKeyComponent>().Remove(request.Account);
+            var scene = domain.DomainScene();
+            var key = scene.GetComponent<HttpRealmSessionKeyComponent>().GetKey(request.Account);
+            scene.GetComponent<HttpRealmSessionKeyComponent>().Remove(request.Account);
             if (key == null)
             {
                 response.Error = ErrorCode.ERR_LoginError;
                 response.Message = "key error";
+                return;
+            }
+
+            if (String.IsNullOrEmpty(request.Password) || request.Password != MD5Helper.GetMD5(key + ConstValue.DotaDedicatedServerKeyV2))
+            {
+                response.Error = ErrorCode.ERR_LoginError;
+                response.Message = "Password error";
                 return;
             }
 
@@ -43,25 +43,12 @@ namespace ET.Server
                 bool isAutoRegiste = GameConfig.AutoRegisteAccount;
                 if (isAutoRegiste)
                 {
-                    string Salt = MD5Helper.GetMD5(key + ConstValue.DotaDedicatedServerKeyV2);
-                    if (!request.Password.Contains(Salt))
-                    {
-                        response.Error = ErrorCode.ERR_LoginError;
-                        return;
-                    }
-
-                    var _password = request.Password.Replace(Salt, "");
-                    if (string.IsNullOrEmpty(_password))
-                    {
-                        response.Error = ErrorCode.ERR_LoginError;
-                        return;
-                    }
-
                     //新建账号
-                    newAccount = Entity.CreateOne<TAccountInfo>(domain.DomainScene());
+                    newAccount = Entity.CreateOne<TAccountInfo>(scene);
                     newAccount.Account = request.Account;
-                    newAccount.Password = _password;
+                    newAccount.Password = request.Account;
                     newAccount.CreateTime = TimeHelper.ServerNow();
+                    newAccount.GmLevel = (int)EGmPlayerRole.GmRole_Player;
                     isCreateNew = true;
                 }
                 else
@@ -70,14 +57,10 @@ namespace ET.Server
                     return;
                 }
             }
-            else
+            else if (newAccount.GmLevel > (int)EGmPlayerRole.GmRole_PlayerGm)
             {
-                if (MD5Helper.GetMD5(key + ConstValue.DotaDedicatedServerKeyV2 + newAccount.Password) != request.Password ||
-                    newAccount.GmLevel > (int)EGmPlayerRole.GmRole_PlayerGm)
-                {
-                    response.Error = ErrorCode.ERR_LoginError;
-                    return;
-                }
+                response.Error = ErrorCode.ERR_LoginError;
+                return;
             }
 
             if (!isCreateNew && request.GateId == 0)
@@ -106,7 +89,6 @@ namespace ET.Server
             newAccount.LastGateId = config.Id;
             // 保存用户数据到数据库
             await accountDB.Save(newAccount);
-            Log.Debug($"gate address: {MongoHelper.ToJson(config)}");
             // 向gate请求一个key,客户端可以拿着这个key连接gate
             G2R_GetLoginKey g2RGetLoginKey = (G2R_GetLoginKey)await ActorMessageSenderComponent.Instance.Call(
                 config.InstanceId, new R2G_GetLoginKey() { Account = request.Account });
@@ -114,7 +96,7 @@ namespace ET.Server
             response.Key = g2RGetLoginKey.Key;
             response.GateId = g2RGetLoginKey.GateId;
             response.UserId = newAccount.Id;
-            Log.Console($"{request.Account} login in Ream , Go to Gate {response.GateId} ");
+            Log.Info($"{request.Account} login in Ream , Go to Gate {response.GateId} ");
             newAccount.Dispose();
         }
 

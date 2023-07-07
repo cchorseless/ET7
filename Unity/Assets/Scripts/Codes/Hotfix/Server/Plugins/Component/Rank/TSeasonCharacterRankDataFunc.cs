@@ -17,22 +17,9 @@ namespace ET.Server
 
     public static class TSeasonCharacterRankDataFunc
     {
-        public static void LoadAllChild(this TSeasonCharacterRankData self)
-        {
-            var RankComp = self.CharacterRankComp.Character.GetMyServerZone().RankComp;
 
-            if (self.SeasonConfigId == RankComp.SeasonConfigId)
-            {
-                foreach (var ranktype in RankComp.SeasonRankType)
-                {
-                    self.UpdateRankSingleData(ranktype);
-                }
-            }
-        }
-
-        public static void UpdateRankSingleData(this TSeasonCharacterRankData self, int ranktype)
+        public static void UpdateCharacterRankData(this TSeasonCharacterRankData self, int ranktype ,int score)
         {
-            var RankComp = self.CharacterRankComp.Character.GetMyServerZone().RankComp;
             TRankSingleData entity = null;
             if (self.RankDatas.TryGetValue(ranktype, out var entityid))
             {
@@ -49,10 +36,12 @@ namespace ET.Server
 
             if (entity != null)
             {
+                entity.Score = score;
+                var RankComp = self.CharacterRankComp.Character.GetMyServerZone().RankComp;
                 var rankdata = RankComp.GetCurSeasonCharacterRankDataInfo(ranktype, entity.CharacterId);
+                // 可能找不到 ，未上榜
                 if (rankdata != null)
                 {
-                    entity.Score = rankdata.Score;
                     entity.RankIndex = rankdata.RankIndex;
                 }
             }

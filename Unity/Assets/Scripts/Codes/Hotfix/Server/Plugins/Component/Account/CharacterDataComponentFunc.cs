@@ -85,18 +85,15 @@ namespace ET.Server
                 }
             }
             // 处理关卡难度
-            self.RefreshRankCharpter();
+            self.UpdateRankCharpterData(false);
         }
 
-        public static void RefreshRankCharpter(this CharacterDataComponent self)
+        public static void UpdateRankCharpterData(this CharacterDataComponent self, bool isync = true)
         {
-            var serverzone = self.Character.GetMyServerZone();
-            var seasonRank = serverzone.RankComp.CurSeasonRank;
-            var seasonCharpterRank = seasonRank.GetRank<TRankSeasonSingleCharpter>((int)ERankType.SeasonSingleCharpterRank);
             int DifficultyChapter = self.GetGameRecordAsInt(ECharacterGameRecordKey.iDifficultyMaxChapter, 1);
             int DifficultyLevel = self.GetGameRecordAsInt(ECharacterGameRecordKey.iDifficultyMaxLevel);
             var score = DifficultyChapter * 1000 + DifficultyLevel;
-            seasonCharpterRank.UpdateRankData(self.Character.Id, self.Character.Name, score);
+            self.Character.RankComp.UpdateRankData((int)ERankType.SeasonSingleCharpterRank, score, isync);
         }
 
         public static void SetNumeric(this CharacterDataComponent self, int numericType, int value)
@@ -112,7 +109,6 @@ namespace ET.Server
                     self.NumericComp.SetNoEvent(numericType, value);
                 }
             }
-          
         }
 
         public static void ChangeNumeric(this CharacterDataComponent self, int numericType, int value)

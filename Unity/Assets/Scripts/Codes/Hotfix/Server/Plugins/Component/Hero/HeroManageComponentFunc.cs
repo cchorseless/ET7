@@ -26,7 +26,7 @@ namespace ET.Server
                 self.SumHeroLevel += heroUnit.Level;
                 heroUnit.LoadAllChild();
             });
-            self.Character.RankComp.UpdataRankData((int)ERankType.HeroSumBattleSorceRank, self.GetHeroSumBattleScore(), false);
+            self.Character.RankComp.UpdateRankData((int)ERankType.HeroSumBattleSorceRank, self.GetHeroSumBattleScore(), false);
         }
 
 
