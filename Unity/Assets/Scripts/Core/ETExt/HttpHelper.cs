@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 
 namespace ET
@@ -25,7 +26,7 @@ namespace ET
         public static async ETTask<Dictionary<string, string>> ReadAsFormAsync(this HttpListenerRequest request)
         {
             var msg = await request.ReadStringAsync();
-            Log.Debug(msg);
+            msg = System.Web.HttpUtility.UrlDecode(msg, Encoding.UTF8);
             var obj = new Dictionary<string, string>();
             if (!string.IsNullOrEmpty(msg))
             {
@@ -39,7 +40,6 @@ namespace ET
                     }
                 }
             }
-            Log.Debug(MongoHelper.ToJson(obj));
             return obj;
         }
     }

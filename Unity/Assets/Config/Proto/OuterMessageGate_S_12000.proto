@@ -176,3 +176,19 @@ message G2C_ReLoginGate // IResponse
 	string Message = 92;
 	int64  PlayerId = 1;
 }
+
+//ResponseType G2C_EasyLoginGate
+message C2G_EasyLoginGate // IRequest
+{
+	int32 RpcId = 90;
+	string  Account = 1;  // 帐号
+	string  Password = 2;  // 密码
+}
+
+message G2C_EasyLoginGate // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	int64  PlayerId = 1;
+}

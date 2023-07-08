@@ -365,6 +365,40 @@ namespace ET
 
 	}
 
+	[ResponseType(nameof(G2C_EasyLoginGate))]
+	[Message(OuterMessageGate.C2G_EasyLoginGate)]
+	[ProtoContract]
+	public partial class C2G_EasyLoginGate: ProtoObject, IRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public string Account { get; set; }
+
+		[ProtoMember(2)]
+		public string Password { get; set; }
+
+	}
+
+	[Message(OuterMessageGate.G2C_EasyLoginGate)]
+	[ProtoContract]
+	public partial class G2C_EasyLoginGate: ProtoObject, IResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+		[ProtoMember(1)]
+		public long PlayerId { get; set; }
+
+	}
+
 	public static class OuterMessageGate
 	{
 		 public const ushort G2C_Test = 12001;
@@ -389,5 +423,7 @@ namespace ET
 		 public const ushort G2C_KnockOutClient = 12020;
 		 public const ushort C2G_ReLoginGate = 12021;
 		 public const ushort G2C_ReLoginGate = 12022;
+		 public const ushort C2G_EasyLoginGate = 12023;
+		 public const ushort G2C_EasyLoginGate = 12024;
 	}
 }
